@@ -281,7 +281,7 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
 static void bubblemon_updateBubbles(int msecsSinceLastCall)
 {
   int i;
-  int createNNewBubbles;
+  static float createNNewBubbles;
   static bubblemon_layer_t lastNewBubbleLayer = BACKGROUND;
 
   float dt = msecsSinceLastCall / 30.0;
@@ -290,10 +290,9 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
   int w = bubblePic.width;
   
   /* Create new bubble(s) if the planets are correctly aligned... */
-  createNNewBubbles = ((float)(random() % 11) *
-		       (float)bubblemon_getAverageLoadPercentage() *
-		       (float)bubblePic.width *
-		       msecsSinceLastCall) / 300000.0 + 0.5;
+  createNNewBubbles += ((float)bubblemon_getAverageLoadPercentage() *
+			(float)bubblePic.width *
+			dt) / 2000.0;
   
   for (i = 0; i < createNNewBubbles; i++)
   {
@@ -322,6 +321,7 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
     
       /* Count the new bubble */
       physics.n_bubbles++;
+      createNNewBubbles--;
     }
   }
   
