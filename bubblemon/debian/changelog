@@ -1,3 +1,10 @@
+bubblemon (1.2.6) unstable; urgency=low
+
+  * Fix RPM permissions.
+  * Fix bubblemon to work on systems with long uptimes.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Fri, 26 Jul 2002 15:49:48 +0200
+
 bubblemon (1.2.5) unstable; urgency=low
 
   * Added weeds growing with the network load.
