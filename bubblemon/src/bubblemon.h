@@ -63,6 +63,9 @@ typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
 /* Bottle behaviour */
 typedef enum { GONE, FLOATING, SINKING, FALLING } bubblemon_bottlestate_t;
 
+/* Bubble layers */
+typedef enum { BACKGROUND, FOREGROUND } bubblemon_layer_t;
+
 /* An (a)rgb color value */
 typedef union {
   int value;
@@ -89,6 +92,8 @@ typedef struct
   int x;
   float y;
   float dy;
+
+  bubblemon_layer_t layer;
 } bubblemon_Bubble;
 
 /* A water level */
