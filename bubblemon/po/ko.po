@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-11 21:35+0200\n"
+"POT-Creation-Date: 2001-09-10 16:32+0200\n"
 "PO-Revision-Date: 2001-01-10 01:38+0900\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -37,6 +37,7 @@ msgstr ""
 "스왑 사용량: %s"
 
 #: src/bubblemon.c:408
+#, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -45,6 +46,7 @@ msgstr ""
 "CPU 부하: %d%%"
 
 #: src/bubblemon.c:419
+#, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"

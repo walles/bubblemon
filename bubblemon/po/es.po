@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.3\n"
-"POT-Creation-Date: 2001-05-11 21:35+0200\n"
+"POT-Creation-Date: 2001-09-10 16:32+0200\n"
 "PO-Revision-Date: 2001-02-19 14:19-03:00\n"
 "Last-Translator: Javier Kohen <jkohen@tough.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -37,6 +37,7 @@ msgstr ""
 "Intercambio usado: %s"
 
 #: src/bubblemon.c:408
+#, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -45,6 +46,7 @@ msgstr ""
 "Carga CPU: %d%%"
 
 #: src/bubblemon.c:419
+#, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-11 21:35+0200\n"
+"POT-Creation-Date: 2001-09-10 16:32+0200\n"
 "PO-Revision-Date: 2001-09-09 03:08I+0200\n"
 "Last-Translator: Robert Vanyi <robi@mora.u-szeged.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -19,8 +19,8 @@ msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
 msgstr ""
-"Hiba: A bubblemon.h fájlban a NUM_COLOR konstansnak 3 többszörösének "
-"kell lennie.\n"
+"Hiba: A bubblemon.h fájlban a NUM_COLOR konstansnak 3 többszörösének kell "
+"lennie.\n"
 "      A jelenlegi érték, %d, nem az.\n"
 
 #: src/bubblemon.c:290
@@ -38,6 +38,7 @@ msgstr ""
 "Használt swap: %s"
 
 #: src/bubblemon.c:408
+#, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -46,6 +47,7 @@ msgstr ""
 "CPU foglaltság: %d%%"
 
 #: src/bubblemon.c:419
+#, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
@@ -104,4 +106,3 @@ msgstr ""
 "fájlt.\n"
 "Ez szabad szoftver, és bizonyos feltételek mellett (GPL) szabadon "
 "terjeszthetõ, részletekért lásd a LICENSE fájlt."
-

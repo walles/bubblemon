@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon-1.0.3\n"
-"POT-Creation-Date: 2001-05-11 21:35+0200\n"
+"POT-Creation-Date: 2001-09-10 16:32+0200\n"
 "PO-Revision-Date: 2001-05-08 16:00+1300\n"
 "Last-Translator: Vegard Bakke <Vegard.Bakke@bigfoot.com>\n"
 "Language-Team: Norsk-bokmål <Vegard.Bakke@bigfoot.com>\n"
@@ -39,6 +39,7 @@ msgstr ""
 "Virtuelt minne: %s"
 
 #: src/bubblemon.c:408
+#, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -47,6 +48,7 @@ msgstr ""
 "CPU last: %d%%"
 
 #: src/bubblemon.c:419
+#, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-11 21:35+0200\n"
+"POT-Creation-Date: 2001-09-10 16:32+0200\n"
 "PO-Revision-Date: 2001-01-09 18:49+0200\n"
 "Last-Translator: Alex Badea <vampire@go.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -38,6 +38,7 @@ msgstr ""
 "Swap ocupat: %s"
 
 #: src/bubblemon.c:408
+#, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -46,6 +47,7 @@ msgstr ""
 "Procesor: %d%%"
 
 #: src/bubblemon.c:419
+#, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
-"POT-Creation-Date: 2001-05-11 21:35+0200\n"
+"POT-Creation-Date: 2001-09-10 16:32+0200\n"
 "PO-Revision-Date: 2001-01-10 14:56+0000\n"
 "Last-Translator: Edson Medina <edson@mrnet.pt>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,7 @@ msgstr ""
 "Memória swap usada: %s"
 
 #: src/bubblemon.c:408
+#, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -46,6 +47,7 @@ msgstr ""
 "Carga do CPU: %d%%"
 
 #: src/bubblemon.c:419
+#, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"

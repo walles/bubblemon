@@ -18,7 +18,7 @@
 
 BUBBLEMON_ROOT=/home/johan/src/Gnome/bubblemon-stable
 RPM_SOURCES=/home/johan/src/RPM/SOURCES
-RPMS=/home/johan/src/RPM/RPMS/i386
+RPMS=/home/johan/src/RPM
 
 # See to that we are in the root bubblemon directory
 if [ `pwd` != $BUBBLEMON_ROOT ] ; then
@@ -57,12 +57,12 @@ if [ $? != 0 ] ; then
     exit 1
 fi
 ln -s $BUBBLEMON_ROOT/bubblemon-*.tar.gz $RPM_SOURCES
-rm -f $RPMS/bubblemon*rpm
+rm -f $RPMS/RPM/*/bubblemon*rpm $RPMS/SRPM/bubblemon*rpm
 rpm -ba packaging/bubblemon.spec
 if [ $? != 0 ] ; then
     echo Error: RPM package building failed > /dev/stderr
     rm -f bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
     exit 1
 fi
-mv $RPMS/bubblemon*rpm ..
+mv $RPMS/RPMS/*/bubblemon*rpm $RPMS/SRPMS/bubblemon*rpm ..
 rm bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
