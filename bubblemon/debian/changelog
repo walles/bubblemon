@@ -1,3 +1,14 @@
+bubblemon (1.2.7) unstable; urgency=medium
+
+  * Fixed several bugs, for both crashes and cosmetics.
+  * Added icon to the RPM.
+  * Build fixes for AIX5L.  Unforturnately libgtop isn't ported so we
+    still don't run :-(.
+  * Move the configure GNOME detection macros to ease future porting
+    efforts.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sun,  1 Sep 2002 14:06:23 +0200
+
 bubblemon (1.2.6) unstable; urgency=low
 
   * Fix RPM permissions.
