@@ -39,4 +39,5 @@ macros/Makefile
 src/Makefile
 gnome/Makefile
 packaging/Makefile
+packaging/bubblemon.spec
 ])

@@ -1,9 +1,9 @@
 Summary: GNOME Panel Bubbling Load Monitor
-Name: bubblemon
-Version: 0.1.0
+Name: @PACKAGE@
+Version: @VERSION@
 Release: 1
-Source: bubblemon-0.1.0.tgz
-Buildroot: /tmp/bubblemon-0.1.0
+Source: @PACKAGE@-@VERSION@.tar.gz
+Buildroot: /tmp/@PACKAGE@-@VERSION@
 Packager: Johan Walles (d92-jwa@nada.kth.se)
 URL: -
 Copyright: GPL
@@ -12,36 +12,29 @@ Requires: gnome-libs >= 1.0
 
 %description
 This is a panel applet that displays the CPU and memory load as a
-bubbling liquid.  It is based heavily on Merlin's CPU Fire Applet
+bubbling liquid.  It is based on code from Merlin's CPU Fire Applet
 available at http://nitric.com/freeware.
 Choose Add Applet->Monitors->Bubbling Load Monitor in your GNOME Panel.
 
 %changelog
 
-* Wed Dec 22 1999 Johan Walles <d92-jwa@nada.kth.se>
-
-- Started reworking code into a CPU+memory monitoring bubbling-liquid applet
-
-* Sun Nov 28 1999 Merlin Hughes <merlin@merlin.org>
-
-- Wrote and released it.
- 
 %prep
 
 %setup
 
+./configure
+
 %build
 
-make mode=release
+make
 
 %install
 
-rm -rf $RPM_BUILD_ROOT
-make prefix=$RPM_BUILD_ROOT/usr etcdir=$RPM_BUILD_ROOT/etc install
+make install
 
 %clean
 
-rm -rf $RPM_BUILD_ROOT
+make clean
 
 %files 
 
