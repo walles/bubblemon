@@ -1,3 +1,10 @@
+bubblemon (1.2.1-1) unstable; urgency=low
+
+  * Anti-aliased wave crests.
+  * Bug with persistance across sessions fixed.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sun, 19 May 2002 21:42:51 +0200
+
 bubblemon (1.2.0-1) unstable; urgency=low
 
   * Platform independent sources separated from platfom dependent ones to
