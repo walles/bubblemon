@@ -1,3 +1,17 @@
+2004-08-17  Johan Walles <walles@mailblocks.com>
+
+	* Released 2.0.2-pre2
+
+	* Move from gettext to intltool, update all auto* tools.
+
+	* Add Catalan translation
+
+	* Fix crash when no ticks have passed between two measurements of
+	CPU load.
+
+	* Fix crash when a network card is deconfigured while Bubblemon is
+	running.
+
 2004-01-09  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* Makefile.am (SUBDIRS): Add m4.
