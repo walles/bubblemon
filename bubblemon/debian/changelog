@@ -1,3 +1,23 @@
+bubblemon (1.0.9-3) unstable; urgency=low
+
+  * added a include for gtop (Closes: #134088)
+  * make corba file a conffile (Closes: #132799)
+
+ -- Bernd Eckenfels <ecki@debian.org>  Sat, 10 Nov 2001 03:18:08 +0100
+
+bubblemon (1.0.9-2.1) unstable; urgency=low
+
+  * added some Build-Dependencies (Closes: Bug #118402)
+
+ -- Bernd Eckenfels <ecki@debian.org>  Sat, 10 Nov 2001 03:18:08 +0100
+
+bubblemon (1.0.9-1.2) unstable; urgency=low
+
+  * new upstream Version
+  * Closes: Bug #88584, #80550
+
+ -- Bernd Eckenfels <ecki@debian.org>  Thu,  1 Nov 2001 03:24:01 +0100
+
 bubblemon (1.0.9) stable; urgency=low
 
   * Added support for building on OpenBSD.
