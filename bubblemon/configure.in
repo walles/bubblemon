@@ -102,7 +102,7 @@ build_gpanel=false;
 PKG_CHECK_MODULES(GNOME_APPLETS, 
 	[libpanelapplet-2.0 >= $LIBPANEL_REQUIRED],
 	build_gpanel=true,
-	AC_MSG_WARN([GNOME2 panel not found.]))
+	AC_MSG_ERROR([GNOME2 panel applet development files not found.]))
 AC_SUBST(GNOME_APPLETS_CFLAGS)
 AC_SUBST(GNOME_APPLETS_LIBS)
 
@@ -111,7 +111,7 @@ build_gtop_applets=false
 PKG_CHECK_MODULES(GTOP_APPLETS,
 	[libgtop-2.0 >= $LIBGTOP_REQUIRED],
 	build_gtop_applets=true,
-	AC_MSG_WARN([libgtop not found.]))
+	AC_MSG_ERROR([GNOME2 libgtop development files not found.]))
 AC_SUBST(GTOP_APPLETS_CFLAGS)
 AC_SUBST(GTOP_APPLETS_LIBS)
 AM_CONDITIONAL(BUILD_GTOP_APPLETS, $build_gtop_applets)
