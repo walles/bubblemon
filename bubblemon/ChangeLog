@@ -1,3 +1,15 @@
+2005-03-08  Johan Walles  <walles@mailblocks.com>
+
+	* Released 2.0.4
+
+	* Updated Italian translation.
+
+	* Improved mail spool directory discovery.
+
+	* Updated bottle behaviour; the bottle now sinks to the bottom if
+	the spool file contains read mail.  The bottle goes away if the
+	log file is empty.
+
 2004-08-17  Johan Walles <walles@mailblocks.com>
 
 	* Released 2.0.2-pre2

@@ -56,3 +56,6 @@ Thanks a lot to Benjamin Smith for implementing 24bpp support, this
 has been a problem since way back.
 
 Thanks to Nils Nordman for getting the program working on OpenBSD.
+
+Thanks to Joshua Crawford for the bottle-sinks-to-the-bottom-but-
+doesn't-go-away behaviour when there's read mail.
