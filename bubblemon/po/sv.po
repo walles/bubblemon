@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
-"POT-Creation-Date: 2001-09-14 22:46+0200\n"
+"POT-Creation-Date: 2001-09-14 22:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johan Walles <d92-jwa@nada.kth.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

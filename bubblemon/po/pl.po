@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-14 22:46+0200\n"
+"POT-Creation-Date: 2001-09-14 22:57+0200\n"
 "PO-Revision-Date: wto 09 sty 2001 10:35:08 CET\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
