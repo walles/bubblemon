@@ -1,0 +1,31 @@
+Bubbling Load Monitoring Applet
+- A GNOME panel applet that displays the CPU + memory load as a
+  bubbling liquid.
+Copyright (C) 1999 Johan Walles
+- d92-jwa@nada.kth.se
+Copyright (C) 1999 Merlin Hughes
+- merlin@merlin.org
+- http://nitric.com/freeware/
+
+--
+
+COMPILING:
+
+. Unpack the source:
+  tar xfz bubblemon-*.tgz
+
+. Move into the directory:
+  cd bubblemon-*/
+
+. Make the applet:
+  make mode:=release
+    OR
+  make mode:=debug
+
+. Install the applet:
+  make install
+    OR (for RedHat)
+  make prefix=/usr etcdir=/etc install
+
+. Start up the applet:
+  Choose Add Applet->Utility->Bubbling Load Monitor in your GNOME panel.

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Bubbling Load Monitoring Applet
+Comment=Measures system load as a bubbling liquid
+Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
+Icon=
+Terminal=0
+Type=Application
