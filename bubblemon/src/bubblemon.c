@@ -104,7 +104,9 @@ int main (int argc, char ** argv)
               "above line %d in `%s'.  You'll probably want to RTFM first at\n"
               "`http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html'.\n"
               "\n"
-              "Then send me (d92-jwa@nada.kth.se) an e-mail with your changes.\n"
+              "Then send me (d92-jwa@nada.kth.se) an e-mail (in English or Swedish) with your\n"
+              "changes.\n"
+              "\n"
               "Thanks a bunch :-)  //Johan.\n",
               __LINE__,
               __FILE__);
@@ -485,7 +487,17 @@ gint bubblemon_update (gpointer data)
       exit(EXIT_SUCCESS);
     }
 #endif  /* ENABLE_PROFILING */
-  
+
+  if (bm->complete_redraw)
+    {
+      action_min = 0;
+      action_max = bm->depth;
+      last_action_min = 0;
+      last_action_max = bm->depth;
+
+      last_waterlevel_min = 0;
+    }
+
   // When we get here the first time we have to initialize the value
   // that tells us what parts of the picture have to be updated.
   if (last_action_max == -1)
@@ -549,10 +561,10 @@ gint bubblemon_update (gpointer data)
           bm->waterlevels[x] = h;
           bm->waterlevels_dy[x] = 0.0;
         }
-      else if (bm->waterlevels[x] < 0)
+      else if (bm->waterlevels[x] < 0.0)
         {
           // ... or the ceiling.
-          bm->waterlevels[x] = 0;
+          bm->waterlevels[x] = 0.0;
           bm->waterlevels_dy[x] = 0.0;
         }
 
@@ -613,10 +625,21 @@ gint bubblemon_update (gpointer data)
   */
 
   /* Air only */
-  for (buf_ptr = (buf + (last_waterlevel_min * w));
-       buf_ptr < (buf + (waterlevel_min * w));
-       buf_ptr++)
-    *buf_ptr = aircolor;
+  if (bm->complete_redraw)
+    {
+      /* Draw all air if a full redraw has been requested */
+      for (buf_ptr = buf;
+           buf_ptr < (buf + (waterlevel_min * w));
+           buf_ptr++)
+        *buf_ptr = aircolor;
+    }
+  else
+    {
+      for (buf_ptr = (buf + (last_waterlevel_min * w));
+           buf_ptr < (buf + (waterlevel_min * w));
+           buf_ptr++)
+        *buf_ptr = aircolor;
+    }
   last_waterlevel_min = waterlevel_min;
 
   /* Air and water */
@@ -638,7 +661,7 @@ gint bubblemon_update (gpointer data)
        buf_ptr < (buf + (h * w));
        buf_ptr++)
     *buf_ptr = watercolor;
-
+  
   /* Create a new bubble if the planets are correctly aligned... */
   if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
     {
@@ -763,7 +786,7 @@ gint bubblemon_update (gpointer data)
   
   /* Drawing magic resides below this point */
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
-
+  
   // Find out which parts of the drawing are that actually needs to be
   // updated
   start_drawing = (last_action_min < action_min) ? last_action_min : action_min;
@@ -781,7 +804,7 @@ gint bubblemon_update (gpointer data)
       {
 	u_int32_t *ptr = (u_int32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
 	for (i = start_drawing; i < stop_drawing; i++)
-	  ptr[i] = col[buf[i]];
+          ptr[i] = col[buf[i]];
 	break;
       }
 
@@ -804,7 +827,7 @@ gint bubblemon_update (gpointer data)
     default:
       g_error("Error: Bubblemon works only on displays with 1 (untested), 2 or 4\n"
 	      "      bytes/pixel :-(.  If you know how to fix this, please let me\n"
-	      "      (d92-jwa@nada.kth.se know).  The fix should probably go into %s,\n"
+	      "      (d92-jwa@nada.kth.se) know.  The fix should probably go into %s,\n"
               "      just above line %d.\n",
 	      __FILE__,
 	      __LINE__);
@@ -818,6 +841,9 @@ gint bubblemon_update (gpointer data)
   bubblemon_expose_handler (bm->area, NULL, bm);
 
   bubblemon_set_timeout (bm);
+
+  /* Prevent any unnecessary complete redraws */
+  bm->complete_redraw = FALSE;
 
   return TRUE;
 } /* bubblemon_update */
@@ -874,6 +900,36 @@ gint bubblemon_delete (gpointer data)
   applet_widget_gtk_main_quit();
 
   return TRUE;  /* We do our own destruction */
+}
+
+gint bubblemon_size_change(GtkWidget * w,
+                           int new_size,
+                           gpointer data)
+{
+  BubbleMonData * bm = data;
+
+  /* Leave some space for the borders */
+  new_size -= 4;
+
+  /* FIXME: This doesn't work for vertical panels */
+  bm->depth = new_size;
+  bm->breadth = (new_size * 32) / 40;
+
+  printf("FIXME: Changing size to %dx%d...\n",
+         bm->depth,
+         bm->breadth);
+  
+  bubblemon_set_size(bm);
+
+  printf("FIXME: Size changed to %dx%d.\n",
+         bm->depth,
+         bm->breadth);
+
+  /* Redraw the whole widget after a size change */
+  bm->complete_redraw = TRUE;
+  
+  /* FIXME: What should we return to say that everything is OK? */
+  return 0;
 }
 
 /* This is the function that actually creates the display widgets */
@@ -933,6 +989,10 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 			 GDK_ENTER_NOTIFY_MASK);
 
   applet_widget_add (APPLET_WIDGET (bm->applet), bm->frame);
+
+  gtk_signal_connect (GTK_OBJECT (bm->applet), "change_pixel_size",
+		      GTK_SIGNAL_FUNC (bubblemon_size_change),
+		      (gpointer) bm);
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
 		      GTK_SIGNAL_FUNC (bubblemon_session_save),
@@ -1141,6 +1201,10 @@ void bubblemon_set_size (BubbleMonData * bm)
 
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
+  // Nuke all bubbles
+  bm->n_bubbles = 0;
+  memset (bm->bubbles, 0, MAX_BUBBLES);
+  
   // Allocate (zeroed) bubble memory
   if (bm->bubblebuf)
     free (bm->bubblebuf);

@@ -29,7 +29,7 @@
 #include <sys/types.h>
 
 // Note: NUM_COLORS must be divisible by 3
-#define NUM_COLORS 99 /* 384 */
+#define NUM_COLORS 99
 #define MAX_BUBBLES 100
 
 // How fast do the bubbles rise?
@@ -60,6 +60,7 @@ typedef struct {
   int *bubblebuf, *colors;
   float *waterlevels;
   float *waterlevels_dy;
+  gboolean complete_redraw;
 
   Bubble bubbles[MAX_BUBBLES];
   int n_bubbles;
@@ -126,6 +127,7 @@ gint bubblemon_configure_handler(GtkWidget *widget, GdkEventConfigure *event,
 			       gpointer data);
 gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 			       gpointer data);
+gint bubblemon_size_change(GtkWidget * w, int new_size, gpointer data);
 GtkWidget *make_new_bubblemon_applet (const gchar *goad_id);
 GtkWidget *applet_start_new_applet (const gchar *goad_id,
 				     const char **params, int nparams);
