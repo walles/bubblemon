@@ -1,7 +1,7 @@
 dnl -*-m4-*- Process this file with autoconf to produce a configure script.
 
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 0.9)
+AM_INIT_AUTOMAKE(bubblemon, 0.9.1)
 AM_CONFIG_HEADER(config.h)
 
 dnl Pick up the Gnome macros.
