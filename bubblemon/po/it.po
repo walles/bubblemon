@@ -2,26 +2,25 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <marcosolari@libero.it>, 2001.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.7\n"
-"POT-Creation-Date: 2002-05-18 14:07+0200\n"
+"POT-Creation-Date: 2002-05-19 21:54+0200\n"
 "PO-Revision-Date: 2001-09-12 10:08+0100\n"
 "Last-Translator: Marco Solari <marcosolari@libero.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:153
+#: src/bubblemon.c:154
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Memoria usata: %s\n"
 "Swap usato: %s"
 
-#: src/bubblemon.c:159
+#: src/bubblemon.c:160
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -30,7 +29,7 @@ msgstr ""
 "Memoria usata: %s\n"
 "Swap usato: %s"
 
-#: src/bubblemon.c:167
+#: src/bubblemon.c:168
 #, c-format
 msgid ""
 "\n"
@@ -39,7 +38,7 @@ msgstr ""
 "\n"
 "carico CPU: %d%%"
 
-#: src/bubblemon.c:178
+#: src/bubblemon.c:179
 #, c-format
 msgid ""
 "\n"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.2pre1\n"
-"POT-Creation-Date: 2002-05-18 14:07+0200\n"
+"POT-Creation-Date: 2002-05-19 21:54+0200\n"
 "PO-Revision-Date: 2001-03-29 15:40+02:00\n"
 "Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:153
+#: src/bubblemon.c:154
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Belegter Speicher: %s\n"
 "Belegter Swapraum: %s"
 
-#: src/bubblemon.c:159
+#: src/bubblemon.c:160
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Belegter Speicher: %s\n"
 "Belegter Swapraum: %s"
 
-#: src/bubblemon.c:167
+#: src/bubblemon.c:168
 #, c-format
 msgid ""
 "\n"
@@ -38,7 +38,7 @@ msgstr ""
 "\n"
 "CPU-Last: %d%%"
 
-#: src/bubblemon.c:178
+#: src/bubblemon.c:179
 #, c-format
 msgid ""
 "\n"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-18 14:07+0200\n"
+"POT-Creation-Date: 2002-05-19 21:54+0200\n"
 "PO-Revision-Date: 2001-01-10 01:38+0900\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:153
+#: src/bubblemon.c:154
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: src/bubblemon.c:159
+#: src/bubblemon.c:160
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -29,7 +29,7 @@ msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: src/bubblemon.c:167
+#: src/bubblemon.c:168
 #, c-format
 msgid ""
 "\n"
@@ -38,7 +38,7 @@ msgstr ""
 "\n"
 "CPU 부하: %d%%"
 
-#: src/bubblemon.c:178
+#: src/bubblemon.c:179
 #, c-format
 msgid ""
 "\n"

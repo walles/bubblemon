@@ -2,49 +2,42 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-18 14:07+0200\n"
+"POT-Creation-Date: 2002-05-19 21:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:153
-#, fuzzy, c-format
+#: src/bubblemon.c:154
+#, c-format
 msgid "Memory used: %s"
-msgstr ""
-"Hukommelse brugt: %s\n"
-"Swap brugt: %s\n"
-"CPU load: %d%%"
+msgstr "Hukommelse brugt: %s"
 
-#: src/bubblemon.c:159
-#, fuzzy, c-format
+#: src/bubblemon.c:160
+#, c-format
 msgid ""
 "\n"
 "Swap used: %s"
-msgstr ""
-"Hukommelse brugt: %s\n"
-"Swap brugt: %s\n"
-"CPU load: %d%%"
+msgstr "\nSwap brugt: %s"
 
-#: src/bubblemon.c:167
+#: src/bubblemon.c:168
 #, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
-msgstr ""
+msgstr "\nCPU load: %d%%"
 
-#: src/bubblemon.c:178
+#: src/bubblemon.c:179
 #, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
-msgstr ""
+msgstr "\nCPU #%d load: %d%%"
 
 #: src/gnome1-ui.c:147
 msgid "Bubbling Load Monitor"
@@ -59,19 +52,16 @@ msgid ""
 "conditions (GPL), see the LICENSE file for details."
 msgstr ""
 "Denne applet viser CPU load som en boblende væske.\n"
-"Der er ABSOLUT INGEN GARENTI på denne applet, se LISENS filen for detaljer.\n"
-"Dette er gratis software og du er velkommen til at redistribuere dette under "
-"en bestemt lisens (GPL), se LISENS filen for detaljer."
+"Der er ABSOLUT INGEN GARANTI på denne applet, se LICENSE filen for detaljer.\n"
+"Dette er frit software og du er velkommen til at redistribuere dette under en bestemt lisens (GPL), se LICENSE filen for detaljer."
 
 #: src/gnome1-ui.c:242
-#, fuzzy
 msgid "Can't create bubblemon applet!"
-msgstr "Kan ikke lave applet!\n"
+msgstr "Kan ikke lave applet!"
 
 #: src/gnome1-ui.c:276
-#, fuzzy
 msgid "About..."
-msgstr "Om"
+msgstr "Om..."
 
 #~ msgid ""
 #~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
