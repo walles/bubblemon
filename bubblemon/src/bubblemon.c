@@ -27,6 +27,7 @@
 #include <assert.h>
 #include <sys/time.h>
 #include <string.h>
+#include <math.h>
 
 /* Natural language translation stuff */
 #ifdef ENABLE_NLS
@@ -224,13 +225,17 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
   
   /* Where is the surface heading? */
   float waterLevels_goal;
+
+  /* How high can the surface be? */
+  float waterLevels_max = (h - 0.55);
   
-  /* Move the water level with the current memory usage. */
-  waterLevels_goal = ((bubblemon_getMemoryPercentage() * h) / 100);
-
-  /* Guard against boundary errors */
-  waterLevels_goal += 0.5;
-
+  /* Move the water level with the current memory usage.  The water
+   * level goes from 0.0 to h so that you can get an integer height by
+   * just chopping off the decimals.  The exact value h is a border
+   * case that will have to be handled separately. */
+  waterLevels_goal =
+    ((float)sysload.memoryUsed / (float)sysload.memorySize) * waterLevels_max;
+  
   physics.waterLevels[0].y = waterLevels_goal;
   physics.waterLevels[w - 1].y = waterLevels_goal;
 
@@ -253,10 +258,10 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
     /* Move the current water level */
     physics.waterLevels[x].y += physics.waterLevels[x].dy * dt;
     
-    if (physics.waterLevels[x].y > h)
+    if (physics.waterLevels[x].y > waterLevels_max)
     {
       /* Stop the wave if it hits the ceiling... */
-      physics.waterLevels[x].y = h;
+      physics.waterLevels[x].y = waterLevels_max;
       physics.waterLevels[x].dy = 0.0;
     }
     else if (physics.waterLevels[x].y < 0.0)
@@ -493,6 +498,11 @@ static void bubblemon_censorLoad()
 
   sysload.memoryUsed = censoredMemUsed;
   sysload.swapUsed = censoredSwapUsed;
+
+#ifdef ENABLE_PROFILING
+  sysload.memoryUsed = sysload.memorySize;
+  sysload.swapUsed = sysload.swapSize;
+#endif
 }
 
 static void bubblemon_draw_bubble(bubblemon_picture_t *bubblePic,
@@ -574,29 +584,31 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
   for (x = 0; x < w; x++)
   {
     bubblemon_colorcode_t *pixel;
-    bubblemon_colorcode_t *oldpixel;
+    double dummy;
+
+    float waterHeight = physics.waterLevels[x].y;
+    int nAirPixels = h - waterHeight;
+    int antialias = 0;
+
+    if (modf(waterHeight, &dummy) >= 0.5) {
+      nAirPixels--;
+      antialias = 1;
+    }
 
     pixel = &(bubblePic->airAndWater[x]);
-    for (y = 0; y < (h - physics.waterLevels[x].y); y++)
+    for (y = 0; y < nAirPixels; y++)
     {
       *pixel = AIR;
       pixel += w;
     }
 
-    y = (h - physics.waterLevels[x].y);
-    oldpixel = pixel;
-    pixel = &(bubblePic->airAndWater[(y + 0) * w + x]);
-    /*
-    if (x == 0)
-    {
-      printf("Difference is %d pixels, a line is %d pixels.\n",
-	     (((unsigned int)pixel) - ((unsigned int)oldpixel)) / sizeof(pixel),
-	     w);
-      assert(pixel == oldpixel);
+    if (antialias) {
+      *pixel = ANTIALIAS;
+      pixel += w;
+      y++;
     }
-    */
-    for (y = (h - physics.waterLevels[x].y); y < h; y++)
-    {
+
+    for (; y < h; y++) {
       *pixel = WATER;
       pixel += w;
     }
@@ -713,8 +725,9 @@ int main(int argc, char *argv[])
   int exitcode;
 
 #ifdef ENABLE_PROFILING
-  g_warning(PACKAGE "has been configured with --enable-profiling and will show max\n"
-	    "load all the time.\n");
+  fprintf(stderr,
+	  "Warning: " PACKAGE "has been configured with --enable-profiling and will show max\n"
+	  "load all the time.\n");
 #endif
   
   // Initialize the load metering
