@@ -417,8 +417,6 @@ gint bubblemon_update (gpointer data)
   float waterlevels_goal;
   float current_waterlevel_goal;
 
-  float *temp;
-
   int waterlevel_min, waterlevel_max;
   static int last_waterlevel_min = 0;
 
@@ -509,34 +507,27 @@ gint bubblemon_update (gpointer data)
   for (x = 1; x < (w - 1); x++)
     {
       // Move the current water level
-      bm->waterlevels_inactive[x] = bm->waterlevels[x] + bm->waterlevels_dy[x];
+      bm->waterlevels[x] = bm->waterlevels[x] + bm->waterlevels_dy[x];
 
-      if (bm->waterlevels_inactive[x] > h)
+      if (bm->waterlevels[x] > h)
         {
           // Stop the wave if it hits the floor...
-          bm->waterlevels_inactive[x] = h;
+          bm->waterlevels[x] = h;
           bm->waterlevels_dy[x] = 0.0;
         }
-      else if (bm->waterlevels_inactive[x] < 0)
+      else if (bm->waterlevels[x] < 0)
         {
           // ... or the ceiling.
-          bm->waterlevels_inactive[x] = 0;
+          bm->waterlevels[x] = 0;
           bm->waterlevels_dy[x] = 0.0;
         }
 
       // Keep track of the highest and lowest water levels
-      if (bm->waterlevels_inactive[x] > waterlevel_max)
-        waterlevel_max = bm->waterlevels_inactive[x];
-      else if (bm->waterlevels_inactive[x] < waterlevel_min)
-        waterlevel_min = bm->waterlevels_inactive[x];
+      if (bm->waterlevels[x] > waterlevel_max)
+        waterlevel_max = bm->waterlevels[x];
+      else if (bm->waterlevels[x] < waterlevel_min)
+        waterlevel_min = bm->waterlevels[x];
     }
-
-  bm->waterlevels_inactive[0] = waterlevels_goal;
-  bm->waterlevels_inactive[w - 1] = waterlevels_goal;
-
-  temp = bm->waterlevels_inactive;
-  bm->waterlevels_inactive = bm->waterlevels;
-  bm->waterlevels = temp;
 
   /*
     Vary the colors of air and water with how many
@@ -1084,12 +1075,6 @@ void bubblemon_set_size (BubbleMonData * bm)
     {
       bm->waterlevels[i] = bm->depth;
     }
-
-  // Allocate inactive water level memory
-  if (bm->waterlevels_inactive)
-    free (bm->waterlevels_inactive);
-
-  bm->waterlevels_inactive = malloc (bm->breadth * sizeof (float));
 
   // Allocate water level velocity memory
   if (bm->waterlevels_dy)

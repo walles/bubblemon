@@ -59,7 +59,7 @@ typedef struct {
 
   gint breadth, depth, update, samples;
   int *bubblebuf, *colors;
-  float *waterlevels, *waterlevels_inactive;
+  float *waterlevels;
   float *waterlevels_dy;
 
   Bubble bubbles[MAX_BUBBLES];
