@@ -78,11 +78,11 @@ bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, waterlevel, memoryPercentage, swapPercentage;
+  int aircolor, watercolor, waterlevel, memoryPercentage;
   glibtop_cpu cpu;
   glibtop_mem memory;
   glibtop_swap swap;
-  static int swap_delay = 0;
+  static int swap_delay = 0, swapPercentage = 0;
   uint64_t load, total, oLoad, oTotal;
 
   // bm->setup is a status byte that is true if we are rolling
@@ -125,11 +125,13 @@ bubblemon_update (gpointer data)
   if (swap_delay <= 0)
     {
       glibtop_get_swap (&swap);
+
+      swapPercentage = (100 * swap.used) / swap.total;
+
       // FIXME: The following number should be based on a constant or
       // variable.
       swap_delay = 50;
     }
-  swapPercentage = (100 * swap.used) / swap.total;
   swap_delay--;
   
   // The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
@@ -141,7 +143,7 @@ bubblemon_update (gpointer data)
   h = bm->depth;
   n = w * h;
 
-  // FIXME: The colors of air and water should vary with how many
+  // Vary the colors of air and water with how many
   // percent of the available swap space that is in use.
   aircolor = ((((NUM_COLORS >> 1) - 1) * swapPercentage) / 100) << 1;
   watercolor = aircolor + 1;
@@ -172,7 +174,7 @@ bubblemon_update (gpointer data)
       bm->n_bubbles++;
     }
   
-  // FIXME: Update and draw the bubbles
+  // Update and draw the bubbles
   for (i = 0; i < bm->n_bubbles; i++)
     {
       // Accellerate the bubble
