@@ -1,3 +1,16 @@
+bubblemon (1.0.8) stable; urgency=low
+
+  * Reworked the GOAD workaround (again) as the new version didn't seem to
+    work too well.
+
+  * Fixed some problems with the RPM spec file.
+
+  * Updated to Debian standards version 3.5.0
+
+  * Added Italian translation
+
+ -- Johan Walles <johan@localhost.localdomain>  Fri, 14 Sep 2001 22:13:04 +0200
+
 bubblemon (1.0.7) stable; urgency=low
 
   * Updated GOAD workaround to not exec() another binary (which wasn't
