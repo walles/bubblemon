@@ -129,6 +129,9 @@ void get_memory_load(BubbleMonData *bm,
 {
   glibtop_mem memory;
   glibtop_swap swap;
+
+  uint64_t add, substract;
+
   static int swap_delay = 0;
   static uint64_t swap_used = 0, swap_total = 0;
 
@@ -187,11 +190,13 @@ void get_memory_load(BubbleMonData *bm,
 	      swap_total);
       exit (EXIT_FAILURE);
     }
-  
-  *swapPercentage =
-    (100 *
-     (swap_used + memory.used - memory.cached - memory.buffer - memory.total)) / swap_total;
-  if (*swapPercentage < 0)
+
+  add = swap_used + memory.used;
+  substract = memory.cached + memory.buffer + memory.total;
+
+  if (add > substract)
+    *swapPercentage = (100 * (add - substract)) / swap_total;
+  else
     *swapPercentage = 0;
 
   if (*swapPercentage > 100)
