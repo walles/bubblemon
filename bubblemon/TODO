@@ -5,7 +5,9 @@ tend to be completed earlier than stuff towards the end.  If you want
 something on this list done quickly, I've provided some pointers to
 get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 
-. Add a pointer to where the FAQ is located to the About box.
+. Add a pointer to where the FAQ is located to the About box.  Is this
+ at all possible to do in some way that survives all different kinds
+ of packaging formats?
 
 . Translate the applet into every single language in existance.  If
  the applet doesn't show up in your favourite language even though
