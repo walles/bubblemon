@@ -494,6 +494,12 @@ void draw_bubble(BubbleMonData *bm,
   int h = bm->depth;
   int *buf_ptr;
 
+  /*
+    Clipping is not necessary for x, but it *is* for y.
+    To prevent ugliness, we draw aliascolor only on top of
+    watercolor, and aircolor on top of aliascolor.
+  */
+  
   /* Top row */
   buf_ptr = &(buf[(y - 1) * w + x - 1]);
   if (y > bm->waterlevels[x])
@@ -859,12 +865,6 @@ gint bubblemon_update (gpointer data)
 
       /* Draw the bubble in the temporary buffer */
       draw_bubble(bm, x, y, aircolor);
-      
-      /*
-        Clipping is not necessary for x, but it *is* for y.
-        To prevent ugliness, we draw aliascolor only on top of
-        watercolor, and aircolor on top of aliascolor.
-      */
     }
   
   /*
