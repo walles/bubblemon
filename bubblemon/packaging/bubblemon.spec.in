@@ -1,4 +1,5 @@
 Summary: Bubbling Load Monitoring Applet for the GNOME Panel
+Summary(fr): Appliquette Moniteur de charge à bulles pour GNOME
 Name: @PACKAGE@
 Version: @VERSION@
 Release: 2 
@@ -17,7 +18,16 @@ load as a bubbling liquid.  The latest version is available
 off http://savannah.nongnu.org/download/bubblemon/.  Choose
 Add to Panel->Utility->Bubblemon in your GNOME Panel.
 
+%description -l fr
+Cette appliquette affiche votre charge CPU et mémoire comme un liquide
+à bulle.  La dernière version est disponible chez
+http://savannah.nongnu.org/download/bubblemon/.  Choisissez Add to
+Panel->Utility->Moniteur de charge à bulles dans le Tableau de Bord
+GNOME.
+
 %changelog
+* Mon Mar 03 2003 Eric Lassauge <lassauge@mail.dotcom.fr>
+- Added french translations
 
 %prep
 
