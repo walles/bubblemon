@@ -51,14 +51,18 @@ void meter_init(int argc, char *argv[], meter_sysload_t *load)
   glibtop_mem memory;
   glibtop_swap swap;
   
+#if LIBGTOP_VERSION_CODE >= 1001005
   load->nCpus = glibtop_get_sysinfo()->ncpu;
+#else
+  load->nCpus = 1;
+#endif  
   g_assert(load->nCpus > 0);
-  
+
   // Initialize the load histories and indices
   cpuLoadIndex = (int *)calloc(load->nCpus, sizeof(int));
   cpuLoadHistory = (u_int64_t **)calloc(load->nCpus, sizeof(u_int64_t *));
   cpuTotalLoadHistory = (u_int64_t **)calloc(load->nCpus, sizeof(u_int64_t *));
-  
+
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++)
   {
     cpuLoadHistory[cpuNo] = (u_int64_t *)calloc(LOADSAMPLES, sizeof(u_int64_t));
