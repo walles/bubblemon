@@ -51,9 +51,9 @@ msgid ""
 "Swap used: %s\n"
 "CPU load: %d%%"
 msgstr ""
-"Upotreba momorije: %s\n"
-"Upotreba svapa: %s\n"
-"Upotreba CPUa: %d%%"
+"Upotreba memorije: %s\n"
+"Upotreba svop-a: %s\n"
+"Upotreba procesora: %d%%"
 
 #: src/bubblemon.c:393
 #, c-format
@@ -69,15 +69,15 @@ msgid ""
 "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
 "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 msgstr ""
-"Greska: memoryPercentage (%d%%) ili swapPercentage (%d%%) izvan granice "
+"Greska: memoryPercentage (%d%%) ili swapPercentage (%d%%) van definicije "
 "(0-100)\n"
-"       Izracunate od mem_used (%Ld), mem_max (%Ld),\n"
+"       Izracunate sa upotrebom parametara mem_used (%Ld), mem_max (%Ld),\n"
 "       swap_used (%Ld) i swap_max (%Ld) na liniji %d od %s.\n"
 
 #: src/bubblemon.c:539
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr "Nemoguce chdir() na $HOME (%s)\n"
+msgstr "Nije uspjela operacija chdir() na $HOME (%s)\n"
 
 #: src/bubblemon.c:545
 msgid "$HOME environment variable not set\n"
@@ -89,8 +89,7 @@ msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
-"Bubblemon je zavrsio operaciju.  Profilacijski podaci su stedeni u "
-"~/gmon.out.\n"
+"Bubblemon je zavrsio operaciju.  Profilacijski podaci su stedeni u ~/gmon.out.\n"
 "Da provedete dobro vrijeme, zapocnite 'gprof -l -p %s ~/gmon.out'.\n"
 
 #: src/bubblemon.c:552
@@ -105,10 +104,10 @@ msgid ""
 "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
 "of %s.\n"
 msgstr ""
-"Greska: aircolor (%d) ili watercolor (%d) ili aliascolor (%d) van granica "
-"(0-%d).\n"
-"       swapPercentage (%d) jeste najvjerovatnije van granice (0-100) isto na "
-"liniji %d od %s.\n"
+"Greska: aircolor (%d) ili watercolor (%d) ili aliascolor (%d) su van "
+"definicije (0-%d).\n"
+"       swapPercentage (%d) jeste najvjerovatnije isto van definicije (0-100) "
+"na liniji %d od %s.\n"
 
 #: src/bubblemon.c:965
 msgid "Can't create applet!\n"
@@ -124,7 +123,7 @@ msgstr "Opis"
 
 #: src/bubblemon.c:1204
 msgid "Bubbling Load Monitor"
-msgstr "Kuvani indikator opterecenja"
+msgstr "Burni indikator opterecenja"
 
 #: src/bubblemon.c:1207
 msgid ""
@@ -136,7 +135,7 @@ msgid ""
 msgstr ""
 "Ovaj aplet prikazuje opterecenje kompjuterskog procesora kao burnost "
 "tecnosti.\n"
-"Ovaj aplet nema NIKAKVE GARANCIJE FUKCIONALNOSTI, vidi te LICENSE ugovor "
-"koji daje detaljan opis na engleskom jeziku.\n"
+"Ovaj aplet nema NIKAKVE GARANCIJE FUKCIONALNOSTI, vidite LICENSE ugovor koji "
+"daje detaljan opis na engleskom jeziku.\n"
 "Ovo je slobodni program koji sami smijete da dstribujisete po licensi (GPL), "
-"molim vas vidite LICENSE fajl za detaljan opis."
+"za detaljan opis vidite LICENSE fajl."
