@@ -19,8 +19,8 @@ though:
 * If you can't do it yourself (or get someone else to do it for you
  :-), see if it is in the TODO file.  If it is, I will probably
  implement it sooner or later anyway.
-* If you can't do it yourself and it's not in the TODO file, send me
- (d92-jwa@nada.kth.se) a mail and I'll add it.
+* If you can't do it yourself and it's not in the TODO file, send a
+ mail to the mailing list (bubblemon-list@nongnu.org) and I'll add it.
 
 
 3. I'm running a background process on my system that should be using
@@ -47,10 +47,10 @@ $ src/bubblemon-gnome1
 
 5. The program crashes.  What should I do?
 
-Either fix it yourself and send me (d92-jwa@nada.kth.se) a patch, or
-send me a bug report.  The bug report should contain the result of
-changing directory into the bubblemon src directory and doing the
-following:
+Either fix it yourself and send a patch to the mailing list
+(bubblemon-list@nongnu.org), or send a bug report to the list.  The
+bug report should contain the result of changing directory into the
+bubblemon src directory and doing the following:
 
 $ ./configure
 $ make
@@ -59,6 +59,9 @@ $ gdb bubblemon-gnome1
 (gdb) run
 <SEGFAULT>
 (gdb) info stack
+
+Note that the build stage is essential, because it puts debug metadata
+in the binary.
 
 
 6. The amount of memory used reported by the applet is different from
@@ -72,8 +75,8 @@ really want.
 
 A more precise explanation follows.  If it's wrong in some way, or if
 you know somewhere else where this is documented in some
-comprehensible way, I'd appreciate it if you send me
-(d92-jwa@nada.kth.se) a mail.
+comprehensible way, I'd appreciate it if you send a mail to the
+mailing list (bubblemon-list@nongnu.org).
 
 Anyway, if we forget about swap for a while, here are the different
 kinds of memory, and whether I treat them as "air" or "water":
@@ -111,15 +114,16 @@ cycles go.
 8. The configure script reports no problems, but I still get errors
   (or warnings) when doing 'make'.  What's up?
 
-The build process is broken.  It shouldn't be.  Send me
-(d92-jwa@nada.kth.se) a mail with the output from both 'configure' and
-'make', and also tell me what kind of Unix you are using and I'll
-try to fix it.  To capture the output from those commands, do:
+The build process is broken.  It shouldn't be.  Send a mail to the
+mailing list (bubblemon-list@nongnu.org) with the output from both
+'configure' and 'make', and also tell me what kind of Unix you are
+using and I'll try to fix it.  To capture the output from those
+commands, do:
 
 ./configure &> log-configure
 make &> log-make
 
-Then send me (d92-jwa@nada.kth.se) a copy of both log files.
+Then send a copy of both log files to (bubblemon-list@nongnu.org).
 
 
 9. How do I translate everything into my favourite language?
@@ -144,4 +148,5 @@ from the GNOME category.  Then try running configure again.
 12. I have another question/problem or there's an error in this FAQ.
     What should I do? 
 
-E-mail me at d92-jwa@nada.kth.se and ask ahead.
+Send a mail to the mailing list (bubblemon-list@nongnu.org) and ask
+ahead.
