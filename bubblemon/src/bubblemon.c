@@ -854,6 +854,8 @@ gint bubblemon_update (gpointer data)
 gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 			       gpointer data)
 {
+  /* FIXME: This function should just call update_screen(). */
+  
   BubbleMonData * bm = data;
 
   if (!bm->setup)
@@ -1248,7 +1250,8 @@ void bubblemon_set_size (BubbleMonData * bm)
   if (bm->image)
     gdk_image_destroy (bm->image);
 
-  bm->image = gdk_image_new (GDK_IMAGE_SHARED,
+  assert(gtk_widget_get_visual(bm->area) != NULL);
+  bm->image = gdk_image_new (GDK_IMAGE_SHARED, /* FIXME: Why not GDK_IMAGE_FASTEST? */
                              gtk_widget_get_visual (bm->area),
                              bm->breadth,
                              bm->depth);
