@@ -1,9 +1,9 @@
-bubblemon (stable) unstable; urgency=low
+bubblemon (1.0.7) stable; urgency=low
 
   * Updated GOAD workaround to not exec() another binary (which wasn't
     always found, which lead to confused users).
 
- --
+ -- Johan Walles <d92-jwa@nada.kth.se>  Mon, 10 Sep 2001 22:29:50 +0200
 
 bubblemon (1.0.6) stable; urgency=low
 
@@ -13,7 +13,7 @@ bubblemon (1.0.6) stable; urgency=low
 
   * Added missing build dependency.
 
- -- Johan Walles <johan@localhost.localdomain>  Mon, 10 Sep 2001 16:30:26 +0200
+ -- Johan Walles <d92-jwa@nada.kth.se>  Mon, 10 Sep 2001 16:30:26 +0200
 
 bubblemon (1.0.5) stable; urgency=low
 
@@ -21,21 +21,21 @@ bubblemon (1.0.5) stable; urgency=low
 
   * Bubblemon is now Lintian clean!
 
- -- Johan Walles <johan@localhost.localdomain>  Sun, 29 Jul 2001 22:32:18 +0200
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sun, 29 Jul 2001 22:32:18 +0200
 
 bubblemon (1.0.4) stable; urgency=low
 
   * Added Spanish and Norwegian translations, and updated the German
     translation.
 
- -- Johan Walles <johan@localhost.localdomain>  Sat, 26 May 2001 20:33:44 +0200
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 26 May 2001 20:33:44 +0200
 
 bubblemon (1.0.3) stable; urgency=low
 
   * Added icon support for GNOME applets menu.  Updated French
     translation.  Added support for 24bpp displays.
 
- -- Johan Walles <johan@localhost.localdomain>  Wed, 14 Feb 2001 20:49:03 +0100
+ -- Johan Walles <d92-jwa@nada.kth.se>  Wed, 14 Feb 2001 20:49:03 +0100
 
 bubblemon (1.0.2) stable; urgency=medium
 
@@ -71,6 +71,4 @@ bubblemon (0.9.7-1) unstable; urgency=low
 
  -- Bernd Eckenfels <ecki@debian.org>  Sun, 18 Jun 2000 03:05:40 +0200
 
-Local variables:
-mode: debian-changelog
-End:
+
