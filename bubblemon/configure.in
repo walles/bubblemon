@@ -134,4 +134,6 @@ man/Makefile
 man/bubblemon_applet.1
 man/hu/Makefile
 man/hu/bubblemon_applet.1
+man/sv/Makefile
+man/sv/bubblemon_applet.1
 ])

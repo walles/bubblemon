@@ -1,4 +1,4 @@
-SUBDIRS = hu
+SUBDIRS = hu sv
 
 man_MANS = bubblemon_applet.1
 
