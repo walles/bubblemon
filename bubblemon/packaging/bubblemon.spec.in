@@ -8,7 +8,7 @@ Packager: Johan Walles (d92-jwa@nada.kth.se)
 URL: http://www.nada.kth.se/~d92-jwa/code/
 Copyright: GPL
 Group: User Interface/GNOME Applets
-Requires: gnome-libs >= 1.0
+Requires: gnome-libs >= 1.2
 
 %description
 This is a panel applet that displays the CPU and memory load as a
