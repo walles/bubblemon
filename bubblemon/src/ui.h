@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2004 Johan Walles - walles@mailblocks.com
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

@@ -2,28 +2,7 @@ To Emacs: This is a -*-text-*- file.
 
 This list is not really sorted, but stuff higher up on the list will
 tend to be completed earlier than stuff towards the end.  Additions?
-Opinions?  Send 'em to me (d92-jwa@nada.kth.se).
-
-. Merge the GNOME2 port:
-  x Merge src/Makefile.am into something that works with both GNOME1
-   and GNOME2.
-  x Merge configure.in into something that works with both GNOME1
-   and GNOME2.
-  x Verify that both the GNOME1 and GNOME2 port build out of the box.
-  x Verify that both the GNOME1 and GNOME2 port install out of the
-   box.
-
-. Create a screenshooting "port" of bubblemon.  This port should run
- without displaying anything for like five seconds, then save a PNG of
- the current picture in the current directory.  Its measurement
- implementations should return values appropriate for nice
- screenshots.  This should not be installable using "make install",
- but it should be built iff libpng can be found.
-
- The point of this exercise (except for getting nice screenshots)
- would be to improve the portability of the configure stuff.  Doing
- the port would probably resolve some of the configure.in cleanup
- stuff below.
+Opinions?  Send 'em to me (walles@mailblocks.com).
 
 . Clean up configure.in:
   x Prefix all GNOME specific test results with GNOME_.

@@ -2,7 +2,7 @@ bubblemon (1.2.8) unstable; urgency=medium
 
   * Fix colors on big-endian systems.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 12 Oct 2002 22:11:57 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sat, 12 Oct 2002 22:11:57 +0200
 
 bubblemon (1.2.7) unstable; urgency=medium
 
@@ -13,20 +13,20 @@ bubblemon (1.2.7) unstable; urgency=medium
   * Move the configure GNOME detection macros to ease future porting
     efforts.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sun,  1 Sep 2002 14:06:23 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sun,  1 Sep 2002 14:06:23 +0200
 
 bubblemon (1.2.6) unstable; urgency=low
 
   * Fix RPM permissions.
   * Fix bubblemon to work on systems with long uptimes.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Fri, 26 Jul 2002 15:49:48 +0200
+ -- Johan Walles <walles@mailblocks.com>  Fri, 26 Jul 2002 15:49:48 +0200
 
 bubblemon (1.2.5) unstable; urgency=low
 
   * Added weeds growing with the network load.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Mon, 22 Jul 2002 19:34:17 +0200
+ -- Johan Walles <walles@mailblocks.com>  Mon, 22 Jul 2002 19:34:17 +0200
 
 bubblemon (1.2.4-1) stable; urgency=medium
 
@@ -34,7 +34,7 @@ bubblemon (1.2.4-1) stable; urgency=medium
   * Fix minor visual glitch where the top pixels of each bubble were
     chopped off for bubbles over a certain altitude.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 29 Jun 2002 18:46:54 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sat, 29 Jun 2002 18:46:54 +0200
 
 bubblemon (1.2.3-1) stable; urgency=medium
 
@@ -43,21 +43,21 @@ bubblemon (1.2.3-1) stable; urgency=medium
     creating a (rather cheesy) illusion of depth.
   * Several minor visual problems have been resolved.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sun, 23 Jun 2002 15:36:15 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sun, 23 Jun 2002 15:36:15 +0200
 
 bubblemon (1.2.2-1) stable; urgency=medium
 
   * Resonance problems fixed.
   * Updated Danish translation.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Thu, 20 Jun 2002 17:45:30 +0200
+ -- Johan Walles <walles@mailblocks.com>  Thu, 20 Jun 2002 17:45:30 +0200
 
 bubblemon (1.2.1-1) unstable; urgency=low
 
   * Anti-aliased wave crests.
   * Bug with persistance across sessions fixed.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sun, 19 May 2002 21:42:51 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sun, 19 May 2002 21:42:51 +0200
 
 bubblemon (1.2.0-1) unstable; urgency=low
 
@@ -66,20 +66,20 @@ bubblemon (1.2.0-1) unstable; urgency=low
   * GNOME1.x code thrown out and rewritten based on the Life applet that
     comes with GNOME.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 18 May 2002 13:37:38 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sat, 18 May 2002 13:37:38 +0200
 
 bubblemon (1.0.11-1) stable; urgency=low
 
   * Swap space colorization now works properly.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Fri, 10 May 2002 12:41:32 +0200
+ -- Johan Walles <walles@mailblocks.com>  Fri, 10 May 2002 12:41:32 +0200
 
 bubblemon (1.0.10-1) stable; urgency=low
 
   * New icon
   * Icelandic translation
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Wed,  1 May 2002 20:57:19 +0200
+ -- Johan Walles <walles@mailblocks.com>  Wed,  1 May 2002 20:57:19 +0200
 
 bubblemon (1.0.9-3) unstable; urgency=low
 
@@ -105,7 +105,7 @@ bubblemon (1.0.9) stable; urgency=low
 
   * Added support for building on OpenBSD.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sun, 28 Oct 2001 19:13:05 +0100
+ -- Johan Walles <walles@mailblocks.com>  Sun, 28 Oct 2001 19:13:05 +0100
 
 bubblemon (1.0.8) stable; urgency=low
 
@@ -118,14 +118,14 @@ bubblemon (1.0.8) stable; urgency=low
 
   * Added Italian translation
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Fri, 14 Sep 2001 22:13:04 +0200
+ -- Johan Walles <walles@mailblocks.com>  Fri, 14 Sep 2001 22:13:04 +0200
 
 bubblemon (1.0.7) stable; urgency=low
 
   * Updated GOAD workaround to not exec() another binary (which wasn't
     always found, which lead to confused users).
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Mon, 10 Sep 2001 22:29:50 +0200
+ -- Johan Walles <walles@mailblocks.com>  Mon, 10 Sep 2001 22:29:50 +0200
 
 bubblemon (1.0.6) stable; urgency=low
 
@@ -135,7 +135,7 @@ bubblemon (1.0.6) stable; urgency=low
 
   * Added missing build dependency.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Mon, 10 Sep 2001 16:30:26 +0200
+ -- Johan Walles <walles@mailblocks.com>  Mon, 10 Sep 2001 16:30:26 +0200
 
 bubblemon (1.0.5) stable; urgency=low
 
@@ -143,28 +143,28 @@ bubblemon (1.0.5) stable; urgency=low
 
   * Bubblemon is now Lintian clean!
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sun, 29 Jul 2001 22:32:18 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sun, 29 Jul 2001 22:32:18 +0200
 
 bubblemon (1.0.4) stable; urgency=low
 
   * Added Spanish and Norwegian translations, and updated the German
     translation.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 26 May 2001 20:33:44 +0200
+ -- Johan Walles <walles@mailblocks.com>  Sat, 26 May 2001 20:33:44 +0200
 
 bubblemon (1.0.3) stable; urgency=low
 
   * Added icon support for GNOME applets menu.  Updated French
     translation.  Added support for 24bpp displays.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Wed, 14 Feb 2001 20:49:03 +0100
+ -- Johan Walles <walles@mailblocks.com>  Wed, 14 Feb 2001 20:49:03 +0100
 
 bubblemon (1.0.2) stable; urgency=medium
 
   * Initial multi-processor support (currently tooltip only) added.
     Portuguese and Romanian translations added.  Code cleanups.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Mon, 15 Jan 2001 10:56:40 +0100
+ -- Johan Walles <walles@mailblocks.com>  Mon, 15 Jan 2001 10:56:40 +0100
 
 bubblemon (1.0.1-1) stable; urgency=low
 
@@ -172,14 +172,14 @@ bubblemon (1.0.1-1) stable; urgency=low
     with older GNOME libraries.  Danish and Serbo-croatian translations
     added.  Display bug at 16bpp worked around.  Code cleanups.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 25 Nov 2000 17:31:44 +0100
+ -- Johan Walles <walles@mailblocks.com>  Sat, 25 Nov 2000 17:31:44 +0100
 
 bubblemon (1.0.0-1) stable; urgency=medium
 
   * Korean and Finnish translations added.  Applet now automatically
     adapts to the panel size.
 
- -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 25 Nov 2000 17:31:44 +0100
+ -- Johan Walles <walles@mailblocks.com>  Sat, 25 Nov 2000 17:31:44 +0100
 
 bubblemon (0.9.12-1) unstable; urgency=low
 

@@ -2,8 +2,8 @@
  *  Bubbling Load Monitoring Applet
  *  - A GNOME panel applet that displays the CPU + memory load as a
  *    bubbling liquid.
- *  Copyright (C) 1999-2000 Johan Walles
- *  - d92-jwa@nada.kth.se
+ *  Copyright (C) 1999-2004 Johan Walles
+ *  - walles@mailblocks.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

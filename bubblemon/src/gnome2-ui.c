@@ -1,8 +1,8 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2002 Johan Walles - d92-jwa@nada.kth.se
- *  This file (C) 2002 Juan Salaverria - rael@vectorstar.net
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2004 Johan Walles - walles@mailblocks.com
+ *  This file (C) 2002-2004 Juan Salaverria - rael@vectorstar.net
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ display_about_dialog (BonoboUIComponent *uic,
 		      BubblemonApplet *bubble,
 		      const gchar       *verbname)
 {
-  static const gchar *authors[] = { "Johan Walles <d92-jwa@nada.kth.se>",
+  static const gchar *authors[] = { "Johan Walles <walles@mailblocks.com>",
 				    "Juan Salaverria <rael@vectorstar.net>",
 				    NULL };
   static const gchar *documenters[] = { NULL };
