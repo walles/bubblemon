@@ -223,8 +223,7 @@ bubblemon_update (gpointer data)
   }
 
   /* Update the display. */
-  if (bm->setup)
-    bubblemon_expose_handler (bm->area, NULL, bm);
+  bubblemon_expose_handler (bm->area, NULL, bm);
 
   bubblemon_set_timeout (bm);
 
@@ -284,9 +283,7 @@ bubblemon_delete (gpointer data) {
 
   applet_widget_gtk_main_quit();
 
-  // FIXME: Is this line ever reached?
-  
-  return 0;  // Gets us rid of a warning
+  return TRUE;  // We do our own destruction
 }
 
 /* This is the function that actually creates the display widgets */

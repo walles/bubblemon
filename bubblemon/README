@@ -27,7 +27,6 @@ Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
 
 TODO:
 
-. Fix the crash at applet removal
 . Make liquid flow in and out when memory usage changes, instead of
  (like now) just changing the water level.  Do it by having an
  individual water level for each column.  The outermost columns will
