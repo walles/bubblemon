@@ -161,7 +161,7 @@ static void netload_receiveUpdates()
 	 iter != NULL;
 	 prev = iter, iter = iter->next)
     {
-      if (!iter->isAlive)
+      while ((iter != NULL) && !iter->isAlive)
       {
 	prev->next = iter->next;
 	free(iter->name);
