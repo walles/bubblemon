@@ -606,14 +606,17 @@ gint bubblemon_update (gpointer data)
       bubbles[bm->n_bubbles].y = h - 1;
       bubbles[bm->n_bubbles].dy = 0.0;
 
-      /* Raise the water level above where the bubble is created */
-      if (bubbles[bm->n_bubbles].x > 2)
-        bm->waterlevels[bubbles[bm->n_bubbles].x - 2] -= 0.5;
-      bm->waterlevels[bubbles[bm->n_bubbles].x - 1] -= 0.5;
-      bm->waterlevels[bubbles[bm->n_bubbles].x] -= 0.5;
-      bm->waterlevels[bubbles[bm->n_bubbles].x + 1] -= 0.5;
-      if (bubbles[bm->n_bubbles].x < (w - 3))
-        bm->waterlevels[bubbles[bm->n_bubbles].x + 2] -= 0.5;
+      if (RIPPLES != 0.0)
+        {
+          /* Raise the water level above where the bubble is created */
+          if (bubbles[bm->n_bubbles].x > 2)
+            bm->waterlevels[bubbles[bm->n_bubbles].x - 2] -= RIPPLES;
+          bm->waterlevels[bubbles[bm->n_bubbles].x - 1] -= RIPPLES;
+          bm->waterlevels[bubbles[bm->n_bubbles].x] -= RIPPLES;
+          bm->waterlevels[bubbles[bm->n_bubbles].x + 1] -= RIPPLES;
+          if (bubbles[bm->n_bubbles].x < (w - 3))
+            bm->waterlevels[bubbles[bm->n_bubbles].x + 2] -= RIPPLES;
+        }
       
       /* Count the new bubble */
       bm->n_bubbles++;
@@ -631,11 +634,14 @@ gint bubblemon_update (gpointer data)
       /* Did we lose it? */
       if (bubbles[i].y < bm->waterlevels[bubbles[i].x])
 	{
-          /* Lower the water level around where the bubble is
-             about to vanish */
-          bm->waterlevels[bubbles[i].x - 1] += 0.5;
-          bm->waterlevels[bubbles[i].x] += 1.5;
-          bm->waterlevels[bubbles[i].x + 1] += 0.5;
+          if (RIPPLES != 0.0)
+            {
+              /* Lower the water level around where the bubble is
+                 about to vanish */
+              bm->waterlevels[bubbles[i].x - 1] += RIPPLES;
+              bm->waterlevels[bubbles[i].x] += 3 * RIPPLES;
+              bm->waterlevels[bubbles[i].x + 1] += RIPPLES;
+            }
           
 	  /* Yes; nuke it */
 	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;

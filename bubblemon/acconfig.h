@@ -24,4 +24,6 @@
 #undef u_int16_t
 #undef u_int8_t
 
+#undef RIPPLES
+
 #undef ENABLE_PROFILING

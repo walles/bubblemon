@@ -57,6 +57,27 @@ AC_MSG_RESULT($GNOME_DATADIR)
 PACKAGE_PIXMAPS_DIR="`gnome-config --datadir`/pixmaps/${PACKAGE}"
 AC_SUBST(PACKAGE_PIXMAPS_DIR)
 
+# Check if the user wants to enable ripples
+AC_ARG_ENABLE(
+  ripples,
+  [  --enable-ripples[=amount]  Makes surface ripple whith bubbles.  Amount defaults to 0.2])
+
+# No ripples unless specifically asked for
+if test -z "$enableval"; then
+  enableval="0.0"
+fi
+
+# Set rippling to 0.2 if no value is given
+if test "$enableval" = "yes"; then
+  enableval="0.2"
+fi
+
+AC_MSG_CHECKING(how much the bubbles should make the surface ripple)
+
+AC_DEFINE_UNQUOTED(RIPPLES, $enableval, How much the bubbles make the surface ripple (0.0 - 1.0))
+
+AC_MSG_RESULT($enableval)
+
 # Check if the user wants to enable profiling
 AC_ARG_ENABLE(
   profiling,
