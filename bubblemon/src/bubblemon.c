@@ -61,6 +61,7 @@ int main (int argc, char ** argv)
 {
   const gchar *goad_id;
   GtkWidget *applet;
+  int daemonize = 0;
 
 #ifdef ENABLE_NLS
   setlocale (LC_ALL, "");
@@ -90,6 +91,10 @@ int main (int argc, char ** argv)
 
        argc += 1;
        argv = new_argv;
+
+       /* We have a naive user, spawn background process later if
+          setup goes well. */
+       daemonize = 1;
     }
 
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
@@ -143,6 +148,12 @@ int main (int argc, char ** argv)
   /* Create the bubblemon applet widget */
   applet = make_new_bubblemon_applet (goad_id);
 
+  /* If we were started without parameters, spawn another process */
+  if (daemonize && (fork() != 0))
+    {
+      exit (EXIT_SUCCESS);
+    }
+  
   /* Run... */
   applet_widget_gtk_main ();
 
