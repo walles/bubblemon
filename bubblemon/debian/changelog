@@ -1,3 +1,10 @@
+bubblemon (1.2.2-1) stable; urgency=medium
+
+  * Resonance problems fixed.
+  * Updated Danish translation.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Thu, 20 Jun 2002 17:45:30 +0200
+
 bubblemon (1.2.1-1) unstable; urgency=low
 
   * Anti-aliased wave crests.
