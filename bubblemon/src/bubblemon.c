@@ -253,42 +253,6 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
       physics.waterLevels[x].dy = -SPEED_LIMIT;
   }
 
-  // To prevent (visible) resonance, filter the speeds so that no two
-  // waterlevels will pass each other at a higher speed than 0.5
-  // pixels / frame
-  for (x = 1; x < (w - 1); x++)
-  {
-    float dy1 = physics.waterLevels[x].y - physics.waterLevels[x + 1].y;
-    float dy2 =
-      physics.waterLevels[x].y + physics.waterLevels[x].dy * dt -
-      (physics.waterLevels[x + 1].y + physics.waterLevels[x + 1].dy * dt);
-
-    if (((dy1 > 0.0 && dy2 < 0.0) || (dy1 < 0.0 && dy2 > 0.0)) &&
-	((physics.waterLevels[x].dy > 0.0 && physics.waterLevels[x + 1].dy < 0.0) ||
-	 (physics.waterLevels[x].dy < 0.0 && physics.waterLevels[x + 1].dy > 0.0)))
-    {
-      const float resonanceLimit = 0.5 / dt;
-
-      if (physics.waterLevels[x].dy > resonanceLimit)
-      {
-	physics.waterLevels[x].dy = resonanceLimit;
-      }
-      else if (physics.waterLevels[x].dy < -resonanceLimit)
-      {
-	physics.waterLevels[x].dy = -resonanceLimit;
-      }
-
-      if (physics.waterLevels[x + 1].dy > resonanceLimit)
-      {
-	physics.waterLevels[x + 1].dy = resonanceLimit;
-      }
-      else if (physics.waterLevels[x + 1].dy < -resonanceLimit)
-      {
-	physics.waterLevels[x + 1].dy = -resonanceLimit;
-      }
-    }
-  }
-
   for (x = 1; x < (w - 1); x++)
   {
     /* Move the current water level */
@@ -388,10 +352,8 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
 }
 
 /* Update the bubble array from the system load */
-static void bubblemon_updatePhysics()
+static void bubblemon_updatePhysics(int msecsSinceLastCall)
 {
-  int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
-  
   /* No size -- no go */
   if ((bubblePic.width == 0) ||
       (bubblePic.height == 0))
@@ -742,12 +704,32 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic)
 
 const bubblemon_picture_t *bubblemon_getPicture()
 {
+  int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
+  static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
+  static int physicalTimeElapsed = 0;
+  
   // Get the system load
   meter_getLoad(&sysload);
   bubblemon_censorLoad();
   
   // Push the universe around
-  bubblemon_updatePhysics();
+  if (msecsSinceLastCall > 200)
+  {
+    msecsSinceLastCall = 200;
+  }
+  if (msecsSinceLastCall <= msecsPerPhysicsFrame)
+  {
+    bubblemon_updatePhysics(msecsSinceLastCall);
+  }
+  else
+  {
+    while (physicalTimeElapsed < msecsSinceLastCall)
+    {
+      bubblemon_updatePhysics(msecsPerPhysicsFrame);
+      physicalTimeElapsed += msecsPerPhysicsFrame;
+    }
+    physicalTimeElapsed -= msecsSinceLastCall;
+  }
   
   // Convert the system load into a water-and-air array
   bubblemon_physicsToBubbleArray(&bubblePic);
