@@ -47,14 +47,8 @@
 #define MAXSWAPAIRCOLOR   (bubblemon_color_t)0xff0000
 #define MAXSWAPWATERCOLOR (bubblemon_color_t)0xaa0000
 
-/* Water non-transparency, 0-100 */
-#define WATERALPHA        70
-
 /* Color code constants */
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
-
-/* Bottle behaviour */
-typedef enum { GONE, FLOATING, SINKING, FALLING } bubblemon_bottlestate_t;
 
 /* An (a)rgb color value */
 typedef union {
@@ -108,9 +102,6 @@ typedef struct
   int n_bubbles;
   int max_bubbles;
   bubblemon_Bubble *bubbles;
-
-  float bottle_y;
-  bubblemon_bottlestate_t bottle_state;
 } bubblemon_Physics;
 
 /* The 'pixels' field of the returned struct contains the pixels to

@@ -1,4 +1,4 @@
-/* GIMP RGBA C-Source image dump (msgInBottle.c) */
+/* GIMP RGBA C-Source image dump (flaska.c) */
 
 static const struct {
   unsigned int 	 width;
