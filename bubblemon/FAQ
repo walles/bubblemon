@@ -122,7 +122,7 @@ try to fix it.
 Instructions for doing this is in the TRANSLATIONS file.
 
 
-11. I'm running Mandrake Linux and the configure script fails.  What's
+10. I'm running Mandrake Linux and the configure script fails.  What's
     up?
 
 You haven't installed the `devel' RPMs from the second Mandrake CD.

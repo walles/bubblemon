@@ -5,6 +5,8 @@ tend to be completed earlier than stuff towards the end.  If you want
 something on this list done quickly, I've provided some pointers to
 get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 
+. Add a pointer to where the FAQ is located to the About box.
+
 . Translate the applet into every single language in existance.  If
  the applet doesn't show up in your favourite language even though
  other parts of your GNOME desktop does, read the TRANSLATIONS file
@@ -68,9 +70,5 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  tooltip if it is visible when applet_widget_set_widget_tooltip() is
  called.
 
-. Fix the performance problems that glibtop are having with swap space
- measurement and with memory measurement on (some?) systems with >=
- 128Mb memory.  Useful if you have this much memory.  The libgtop
- documentation would probably be a good starting place for this; it is
- available off of
- "http://www.home-of-linux.org/gnome/libgtop/manual/1.1/libgtop_toc.html".
+. Make the configure script check for if we are running on a Linux 2.2
+ system.  If that's the case, check memory usage a lot more seldom.

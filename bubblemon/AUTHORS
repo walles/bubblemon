@@ -1,3 +1,5 @@
+Emacs, this is a -*-text-*- file.
+
 Bubbling Load Monitoring Applet
 - A GNOME panel applet that displays the CPU + memory load as a
   bubbling liquid.
@@ -31,5 +33,8 @@ for finding a problem with get_censored_memory_and_swap().
 Thanks to Justin McAleer for providing me with my first actual lead to
 what may be causing the performance problems some people are having.
 This also lead to me actually tracking it down to problems with
-glibtop (which I worked around instead of trying to solve them, shame
-on me).
+checking the amounts of used memory and swap.  At first I thought the
+problem was with glibtop, but then "timecop" informed me that the
+problem is with Linux 2.2 and not glibtop.  Also, "timecop" claimed
+that these problems should be fixed (or at least not as visible) by
+2.4.
