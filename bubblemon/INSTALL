@@ -11,21 +11,10 @@ Copyright (C) 1999 Merlin Hughes
 
 COMPILING:
 
-. Unpack the source:
-  tar xfz bubblemon-*.tgz
+./configure
+make
 
-. Move into the directory:
-  cd bubblemon-*/
-
-. Make the applet:
-  make mode:=release
-    OR
-  make mode:=debug
-
-. Install the applet:
-  make install
-    OR (for RedHat)
-  make prefix=/usr etcdir=/etc install
-
-. Start up the applet:
-  Choose Add Applet->Monitors->Bubbling Load Monitor in your GNOME panel.
+INSTALLING:
+su
+[enter root password]
+make install
