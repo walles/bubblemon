@@ -61,7 +61,6 @@ int main (int argc, char ** argv)
 {
   const gchar *goad_id;
   GtkWidget *applet;
-  int no_loop = 0;
 
 #ifdef ENABLE_NLS
   setlocale (LC_ALL, "");
@@ -69,12 +68,30 @@ int main (int argc, char ** argv)
   textdomain (PACKAGE);
 #endif
 
-  if ((argc > 1) && (strcmp(argv[argc-1], "--no-endless-loop") == 0))
+  if (argc == 1)
     {
-      no_loop = 1;
-      argc--;
+      /* A quick-and-dirty hack to start the GOAD server pseudo-automatically.
+       * There is probably a better way to do this.
+       *       -- Alex Badea
+       *
+       * If so, it's probably documented at:
+       * http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html
+       *       -- Johan Walles
+       */
+
+       char **new_argv;
+       int i;
+       
+       new_argv = g_malloc0(sizeof(char *) * (argc + 2));
+       for (i = 0; i < argc; i++)
+         new_argv[i] = argv[i];
+       new_argv[argc] = "--activate-goad-server=bubblemon_applet";
+       new_argv[argc+1] = NULL;
+
+       argc += 1;
+       argv = new_argv;
     }
-  
+
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
   applet_factory_new ("bubblemon_applet", NULL,
 		     (AppletFactoryActivator) applet_start_new_applet);
@@ -97,38 +114,23 @@ int main (int argc, char ** argv)
   goad_id = goad_server_activation_id ();
   if (!goad_id)
     {
-      /* A quick-and-dirty hack to start the GOAD server pseudo-automatically.
-       * There is probably a better way to do this.
-       *       -- Alex Badea
-       *
-       * If so, it's probably documented at:
-       * http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html
-       *       -- Johan Walles
-       */
-
-      if (!no_loop)
-        {
-          char **new_argv;
-          int k;
-          
-          new_argv = g_malloc0(sizeof(char *) * (argc + 3));
-          for (k = 0; k < argc; k++)
-            new_argv[k] = argv[k];
-          new_argv[argc] = "--activate-goad-server=bubblemon_applet";
-          new_argv[argc+1] = "--no-endless-loop";
-          new_argv[argc+2] = NULL;
-          execv(argv[0], new_argv);
-        }
-
       fprintf(stderr,
-              "Couldn't activate GOAD server.  If you know what this means, or how\n"
-              "to fix it, I'd appreciate it a lot if you could tell me.  You may\n"
-              "want to RTFM first at\n"
-              "`http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html'.\n"
+              "Couldn't activate GOAD server (even after trying the workaround).\n"
+              "Make sure you have a working GNOME desktop and that you can run\n"
+              "other panel applets.  Also, if you haven't tried it already, try\n"
+              "right clicking on the GNOME panel, choose Panel / Add to panel /\n"
+              "Applet(s) / Monitors / Bubbling Load Monitor.  Yet another option\n"
+              "is to try adding \"--activate-goad-server=bubblemon_applet\" to\n"
+              "the command line.\n"
+              "\n"
+              "If it still does not work I have no idea :-(.  If you know anything\n"
+              "about what not being able to start the GOAD server means, I'd\n"
+              "appreciate it a lot if you could tell me.  You may want to RTFM first\n"
+              "at 'http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html'.\n"
               "\n"
               "Then send me (d92-jwa@nada.kth.se) an e-mail (in English or Swedish)\n"
-              "with your solution.  The GOAD server activation code is in the\n"
-              "%s() function at %s:%d.\n"
+              "containing any findings.  The GOAD server activation code is in the\n"
+              "%s() function in the file %s right above line %d .\n"
               "\n"
               "Thanks a bunch :-)  /Johan.\n",
               __FUNCTION__,

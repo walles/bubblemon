@@ -1,3 +1,10 @@
+bubblemon (stable) unstable; urgency=low
+
+  * Updated GOAD workaround to not exec() another binary (which wasn't
+    always found, which lead to confused users).
+
+ --
+
 bubblemon (1.0.6) stable; urgency=low
 
   * Added Hungarian translation.
