@@ -85,7 +85,7 @@ static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
 
 /* Bottle behaviour */
-typedef enum { GONE, FLOATING, SINKING, FALLING } bubblemon_bottlestate_t;
+typedef enum { GONE, FLOATING, SINKING, FALLING, SUNK } bubblemon_bottlestate_t;
 
 /* Bubble layers */
 typedef enum { BACKGROUND, FOREGROUND } bubblemon_layer_t;

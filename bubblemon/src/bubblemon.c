@@ -443,7 +443,8 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
 
 /* Update the bottle */
-static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
+static void bubblemon_updateBottle(int msecsSinceLastCall,
+				   mail_status_t mailStatus)
 {
   float dt = msecsSinceLastCall / 30.0;
   float gravityDdy;
@@ -456,22 +457,22 @@ static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
     physics.bottle_y < MIN(physics.waterLevels[bubblePic.width / 2].y,
 			   bubblePic.height - msgInBottle.height / 2);
 
-  if (youveGotMail) {
-    if (physics.bottle_state == GONE) {
-      // Drop a new bottle
-      physics.bottle_y = bubblePic.height + msgInBottle.height;
-      physics.bottle_dy = 0.0;
-      physics.bottle_state = FALLING;
-    } else if (physics.bottle_state == SINKING) {
-      physics.bottle_state = FLOATING;
-    }
+  if ((mailStatus != NO_MAIL) && (physics.bottle_state == GONE)) {
+    /* Mail is available but the bottle's gone.  Drop a new bottle */
+    physics.bottle_y = bubblePic.height + msgInBottle.height;
+    physics.bottle_dy = 0.0;
+    physics.bottle_state = FALLING;
+  } else if (mailStatus == UNREAD_MAIL) {
+    /* Float the bottle as long as there's unread mail. */
+    physics.bottle_state = FLOATING;
+  } else if ((mailStatus == NO_MAIL) && (physics.bottle_state == GONE)) {
+    /* No mail, no bottle, everybody's happy */
+  } else if ((mailStatus == READ_MAIL) && (physics.bottle_state == SUNK)) {
+    /* Only read mail left and the bottle has sunk, everybody's happy */
   } else {
-    /* No unread mail */
-    if ((physics.bottle_state == FALLING) ||
-	(physics.bottle_state == FLOATING))
-    {
-      physics.bottle_state = SINKING;
-    }
+    /* The bottle is there, but there's no unread mail.  Sink the
+     * bottle. */
+    physics.bottle_state = SINKING;
   }
 
   if (physics.bottle_state == GONE) {
@@ -479,7 +480,9 @@ static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
   }
 
   /* Accelerate the bottle */
-  if ((physics.bottle_state == FALLING) ||
+  if (physics.bottle_state == SUNK) {
+    gravityDdy = 0;
+  } else if ((physics.bottle_state == FALLING) ||
       (physics.bottle_state == SINKING) ||
       !isInWater)
   {
@@ -514,9 +517,18 @@ static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
     physics.bottle_state = FLOATING;
   }
   
-  /* Did we lose it? */
-  if ((physics.bottle_state == SINKING) && (physics.bottle_y + msgInBottle.height < 0.0)) {
-    physics.bottle_state = GONE;
+  /* Did it hit bottom? */
+  if (physics.bottle_state == SINKING) {
+    if ((mailStatus == READ_MAIL)
+	&& (physics.bottle_y <= msgInBottle.height / 4.0)) {
+      /* Keep it there */
+      physics.bottle_y = msgInBottle.height / 4.0;
+      physics.bottle_state = SUNK;
+      physics.bottle_dy = 0.0;
+    } else if (physics.bottle_y + msgInBottle.height < 0.0) {
+      /* Remove it */
+      physics.bottle_state = GONE;
+    }
   }
 }
 
@@ -580,7 +592,8 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
 }
 
 /* Update the bubble array from the system load */
-static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
+static void bubblemon_updatePhysics(int msecsSinceLastCall,
+				    mail_status_t mailStatus)
 {
   /* No size -- no go */
   if ((bubblePic.width == 0) ||
@@ -638,7 +651,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
   bubblemon_updateWaterlevels(msecsSinceLastCall);
   bubblemon_updateWeeds(msecsSinceLastCall);
   bubblemon_updateBubbles(msecsSinceLastCall);
-  bubblemon_updateBottle(msecsSinceLastCall, youveGotMail);
+  bubblemon_updateBottle(msecsSinceLastCall, mailStatus);
 }
 
 int bubblemon_getMemoryPercentage()
@@ -1030,7 +1043,7 @@ const bubblemon_picture_t *bubblemon_getPicture()
   static int physicalTimeElapsed = 0;
   
   int msecsSinceLastCall;
-  int youveGotMail = mail_hasUnreadMail();
+  mail_status_t mailStatus = mail_getMailStatus();
   
   // Make sure we never try to move things backwards
   do {
@@ -1057,13 +1070,13 @@ const bubblemon_picture_t *bubblemon_getPicture()
   // Push the universe around
   if (msecsSinceLastCall <= msecsPerPhysicsFrame)
   {
-    bubblemon_updatePhysics(msecsSinceLastCall, youveGotMail);
+    bubblemon_updatePhysics(msecsSinceLastCall, mailStatus);
   }
   else
   {
     while (physicalTimeElapsed < msecsSinceLastCall)
     {
-      bubblemon_updatePhysics(msecsPerPhysicsFrame, youveGotMail);
+      bubblemon_updatePhysics(msecsPerPhysicsFrame, mailStatus);
       physicalTimeElapsed += msecsPerPhysicsFrame;
     }
     physicalTimeElapsed -= msecsSinceLastCall;

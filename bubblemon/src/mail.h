@@ -23,11 +23,14 @@
 
 #include "bubblemon.h"
 
+/* E-mail status constants */
+typedef enum { NO_MAIL, UNREAD_MAIL, READ_MAIL } mail_status_t;
+
 /* Does the user have unread mail?
  *
  * Note that this function will be called once per on-screen frame, so
  * in case it always takes lots of time to evaluate the bubblemon will
- * get *slow*. */
-extern int mail_hasUnreadMail(void);
+ * become *slow*. */
+extern mail_status_t mail_getMailStatus(void);
 
 #endif

@@ -128,10 +128,10 @@ static char *getMailFileName(void)
   return mailFileName[0] == '\0' ? NULL : mailFileName;
 }
 
-int mail_hasUnreadMail(void)
+mail_status_t mail_getMailStatus(void)
 {
   static int countdown = 0;
-  static int cachedMailState = 0;
+  static mail_status_t cachedMailState = 0;
   char *mailFileName;
 
   struct stat mailStat;
@@ -146,18 +146,27 @@ int mail_hasUnreadMail(void)
   mailFileName = getMailFileName();
   if (mailFileName == NULL)
   {
-    return 0;
+    cachedMailState = NO_MAIL;
+    return cachedMailState;
   }
   
   if (stat(mailFileName, &mailStat) != 0)
   {
     // Checking the file dates on the spool file failed
-    return 0;
+    cachedMailState = NO_MAIL;
+    return cachedMailState;
   }
-
-  // New mail has arrived if the mail file has been updated after it
-  // was last read from
-  cachedMailState = mailStat.st_mtime > mailStat.st_atime;
+  
+  if (mailStat.st_size == 0) {
+    /* No mail */
+    cachedMailState = NO_MAIL;
+  } else {
+    /* New mail has arrived if the mail file has been updated after it
+       was last read from */
+    cachedMailState = ((mailStat.st_mtime > mailStat.st_atime)
+		       ? UNREAD_MAIL
+		       : READ_MAIL);
+  }
 
   return cachedMailState;
 }
