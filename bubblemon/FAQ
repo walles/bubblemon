@@ -19,7 +19,7 @@ cycles go.  Then, either fix it yourself and send me
 output of the commands recommended in PROFILING.
 
 Note also that several users have reported a CPU utilization of over
-30% for a system similar to mine.  In both of the cases, the profiling
+30% for a system similar to mine.  In all of the cases, the profiling
 said that only 0-2% of the CPU was used by my code.  This means that
 cycles are disappearing outside of my code.
 

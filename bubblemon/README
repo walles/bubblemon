@@ -36,7 +36,8 @@ TODO:
  the update_tooltip() function, but I have absolutely no idea what.
  HELP!!
 
-. Get the applet working on 24 bit displays.
+. Get the applet working on 24 bit displays (at least one person
+ claims that it already does work there).
 
 . Make bubble movement independent of update frequency
 
@@ -48,3 +49,9 @@ TODO:
  session handling code.
 
 . Follow resize hints from the GNOME 1.2 panel
+
+. Make the applet look more like a glass vial.  Perhaps by drawing a
+ vial outline, and making the bubbles transparent instead of
+ air-colored?
+
+. Fix the performance problems some people are having.
