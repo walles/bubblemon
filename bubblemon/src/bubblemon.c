@@ -956,6 +956,17 @@ gint bubblemon_size_change_handler(GtkWidget * w,
   bm->depth = new_size;
   bm->breadth = (new_size * RELATIVE_WIDTH) / RELATIVE_HEIGHT;
 
+  /*
+    FIXME: For some unknown reason, at 16bpp, the width cannot be
+    odd, or the drawing doesn't work.  I have not been able to
+    determine why.  Until someone convinces me otherwise, I'll assume
+    this is a bug in gdk / gtk+.  Anyway, the workaround on the next
+    line kills the lowermost bit of the new width so that this bug
+    never (?) gets triggered.  This is not a solution, and I hate it,
+    but it's the best I can do for the moment.
+  */
+  bm->breadth &= ~1;
+
   bubblemon_set_size(bm);
 
   /* Redraw the whole widget after a size change */
@@ -1265,7 +1276,7 @@ void bubblemon_set_size (BubbleMonData * bm)
       bm->waterlevels[i] = bm->depth;
     }
 
-  /* Allocate water level velocity memory */
+  /* Allocate (zeroed) water level velocity memory */
   if (bm->waterlevels_dy)
     free (bm->waterlevels_dy);
 
