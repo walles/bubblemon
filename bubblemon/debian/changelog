@@ -1,3 +1,12 @@
+bubblemon (1.2.3-1) stable; urgency=medium
+
+  * A message in a bottle now appears when there is unread mail.
+  * Bubbles can now move in either the foreground or background, thus
+    creating a (rather cheesy) illusion of depth.
+  * Several minor visual problems have been resolved.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sun, 23 Jun 2002 15:36:15 +0200
+
 bubblemon (1.2.2-1) stable; urgency=medium
 
   * Resonance problems fixed.
