@@ -6,14 +6,14 @@ Bubbling Load Monitoring Applet
 Copyright (C) 1999 Johan Walles
 - d92-jwa@nada.kth.se
 - http://www.nada.kth.se/~d92-jwa/code
-Copyright (C) 1999 Merlin Hughes
-- http://nitric.com/freeware
 
 --
 
 AUTHORS:
 
 Main author: Johan Walles <d92-jwa@nada.kth.se>
+
+Thanks to Merlin Hughes for the inspiration!
 
 Thanks to Harri Haataja for fixing the RPM spec.
 
