@@ -43,7 +43,6 @@
 
 #include "bubblemon.h"
 #include "session.h"
-#include "properties.h"
 
 int
 main (int argc, char ** argv)
@@ -381,13 +380,6 @@ make_new_bubblemon_applet (const gchar *goad_id)
 					 GNOME_STOCK_MENU_ABOUT,
 					 _("About..."),
 					 about_cb,
-					 bm);
-
-  applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
-					 "properties",
-					 GNOME_STOCK_MENU_PROP,
-					 ("Properties..."),
-					 bubblemon_properties_window,
 					 bm);
 
   gtk_widget_show_all (bm->applet);
