@@ -116,8 +116,8 @@ The build process is broken.  It shouldn't be.  Send me
 'make', and also tell me what kind of Unix you are using and I'll
 try to fix it.  To capture the output from those commands, do:
 
-./configure &> configure.log
-make &> make.log
+./configure &> log-configure
+make &> log-make
 
 Then send me (d92-jwa@nada.kth.se) a copy of both log files.
 
