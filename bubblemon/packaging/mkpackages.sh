@@ -16,7 +16,7 @@
 # directory, in your BUBBLEMON_ROOT directory or in your RPMS
 # directory, I don't know what happens.
 
-BUBBLEMON_ROOT=/home/johan/src/Gnome/bubblemon
+BUBBLEMON_ROOT=/home/johan/src/Gnome/bubblemon-stable
 RPM_SOURCES=/home/johan/src/RPM/SOURCES
 RPMS=/home/johan/src/RPM/RPMS/i386
 
