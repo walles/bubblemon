@@ -90,7 +90,7 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
 
   /* Find out the CPU load */
   glibtop_get_cpu (&cpu);
-  load = cpu.user + cpu.nice + cpu.sys;
+  load = cpu.user + cpu.sys;
   total = cpu.total;
   
   /* "i" is an index into a load history */
@@ -426,12 +426,12 @@ gint bubblemon_update (gpointer data)
   bm->waterlevels[0] = waterlevel_goal;
   bm->waterlevels[w - 1] = waterlevel_goal;
 
-  for (x = 1; x < w; x++)
+  for (x = 1; x < (w - 1); x++)
     {
       bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
 				     bm->waterlevels[x + 1]) >> 1;
 
-      if (bm->waterlevels_inactive[x] == bm->waterlevels_inactive[x])
+      if (bm->waterlevels[x] == bm->waterlevels_inactive[x])
 	{
 	  /* This waterlevel hasn't moved; guard from rounding errors */
 	  bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
