@@ -1,7 +1,7 @@
 # -*-m4-*- Process this file with autoconf to produce a configure script.
 
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 0.9.8-pre)
+AM_INIT_AUTOMAKE(bubblemon, 0.9.8-pre2)
 AM_CONFIG_HEADER(config.h)
 
 # Pick up the Gnome macros.
@@ -16,6 +16,10 @@ AC_HEADER_STDC
 GNOME_INIT_LIBGTOP(1.0.0, fail)
 GNOME_COMPILE_WARNINGS
 GNOME_X_CHECKS
+
+# Find some more or less non-standard data types
+AC_CHECK_TYPE(u_int32_t, unsigned int)
+AC_CHECK_TYPE(u_int16_t, unsigned short int)
 
 # Find GNOME's sysconf dir
 AC_MSG_CHECKING(for GNOME's sysconf dir)

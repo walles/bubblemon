@@ -15,6 +15,7 @@ COMPILING:
 make
 
 INSTALLING:
+
 su
 [enter root password]
 make install
