@@ -12,6 +12,20 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  programming skills, and should be a both easy and useful way to
  improve the applet.
 
+. For some (but not all) people with 24 bit displays, the applet won't
+ work.  For this reason, the color handling should be re-written.  If
+ you want to look into this, the function bubblemon_setup_colors() in
+ bubblemon.c should be re-written.  Also, the last lines of
+ bubblemon_update() in bubblemon.c (below the comment about "drawing
+ magic") should be re-written.  Currently, 96 colors are allocated to
+ begin with, and depending on swap load three of them are used for
+ drawing the applet at any time.  The way it should be done (if that's
+ possible, I don't know) is to allocate three colors, and use them for
+ drawing all the time.  These three colors should then be modified
+ according to the current swap load.  If you know about, or want to
+ learn about GTK+ color handling, this one is for *you*.  Some notes
+ on this topic are in the DRAWING_REWRITE file.
+
 . Pause the applet if it ain't visible for some reason (for example if
  the GNOME panel is hidden).  If you know about or want to learn how
  to make nice GNOME 1.2 compliant panel applets, this one is for you.
@@ -43,19 +57,6 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  If you want to learn how to easily write GUIs for GNOME, this one is
  for you.
 
-. For some (but not all) people with 24 bit displays, the applet won't
- work.  For this reason, the color handling should be re-written.  If
- you want to look into this, the function bubblemon_setup_colors() in
- bubblemon.c should be re-written.  Also, the last lines of
- bubblemon_update() in bubblemon.c (below the comment about "drawing
- magic") should be re-written.  Currently, 96 colors are allocated to
- begin with, and depending on swap load three of them are used for
- drawing the applet at any time.  The way it should be done (if that's
- possible, I don't know) is to allocate three colors, and use them for
- drawing all the time.  These three colors should then be modified
- according to the current swap load.  If you know about, or want to
- learn about GTK+ color handling, this one is for *you*.
-
 . When the applet gets a properties box, make it run some configurable
  command line when clicked.
 
@@ -70,7 +71,7 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 . Fix the GTK+ bug 15891 (http://bugs.gnome.org/db/15/15891.html).
  The applet_widget_set_widget_tooltip() function erroneously hides the
  tooltip if it is visible when applet_widget_set_widget_tooltip() is
- called.
+ called.  Mail patches to "15891@bugs.gnome.org".
 
 . Add a pointer to where the FAQ is located to the About box.  Is this
  at all possible to do in some way that survives all different kinds
