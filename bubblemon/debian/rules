@@ -11,7 +11,7 @@ export DH_COMPAT=1
 build: build-stamp
 build-stamp:
 	dh_testdir
-	./configure --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
+	./configure --with-all-linguas --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
 	$(MAKE)
 
 	touch build-stamp
