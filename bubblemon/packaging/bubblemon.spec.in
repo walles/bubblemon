@@ -52,4 +52,4 @@ make clean
 /usr/share/applets/Monitors/bubblemon_applet.desktop
 /usr/share/locale/*/LC_MESSAGES/bubblemon.mo
 
-%doc AUTHORS COPYING FAQ INSTALL README FAQ PROFILING TRANSLATIONS TODO
+%doc AUTHORS COPYING FAQ README FAQ PROFILING TRANSLATIONS TODO
