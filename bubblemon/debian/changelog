@@ -1,0 +1,9 @@
+bubblemon (0.9.7-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Bernd Eckenfels <ecki@debian.org>  Sun, 18 Jun 2000 03:05:40 +0200
+
+Local variables:
+mode: debian-changelog
+End:

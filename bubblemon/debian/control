@@ -1,0 +1,12 @@
+Source: bubblemon
+Section: x11
+Priority: optional
+Maintainer: Bernd Eckenfels <ecki@debian.org>
+Standards-Version: 3.0.1
+
+Package: bubblemon
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Bubbling Load Monitoring Gnome Applet
+ A GNOME panel applet that displays the CPU + memory load as a bubbling
+ liquid.
