@@ -5,12 +5,14 @@ Copyright (C) 1999 Johan Walles
 - d92-jwa@nada.kth.se
 - http://www.nada.kth.se/~d92-jwa/code
 Copyright (C) 1999 Merlin Hughes
+- http://nitric.com/freeware
 
 --
 
 AUTHORS:
 
+RPM spec: Harri Haataja
 Bubbling code: Johan Walles <d92-jwa@nada.kth.se>
-GNOME code: Merlin Hughes <merlin@merlin.org>
+GNOME code: Merlin Hughes
 Core ruthlessly adopted and adapted from Nat Friedman's battery
 monitor.
