@@ -335,7 +335,7 @@ gint bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, aliascolor, waterlevel_goal, memoryPercentage;
+  int aircolor, watercolor, aliascolor, waterlevel_goal, memoryPercentage, bias;
   int swapPercentage;
   int *temp;
   
@@ -438,32 +438,10 @@ gint bubblemon_update (gpointer data)
   /* Create a new bubble if the planets are correctly aligned... */
   if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
     {
-      int surface_rise_start, surface_rise_stop, surface_rise_radius, surface_rise;
-      
       /* We don't allow bubbles on the edges 'cause we'd have to clip them */
       bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
       bubbles[bm->n_bubbles].y = h - 1;
       bubbles[bm->n_bubbles].dy = 0.0;
-
-      /* Raise a portion of the surface above the new bubble */
-      surface_rise_radius = COOKING_FACTOR;
-
-      if (surface_rise_radius > 0)
-	{
-	  /* Clip the surface rise */
-	  surface_rise_start = bubbles[bm->n_bubbles].x - surface_rise_radius;
-	  if (surface_rise_start < 1)
-	    surface_rise_start = 1;
-      
-	  surface_rise_stop = bubbles[bm->n_bubbles].x + surface_rise_radius;
-	  if (surface_rise_stop > (w - 2))
-	    surface_rise_stop = w - 2;
-
-	  for (surface_rise = surface_rise_start;
-	       surface_rise <= surface_rise_stop;
-	       surface_rise++)
-	    bm->waterlevels[surface_rise]--;
-	}
 
       /* Count the new bubble */
       bm->n_bubbles++;
@@ -479,24 +457,9 @@ gint bubblemon_update (gpointer data)
       bubbles[i].y += bubbles[i].dy;
 
       /* Did we lose it? */
-      if (bubbles[i].y < (bm->waterlevels[bubbles[i].x] + 1))
+      if (bubbles[i].y < bm->waterlevels[bubbles[i].x])
 	{
-	  int x = bubbles[i].x;
-	  int y = bubbles[i].y;
-	  int dent_depth = (bm->waterlevels[x] + 1) - y;
-	  
-	  /* Make a dent in the surface from the lost bubble */
-	  if (x > 1)
-	    {
-	      bm->waterlevels[x - 1] += dent_depth;
-	    }
-	  if (x < (w - 1))
-	    {
-	      bm->waterlevels[x + 1] += dent_depth;
-	    }
-	  bm->waterlevels[x] += dent_depth;
-	  
-	  /* Nuke the lost bubble */
+	  /* Yes; nuke it */
 	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;
 	  bubbles[i].y  = bubbles[bm->n_bubbles - 1].y;
 	  bubbles[i].dy = bubbles[bm->n_bubbles - 1].dy;
@@ -578,20 +541,11 @@ gint bubblemon_update (gpointer data)
     {
       bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
 				     bm->waterlevels[x + 1]) >> 1;
-
-      /* In cases of uncertainity... */
-      if (bm->waterlevels[x - 1] != bm->waterlevels[x + 1])
-	{
-	  /* ... guard from rounding errors. */
-	  if (bm->waterlevels_inactive[x] > waterlevel_goal)
-	    {
-	      bm->waterlevels_inactive[x]--;
-	    }
-	  else if (bm->waterlevels_inactive[x] < waterlevel_goal)
-	    {
-	      bm->waterlevels_inactive[x]++;
-	    }
-	}
+      
+      /* Guard from rounding errors */
+      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
+      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
+	bm->waterlevels_inactive[x]++;
     }
 
   bm->waterlevels_inactive[0] = waterlevel_goal;

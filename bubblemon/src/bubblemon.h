@@ -31,7 +31,6 @@
 // Note: NUM_COLORS must be divisible by 3
 #define NUM_COLORS 99 /* 384 */
 #define MAX_BUBBLES 100
-#define COOKING_FACTOR 4
 #define GRAVITY 0.01
 
 typedef struct {
