@@ -53,3 +53,5 @@ make clean
 /usr/share/locale/*/LC_MESSAGES/bubblemon.mo
 
 %doc AUTHORS COPYING FAQ README FAQ PROFILING TRANSLATIONS TODO
+
+/usr/man/man1/bubblemon_applet.1
