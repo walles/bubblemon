@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = macros src gnome packaging
+SUBDIRS = macros src gnome packaging debian
 
 EXTRA_DIST = PROFILING FAQ
 

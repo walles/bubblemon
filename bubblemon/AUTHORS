@@ -30,3 +30,6 @@ for finding a problem with get_censored_memory_and_swap().
 
 Thanks to Justin McAleer for providing me with my first actual lead to
 what may be causing the performance problems some people are having.
+This also lead to me actually tracking it down to problems with
+glibtop (which I worked around instead of trying to solve them, shame
+on me).

@@ -188,10 +188,11 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   static int swap_delay = 0, mem_delay = 0;
 
   /*
-    Find out the memory load, but update it only every 10 times we get
-    here.  If we do it every time, it bogs down the program.
+    Find out the memory load, but update it only every 25 times we get
+    here.  This works around a performance problem in libgtop that is
+    present on some systems, possibly those with > 128Mb memory.
 
-    FIXME: I have absolutely no idea how often that is.
+    FIXME: I have absolutely no idea how often this is.
   */
   if (mem_delay <= 0)
     {
@@ -201,7 +202,7 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 	FIXME: The following number should be based on a constant or
 	variable.
       */
-      mem_delay = 10;
+      mem_delay = 25;
     }
   mem_delay--;
   

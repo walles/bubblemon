@@ -7,29 +7,16 @@ $ make
 $ src/bubblemon_applet --activate-goad-server=bubblemon_applet
 
 
-2. Performance sucks.  What should I do?
+2. I'm running a background process on my system that should be using
+  all of my CPU, but the Bubblemon shows very few or no bubbles at
+  all.  Why is that?
 
-To give you some frame of reference of what kind of performance to
-expect; on my 400MHz PII system I have never seen the bubblemon go
-over 1.5% CPU utilization (according to 'top').
-
-See the file PROFILING for instructions on finding out where your
-cycles go.
-
-Note that several users have reported a CPU utilization of over 30%
-for a system similar to mine.  In all of the cases, the profiling said
-that only 0-2% of the CPU was used by my code.  This means that cycles
-are disappearing outside of my code.
-
-As I don't have these problems on any of the (two) systems I've tried
-the applet on, this is very hard for me to track down.  So if you know
-some C and want to help me find the problem, I will greatly appreciate
-any help I can get!  I'm really stuck on this one, so please HELP!
-
-My only lead is that one person who did *not* have this problem added
-128 megs to his system, and was then hit by it.  This makes me guess
-that libgtop (http://www.home-of-linux.org/gnome/libgtop) is the
-perpetrator.  If you want to look into this, please do!
+Because the applet ignores nice (do 'man nice') processes.  The
+reasoning behind this is that I use the applet for keeping track of
+how much processing power I have at my disposal.  As 'nice' processes
+will yield as soon as another process starts, I have all of my CPU
+power at my disposal, even with a 'nice' background job running.
+Therefore: 'nice' processes don't bubble.
 
 
 3. The program doesn't do anything; it doesn't even crash!
@@ -42,13 +29,7 @@ $ make
 $ src/bubblemon_applet --activate-goad-server=bubblemon_applet
 
 
-4. Isn't the applet supposed to have a tooltip?  Where is it?
-
-Yes it is and the code is there for it.  See the README file under the
-TODO section for more info.
-
-
-5. The program crashes.  What should I do?
+4. The program crashes.  What should I do?
 
 Either fix it yourself and send me (d92-jwa@nada.kth.se) a patch, or
 send me a bug report.  The bug report should contain the result of
@@ -64,19 +45,7 @@ $ gdb bubblemon_applet
 (gdb) info stack
 
 
-6. I'm running a background process on my system that should be using
-  all of my CPU, but the Bubblemon shows very few or no bubbles at
-  all.  Why is that?
-
-Because the applet ignores nice (do 'man nice') processes.  The
-reasoning behind this is that I use the applet for keeping track of
-how much processing power I have at my disposal.  As 'nice' processes
-will yield as soon as another process starts, I have all of my CPU
-power at my disposal, even with a 'nice' background job running.
-Therefore: 'nice' processes don't bubble.
-
-
-7. The amount of memory used reported by the applet is different from
+5. The amount of memory used reported by the applet is different from
   what [other program] says.  How come?
 
 Free memory measuring on Linux (at least) is somewhat complicated.
@@ -113,7 +82,17 @@ If you want to know more than this, have a look at the
 get_censored_memory_and_swap() function in bubblemon.c.
 
 
-8. The configure script reports no problems, but I still get errors
+6. Performance sucks.  What should I do?
+
+To give you some frame of reference of what kind of performance to
+expect; on my 400MHz PII system I have never seen the bubblemon go
+over 1.5% CPU utilization (according to 'top').
+
+See the file PROFILING for instructions on finding out where your
+cycles go.
+
+
+7. The configure script reports no problems, but I still get errors
   (or warnings) when doing 'make'.  What's up?
 
 The build process is broken.  It shouldn't be.  Send me
@@ -122,6 +101,6 @@ The build process is broken.  It shouldn't be.  Send me
 try to fix it.
 
 
-9. I have another question/problem.  What should I do?
+8. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
