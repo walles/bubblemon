@@ -42,5 +42,6 @@ make clean
 /usr/bin/bubblemon_applet
 /etc/CORBA/servers/bubblemon_applet.gnorba
 /usr/share/applets/Monitors/bubblemon_applet.desktop
+/usr/share/locale/*/LC_MESSAGES/bubblemon.mo
 
 %doc AUTHORS COPYING FAQ INSTALL README FAQ PROFILING TRANSLATIONS TODO
