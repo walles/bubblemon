@@ -43,6 +43,10 @@
 #define RELATIVE_WIDTH 32
 #define RELATIVE_HEIGHT 40
 
+/* How fast background bubbles move relative to the foreground
+ * bubbles. */
+#define BGBUBBLE_SPEED 0.4
+
 /* Swap usage color scale */              /*    rrggbbaa */
 static const unsigned int NOSWAPAIRCOLOR    = 0x2299ff00;
 static const unsigned int NOSWAPWATERCOLOR  = 0x0055ff80;

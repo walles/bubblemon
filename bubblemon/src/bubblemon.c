@@ -332,7 +332,9 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
     physics.bubbles[i].dy -= GRAVITY * dt;
     
     /* Move the bubble vertically */
-    physics.bubbles[i].y += physics.bubbles[i].dy * dt;
+    physics.bubbles[i].y +=
+      physics.bubbles[i].dy * dt *
+      ((physics.bubbles[i].layer == BACKGROUND) ? BGBUBBLE_SPEED : 1.0);
     
     /* Did we lose it? */
     if (physics.bubbles[i].y > physics.waterLevels[physics.bubbles[i].x].y)
