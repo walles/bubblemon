@@ -3,14 +3,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
-"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2004-01-11 20:46+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 22:19+0200\n"
 "PO-Revision-Date: 2002-09-23 19:01+3hour\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+msgid "_About..."
+msgstr "_Об апплете"
 
 #: src/bubblemon.c:152
 #, c-format
@@ -62,6 +70,3 @@ msgid ""
 msgstr ""
 "Программа показывает степень загрузки процессора в виде потока пузырьков в "
 "бурлящей жидкости."
-
-#~ msgid "_About..."
-#~ msgstr "_Об апплете"

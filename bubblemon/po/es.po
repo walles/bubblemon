@@ -5,14 +5,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.3\n"
-"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2004-01-11 20:46+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 22:19+0200\n"
 "PO-Revision-Date: 2001-02-19 14:19-03:00\n"
 "Last-Translator: Edgardo Garcia Hoeffler <edybsd@yahoo.com.ar>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr "Un monitor de carga burbujeante"
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+msgid "_About..."
+msgstr "Acerca"
 
 #: src/bubblemon.c:152
 #, c-format
@@ -68,14 +76,8 @@ msgstr ""
 "Esto es software gratis, y estás bienvenido a redistribuirlobajo ciertas "
 "condiciones (GPL), vea el archivo LICENSE para más detalles."
 
-#~ msgid "A CPU load meter monitor"
-#~ msgstr "Un monitor de carga burbujeante"
-
 #~ msgid "Bubblemon"
 #~ msgstr "Bubblemon"
 
 #~ msgid "Utility"
 #~ msgstr "Utilidades"
-
-#~ msgid "_About..."
-#~ msgstr "Acerca"

@@ -5,14 +5,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
-"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2004-01-11 20:46+0100\n"
-"PO-Revision-Date: 2004-01-11 20:49+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 22:19+0200\n"
+"PO-Revision-Date: 2004-08-16 22:21+0200\n"
 "Last-Translator: Johan Walles <d92-jwa@nada.kth.se>\n"
 "Language-Team: Swedish <d92-jwa@nada.kth.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr "En bubblande lastmätare"
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+msgid "_About..."
+msgstr "_Om..."
 
 #: src/bubblemon.c:152
 #, c-format
@@ -64,10 +72,6 @@ msgid ""
 msgstr ""
 "Denna applet visar datorns processorlast som en bubblande vätska.\n"
 "Detta är fri programvara som får spridas i enlighet med GNU GPL."
-
-#, fuzzy
-#~ msgid "_About..."
-#~ msgstr "Om..."
 
 #~ msgid "Can't create bubblemon applet!"
 #~ msgstr "Kan inte skapa appleten!"
