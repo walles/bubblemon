@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.12\n"
-"POT-Creation-Date: 2000-12-25 13:24+0100\n"
+"POT-Creation-Date: 2000-12-25 13:57+0100\n"
 "PO-Revision-Date: 2000-09-24 20:39+03:00\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -39,16 +39,16 @@ msgstr ""
 "Sivutusta käytetty: %s\n"
 "Prosessorikuorma: %d%%"
 
-#: src/bubblemon.c:566
+#: src/bubblemon.c:567
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "En voinut siirtyä hakemistoon $HOME (%s)\n"
 
-#: src/bubblemon.c:572
+#: src/bubblemon.c:573
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME-ympäristömuuttuja ei ole asetettu.\n"
 
-#: src/bubblemon.c:577
+#: src/bubblemon.c:578
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -57,27 +57,27 @@ msgstr ""
 "Bubblemon sulkeutuu. Profilointidatan pitäisi olla tiedostossa ~/gmon.out.\n"
 "Ajapa huviksesi 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:579
+#: src/bubblemon.c:580
 msgid "<name of executable>"
 msgstr "<ohjelmatiedoston nimi>"
 
-#: src/bubblemon.c:944
+#: src/bubblemon.c:946
 msgid "Can't create applet!\n"
 msgstr "Sovelmaa ei voitu luoda!\n"
 
-#: src/bubblemon.c:947
+#: src/bubblemon.c:949
 msgid "Can't open glibtop!\n"
 msgstr "glibtop:ia ei voitu avata!\n"
 
-#: src/bubblemon.c:1009
+#: src/bubblemon.c:1012
 msgid "About"
 msgstr "Tietoja"
 
-#: src/bubblemon.c:1179
+#: src/bubblemon.c:1182
 msgid "Bubbling Load Monitor"
 msgstr "Kupliva kuormamittari"
 
-#: src/bubblemon.c:1182
+#: src/bubblemon.c:1185
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

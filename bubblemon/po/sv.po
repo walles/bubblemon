@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-12-25 13:24+0100\n"
+"POT-Creation-Date: 2000-12-25 13:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johan Walles <d92-jwa@nada.kth.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,16 +38,16 @@ msgstr ""
 "Virtuellt minne: %s\n"
 "Processor: %d%%"
 
-#: src/bubblemon.c:566
+#: src/bubblemon.c:567
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunde inte byta katalog till $HOME (%s)\n"
 
-#: src/bubblemon.c:572
+#: src/bubblemon.c:573
 msgid "$HOME environment variable not set\n"
 msgstr "Miljövariabeln $HOME är inte satt\n"
 
-#: src/bubblemon.c:577
+#: src/bubblemon.c:578
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -56,27 +56,27 @@ msgstr ""
 "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
 "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
 
-#: src/bubblemon.c:579
+#: src/bubblemon.c:580
 msgid "<name of executable>"
 msgstr "<programmets namn>"
 
-#: src/bubblemon.c:944
+#: src/bubblemon.c:946
 msgid "Can't create applet!\n"
 msgstr "Kan inte skapa applet!\n"
 
-#: src/bubblemon.c:947
+#: src/bubblemon.c:949
 msgid "Can't open glibtop!\n"
 msgstr "Kan inte öppna glibtop!\n"
 
-#: src/bubblemon.c:1009
+#: src/bubblemon.c:1012
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1179
+#: src/bubblemon.c:1182
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
-#: src/bubblemon.c:1182
+#: src/bubblemon.c:1185
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.11\n"
-"POT-Creation-Date: 2000-12-25 13:24+0100\n"
+"POT-Creation-Date: 2000-12-25 13:57+0100\n"
 "PO-Revision-Date: 2000-09-04 21:46+0100\n"
 "Last-Translator: Detlef Reichl <detlef.reichl@arcormail.de>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
@@ -39,44 +39,44 @@ msgstr ""
 "Swap genutzt: %s\n"
 "CPU Belastung: %d%%"
 
-#: src/bubblemon.c:566
+#: src/bubblemon.c:567
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kann nicht chdir() in $HOME (%s)\n"
 
-#: src/bubblemon.c:572
+#: src/bubblemon.c:573
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME Umgebungs-Variable ist nicht gesetzt\n"
 
-#: src/bubblemon.c:577
+#: src/bubblemon.c:578
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
 
-#: src/bubblemon.c:579
+#: src/bubblemon.c:580
 msgid "<name of executable>"
 msgstr ""
 
-#: src/bubblemon.c:944
+#: src/bubblemon.c:946
 msgid "Can't create applet!\n"
 msgstr "Kann Applet nicht erstellen\n"
 
-#: src/bubblemon.c:947
+#: src/bubblemon.c:949
 msgid "Can't open glibtop!\n"
 msgstr "Kann glibtop nicht öffnen\n"
 
-#: src/bubblemon.c:1009
+#: src/bubblemon.c:1012
 #, fuzzy
 msgid "About"
 msgstr "Über"
 
-#: src/bubblemon.c:1179
+#: src/bubblemon.c:1182
 msgid "Bubbling Load Monitor"
 msgstr "Blubber Auslastungs Anzeige"
 
-#: src/bubblemon.c:1182
+#: src/bubblemon.c:1185
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-12-25 13:24+0100\n"
+"POT-Creation-Date: 2000-12-25 13:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -36,16 +36,16 @@ msgstr ""
 "스왑 사용량: %s\n"
 "CPU 부하: %d%%"
 
-#: src/bubblemon.c:566
+#: src/bubblemon.c:567
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "$HOME (%s)로 chdir()할 수 없음\n"
 
-#: src/bubblemon.c:572
+#: src/bubblemon.c:573
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME 환경변수가 설정되어 있지 않음\n"
 
-#: src/bubblemon.c:577
+#: src/bubblemon.c:578
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -54,27 +54,27 @@ msgstr ""
 "버블몬 종료. 프로파일링 자료는 ~/gmon.out에 남아있습니다.\n"
 "'gprof -l -p %s ~/gmon.out'을 실행하십시오.\n"
 
-#: src/bubblemon.c:579
+#: src/bubblemon.c:580
 msgid "<name of executable>"
 msgstr "<실행파일 이름>"
 
-#: src/bubblemon.c:944
+#: src/bubblemon.c:946
 msgid "Can't create applet!\n"
 msgstr "애플릿을 만들 수 없음\n"
 
-#: src/bubblemon.c:947
+#: src/bubblemon.c:949
 msgid "Can't open glibtop!\n"
 msgstr "glibtop을 열 수 없음!\n"
 
-#: src/bubblemon.c:1009
+#: src/bubblemon.c:1012
 msgid "About"
 msgstr "프로그램 정보"
 
-#: src/bubblemon.c:1179
+#: src/bubblemon.c:1182
 msgid "Bubbling Load Monitor"
 msgstr "물거품 부하 모니터"
 
-#: src/bubblemon.c:1182
+#: src/bubblemon.c:1185
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

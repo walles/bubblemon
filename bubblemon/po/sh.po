@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-12-25 13:24+0100\n"
+"POT-Creation-Date: 2000-12-25 13:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,16 +39,16 @@ msgstr ""
 "Upotreba svop-a: %s\n"
 "Upotreba procesora: %d%%"
 
-#: src/bubblemon.c:566
+#: src/bubblemon.c:567
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Nije uspjela operacija chdir() na $HOME (%s)\n"
 
-#: src/bubblemon.c:572
+#: src/bubblemon.c:573
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME envajronment parametar nije postavljen\n"
 
-#: src/bubblemon.c:577
+#: src/bubblemon.c:578
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -58,27 +58,27 @@ msgstr ""
 "~/gmon.out.\n"
 "Da provedete dobro vrijeme, zapocnite 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:579
+#: src/bubblemon.c:580
 msgid "<name of executable>"
 msgstr "<ime eksekjutabla>"
 
-#: src/bubblemon.c:944
+#: src/bubblemon.c:946
 msgid "Can't create applet!\n"
 msgstr "Nemoguce stvoriti aplet!\n"
 
-#: src/bubblemon.c:947
+#: src/bubblemon.c:949
 msgid "Can't open glibtop!\n"
 msgstr "Nemoguce otvoriti glibtop!\n"
 
-#: src/bubblemon.c:1009
+#: src/bubblemon.c:1012
 msgid "About"
 msgstr "Opis"
 
-#: src/bubblemon.c:1179
+#: src/bubblemon.c:1182
 msgid "Bubbling Load Monitor"
 msgstr "Burni indikator opterecenja"
 
-#: src/bubblemon.c:1182
+#: src/bubblemon.c:1185
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
