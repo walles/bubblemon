@@ -114,7 +114,12 @@ cycles go.
 The build process is broken.  It shouldn't be.  Send me
 (d92-jwa@nada.kth.se) a mail with the output from both 'configure' and
 'make', and also tell me what kind of Unix you are using and I'll
-try to fix it.
+try to fix it.  To capture the output from those commands, do:
+
+./configure &> configure.log
+make &> make.log
+
+Then send me (d92-jwa@nada.kth.se) a copy of both log files.
 
 
 9. How do I translate everything into my favourite language?
