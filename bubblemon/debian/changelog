@@ -1,3 +1,10 @@
+bubblemon (1.0.10-1) unstable; urgency=low
+
+  * New icon
+  * Icelandic translation
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Wed,  1 May 2002 20:57:19 +0200
+
 bubblemon (1.0.9-3) unstable; urgency=low
 
   * added a include for gtop (Closes: #134088)
