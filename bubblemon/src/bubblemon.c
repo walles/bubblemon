@@ -61,7 +61,6 @@ int main (int argc, char ** argv)
 {
   const gchar *goad_id;
   GtkWidget *applet;
-  int daemonize = 0;
 
 #ifdef ENABLE_NLS
   setlocale (LC_ALL, "");
@@ -80,21 +79,10 @@ int main (int argc, char ** argv)
        *       -- Johan Walles
        */
 
-       char **new_argv;
-       int i;
-       
-       new_argv = g_malloc0(sizeof(char *) * (argc + 2));
-       for (i = 0; i < argc; i++)
-         new_argv[i] = argv[i];
-       new_argv[argc] = "--activate-goad-server=bubblemon_applet";
-       new_argv[argc+1] = NULL;
+       execl(argv[0], argv[0], "--activate-goad-server=bubblemon_applet", NULL);
 
-       argc += 1;
-       argv = new_argv;
-
-       /* We have a naive user, spawn background process later if
-          setup goes well. */
-       daemonize = 1;
+       g_warning("Try using the --activate-goad-server=bubblemon_applet switch\n"
+                 "               when starting the applet from the command line.\n");
     }
 
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
@@ -148,12 +136,6 @@ int main (int argc, char ** argv)
   /* Create the bubblemon applet widget */
   applet = make_new_bubblemon_applet (goad_id);
 
-  /* If we were started without parameters, spawn another process */
-  if (daemonize && (fork() != 0))
-    {
-      exit (EXIT_SUCCESS);
-    }
-  
   /* Run... */
   applet_widget_gtk_main ();
 
