@@ -32,7 +32,19 @@
 // Note: NUM_COLORS must be divisible by 3
 #define NUM_COLORS 99 /* 384 */
 #define MAX_BUBBLES 100
+
+// How fast do the bubbles rise?
 #define GRAVITY 0.01
+
+// How fast do the water levels accelerate?
+#define VOLATILITY 1.0
+
+// 0.0 means the liquid never moves.  1.0 means the liquid will continue
+// to oscillate forever.
+#define VISCOSITY 0.92
+
+// How fast are the water levels allowed to move?
+#define SPEED_LIMIT 1.0
 
 typedef struct {
   int x;    /* Horizontal coordinate */
@@ -48,6 +60,7 @@ typedef struct {
   gint breadth, depth, update, samples;
   int *bubblebuf, *colors;
   float *waterlevels, *waterlevels_inactive;
+  float *waterlevels_dy;
 
   Bubble bubbles[MAX_BUBBLES];
   int n_bubbles;

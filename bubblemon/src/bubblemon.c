@@ -346,7 +346,7 @@ void update_tooltip(BubbleMonData *bm)
      re-generated? */
 
   /* FIXME: This is a workaround for the gtk+ tool tip problem
-     described in the README file. */
+     described in the TODO file. */
   applet_widget_set_widget_tooltip(APPLET_WIDGET(bm->applet),
 				   GTK_WIDGET(bm->area),
 				   tooltipstring);
@@ -408,11 +408,11 @@ gint bubblemon_update (gpointer data)
 {
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
-  int i, w, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
+  int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
   int aircolor, watercolor, aliascolor;
   int swapPercentage, memoryPercentage;
-  float waterlevel_goal, waterlevel_min, waterlevel_max;
-  float h;
+  float waterlevels_goal, waterlevel_min, waterlevel_max;
+  float current_waterlevel_goal;
   float *temp;
   static float last_waterlevel_min = 0;
 
@@ -474,19 +474,46 @@ gint bubblemon_update (gpointer data)
   h = bm->depth;
   n_pixels = w * h;
 
-  waterlevel_max = 0;
+  waterlevel_max = 0.0;
   waterlevel_min = h;
 
   /* Move the water level with the current memory usage. */
-  waterlevel_goal = h - ((memoryPercentage * h) / 100.0);
+  waterlevels_goal = h - ((memoryPercentage * h) / 100);
 
-  bm->waterlevels[0] = waterlevel_goal;
-  bm->waterlevels[w - 1] = waterlevel_goal;
+  bm->waterlevels[0] = waterlevels_goal;
+  bm->waterlevels[w - 1] = waterlevels_goal;
 
   for (x = 1; x < (w - 1); x++)
     {
-      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
-				     bm->waterlevels[x + 1]) / 2.0;
+      // Accelerate the current waterlevel towards its correct value
+      current_waterlevel_goal = (bm->waterlevels[x - 1] +
+                                 bm->waterlevels[x + 1]) / 2.0;
+      bm->waterlevels_dy[x] += (current_waterlevel_goal - bm->waterlevels[x]) * VOLATILITY;
+      bm->waterlevels_dy[x] *= VISCOSITY;
+
+      if (bm->waterlevels_dy[x] > SPEED_LIMIT)
+        bm->waterlevels_dy[x] = SPEED_LIMIT;
+      else if (bm->waterlevels_dy[x] < -SPEED_LIMIT)
+        bm->waterlevels_dy[x] = -SPEED_LIMIT;
+    }
+
+  for (x = 1; x < (w - 1); x++)
+    {
+      // Move the current water level
+      bm->waterlevels_inactive[x] = bm->waterlevels[x] + bm->waterlevels_dy[x];
+
+      if (bm->waterlevels_inactive[x] > h)
+        {
+          // Stop the wave if it hits the floor...
+          bm->waterlevels_inactive[x] = h;
+          bm->waterlevels_dy[x] = 0.0;
+        }
+      else if (bm->waterlevels_inactive[x] < 0)
+        {
+          // ... or the ceiling.
+          bm->waterlevels_inactive[x] = 0;
+          bm->waterlevels_dy[x] = 0.0;
+        }
 
       // Keep track of the highest and lowest water levels
       if (bm->waterlevels_inactive[x] > waterlevel_max)
@@ -495,8 +522,8 @@ gint bubblemon_update (gpointer data)
         waterlevel_min = bm->waterlevels_inactive[x];
     }
 
-  bm->waterlevels_inactive[0] = waterlevel_goal;
-  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
+  bm->waterlevels_inactive[0] = waterlevels_goal;
+  bm->waterlevels_inactive[w - 1] = waterlevels_goal;
 
   temp = bm->waterlevels_inactive;
   bm->waterlevels_inactive = bm->waterlevels;
@@ -547,8 +574,8 @@ gint bubblemon_update (gpointer data)
   */
 
   /* Air only */
-  for (buf_ptr = buf + ((int)(last_waterlevel_min * w + 0.5));
-       buf_ptr < (buf + ((int)(waterlevel_min * w + 0.5)));
+  for (buf_ptr = buf + (((int)(last_waterlevel_min)) * w);
+       buf_ptr < (buf + (((int)(waterlevel_min)) * w));
        buf_ptr++)
     *buf_ptr = aircolor;
   last_waterlevel_min = waterlevel_min;
@@ -566,8 +593,8 @@ gint bubblemon_update (gpointer data)
     }
 
   /* Water only */
-  for (buf_ptr = (buf + ((int)(waterlevel_max * w + 0.5)));
-       buf_ptr < (buf + ((int)(h * w + 0.5)));
+  for (buf_ptr = (buf + (((int)(waterlevel_max)) * w));
+       buf_ptr < (buf + (h * w));
        buf_ptr++)
     *buf_ptr = watercolor;
 
@@ -576,7 +603,7 @@ gint bubblemon_update (gpointer data)
     {
       /* We don't allow bubbles on the edges 'cause we'd have to clip them */
       bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
-      bubbles[bm->n_bubbles].y = h - 1.0;
+      bubbles[bm->n_bubbles].y = h - 1;
       bubbles[bm->n_bubbles].dy = 0.0;
 
       /* Count the new bubble */
@@ -920,8 +947,8 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
 
   if (!bm->colors)
-    // FIXME: Shouldn the sizeof() on the next line be replaced with
-    // some bytes-per-pixel value?
+    // FIXME: Should the sizeof() on the next line be replaced with
+    // some kind of bytes-per-pixel value?
     bm->colors = malloc (NUM_COLORS * sizeof (int));
   col = bm->colors;
 
@@ -1023,7 +1050,7 @@ void widget_leave_cb (GtkWidget *ignored1,
 		      gpointer data)
 {
   /* FIXME: This is a workaround for the gtk+ tool tip problem
-     described in the README file. */
+     described in the TODO file. */
   update_tooltip((BubbleMonData *) data);
 }
 
@@ -1033,12 +1060,13 @@ void bubblemon_set_size (BubbleMonData * bm)
 
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
+  // Allocate (zeroed) bubble memory
   if (bm->bubblebuf)
     free (bm->bubblebuf);
 
-  bm->bubblebuf = malloc (bm->breadth * (bm->depth + 1) * sizeof (int));
-  memset (bm->bubblebuf, 0, bm->breadth * (bm->depth + 1) * sizeof (int));
+  bm->bubblebuf = calloc (bm->breadth * (bm->depth + 1), sizeof (int));
 
+  // Allocate water level memory
   if (bm->waterlevels)
     free (bm->waterlevels);
 
@@ -1048,18 +1076,24 @@ void bubblemon_set_size (BubbleMonData * bm)
       bm->waterlevels[i] = bm->depth;
     }
 
+  // Allocate inactive water level memory
   if (bm->waterlevels_inactive)
     free (bm->waterlevels_inactive);
 
   bm->waterlevels_inactive = malloc (bm->breadth * sizeof (float));
 
-  /*
-   * If the image has already been allocated, then free it here
-   * before creating a new one.  */
+  // Allocate water level velocity memory
+  if (bm->waterlevels_dy)
+    free (bm->waterlevels_dy);
+
+  bm->waterlevels_dy = calloc (bm->breadth, sizeof (float));
+
+  // If the image has already been allocated, then free it here
+  // before creating a new one.
   if (bm->image)
     gdk_image_destroy (bm->image);
 
   bm->image = gdk_image_new (GDK_IMAGE_SHARED, gtk_widget_get_visual (bm->area), bm->breadth, bm->depth);
 
   bpp = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / bm->breadth;
-} /* bubblemon_set_size */
+}
