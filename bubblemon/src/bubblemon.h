@@ -21,8 +21,11 @@
 #ifndef BUBBLEMON_H
 #define BUBBLEMON_H
 
+#include <config.h> 
 #include <sys/types.h>
-#include "config.h"
+#include <gnome.h>
+#include <panel-applet.h>
+#include <panel-applet-gconf.h>
 
 /* How fast do the bubbles rise? */
 #define GRAVITY -0.01

@@ -2,4 +2,4 @@
 
 SUBDIRS = src gnome pixmaps packaging po man
 
-EXTRA_DIST = PROFILING FAQ TRANSLATIONS
+EXTRA_DIST = PROFILING FAQ TRANSLATIONS intltool-extract.in intltool-merge.in intltool-update.in

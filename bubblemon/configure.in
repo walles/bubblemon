@@ -11,6 +11,8 @@ AC_INIT(src/bubblemon.h)
 AM_INIT_AUTOMAKE(bubblemon, 2.0.0)
 AM_CONFIG_HEADER(config.h)
 
+AC_PROG_INTLTOOL([0.21])
+
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_ISC_POSIX
@@ -25,7 +27,7 @@ AC_CHECK_TYPE(u_int8_t, unsigned char)
 AC_C_BIGENDIAN
 
 # For i18n and l10n
-ALL_LINGUAS="sv fr pl de ko fi da sh pt ro es no hu it is"
+ALL_LINGUAS="sv fr pl de ko fi da sh pt ro es no hu it is ru"
 
 # Check if the user wants all languages to be compiled
 AC_ARG_WITH(

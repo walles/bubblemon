@@ -2,7 +2,7 @@
 
 <oaf_server iid="OAFIID:GNOME_BubblemonApplet_Factory"
 	    type="exe"
-	    location="bubblemon-gnome2">
+	    location="@LIBEXECDIR@/bubblemon-gnome2">
 
 	<oaf_attribute name="repo_ids" type="stringv">
 		<item value="IDL:Bonobo/GenericFactory:1.0"/>
@@ -22,9 +22,9 @@
 		<item value="IDL:Bonobo/Control:1.0"/>
 		<item value="IDL:Bonobo/Unknown:1.0"/>
 	</oaf_attribute>
-	<oaf_attribute name="name" type="string" value="Bubblemon"/>
-	<oaf_attribute name="description" type="string" value="A CPU load meter monitor"/>
-	<oaf_attribute name="panel:category" type="string" value="Utility"/>
+	<oaf_attribute name="name" type="string" _value="Bubblemon"/>
+	<oaf_attribute name="description" type="string" _value="A CPU load meter monitor"/>
+	<oaf_attribute name="panel:category" type="string" _value="Utility"/>
 	<oaf_attribute name="panel:icon" type="string" value="bubblemon.png"/>
 
 </oaf_server>

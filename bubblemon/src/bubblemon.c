@@ -22,6 +22,7 @@
  * This is a platform independent file that drives the program.
  */
 
+#include <config.h> 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -30,26 +31,10 @@
 #include <math.h>
 #include <time.h>
 
-/* Natural language translation stuff */
-#ifdef ENABLE_NLS
-#include <libintl.h>
-#include <locale.h>
-
-#ifndef _
-#define _ gettext
-#endif
-
-#else
-
-#define _
-
-#endif // ENABLE_NLS
-
 #include "bubblemon.h"
 #include "ui.h"
 #include "meter.h"
 #include "mail.h"
-#include "config.h"
 #include "netload.h"
 
 // Bottle graphics

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-09 19:38+0200\n"
+"POT-Creation-Date: 2002-11-22 02:39-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,24 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:166
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Bubblemon"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:3
+msgid "Utility"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+#, fuzzy
+msgid "_About..."
+msgstr "Opis"
+
+#: src/bubblemon.c:152
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
@@ -22,7 +39,7 @@ msgstr ""
 "Upotreba svop-a: %s\n"
 "Upotreba procesora: %d%%"
 
-#: src/bubblemon.c:172
+#: src/bubblemon.c:158
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -32,25 +49,29 @@ msgstr ""
 "Upotreba svop-a: %s\n"
 "Upotreba procesora: %d%%"
 
-#: src/bubblemon.c:180
+#: src/bubblemon.c:166
 #, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:191
+#: src/bubblemon.c:177
 #, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 
-#: src/gnome1-ui.c:150
+#: src/gnome2-ui.c:72
 msgid "Bubbling Load Monitor"
 msgstr "Burni indikator opterecenja"
 
-#: src/gnome1-ui.c:153
+#: src/gnome2-ui.c:73
+msgid "Copyright (C) 1999-2002 Johan Walles"
+msgstr ""
+
+#: src/gnome2-ui.c:74
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -65,15 +86,9 @@ msgstr ""
 "Ovo je slobodni program koji sami smijete da dstribujisete po licensi (GPL), "
 "za detaljan opis vidite LICENSE fajl."
 
-#: src/gnome1-ui.c:245
 #, fuzzy
-msgid "Can't create bubblemon applet!"
-msgstr "Nemoguce stvoriti aplet!\n"
-
-#: src/gnome1-ui.c:279
-#, fuzzy
-msgid "About..."
-msgstr "Opis"
+#~ msgid "Can't create bubblemon applet!"
+#~ msgstr "Nemoguce stvoriti aplet!\n"
 
 #~ msgid ""
 #~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
