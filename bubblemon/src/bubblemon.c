@@ -107,7 +107,7 @@ int main (int argc, char ** argv)
               "Then send me (d92-jwa@nada.kth.se) an e-mail (in English or Swedish) with your\n"
               "changes.\n"
               "\n"
-              "Thanks a bunch :-)  //Johan.\n",
+              "Thanks a bunch :-)  /Johan.\n",
               __LINE__,
               __FILE__);
 
@@ -423,15 +423,77 @@ void get_memory_load_percentage(BubbleMonData *bm,
     }
 }
 
+/* This function copies the internal image to the screen. */
+void update_screen(BubbleMonData *bm,
+                   int start_drawing,
+                   int stop_drawing)
+{
+  int i;
+  int w;
+  int bytesPerPixel;
+  int *buf, *col;
+
+  /* FIXME: We should sanity check stxxx_drawing here */
+  
+  buf = bm->bubblebuf;
+  col = bm->colors;
+  w = bm->breadth;
+  bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
+
+  start_drawing *= w;
+  stop_drawing *= w;
+
+  /* Copy the bubbling image data to the gdk image.  A regular
+     memcpy() won't do, because all pixels will have to be looked up
+     using col[buf[i]] before being copied to the image buffer. */
+  switch (bytesPerPixel)
+    {
+    case 4:
+      {
+	u_int32_t *ptr = (u_int32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	for (i = start_drawing; i < stop_drawing; i++)
+          ptr[i] = col[buf[i]];
+	break;
+      }
+
+    case 2:
+      {
+	u_int16_t *ptr = (u_int16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	for (i = start_drawing; i < stop_drawing; i++)
+	  ptr[i] = col[buf[i]];
+	break;
+      }
+
+    case 1:
+      {
+	u_int8_t *ptr = (u_int8_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	for (i = start_drawing; i < stop_drawing; i++)
+	  ptr[i] = col[buf[i]];
+	break;
+      }
+
+    default:
+      g_error("Error: Bubblemon works only on displays with 1 (untested), 2 or 4\n"
+	      "      bytes/pixel :-(.  If you know how to fix this, please let me\n"
+	      "      (d92-jwa@nada.kth.se) know.  The fix should probably go into %s,\n"
+              "      just above line %d.\n",
+	      __FILE__,
+	      __LINE__);
+  }
+
+  /* Update the display. */
+  bubblemon_expose_handler (bm->area, NULL, bm);
+}
+
 /*
  * This function, bubblemon_update, gets the CPU usage and updates
  * the bubble array and pixmap.
  */
 gint bubblemon_update (gpointer data)
 {
-  BubbleMonData * bm = data;
+  BubbleMonData *bm = data;
   Bubble *bubbles = bm->bubbles;
-  int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
+  int i, w, h, n_pixels, loadPercentage, *buf, *buf_ptr, *col, x, y;
 
   int aircolor, watercolor, aliascolor;
 
@@ -440,13 +502,17 @@ gint bubblemon_update (gpointer data)
   float waterlevels_goal;
   float current_waterlevel_goal;
 
-  // These values are for keeping track of where we have to start
-  // drawing water.
+  /*
+    These values are for keeping track of where we have to start
+    drawing water.
+  */
   int waterlevel_min, waterlevel_max;
   static int last_waterlevel_min = 0;
 
-  // These values are for keeping track of which pixels in the drawing
-  // area that we have to update this turn.
+  /*
+    These values are for keeping track of which pixels in the drawing
+    area that we have to update this turn.
+  */
   int start_drawing, stop_drawing;
   int action_min = bm->depth, action_max = 0;
   static int last_action_min = 0, last_action_max = -1;
@@ -498,8 +564,10 @@ gint bubblemon_update (gpointer data)
       last_waterlevel_min = 0;
     }
 
-  // When we get here the first time we have to initialize the value
-  // that tells us what parts of the picture have to be updated.
+  /*
+    When we get here the first time we have to initialize the value
+    that tells us what parts of the picture have to be updated.
+  */
   if (last_action_max == -1)
     last_action_max = bm->depth;
   
@@ -530,7 +598,7 @@ gint bubblemon_update (gpointer data)
   /* Move the water level with the current memory usage. */
   waterlevels_goal = h - ((memoryPercentage * h) / 100);
 
-  // Guard against boundary errors
+  /* Guard against boundary errors */
   waterlevels_goal -= 0.5;
 
   bm->waterlevels[0] = waterlevels_goal;
@@ -538,7 +606,7 @@ gint bubblemon_update (gpointer data)
 
   for (x = 1; x < (w - 1); x++)
     {
-      // Accelerate the current waterlevel towards its correct value
+      /* Accelerate the current waterlevel towards its correct value */
       current_waterlevel_goal = (bm->waterlevels[x - 1] +
                                  bm->waterlevels[x + 1]) / 2.0;
       bm->waterlevels_dy[x] += (current_waterlevel_goal - bm->waterlevels[x]) * VOLATILITY;
@@ -552,23 +620,23 @@ gint bubblemon_update (gpointer data)
 
   for (x = 1; x < (w - 1); x++)
     {
-      // Move the current water level
+      /* Move the current water level */
       bm->waterlevels[x] = bm->waterlevels[x] + bm->waterlevels_dy[x];
 
       if (bm->waterlevels[x] > h)
         {
-          // Stop the wave if it hits the floor...
+          /* Stop the wave if it hits the floor... */
           bm->waterlevels[x] = h;
           bm->waterlevels_dy[x] = 0.0;
         }
       else if (bm->waterlevels[x] < 0.0)
         {
-          // ... or the ceiling.
+          /* ... or the ceiling. */
           bm->waterlevels[x] = 0.0;
           bm->waterlevels_dy[x] = 0.0;
         }
 
-      // Keep track of the highest and lowest water levels
+      /* Keep track of the highest and lowest water levels */
       if (bm->waterlevels[x] > waterlevel_max)
         waterlevel_max = bm->waterlevels[x];
       if (bm->waterlevels[x] < waterlevel_min)
@@ -725,10 +793,12 @@ gint bubblemon_update (gpointer data)
       x = bubbles[i].x;
       y = bubbles[i].y;
 
-      // Keep track of which parts of the picture we have to update on
-      // screen.  One of the +2 is a because we don't want miss the
-      // lowest row of the bubble.  FIXME: the other is because of
-      // some kind of off-by-one problem in the following lines.
+      /*
+        Keep track of which parts of the picture we have to update on
+        screen.  One of the +2 is a because we don't want miss the
+        lowest row of the bubble.  FIXME: the other is because of
+        some kind of off-by-one problem in the following lines.
+      */
       if ((y + 2) > action_max)
         action_max = y + 2;
 
@@ -784,62 +854,20 @@ gint bubblemon_update (gpointer data)
         }
     }
   
-  /* Drawing magic resides below this point */
-  bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
-  
-  // Find out which parts of the drawing are that actually needs to be
-  // updated
+  /*
+    Find out which parts of the drawing are that actually needs to be
+    updated
+  */
   start_drawing = (last_action_min < action_min) ? last_action_min : action_min;
   stop_drawing = (last_action_max > action_max) ? last_action_max : action_max;
 
-  start_drawing *= w;
-  stop_drawing *= w;
+  /* Copy the new frame to the screen */
+  update_screen(bm, start_drawing, stop_drawing);
 
-  /* Copy the bubbling image data to the gdk image.  A regular
-     memcpy() won't do, because all pixels will have to be looked up
-     using col[buf[i]] before being copied to the image buffer. */
-  switch (bytesPerPixel)
-    {
-    case 4:
-      {
-	u_int32_t *ptr = (u_int32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = start_drawing; i < stop_drawing; i++)
-          ptr[i] = col[buf[i]];
-	break;
-      }
-
-    case 2:
-      {
-	u_int16_t *ptr = (u_int16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = start_drawing; i < stop_drawing; i++)
-	  ptr[i] = col[buf[i]];
-	break;
-      }
-
-    case 1:
-      {
-	u_int8_t *ptr = (u_int8_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = start_drawing; i < stop_drawing; i++)
-	  ptr[i] = col[buf[i]];
-	break;
-      }
-
-    default:
-      g_error("Error: Bubblemon works only on displays with 1 (untested), 2 or 4\n"
-	      "      bytes/pixel :-(.  If you know how to fix this, please let me\n"
-	      "      (d92-jwa@nada.kth.se) know.  The fix should probably go into %s,\n"
-              "      just above line %d.\n",
-	      __FILE__,
-	      __LINE__);
-  }
-
-  // Remember where we have been poking around this round
+  /* Remember where we have been poking around this round */
   last_action_max = action_max;
   last_action_min = action_min;
   
-  /* Update the display. */
-  bubblemon_expose_handler (bm->area, NULL, bm);
-
   bubblemon_set_timeout (bm);
 
   /* Prevent any unnecessary complete redraws */
@@ -902,9 +930,9 @@ gint bubblemon_delete (gpointer data)
   return TRUE;  /* We do our own destruction */
 }
 
-gint bubblemon_size_change(GtkWidget * w,
-                           int new_size,
-                           gpointer data)
+gint bubblemon_size_change_handler(GtkWidget * w,
+                                   int new_size,
+                                   gpointer data)
 {
   BubbleMonData * bm = data;
 
@@ -913,17 +941,9 @@ gint bubblemon_size_change(GtkWidget * w,
 
   /* FIXME: This doesn't work for vertical panels */
   bm->depth = new_size;
-  bm->breadth = (new_size * 32) / 40;
+  bm->breadth = (new_size * RELATIVE_WIDTH) / RELATIVE_HEIGHT;
 
-  printf("FIXME: Changing size to %dx%d...\n",
-         bm->depth,
-         bm->breadth);
-  
   bubblemon_set_size(bm);
-
-  printf("FIXME: Size changed to %dx%d.\n",
-         bm->depth,
-         bm->breadth);
 
   /* Redraw the whole widget after a size change */
   bm->complete_redraw = TRUE;
@@ -989,7 +1009,7 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 			 GDK_ENTER_NOTIFY_MASK);
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "change_pixel_size",
-		      GTK_SIGNAL_FUNC (bubblemon_size_change),
+		      GTK_SIGNAL_FUNC (bubblemon_size_change_handler),
 		      (gpointer) bm);
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
@@ -1089,8 +1109,10 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
 
   if (!bm->colors)
-    // FIXME: Should the sizeof() on the next line be replaced with
-    // some kind of bytes-per-pixel value?
+    /*
+      FIXME: Should the sizeof() on the next line be replaced with
+      some kind of bytes-per-pixel value?
+    */
     bm->colors = malloc (NUM_COLORS * sizeof (int));
   col = bm->colors;
 
@@ -1205,17 +1227,17 @@ void bubblemon_set_size (BubbleMonData * bm)
   
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
-  // Nuke all bubbles
+  /* Nuke all bubbles */
   bm->n_bubbles = 0;
   memset (bm->bubbles, 0, MAX_BUBBLES);
   
-  // Allocate (zeroed) bubble memory
+  /* Allocate (zeroed) bubble memory */
   if (bm->bubblebuf)
     free (bm->bubblebuf);
 
   bm->bubblebuf = calloc (bm->breadth * (bm->depth + 1), sizeof (int));
 
-  // Allocate water level memory
+  /* Allocate water level memory */
   if (bm->waterlevels)
     free (bm->waterlevels);
 
@@ -1225,14 +1247,16 @@ void bubblemon_set_size (BubbleMonData * bm)
       bm->waterlevels[i] = bm->depth;
     }
 
-  // Allocate water level velocity memory
+  /* Allocate water level velocity memory */
   if (bm->waterlevels_dy)
     free (bm->waterlevels_dy);
 
   bm->waterlevels_dy = calloc (bm->breadth, sizeof (float));
 
-  // If the image has already been allocated, then free it here
-  // before creating a new one.
+  /*
+    If the image has already been allocated, then free it here
+    before creating a new one.
+  */
   if (bm->image)
     gdk_image_destroy (bm->image);
 

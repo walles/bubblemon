@@ -32,6 +32,10 @@
 #define NUM_COLORS 99
 #define MAX_BUBBLES 100
 
+// Applet proportions
+#define RELATIVE_WIDTH  32
+#define RELATIVE_HEIGHT 40
+
 // How fast do the bubbles rise?
 #define GRAVITY 0.01
 
@@ -119,19 +123,21 @@ void bubblemon_set_size(BubbleMonData *mc);
 void bubblemon_set_timeout(BubbleMonData *mc);
 gint bubblemon_update(gpointer data);
 gint bubblemon_delete(gpointer data);
-gint bubblemon_orient_handler(GtkWidget *w, PanelOrientType o,
-				   gpointer data);
 gint bubblemon_configure_handler(GtkWidget *widget, GdkEventConfigure *event,
 			       gpointer data);
 gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 			       gpointer data);
-gint bubblemon_size_change(GtkWidget * w, int new_size, gpointer data);
+gint bubblemon_size_change_handler(GtkWidget * w, int new_size, gpointer data);
+
+void update_screen(BubbleMonData *bm, int start_drawing, int stop_drawing);
+
 GtkWidget *make_new_bubblemon_applet (const gchar *goad_id);
 GtkWidget *applet_start_new_applet (const gchar *goad_id,
 				     const char **params, int nparams);
 
 int get_cpu_load(BubbleMonData *bm);
 void usage2string(char *string, u_int64_t used, u_int64_t max);
+
 void get_censored_memory_and_swap(BubbleMonData *bm,
 				  u_int64_t *mem_used,
 				  u_int64_t *mem_max,
