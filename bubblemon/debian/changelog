@@ -1,3 +1,9 @@
+bubblemon (1.0.11-1) unstable; urgency=low
+
+  * Swap space colorization now works properly.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Fri, 10 May 2002 12:41:32 +0200
+
 bubblemon (1.0.10-1) unstable; urgency=low
 
   * New icon

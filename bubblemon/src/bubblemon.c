@@ -203,7 +203,11 @@ int get_cpu_load(BubbleMonData *bm, int cpu_number)  /* Returns the current CPU 
   else
     loadPercentage = (100 * (load - oLoad)) / (total - oTotal);
 
+#ifdef ENABLE_PROFILING
+  return 100;
+#else
   return loadPercentage;
+#endif
 }
 
 void usage2string(char *string,
@@ -344,6 +348,11 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   *mem_max = my_mem_max;
   *swap_used = my_swap_used;
   *swap_max = my_swap_max;
+
+#ifdef ENABLE_PROFILING
+  *mem_used = my_mem_max;
+  *swap_used = my_swap_max;
+#endif
 }
 
 void get_censored_memory_usage(BubbleMonData *bm,
@@ -1185,7 +1194,7 @@ void bubblemon_setup_samples (BubbleMonData *bm, int which_cpu)
 
 void bubblemon_setup_colors (BubbleMonData *bm)
 {
-  int i, j, *col;
+  int i, *col;
   int r_air_noswap, g_air_noswap, b_air_noswap;
   int r_liquid_noswap, g_liquid_noswap, b_liquid_noswap;
   int r_air_maxswap, g_air_maxswap, b_air_maxswap;
@@ -1227,13 +1236,11 @@ void bubblemon_setup_colors (BubbleMonData *bm)
       char rgbStr[24];
       XColor exact, screen;
 
-      j = i >> 1;
-
       /* Liquid */
-      r = (r_liquid_maxswap * j + r_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      g = (g_liquid_maxswap * j + g_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      b = (b_liquid_maxswap * j + b_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-
+      r = (r_liquid_noswap * ((actual_colors - 1) - i) + r_liquid_maxswap * i) / (actual_colors - 1);
+      g = (g_liquid_noswap * ((actual_colors - 1) - i) + g_liquid_maxswap * i) / (actual_colors - 1);
+      b = (b_liquid_noswap * ((actual_colors - 1) - i) + b_liquid_maxswap * i) / (actual_colors - 1);
+      
       r_composite = r;
       g_composite = g;
       b_composite = b;
@@ -1243,9 +1250,9 @@ void bubblemon_setup_colors (BubbleMonData *bm)
       col[(i*3)] = screen.pixel;
 
       /* Air */
-      r = (r_air_maxswap * j + r_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      g = (g_air_maxswap * j + g_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      b = (b_air_maxswap * j + b_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      r = (r_air_noswap * ((actual_colors - 1) - i) + r_air_maxswap * i) / (actual_colors - 1);
+      g = (g_air_noswap * ((actual_colors - 1) - i) + g_air_maxswap * i) / (actual_colors - 1);
+      b = (b_air_noswap * ((actual_colors - 1) - i) + b_air_maxswap * i) / (actual_colors - 1);
 
       r_composite += r;
       g_composite += g;
@@ -1256,9 +1263,9 @@ void bubblemon_setup_colors (BubbleMonData *bm)
       col[(i*3) + 2] = screen.pixel;
       
       /* Anti-alias */
-      r = r_composite >> 1;
-      g = g_composite >> 1;
-      b = b_composite >> 1;
+      r = r_composite / 2;
+      g = g_composite / 2;
+      b = b_composite / 2;
 
       sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
       XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
