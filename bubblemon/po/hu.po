@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-20 17:47+0200\n"
+"POT-Creation-Date: 2002-06-23 18:35+0200\n"
 "PO-Revision-Date: 2001-09-09 03:08I+0200\n"
 "Last-Translator: Robert Vanyi <robi@mora.u-szeged.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:154
+#: src/bubblemon.c:158
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Használt memória: %s\n"
 "Használt swap: %s"
 
-#: src/bubblemon.c:160
+#: src/bubblemon.c:164
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Használt memória: %s\n"
 "Használt swap: %s"
 
-#: src/bubblemon.c:168
+#: src/bubblemon.c:172
 #, c-format
 msgid ""
 "\n"
@@ -38,7 +38,7 @@ msgstr ""
 "\n"
 "CPU foglaltság: %d%%"
 
-#: src/bubblemon.c:179
+#: src/bubblemon.c:183
 #, c-format
 msgid ""
 "\n"

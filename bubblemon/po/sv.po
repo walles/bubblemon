@@ -5,19 +5,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
-"POT-Creation-Date: 2002-06-20 17:47+0200\n"
+"POT-Creation-Date: 2002-06-23 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johan Walles <d92-jwa@nada.kth.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:154
+#: src/bubblemon.c:158
 #, c-format
 msgid "Memory used: %s"
 msgstr "Använt minne: %s"
 
-#: src/bubblemon.c:160
+#: src/bubblemon.c:164
 #, c-format
 msgid ""
 "\n"
@@ -26,7 +26,7 @@ msgstr ""
 "\n"
 "Virtuellt minne: %s"
 
-#: src/bubblemon.c:168
+#: src/bubblemon.c:172
 #, c-format
 msgid ""
 "\n"
@@ -35,7 +35,7 @@ msgstr ""
 "\n"
 "Processorlast: %d%%"
 
-#: src/bubblemon.c:179
+#: src/bubblemon.c:183
 #, c-format
 msgid ""
 "\n"
