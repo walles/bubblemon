@@ -1,3 +1,12 @@
+bubblemon (1.0.0-1) stable; urgency=medium
+
+  * Korean and Finnish translations added.  Applet now automatically
+    adapts to the panel size.
+
+  --
+
+ -- Johan Walles <johan@localhost.localdomain>  Sat, 25 Nov 2000 17:31:44 +0100
+
 bubblemon (0.9.12-1) unstable; urgency=low
 
   * new upstream release
