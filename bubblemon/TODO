@@ -22,6 +22,8 @@ Opinions?  Send 'em to me (d92-jwa@nada.kth.se).
  programming skills, and should be a both easy and useful way to
  improve the applet.
 
+. Ditch the configure support for ripples -- 0.2 is a nice value.
+ 
 . If lots of memory is used, add the text "Process 4711 "mozilla" is
 using 42Mb" to the tool tip.  The process mentioned should be the one
 using the highest amount of memory.
