@@ -289,21 +289,8 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
     }
 
   /* Sanity check that we don't use more swap/mem than what's available */
-  if ((my_mem_used > my_mem_max) ||
-      (my_swap_used > my_swap_max))
-    {
-      g_error(_("Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
-	      "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-	      "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"),
-	      my_mem_used, my_mem_max,
-	      my_swap_used, my_swap_max,
-	      swap.used,
-	      memory.used,
-	      memory.cached,
-	      memory.buffer,
-	      __LINE__,
-	      __FILE__);
-    }
+  g_assert((my_mem_used <= my_mem_max) &&
+           (my_swap_used <= my_swap_max));
 
   *mem_used = my_mem_used;
   *mem_max = my_mem_max;
@@ -345,12 +332,8 @@ void update_tooltip(BubbleMonData *bm)
   u_int64_t mem_max;
 
   /* Sanity check */
-  if (!bm)
-    {
-      g_error(_("bm == NULL in update_tooltip() on line %d of %s\n"),
-	      __LINE__,
-	      __FILE__);
-    }
+  g_assert(bm != NULL);
+
   get_censored_memory_usage(bm, &mem_used, &mem_max);
   get_censored_swap_usage(bm, &swap_used, &swap_max);
   
@@ -388,12 +371,7 @@ void get_memory_load_percentage(BubbleMonData *bm,
 			       &mem_used, &mem_max,
 			       &swap_used, &swap_max);
 
-  if (mem_max == 0)
-    {
-      g_error(_("get_censored_memory_and_swap() says you have no memory on line %d in %s"),
-	      __LINE__,
-	      __FILE__);
-    }
+  g_assert(mem_max > 0);
   
   *memoryPercentage = (100 * mem_used) / mem_max;
 
@@ -407,20 +385,8 @@ void get_memory_load_percentage(BubbleMonData *bm,
     }
 
   /* Sanity check that the percentages are both 0-100. */
-
-  if ((*memoryPercentage < 0) || (*memoryPercentage > 100) ||
-      (*swapPercentage < 0) || (*swapPercentage > 100))
-    {
-      g_error(_("Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
-	      "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-	      "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"),
-	      *memoryPercentage,
-	      *swapPercentage,
-	      mem_used, mem_max,
-	      swap_used, swap_max,
-	      __LINE__,
-	      __FILE__);
-    }
+  g_assert(((*memoryPercentage >= 0) && (*memoryPercentage <= 100)) &&
+           ((*swapPercentage >= 0) && (*swapPercentage <= 100)));
 }
 
 /* This function copies the internal image to the screen. */
@@ -718,20 +684,9 @@ gint bubblemon_update (gpointer data)
   aircolor = watercolor + 2;
 
   /* Sanity check the colors */
-  if ((aircolor < 0) || (aircolor >= NUM_COLORS) ||
-      (watercolor < 0) || (watercolor >= NUM_COLORS) ||
-      (aliascolor < 0) || (aliascolor >= NUM_COLORS))
-    {
-      g_error(_("Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
-	      "       swapPercentage (%d) is probably out of range (0-100) too on line %d of %s.\n"),
-	      aircolor,
-	      watercolor,
-	      aliascolor,
-	      NUM_COLORS,
-	      swapPercentage,
-	      __LINE__,
-	      __FILE__);
-    }
+  g_assert((aircolor >= 0) && (aircolor < NUM_COLORS) &&
+           (watercolor >= 0) && (watercolor < NUM_COLORS) &&
+           (aliascolor >= 0) && (aliascolor < NUM_COLORS));
 
   /*
     Here comes the bubble magic.  Pixels are drawn by setting values in

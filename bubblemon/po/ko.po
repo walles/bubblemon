@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-12-20 20:05+0100\n"
+"POT-Creation-Date: 2000-12-25 13:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -26,25 +26,7 @@ msgstr ""
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "%d 행(%s)에서 glibtop_get_mem 함수가 메모리 없음이라고 보고함"
 
-#: src/bubblemon.c:295
-#, c-format
-msgid ""
-"Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
-"       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-"       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
-msgstr ""
-"오류: mem_used (%Ld) > mem_max (%Ld) 이거나 swap_used (%Ld) > swap_max "
-"(%Ld)\n"
-"       이 값들은 swap.used (%Ld), memory.used (%Ld),\n"
-"       memory.cached (%Ld) 그리고 memory.buffer (%Ld) 으로부터 계산한 것이며 "
-"       %d 행(%s)에 있다.\n"
-
-#: src/bubblemon.c:350
-#, c-format
-msgid "bm == NULL in update_tooltip() on line %d of %s\n"
-msgstr "%d 행 (%s) update_tooltip()에서 bm == NULL\n"
-
-#: src/bubblemon.c:363
+#: src/bubblemon.c:346
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s\n"
@@ -54,35 +36,16 @@ msgstr ""
 "스왑 사용량: %s\n"
 "CPU 부하: %d%%"
 
-#: src/bubblemon.c:393
-#, c-format
-msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-msgstr ""
-"%d 행(%s)에서 get_censored_memory_and_swap 함수가 메모리 없음이라고 보고"
-
-#: src/bubblemon.c:414
-msgid ""
-"Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
-"(0-100)\n"
-"       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-"       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
-msgstr ""
-"오류: memoryPercentage (%d%%) 또는 swapPercentage (%d%%)의 값이 "
-"범위(0-100)을 초과함\n"
-"       이 값들은 mem_used (%Ld), mem_max (%Ld),\n"
-"       swap_used (%Ld) 그리고 swap_max (%Ld) 로부터 계산된 결과이다.%d "
-"행(%s)에 있음\n"
-
-#: src/bubblemon.c:600
+#: src/bubblemon.c:566
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "$HOME (%s)로 chdir()할 수 없음\n"
 
-#: src/bubblemon.c:606
+#: src/bubblemon.c:572
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME 환경변수가 설정되어 있지 않음\n"
 
-#: src/bubblemon.c:611
+#: src/bubblemon.c:577
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -91,39 +54,27 @@ msgstr ""
 "버블몬 종료. 프로파일링 자료는 ~/gmon.out에 남아있습니다.\n"
 "'gprof -l -p %s ~/gmon.out'을 실행하십시오.\n"
 
-#: src/bubblemon.c:613
+#: src/bubblemon.c:579
 msgid "<name of executable>"
 msgstr "<실행파일 이름>"
 
-#: src/bubblemon.c:725
-#, c-format
-msgid ""
-"Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
-"(0-%d).\n"
-"       swapPercentage (%d) is probably out of range (0-100) too on line %d "
-"of %s.\n"
-msgstr ""
-"오류: aircolor (%d),  watercolor (%d),  aliascolor (%d) 중 하나가 "
-"범위(0-%d)를 벗어남.\n"
-"       swapPercentage (%d)이 %d 행(%s)에서 범위(0-100)를 벗어났을 수도 있음\n"
-
-#: src/bubblemon.c:989
+#: src/bubblemon.c:944
 msgid "Can't create applet!\n"
 msgstr "애플릿을 만들 수 없음\n"
 
-#: src/bubblemon.c:992
+#: src/bubblemon.c:947
 msgid "Can't open glibtop!\n"
 msgstr "glibtop을 열 수 없음!\n"
 
-#: src/bubblemon.c:1054
+#: src/bubblemon.c:1009
 msgid "About"
 msgstr "프로그램 정보"
 
-#: src/bubblemon.c:1224
+#: src/bubblemon.c:1179
 msgid "Bubbling Load Monitor"
 msgstr "물거품 부하 모니터"
 
-#: src/bubblemon.c:1227
+#: src/bubblemon.c:1182
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -136,3 +87,44 @@ msgstr ""
 "참고하십시오.\n"
 "이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 "
 "좋습니다.  자세한 사항은 LICENSE 파일을 참고하십시오."
+
+#~ msgid ""
+#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+#~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
+#~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "오류: mem_used (%Ld) > mem_max (%Ld) 이거나 swap_used (%Ld) > swap_max "
+#~ "(%Ld)\n"
+#~ "       이 값들은 swap.used (%Ld), memory.used (%Ld),\n"
+#~ "       memory.cached (%Ld) 그리고 memory.buffer (%Ld) 으로부터 계산한 것이며 "
+#~ "       %d 행(%s)에 있다.\n"
+
+#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
+#~ msgstr "%d 행 (%s) update_tooltip()에서 bm == NULL\n"
+
+#~ msgid ""
+#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "%d 행(%s)에서 get_censored_memory_and_swap 함수가 메모리 없음이라고 보고"
+
+#~ msgid ""
+#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
+#~ "(0-100)\n"
+#~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
+#~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "오류: memoryPercentage (%d%%) 또는 swapPercentage (%d%%)의 값이 "
+#~ "범위(0-100)을 초과함\n"
+#~ "       이 값들은 mem_used (%Ld), mem_max (%Ld),\n"
+#~ "       swap_used (%Ld) 그리고 swap_max (%Ld) 로부터 계산된 결과이다.%d "
+#~ "행(%s)에 있음\n"
+
+#~ msgid ""
+#~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
+#~ "(0-%d).\n"
+#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
+#~ "of %s.\n"
+#~ msgstr ""
+#~ "오류: aircolor (%d),  watercolor (%d),  aliascolor (%d) 중 하나가 "
+#~ "범위(0-%d)를 벗어남.\n"
+#~ "       swapPercentage (%d)이 %d 행(%s)에서 범위(0-100)를 벗어났을 수도 있음\n"

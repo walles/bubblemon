@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.12\n"
-"POT-Creation-Date: 2000-12-20 20:05+0100\n"
+"POT-Creation-Date: 2000-12-25 13:24+0100\n"
 "PO-Revision-Date: 2000-09-24 20:39+03:00\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -29,24 +29,7 @@ msgstr ""
 "glibtop_get_mem() ilmoitti rivillä %d tiedostossa %s, että tietokoneessa ei "
 "ole muistia"
 
-#: src/bubblemon.c:295
-#, c-format
-msgid ""
-"Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
-"       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-"       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
-msgstr ""
-"Virhe: mem_used (%Ld) > mem_max (%Ld) tai swap_used (%Ld) > swap_max(%Ld)\n"
-"       Ne laskettiin muuttujista swap.used (%Ld), memory.used(%Ld),\n"
-"       memory.cached (%Ld) ja memory.buffer (%Ld) rivillä %d tiedostossa "
-"%s.\n"
-
-#: src/bubblemon.c:350
-#, c-format
-msgid "bm == NULL in update_tooltip() on line %d of %s\n"
-msgstr "bm == NULL funktiossa update_tooltip() rivillä %d tiedostossa %s\n"
-
-#: src/bubblemon.c:363
+#: src/bubblemon.c:346
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s\n"
@@ -56,34 +39,16 @@ msgstr ""
 "Sivutusta käytetty: %s\n"
 "Prosessorikuorma: %d%%"
 
-#: src/bubblemon.c:393
-#, c-format
-msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-msgstr ""
-"get_censored_memory_and_swap() ilmoitti rivillä %d tiedostossa %s, että "
-"koneessa ei ole muistia"
-
-#: src/bubblemon.c:414
-msgid ""
-"Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
-"(0-100)\n"
-"       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-"       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
-msgstr ""
-"Virhe: memoryPercentage (%d%%) tai swapPercentage (%d%%) ei alueella 0-100\n"
-"       Ne laskettiin muuttujista mem_used (%Ld), mem_max (%Ld),\n"
-"       swap_used (%Ld) ja swap_max (%Ld) rivillä %d tiedostossa %s.\n"
-
-#: src/bubblemon.c:600
+#: src/bubblemon.c:566
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "En voinut siirtyä hakemistoon $HOME (%s)\n"
 
-#: src/bubblemon.c:606
+#: src/bubblemon.c:572
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME-ympäristömuuttuja ei ole asetettu.\n"
 
-#: src/bubblemon.c:611
+#: src/bubblemon.c:577
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -92,40 +57,27 @@ msgstr ""
 "Bubblemon sulkeutuu. Profilointidatan pitäisi olla tiedostossa ~/gmon.out.\n"
 "Ajapa huviksesi 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:613
+#: src/bubblemon.c:579
 msgid "<name of executable>"
 msgstr "<ohjelmatiedoston nimi>"
 
-#: src/bubblemon.c:725
-#, c-format
-msgid ""
-"Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
-"(0-%d).\n"
-"       swapPercentage (%d) is probably out of range (0-100) too on line %d "
-"of %s.\n"
-msgstr ""
-"Error: aircolor (%d) tai watercolor (%d) tai aliascolor (%d) ei alueella "
-"(0-%d).\n"
-"       swapPercentage (%d) ei ole luultavasti alueella (0-100) myöskään "
-"rivillä %d tiedostossa %s.\n"
-
-#: src/bubblemon.c:989
+#: src/bubblemon.c:944
 msgid "Can't create applet!\n"
 msgstr "Sovelmaa ei voitu luoda!\n"
 
-#: src/bubblemon.c:992
+#: src/bubblemon.c:947
 msgid "Can't open glibtop!\n"
 msgstr "glibtop:ia ei voitu avata!\n"
 
-#: src/bubblemon.c:1054
+#: src/bubblemon.c:1009
 msgid "About"
 msgstr "Tietoja"
 
-#: src/bubblemon.c:1224
+#: src/bubblemon.c:1179
 msgid "Bubbling Load Monitor"
 msgstr "Kupliva kuormamittari"
 
-#: src/bubblemon.c:1227
+#: src/bubblemon.c:1182
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -138,3 +90,43 @@ msgstr ""
 "LICENSE.\n"
 "Tämä sovelma on vapaata ohjelmistoa, ja voit levittää sitä tiettyjen\n"
 "ehtojen (GPL) mukaan. Katso lisätietoja tiedostosta LICENSE."
+
+#~ msgid ""
+#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+#~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
+#~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "Virhe: mem_used (%Ld) > mem_max (%Ld) tai swap_used (%Ld) > swap_max(%Ld)\n"
+#~ "       Ne laskettiin muuttujista swap.used (%Ld), memory.used(%Ld),\n"
+#~ "       memory.cached (%Ld) ja memory.buffer (%Ld) rivillä %d tiedostossa "
+#~ "%s.\n"
+
+#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
+#~ msgstr "bm == NULL funktiossa update_tooltip() rivillä %d tiedostossa %s\n"
+
+#~ msgid ""
+#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "get_censored_memory_and_swap() ilmoitti rivillä %d tiedostossa %s, että "
+#~ "koneessa ei ole muistia"
+
+#~ msgid ""
+#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
+#~ "(0-100)\n"
+#~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
+#~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "Virhe: memoryPercentage (%d%%) tai swapPercentage (%d%%) ei alueella 0-100\n"
+#~ "       Ne laskettiin muuttujista mem_used (%Ld), mem_max (%Ld),\n"
+#~ "       swap_used (%Ld) ja swap_max (%Ld) rivillä %d tiedostossa %s.\n"
+
+#~ msgid ""
+#~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
+#~ "(0-%d).\n"
+#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
+#~ "of %s.\n"
+#~ msgstr ""
+#~ "Error: aircolor (%d) tai watercolor (%d) tai aliascolor (%d) ei alueella "
+#~ "(0-%d).\n"
+#~ "       swapPercentage (%d) ei ole luultavasti alueella (0-100) myöskään "
+#~ "rivillä %d tiedostossa %s.\n"
