@@ -12,6 +12,14 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  programming skills, and should be a both easy and useful way to
  improve the applet.
 
+. If lots of memory is used, add the text "Process 4711 "mozilla" is
+using 42Mb" to the tool tip.  The process mentioned should be the one
+using the highest amount of memory.
+
+. If lots of CPU is used, add the text "Process 4711 "mozilla" is
+using 100% CPU" to the tool tip.  The process mentioned should be the
+one using the largest amount of CPU.
+ 
 . On Linux 2.4 systems, inode cache memory is reported as water
  instead of air.  This should be fixed.  This may require changing
  libgtop.
@@ -75,14 +83,6 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  vial outline, and making the bubbles transparent instead of
  air-colored?  Drawing takes place inside bubblemon.c below the
  comment saying "Draw the air-and-water background".
-
-. Fix the GTK+ bug 15891
- (http://bugzilla.gnome.org/show_bug.cgi?id=15891).  The
- applet_widget_set_widget_tooltip() function erroneously hides the
- tooltip if it is visible when applet_widget_set_widget_tooltip() is
- called.  If you resolve this, go to
- "http://bugzilla.gnome.org/createattachment.cgi?id=15891" and upload
- your patch there.
 
 . Add a pointer to where the FAQ is located to the About box.  Is this
  at all possible to do in some way that survives all different kinds
