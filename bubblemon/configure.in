@@ -8,7 +8,7 @@
 #
 #
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 2.0.0)
+AM_INIT_AUTOMAKE(bubblemon, 2.0.1)
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_INTLTOOL([0.21])

@@ -12,7 +12,7 @@ INCLUDES = \
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
-bin_PROGRAMS = bubblemon-gnome2
+libexec_PROGRAMS = bubblemon-gnome2
 
 bubblemon_gnome2_SOURCES = \
 	bubblemon.c bubblemon.h \
