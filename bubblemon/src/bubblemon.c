@@ -544,18 +544,11 @@ static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
 static const bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
 {
   bubblemon_color_t returnMe;
-
-#if defined(WORDS_BIGENDIAN)
-  returnMe.components.a = (constant >> 24) & 0xff;
-  returnMe.components.b = (constant >> 16) & 0xff; 
-  returnMe.components.g = (constant >> 8)  & 0xff; 
-  returnMe.components.r = (constant >> 0)  & 0xff;
-#else
+  
   returnMe.components.r = (constant >> 24) & 0xff;
   returnMe.components.g = (constant >> 16) & 0xff; 
   returnMe.components.b = (constant >> 8)  & 0xff; 
   returnMe.components.a = (constant >> 0)  & 0xff;
-#endif
   
   return returnMe;
 }
