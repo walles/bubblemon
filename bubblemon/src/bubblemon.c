@@ -102,7 +102,7 @@ int main (int argc, char ** argv)
 
       if (!no_loop)
         {
-          char *new_argv[];
+          char **new_argv;
           int k;
           
           new_argv = g_malloc0(sizeof(char *) * (argc + 3));
@@ -1276,7 +1276,7 @@ void bubblemon_set_size (BubbleMonData * bm)
   if (bm->image)
     gdk_image_destroy (bm->image);
 
-  assert(gtk_widget_get_visual(bm->area) != NULL);
+  g_assert(gtk_widget_get_visual(bm->area) != NULL);
   bm->image = gdk_image_new (GDK_IMAGE_FASTEST,
                              gtk_widget_get_visual (bm->area),
                              bm->breadth,
