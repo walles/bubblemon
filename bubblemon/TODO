@@ -26,7 +26,7 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  the make_new_bubblemon_applet() function in bubblemon.c and add some
  variable that is checked at the beginning of bubblemon_update() to
  see whether the applet should be updated or not.
- 
+
 . Make bubble movement independent of update frequency.  If you know
  about or wish to learn about how to make real time visualizations of
  physical phenomenon, this one is for you.  You should probably modify
@@ -34,13 +34,13 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  bubblemon.c for doing this.
 
 . Make a properties box using Glade/libGlade?  In that case, make the
- properties box contain four color options and options for changing
- the update frequency.  Have everything saved / restored by the
- session handling code.  If you want to look into this, a good start
- would be reading the libGlade docs at
- "http://developer.gnome.org/doc/API/libglade/libglade.html".  If you
- want to learn how to easily write GUIs for GNOME, this one is for
- you.
+ properties box contain four color options, options for changing the
+ update frequency and a slider for setting the ripple factor.  Have
+ everything saved / restored by the session handling code.  If you
+ want to look into this, a good start would be reading the libGlade
+ docs at "http://developer.gnome.org/doc/API/libglade/libglade.html".
+ If you want to learn how to easily write GUIs for GNOME, this one is
+ for you.
 
 . For some (but not all) people with 24 bit displays, the applet won't
  work.  For this reason, the color handling should be re-written.  If
@@ -70,4 +70,7 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 
 . Fix the performance problems that glibtop are having with swap space
  measurement and with memory measurement on (some?) systems with >=
- 128Mb memory.  Useful if you have this much memory.
+ 128Mb memory.  Useful if you have this much memory.  The libgtop
+ documentation would probably be a good starting place for this; it is
+ available off of
+ "http://www.home-of-linux.org/gnome/libgtop/manual/1.1/libgtop_toc.html".
