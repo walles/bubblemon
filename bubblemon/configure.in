@@ -122,6 +122,7 @@ Makefile
 macros/Makefile
 src/Makefile
 gnome/Makefile
+pixmaps/Makefile
 packaging/Makefile
 packaging/bubblemon.spec
 debian/Makefile

@@ -28,6 +28,6 @@ Comment[nl]=Visualiseert de systeembelasting als een bubbelende vloeistof
 Comment[pl]=Wy¶wietla obci±¿enie systemu jako p³ywaj±ce pêcherzyki
 Comment[pt]=Visualize a carga do sistema como um liquido borbulhento
 Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
-Icon=
+Icon=bubblemon.png
 Terminal=0
 Type=Application
