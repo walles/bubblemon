@@ -111,22 +111,22 @@ static void usage2string(char *string,
   int shiftme = 0;
   char divisor_char = '\0';
 
-  if ((max >> 40) > 0)
+  if ((max >> 30) > 7000)
     {
       shiftme = 40;
       divisor_char = 'T';
     }
-  else if ((max >> 30) > 0)
+  else if ((max >> 20) > 7000)
     {
       shiftme = 30;
       divisor_char = 'G';
     }
-  else if ((max >> 20) > 0)
+  else if ((max >> 10) > 7000)
     {
       shiftme = 20;
       divisor_char = 'M';
     }
-  else if ((max >> 10) > 0)
+  else if ((max >> 0) > 7000)
     {
       shiftme = 10;
       divisor_char = 'k';
