@@ -36,6 +36,7 @@
 
 #include <glibtop.h>
 #include <glibtop/cpu.h>
+#include <glibtop/mem.h>
 
 #include <applet-widget.h>
 
@@ -72,9 +73,7 @@ int total;
 
 /*
  * This function, bubblemon_update, gets the CPU usage and updates
- * the fire array and pixmap.
- *
- * FIXME: This function should bubble instead of burn.
+ * the bubble array and pixmap.
  */
 gint
 bubblemon_update (gpointer data)
@@ -82,8 +81,9 @@ bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, waterlevel;
+  int aircolor, watercolor, waterlevel, memoryPercentage;
   glibtop_cpu cpu;
+  glibtop_mem memory;
   uint64_t load, total, oLoad, oTotal;
 
   // bm->setup is a status byte that is true if we are rolling
@@ -117,6 +117,10 @@ bubblemon_update (gpointer data)
   else
     loadPercentage = 100 * (load - oLoad) / (total - oTotal);
 
+  // Find out the memory load
+  glibtop_get_mem (&memory);
+  memoryPercentage = (100 * (memory.used - memory.cached)) / memory.total;
+  
   // The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
   // an entry in the color table.  A pixel in the buf is accessed
   // using the formula buf[row * w + column].
@@ -136,7 +140,7 @@ bubblemon_update (gpointer data)
   // surface.
 
   // 75% water
-  waterlevel = h - ((75 * h) / 100);
+  waterlevel = h - ((memoryPercentage * h) / 100);
 
   // Here comes the bubble magic.  Pixels are drawn by setting values in
   // buf to 0-NUM_COLORS.  We should possibly make some macros or
@@ -194,7 +198,7 @@ bubblemon_update (gpointer data)
   // Drawing magic resides below this point
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
-  // Copy the fire image data to the gdk image
+  // Copy the bubbling image data to the gdk image
   switch (bytesPerPixel) {
     case 4: {
       uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
@@ -444,9 +448,8 @@ about_cb (AppletWidget *widget, gpointer data)
     gnome_about_new (_("Bubbling Load Monitor"), VERSION,
 		     _("Copyright (C) 1999 Johan Walles"),
 		     (const char **) authors,
-	     _("This applet displays your CPU load as a fire.  "
+	     _("This applet displays your CPU load as a bubbling liquid.  "
 	       "GNOME code ripped from Merlin Hughes' Merlin's CPU Fire Applet.  "
-               "Fire code ripped from Zinx Verituse' cpufire.  "
                "This applet comes with ABSOLUTELY NO WARRANTY.  "
                "See the LICENSE file for details.\n"
                "This is free software, and you are welcome to redistribute it "
