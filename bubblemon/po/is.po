@@ -34,7 +34,7 @@ msgid ""
 "Swap used: %s"
 msgstr ""
 "Vinnsluminni í notkun: %s\n"
-"Sýndarminni í notkun: %s\n"
+"Sýndarminni í notkun: %s"
 
 #: src/bubblemon.c:407
 #, c-format
