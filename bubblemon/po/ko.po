@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-06 21:04+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2001-01-06 21:30+0100\n"
+"PO-Revision-Date: 2001-01-10 01:38+0900\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,26 +27,29 @@ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "%d 행(%s)에서 glibtop_get_mem 함수가 메모리 없음이라고 보고함"
 
 #: src/bubblemon.c:397
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s"
 msgstr ""
 "메모리 사용량: %s\n"
-"스왑 사용량: %s\n"
-"CPU 부하: %d%%"
+"스왑 사용량: %s"
 
 #: src/bubblemon.c:404
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
+"\n"
+"CPU 부하: %d%%"
 
 #: src/bubblemon.c:415
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
+"\n"
+"CPU #%d 부하: %d%%"
 
 #: src/bubblemon.c:638
 #, c-format
@@ -100,43 +103,3 @@ msgstr ""
 "이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 "
 "좋습니다.  자세한 사항은 LICENSE 파일을 참고하십시오."
 
-#~ msgid ""
-#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
-#~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-#~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
-#~ msgstr ""
-#~ "오류: mem_used (%Ld) > mem_max (%Ld) 이거나 swap_used (%Ld) > swap_max "
-#~ "(%Ld)\n"
-#~ "       이 값들은 swap.used (%Ld), memory.used (%Ld),\n"
-#~ "       memory.cached (%Ld) 그리고 memory.buffer (%Ld) 으로부터 계산한 것이며 "
-#~ "       %d 행(%s)에 있다.\n"
-
-#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
-#~ msgstr "%d 행 (%s) update_tooltip()에서 bm == NULL\n"
-
-#~ msgid ""
-#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-#~ msgstr ""
-#~ "%d 행(%s)에서 get_censored_memory_and_swap 함수가 메모리 없음이라고 보고"
-
-#~ msgid ""
-#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
-#~ "(0-100)\n"
-#~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-#~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
-#~ msgstr ""
-#~ "오류: memoryPercentage (%d%%) 또는 swapPercentage (%d%%)의 값이 "
-#~ "범위(0-100)을 초과함\n"
-#~ "       이 값들은 mem_used (%Ld), mem_max (%Ld),\n"
-#~ "       swap_used (%Ld) 그리고 swap_max (%Ld) 로부터 계산된 결과이다.%d "
-#~ "행(%s)에 있음\n"
-
-#~ msgid ""
-#~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
-#~ "(0-%d).\n"
-#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
-#~ "of %s.\n"
-#~ msgstr ""
-#~ "오류: aircolor (%d),  watercolor (%d),  aliascolor (%d) 중 하나가 "
-#~ "범위(0-%d)를 벗어남.\n"
-#~ "       swapPercentage (%d)이 %d 행(%s)에서 범위(0-100)를 벗어났을 수도 있음\n"

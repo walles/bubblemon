@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
-"POT-Creation-Date: 2001-01-06 21:04+0100\n"
-"PO-Revision-Date: 2000-12-27 HO:MI+ZONE\n"
+"POT-Creation-Date: 2001-01-06 21:30+0000\n"
+"PO-Revision-Date: 2001-01-10 14:56+0000\n"
 "Last-Translator: Edson Medina <edson@mrnet.pt>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,20 +35,23 @@ msgid ""
 "Swap used: %s"
 msgstr ""
 "Memória usada: %s\n"
-"Memória swap usada: %s\n"
-"Carga do CPU: %d%%"
+"Memória swap usada: %s"
 
 #: src/bubblemon.c:404
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
+"\n"
+"Carga do CPU: %d%%"
 
 #: src/bubblemon.c:415
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
+"\n"
+"Carga do CPU: #%d"
 
 #: src/bubblemon.c:638
 #, c-format
@@ -70,7 +73,7 @@ msgstr ""
 
 #: src/bubblemon.c:651
 msgid "<name of executable>"
-msgstr ""
+msgstr "<nome do executável>"
 
 #: src/bubblemon.c:1023
 msgid "Can't create applet!\n"

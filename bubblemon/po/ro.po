@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-06 21:04+0100\n"
-"PO-Revision-Date: 2000-12-28 06:56+0200\n"
+"POT-Creation-Date: 2001-01-06 21:30+0100\n"
+"PO-Revision-Date: 2001-01-09 18:49+0200\n"
 "Last-Translator: Alex Badea <vampire@go.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,26 +30,29 @@ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() zice cã nu e destulã memorie, linia %d din %s"
 
 #: src/bubblemon.c:397
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s"
 msgstr ""
 "Memorie ocupatã: %s\n"
-"Swap ocupat: %s\n"
-"Procesor: %d%%"
+"Swap ocupat: %s"
 
 #: src/bubblemon.c:404
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
+"\n"
+"Procesor: %d%%"
 
 #: src/bubblemon.c:415
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
+"\n"
+"Procesor nr. %d: %d%%"
 
 #: src/bubblemon.c:638
 #, c-format
