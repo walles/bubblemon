@@ -1,7 +1,7 @@
 # -*-m4-*- Process this file with autoconf to produce a configure script.
 
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 0.9.1)
+AM_INIT_AUTOMAKE(bubblemon, 0.9.2)
 AM_CONFIG_HEADER(config.h)
 
 # Pick up the Gnome macros.
@@ -49,6 +49,12 @@ if test "x$profiling" = "xyes"; then
   AC_MSG_RESULT($profilingFLAGS)
 
   AC_DEFINE(ENABLE_PROFILING)
+
+  AC_MSG_WARN()
+  AC_MSG_WARN(You have enabled profiling by specifying the --enable-profiling switch.)
+  AC_MSG_WARN(Please don't install the applet the usual way; read the file PROFILING)
+  AC_MSG_WARN(for instructions.)
+  AC_MSG_WARN()
 fi
 
 AC_OUTPUT([
