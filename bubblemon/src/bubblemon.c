@@ -606,6 +606,15 @@ gint bubblemon_update (gpointer data)
       bubbles[bm->n_bubbles].y = h - 1;
       bubbles[bm->n_bubbles].dy = 0.0;
 
+      /* Raise the water level above where the bubble is created */
+      if (bubbles[bm->n_bubbles].x > 2)
+        bm->waterlevels[bubbles[bm->n_bubbles].x - 2] -= 0.5;
+      bm->waterlevels[bubbles[bm->n_bubbles].x - 1] -= 0.5;
+      bm->waterlevels[bubbles[bm->n_bubbles].x] -= 0.5;
+      bm->waterlevels[bubbles[bm->n_bubbles].x + 1] -= 0.5;
+      if (bubbles[bm->n_bubbles].x < (w - 3))
+        bm->waterlevels[bubbles[bm->n_bubbles].x + 2] -= 0.5;
+      
       /* Count the new bubble */
       bm->n_bubbles++;
     }
@@ -622,12 +631,18 @@ gint bubblemon_update (gpointer data)
       /* Did we lose it? */
       if (bubbles[i].y < bm->waterlevels[bubbles[i].x])
 	{
+          /* Lower the water level around where the bubble is
+             about to vanish */
+          bm->waterlevels[bubbles[i].x - 1] += 0.5;
+          bm->waterlevels[bubbles[i].x] += 1.5;
+          bm->waterlevels[bubbles[i].x + 1] += 0.5;
+          
 	  /* Yes; nuke it */
 	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;
 	  bubbles[i].y  = bubbles[bm->n_bubbles - 1].y;
 	  bubbles[i].dy = bubbles[bm->n_bubbles - 1].dy;
 	  bm->n_bubbles--;
- 
+
 	  /*
 	    We must check the previously last bubble, which is
 	    now the current bubble, also.
