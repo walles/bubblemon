@@ -66,3 +66,7 @@ if [ $? != 0 ] ; then
 fi
 mv $RPMS/RPMS/*/bubblemon*rpm $RPMS/SRPMS/bubblemon*rpm ..
 rm bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
+
+echo
+echo Package creation done, look in .. for the generated packages.
+echo
