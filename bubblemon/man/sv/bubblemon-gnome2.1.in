@@ -1,0 +1,29 @@
+.TH "Bubblande lastmätare" "1" "@VERSION@" "Johan Walles" "GNOME panelprogram"
+.SH "NAMN"
+.LP 
+Bubblande lastmätare \- Visar systemlasten som en bubblande vätska
+.SH "SYNTAX"
+.LP 
+bubblemon-gnome2
+.SH "BESKRIVNING"
+.LP
+Detta panelprogram för GNOME visar systemlasten som en bubblande
+vätska.  Vätskenivån motsvarar minnesanvändningen, om mycket minne
+används är vätskan nära toppen.  Mängden bubblor talar om hur mycket
+processorn arbetar, mycket bubblor betyder hög processorlast.  Färgen
+på vätskan talar om hur mycket växlingsutrymme ("swap") som används.
+Så länge som vätskan är vattenfärgad används inget växlingsutrymme,
+men ju mer växlingsutrymme som används desto rödare blir vätskan.  En
+flaskpost dyker upp när det finns oläst mail i filen som pekas ut av
+miljövariabeln $MAIL.  Sjögräs växer upp vid nätverkslast; mycket
+sjögräs innebär hög nätverkslast.
+.LP
+Om du håller muspekaren ovanför lastmätaren någon sekund får du se
+exakta siffror på systemlasten.
+.SH "FÖRFATTARE"
+.LP 
+Johan Walles <d92\-jwa@nada.kth.se>
+.SH "URL"
+.LP 
+Hemsidan finns på
+"http://www.nada.kth.se/~d92\-jwa/code".

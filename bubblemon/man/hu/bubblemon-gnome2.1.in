@@ -1,0 +1,26 @@
+.TH "Bubblemon" "1" "@VERSION@" "Johan Walles" "GNOME Applets"
+.SH "NÉV"
+.LP 
+Buborékoló terheltég figyelõ \- A rendszer terheltségét folyadék formájában jelzi ki
+.SH "ÁTTEKINTÉS"
+.LP 
+bubblemon-gnome2
+.SH "LEÍRÁS"
+.LP 
+Ez a GNOME applet a rendszer terheltségét buborékoló folyadék formájában
+jelzi ki. A folyadékszint a rendszer által használt memória mennyiségének
+felel meg, magas szint azt jelenti, hogy sok memória van használtaban. A 
+buborékok mennyisége a rendszer terheltségét jelzi, sok buborék nagy
+terheltséget jelent. Végezetül a folyadék színe a felhasznált swap terület
+méretét jelzi. Amíg a folyadék vízszinû, a swap nincs használatban, de ahogy
+egyre több swap kerül lefoglalásra, úgy változik a folyadék pirosabbá.
+.LP 
+Ha pontos értékeket akarsz, van egy felbukkanó segítség, ami elõjön, ha az
+egérmutatót egy másodpercig az applet felett hagyod.
+.SH "SZERZÕK"
+.LP 
+Johan Walles <d92\-jwa@nada.kth.se>
+.SH "URL"
+.LP 
+A Bubblemon honlapját megtalálod itt:
+"http://www.nada.kth.se/~d92\-jwa/code".

@@ -1,9 +1,17 @@
-# Tell am/ac to include these files in the distribution
-EXTRA_DIST = bubblemon_applet.gnorba bubblemon_applet.desktop
+## Gnome2 stuff
 
-# Tell am/ac to install them to the correct locations
-sysdir = $(GNOME_DATADIR)/applets/Monitors
-sys_DATA = bubblemon_applet.desktop
+serverdir       = $(libdir)/bonobo/servers
+server_in_files = GNOME_BubblemonApplet.server.in
+server_DATA     = $(server_in_files:.server.in=.server)
 
-gnorbadir = $(GNOME_SYSCONFDIR)/CORBA/servers
-gnorba_DATA = bubblemon_applet.gnorba
+$(server_in_files): $(server_in_files:.server.in=.server.in.in)
+	sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
+
+uidir = $(datadir)/gnome-2.0/ui
+ui_DATA = GNOME_BubblemonApplet.xml
+
+@INTLTOOL_SERVER_RULE@
+
+EXTRA_DIST = \
+	GNOME_BubblemonApplet.server.in.in \
+	$(ui_DATA)

@@ -1,1 +1,57 @@
-See the README file.
+To Emacs: This is a -*-text-*- file.
+
+This list is not really sorted, but stuff higher up on the list will
+tend to be completed earlier than stuff towards the end.  Additions?
+Opinions?  Send 'em to me (d92-jwa@nada.kth.se).
+
+. Merge the GNOME2 port:
+  x Merge src/Makefile.am into something that works with both GNOME1
+   and GNOME2.
+  x Merge configure.in into something that works with both GNOME1
+   and GNOME2.
+  x Verify that both the GNOME1 and GNOME2 port build out of the box.
+  x Verify that both the GNOME1 and GNOME2 port install out of the
+   box.
+
+. Create a screenshooting "port" of bubblemon.  This port should run
+ without displaying anything for like five seconds, then save a PNG of
+ the current picture in the current directory.  Its measurement
+ implementations should return values appropriate for nice
+ screenshots.  This should not be installable using "make install",
+ but it should be built iff libpng can be found.
+
+ The point of this exercise (except for getting nice screenshots)
+ would be to improve the portability of the configure stuff.  Doing
+ the port would probably resolve some of the configure.in cleanup
+ stuff below.
+
+. Clean up configure.in:
+  x Prefix all GNOME specific test results with GNOME_.
+
+  x Add a check for whether libgtop returns anything but zero for
+   system load.
+
+  x Add a summary at the end, listing the platforms to be built and
+   excuses for platforms not built.  End with something like "Now do
+   make ; make install".
+
+. Translate the applet into every single language in existance.  If
+ the applet doesn't show up in your favourite language even though
+ other parts of your GNOME desktop does, read the TRANSLATIONS file
+ for instructions on how to translate it.  This does not require any
+ programming skills, and should be a both easy and useful way to
+ improve the applet.
+
+. If lots of memory is used, add the text "Process 4711 "mozilla" is
+using 42Mb" to the tool tip.  The process mentioned should be the one
+using the highest amount of memory.
+
+. If lots of CPU is used, add the text "Process 4711 "mozilla" is
+using 100% CPU" to the tool tip.  The process mentioned should be the
+one using the largest amount of CPU.
+ 
+. Add a "Legend" to the right mouse button menu.
+
+. Add a pointer to where the FAQ is located to the About box.  Is this
+ at all possible to do in some way that survives all different kinds
+ of packaging formats?

@@ -1,70 +1,29 @@
+To Emacs: This is a -*-text-*- file.
+
 1. How do I start the applet from the command line?
 
 Change to the bubblemon directory and do the following:
 
 $ ./configure
 $ make
-$ src/bubblemon_applet --activate-goad-server=bubblemon_applet
+$ src/bubblemon-gnome1
 
 
-2. Performance sucks.  What should I do?
+2. Can you add this feature to the applet?
 
-To give you some frame of reference of what kind of performance to
-expect; on my 400MHz PII system I have never seen the bubblemon go
-over 1.5% CPU utilization (according to 'top').
-
-See the file PROFILING for instructions on finding out where your
-cycles go.
-
-Note that several users have reported a CPU utilization of over 30%
-for a system similar to mine.  In all of the cases, the profiling said
-that only 0-2% of the CPU was used by my code.  This means that cycles
-are disappearing outside of my code.
-
-As I don't have these problems on any of the (two) systems I've tried
-the applet on, this is very hard for me to track down.  So if you know
-some C and want to help me find the problem, I will greatly appreciate
-any help I can get!  I'm really stuck on this one, so please HELP!
-
-My only lead is that one person who did *not* have this problem added
-128 megs to his system, and was then hit by it.  This makes me guess
-that libgtop (http://www.home-of-linux.org/gnome/libgtop) is the
-perpetrator.  If you want to look into this, please do!
+Perhaps.  If you want to improve your odds, here are my suggestions
+though:
+* Your best bet is to do it yourself and send me a patch.  If you run
+ into problems I'll gladly answer your questions.  Also, the TODO file
+ may very well contain some information to help you get started.
+* If you can't do it yourself (or get someone else to do it for you
+ :-), see if it is in the TODO file.  If it is, I will probably
+ implement it sooner or later anyway.
+* If you can't do it yourself and it's not in the TODO file, send a
+ mail to the mailing list (bubblemon-list@nongnu.org) and I'll add it.
 
 
-3. The program doesn't do anything; it doesn't even crash!
-
-Try running it from the command line, and see if you get an error
-message.  Do the follwing from the bubblemon directory:
-
-$ ./configure
-$ make
-$ src/bubblemon_applet --activate-goad-server=bubblemon_applet
-
-
-4. Isn't the applet supposed to have a tooltip?  Where is it?
-
-Yes it is and the code is there for it.  See the README file under the
-TODO section for more info.
-
-
-5. The program crashes.  What should I do?
-
-Either fix it yourself and send me (d92-jwa@nada.kth.se) a patch, or
-send me a bug report.  The bug report should contain the result of
-changing directory into the bubblemon directory and doing the
-following:
-
-$ ./configure
-$ make
-$ cd src
-$ gdb bubblemon_applet
-(gdb) run --activate-goad-server=bubblemon_applet
-<SEGFAULT>
-(gdb) info stack
-
-
-6. I'm running a background process on my system that should be using
+3. I'm running a background process on my system that should be using
   all of my CPU, but the Bubblemon shows very few or no bubbles at
   all.  Why is that?
 
@@ -76,7 +35,37 @@ power at my disposal, even with a 'nice' background job running.
 Therefore: 'nice' processes don't bubble.
 
 
-7. The amount of memory used reported by the applet is different from
+4. The program doesn't do anything; it doesn't even crash!
+
+Try running it from the command line, and see if you get an error
+message.  Do the follwing from the bubblemon directory:
+
+$ ./configure
+$ make
+$ src/bubblemon-gnome1
+
+
+5. The program crashes.  What should I do?
+
+Either fix it yourself and send a patch to the mailing list
+(bubblemon-list@nongnu.org), or send a bug report to the list.  The
+bug report should contain the result of changing directory into the
+bubblemon src directory and doing the following:
+
+$ ./configure
+$ make
+$ cd src
+$ gdb ./bubblemon-gnome1
+(gdb) run
+<SEGFAULT>
+(gdb) info stack
+(gdb) info locals
+
+Note that the build stage is essential, because it puts debug metadata
+in the binary.
+
+
+6. The amount of memory used reported by the applet is different from
   what [other program] says.  How come?
 
 Free memory measuring on Linux (at least) is somewhat complicated.
@@ -87,8 +76,8 @@ really want.
 
 A more precise explanation follows.  If it's wrong in some way, or if
 you know somewhere else where this is documented in some
-comprehensible way, I'd appreciate it if you send me
-(d92-jwa@nada.kth.se) a mail.
+comprehensible way, I'd appreciate it if you send a mail to the
+mailing list (bubblemon-list@nongnu.org).
 
 Anyway, if we forget about swap for a while, here are the different
 kinds of memory, and whether I treat them as "air" or "water":
@@ -113,15 +102,52 @@ If you want to know more than this, have a look at the
 get_censored_memory_and_swap() function in bubblemon.c.
 
 
+7. Performance sucks.  What should I do?
+
+To give you some frame of reference of what kind of performance to
+expect; on my 400MHz PII system I have never seen the bubblemon go
+over 1.5% CPU utilization (according to 'top').
+
+See the file PROFILING for instructions on finding out where your
+cycles go.
+
+
 8. The configure script reports no problems, but I still get errors
   (or warnings) when doing 'make'.  What's up?
 
-The build process is broken.  It shouldn't be.  Send me
-(d92-jwa@nada.kth.se) a mail with the output from both 'configure' and
-'make', and also tell me what Linux distribution you are using and I'll
-try to fix it.
+The build process is broken.  It shouldn't be.  Send a mail to the
+mailing list (bubblemon-list@nongnu.org) with the output from both
+'configure' and 'make', and also tell me what kind of Unix you are
+using and I'll try to fix it.  To capture the output from those
+commands, do:
+
+./configure &> log-configure
+make &> log-make
+
+Then send a copy of both log files to (bubblemon-list@nongnu.org).
 
 
-9. I have another question/problem.  What should I do?
+9. How do I translate everything into my favourite language?
 
-E-mail me at d92-jwa@nada.kth.se and ask ahead.
+Instructions for doing this is in the TRANSLATIONS file.
+
+
+10. I'm running Mandrake Linux and the configure script fails.  What's
+    up?
+
+You haven't installed the `devel' RPMs from the second Mandrake CD.
+Install them and then run configure again.
+
+
+11. I'm running SuSE Linux and the configure script fails.  What's up?
+
+You haven't installed the GNOME development RPMs.  Make sure you have
+installed all RPMs that have names ending in 'd' (for 'development')
+from the GNOME category.  Then try running configure again.
+
+
+12. I have another question/problem or there's an error in this FAQ.
+    What should I do? 
+
+Send a mail to the mailing list (bubblemon-list@nongnu.org) and ask
+ahead.

@@ -1,11 +1,11 @@
+Emacs, this is a -*-text-*- file.
+
 Bubbling Load Monitoring Applet
 - A GNOME panel applet that displays the CPU + memory load as a
   bubbling liquid.
 Copyright (C) 1999 Johan Walles
 - d92-jwa@nada.kth.se
 - http://www.nada.kth.se/~d92-jwa/code
-Copyright (C) 1999 Merlin Hughes
-- http://nitric.com/freeware
 
 --
 
@@ -13,20 +13,46 @@ AUTHORS:
 
 Main author: Johan Walles <d92-jwa@nada.kth.se>
 
+GNOME2 port: Juan Salaverria <rael@vectorstar.net>
+
+Thanks to Merlin Hughes for the inspiration!
+
 Thanks to Harri Haataja for fixing the RPM spec.
 
-Thanks to Pete Rijks and Florian Hinzmann, who helped me find the very
+Thanks to Pete Rijks and Florian Hinzmann, who helped me find a very
 annoying segfault.
 
 Thanks a lot to Nathan "Nato" Uno for reviewing my code, finding lots
 of errors, writing the larger-bubbles patch, making a bunch of
 performance enhancements, and for probably doing at least one more
-thing that I have currently forgotten about.
+thing that I have forgotten about.
 
-Thanks to Bernd Eckenfels for adding Debian packaging stuff.
+Thanks to Bernd Eckenfels for adding Debian packaging stuff, and for
+maintaining the Debian package.
 
 Thanks to Thomas McGuffey for working around the GTK+ tooltip bug, and
 for finding a problem with get_censored_memory_and_swap().
 
 Thanks to Justin McAleer for providing me with my first actual lead to
-what may be causing the performance problems some people are having.
+what may be causing the performance problems some people were having.
+This also lead to me actually tracking it down to problems with
+checking the amounts of used memory and swap.  At first I thought the
+problem was with glibtop, but then "timecop" informed me that the
+problem is with Linux 2.2 and not glibtop.  Also, "timecop" claimed
+that these problems should be fixed (or at least not as visible) by
+2.4.
+
+Thanks to Leandro Fanzone for fixing the applet so that it can be
+displayed on remote X displays.
+
+Thanks to Alex Badea for writing a workaround for the need for the
+--activate-goad-server switch.
+
+Thanks a lot to Charles Gales for adding initial SMP support.
+
+Thanks to Detlef Reichl for the icon support.
+
+Thanks a lot to Benjamin Smith for implementing 24bpp support, this
+has been a problem since way back.
+
+Thanks to Nils Nordman for getting the program working on OpenBSD.

@@ -2,7 +2,8 @@ Source: bubblemon
 Section: x11
 Priority: optional
 Maintainer: Bernd Eckenfels <ecki@debian.org>
-Standards-Version: 3.0.1
+Build-Depends: debhelper, libgnome-dev, libgtop-dev, libpanel-applet-dev, liborbit-dev, libzvt-dev, libgtk1.2-dev
+Standards-Version: 3.5.0
 
 Package: bubblemon
 Architecture: any

@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 22:30+0200\n"
+"PO-Revision-Date: 2004-01-11 20:58+0100\n"
+"Last-Translator: Alex Badea <vampire@go.ro>\n"
+"Language-Team: Romanian <ro@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+#, fuzzy
+msgid "_About..."
+msgstr "Despre"
+
+#: src/bubblemon.c:152
+#, fuzzy, c-format
+msgid "Memory used: %s"
+msgstr ""
+"Memorie ocupat: %s\n"
+"Swap ocupat: %s"
+
+#: src/bubblemon.c:158
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Swap used: %s"
+msgstr ""
+"Memorie ocupat: %s\n"
+"Swap ocupat: %s"
+
+#: src/bubblemon.c:166
+#, c-format
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+"\n"
+"Procesor: %d%%"
+
+#: src/bubblemon.c:177
+#, c-format
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+"\n"
+"Procesor nr. %d: %d%%"
+
+#: src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "Monitor de ncrcare cu Bule"
+
+#: src/gnome2-ui.c:74
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details."
+msgstr ""
+"Acest applet afieaz ncrcarea procesorului sub forma unui lichid cu bule de "
+"aer.\n"
+"Acest applet vine fr ABSOLUT NICI O GARANIE, vezi fiierul LICENSE pentru "
+"detalii.\n"
+"Acesta este un soft gratuit, i suntei binevenit s-l redistribuii sub anumite "
+"condiii (GPL), vezi fiierul LICENSE pentru detalii."
+
+#, fuzzy
+#~ msgid "Can't create bubblemon applet!"
+#~ msgstr "Nu pot s creez applet-ul!\n"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Eroare: Constanta NUM_COLORS din bubblemon.h trebuie s fie un multiplu de "
+#~ "3.\n"
+#~ "        Valoarea curent de %d nu e valid.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr "glibtop_get_mem() zice c nu e destul memorie, linia %d din %s"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "N-am putut s chdir() n $HOME (%s)\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "Variabila $HOME nu e setat\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon se termin aici. Datele de profiling ar trebui s fie n ~/gmon."
+#~ "out.\n"
+#~ "Pentru distracie, ruleaz 'gprof -l -p %s ~/gmon.out'.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<numele executabilului>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "Nu pot s deschid glibtop!\n"
+
+#~ msgid ""
+#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
+#~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
+#~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "Eroare: mem_used (%Ld) > mem_max (%Ld) sau swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
+#~ "        Au fost calculate din swap.used (%Ld), memory.used (%Ld),\n"
+#~ "        memory.cached (%Ld) i memory.buffer (%Ld) la linia %d din %s.\n"
+
+#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
+#~ msgstr "bm == NULL n update_tooltip() la linia %d din %s\n"
+
+#~ msgid ""
+#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "get_censored_memory_and_swap() zice c nu e destul memorie la linia %d din "
+#~ "%s"
+
+#~ msgid ""
+#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-"
+#~ "100)\n"
+#~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
+#~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "Eroare: memoryPercentace(%d%%) sau swapPercentage (%d%%) n afara  "
+#~ "domeniului (0-100)\n"
+#~ "        Au fost calculate din mem_used(%Ld), mem_max (%Ld),\n"
+#~ "        swap_used (%Ld) i swap_max (%Ld) la linia %d din %s.\n"
+
+#~ msgid ""
+#~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
+#~ "(0-%d).\n"
+#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %"
+#~ "d of %s.\n"
+#~ msgstr ""
+#~ "Eroare: aircolor (%d) sau watercolor (%d) sau aliascolor (%d) n afara "
+#~ "domeniului (0-%d).\n"
+#~ "        swapPercentage (%d) e probabil i ea n afara domeniului (0-100) la "
+#~ "linia %d din %s.\n"

@@ -1,16 +1,30 @@
 ## Process this file with automake to produce Makefile.in
 
+localedir=$(datadir)/locale
+defaultincludes = -I. -I$(srcdir) -I..
+
 INCLUDES = \
-	$(GNOME_INCLUDEDIR)
+	-I $(defaultincludes) \
+	-DGTK_ENABLE_BROKEN \
+	-DGNOMELOCALEDIR=\"$(prefix)/$(DATADIRNAME)/locale\" \
+	$(GNOME_APPLETS_CFLAGS) \
+	$(GTOP_APPLETS_CFLAGS)
 
-bin_PROGRAMS = bubblemon_applet
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
-bubblemon_applet_SOURCES = \
+libexec_PROGRAMS = bubblemon-gnome2
+
+bubblemon_gnome2_SOURCES = \
 	bubblemon.c bubblemon.h \
-	session.c session.h
+	gnome2-ui.c gnome2-ui.h \
+	meter.h ui.h \
+	gnome1-meter.c \
+	unix-mail.c mail.h \
+	gnome1-netload.c netload.c netload.h
 
-bubblemon_applet_LDADD = \
-	$(GNOME_LIBDIR) \
-	$(GNOME_APPLETS_LIBS) \
-	$(LIBGTOP_LIBS) \
-	$(LIBGTOP_EXTRA_LIBS)
+bubblemon_gnome2_LDADD = \
+	$(GNOME_APPLETS_LIBS)   \
+	$(GTOP_APPLETS_LIBS)
+
+EXTRA_DIST = msgInBottle.c 
+

@@ -1,0 +1,110 @@
+# Icelandic Translation of Bubblemon
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# Johann Helgi Agnarsson <johann@firmanet.is>, 2002.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 22:30+0200\n"
+"PO-Revision-Date: 2004-01-11 21:00+0100\n"
+"Last-Translator: Johann Helgi Agnarsson <johann@firmanet.is>\n"
+"Language-Team: Ísland <johann@firmanet.is>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+#, fuzzy
+msgid "_About..."
+msgstr "Um"
+
+#: src/bubblemon.c:152
+#, fuzzy, c-format
+msgid "Memory used: %s"
+msgstr ""
+"Vinnsluminni í notkun: %s\n"
+"Sýndarminni í notkun: %s"
+
+#: src/bubblemon.c:158
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Swap used: %s"
+msgstr ""
+"Vinnsluminni í notkun: %s\n"
+"Sýndarminni í notkun: %s"
+
+#: src/bubblemon.c:166
+#, c-format
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+"\n"
+"CPU álag: %d%%"
+
+#: src/bubblemon.c:177
+#, c-format
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+"\n"
+"CPU #%d álag: %d%%"
+
+#: src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "Bubblandi álagsmælir"
+
+#: src/gnome2-ui.c:74
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details."
+msgstr ""
+"Þetta applet birtir CPU álag sem bubblandi vökva.\n"
+"Þetta applet kemur með ALLS ENGRI ÁBYRGÐ, lesið LICENSE skránna fyrir "
+"smáatriði.\n"
+"Þetta forrit heyrir undir GPL leyfið og er þér velkomið að dreifa því undir "
+"Skilmálum GPL."
+
+#, fuzzy
+#~ msgid "Can't create bubblemon applet!"
+#~ msgstr "Get ekki búið til applet!\n"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Fastinn NUM_COLORS í bubblemon.h verður að vera deilanlegur með 3.\n"
+#~ "       Núverandi gildið %d er það ekki.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr "glibgtop_get_mem() segir að þú hafir ekkert minni, lína %d í %s"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "Gat ekki komist í $HOME\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "Umhverfisbreytan $HOME finnst ekki\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon hættir. Prófílgögn liggja í ~/gmon.out\n"
+#~ "Keyrið 'gprof -l -p %s ~/gmon.out' til að sjá tölulegar upplýsingar.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<forritsnafn>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "Finn ekki glibtop!\n"

@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 22:30+0200\n"
+"PO-Revision-Date: 2004-01-11 20:55+0100\n"
+"Last-Translator: Unknown\n"
+"Language-Team: Unknown\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+#, fuzzy
+msgid "_About..."
+msgstr "Opis"
+
+#: src/bubblemon.c:152
+#, fuzzy, c-format
+msgid "Memory used: %s"
+msgstr ""
+"Upotreba memorije: %s\n"
+"Upotreba svop-a: %s\n"
+"Upotreba procesora: %d%%"
+
+#: src/bubblemon.c:158
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Swap used: %s"
+msgstr ""
+"Upotreba memorije: %s\n"
+"Upotreba svop-a: %s\n"
+"Upotreba procesora: %d%%"
+
+#: src/bubblemon.c:166
+#, c-format
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+
+#: src/bubblemon.c:177
+#, c-format
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+
+#: src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "Burni indikator opterecenja"
+
+#: src/gnome2-ui.c:74
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details."
+msgstr ""
+"Ovaj aplet prikazuje opterecenje kompjuterskog procesora kao burnost "
+"tecnosti.\n"
+"Ovaj aplet nema NIKAKVE GARANCIJE FUKCIONALNOSTI, vidite LICENSE ugovor koji "
+"daje detaljan opis na engleskom jeziku.\n"
+"Ovo je slobodni program koji sami smijete da dstribujisete po licensi (GPL), "
+"za detaljan opis vidite LICENSE fajl."
+
+#, fuzzy
+#~ msgid "Can't create bubblemon applet!"
+#~ msgstr "Nemoguce stvoriti aplet!\n"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Greska: Konstanta NUM_COLORS u bubblemon.h mora biti dijeljiva sa 3\n"
+#~ "        Sadasnja vrednost od %d nije.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "glibtop_get_mem() informise da nema slobodne memorije na liniji %d u %s"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "Nije uspjela operacija chdir() na $HOME (%s)\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "$HOME envajronment parametar nije postavljen\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon je zavrsio operaciju.  Profilacijski podaci su stedeni u ~/gmon."
+#~ "out.\n"
+#~ "Da provedete dobro vrijeme, zapocnite 'gprof -l -p %s ~/gmon.out'.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<ime eksekjutabla>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "Nemoguce otvoriti glibtop!\n"
+
+#~ msgid ""
+#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
+#~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
+#~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "Greska: mem_used (%Ld) > mem_max (%Ld) ili swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
+#~ "       Izracunato sa swap.used (%Ld), memory.used (%Ld),\n"
+#~ "       memory.cached (%Ld) i memory.buffer (%Ld) na liniji %d od %s.\n"
+
+#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
+#~ msgstr "bm == NULL u update_tooltip() na liniji %d od %s\n"
+
+#~ msgid ""
+#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "get_censored_memory_and_swap() informise da nemate vise memorije na "
+#~ "liniji %d od %s"
+
+#~ msgid ""
+#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-"
+#~ "100)\n"
+#~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
+#~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
+#~ msgstr ""
+#~ "Greska: memoryPercentage (%d%%) ili swapPercentage (%d%%) van definicije "
+#~ "(0-100)\n"
+#~ "       Izracunate sa upotrebom parametara mem_used (%Ld), mem_max (%Ld),\n"
+#~ "       swap_used (%Ld) i swap_max (%Ld) na liniji %d od %s.\n"
+
+#~ msgid ""
+#~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
+#~ "(0-%d).\n"
+#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %"
+#~ "d of %s.\n"
+#~ msgstr ""
+#~ "Greska: aircolor (%d) ili watercolor (%d) ili aliascolor (%d) su van "
+#~ "definicije (0-%d).\n"
+#~ "       swapPercentage (%d) jeste najvjerovatnije isto van definicije (0-"
+#~ "100) na liniji %d od %s.\n"

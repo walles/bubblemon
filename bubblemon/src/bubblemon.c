@@ -1,12 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  - A GNOME panel applet that displays the CPU + memory load as a
- *    bubbling liquid.
- *  Copyright (C) 1999 Johan Walles
- *  - d92-jwa@nada.kth.se
- *  Copyright (C) 1999 Merlin Hughes
- *  - merlin@merlin.org
- *  - http://nitric.com/freeware/
+ *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
+ *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,1050 +18,1093 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+/*
+ * This is a platform independent file that drives the program.
+ */
 
+#include <config.h> 
 #include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <time.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <dirent.h>
+#include <assert.h>
+#include <sys/time.h>
 #include <string.h>
+#include <math.h>
 #include <time.h>
-#include <gnome.h>
-#include <gdk/gdkx.h>
-
-#include <glibtop.h>
-#include <glibtop/cpu.h>
-#include <glibtop/mem.h>
-#include <glibtop/swap.h>
-
-#include <applet-widget.h>
 
 #include "bubblemon.h"
-#include "session.h"
+#include "ui.h"
+#include "meter.h"
+#include "mail.h"
+#include "netload.h"
 
-#ifdef ENABLE_PROFILING
-char *program_name = NULL;
-#endif
+// Bottle graphics
+#include "msgInBottle.c"
 
-int main (int argc, char ** argv)
+static bubblemon_picture_t bubblePic;
+static bubblemon_Physics physics;
+static meter_sysload_t sysload;
+
+/* Set the dimensions of the bubble array */
+void bubblemon_setSize(int width, int height)
 {
-  const gchar *goad_id;
-  GtkWidget *applet;
-
-  applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
-  applet_factory_new ("bubblemon_applet", NULL,
-		     (AppletFactoryActivator) applet_start_new_applet);
-
-  if (NUM_COLORS % 3)
+  if ((width != bubblePic.width) ||
+      (height != bubblePic.height))
+  {
+    bubblePic.width = width;
+    bubblePic.height = height;
+    
+    if (bubblePic.airAndWater != NULL)
     {
-      g_error("Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-	      "       The current value of %d is not.\n",
-	      NUM_COLORS);
+      free(bubblePic.airAndWater);
+      bubblePic.airAndWater = NULL;
     }
-  
-#ifdef ENABLE_PROFILING
-  program_name = strdup(argv[0]);
-
-  g_warning(PACKAGE " has been configured with --enable-profiling and will terminate in\n"
-	    "roughly one minute.  Let's try to make it as representative of normal use\n"
-	    "as possible, shall we?\n");
-#endif
-
-  goad_id = goad_server_activation_id ();
-  if (!goad_id)
-    g_error("Couldn't activate GOAD server.  This usually means that you are trying\n"
-	    "to run the applet from the command line and haven't specified the\n"
-	    "--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
-	    "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
-	    "and explain it, because I really have no idea what it does.\n");
-
-  /* Create the bubblemon applet widget */
-  applet = make_new_bubblemon_applet (goad_id);
-
-  /* Run... */
-  applet_widget_gtk_main ();
-
-  return 0;
-} /* main */
-
-int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent */
-{
-  glibtop_cpu cpu;
-  int loadPercentage;
-  u_int64_t load, total, oLoad, oTotal;
-  int i;
-
-  /* Find out the CPU load */
-  glibtop_get_cpu (&cpu);
-  load = cpu.user + cpu.sys;
-  total = cpu.total;
-
-  /* "i" is an index into a load history */
-  i = bm->loadIndex;
-  oLoad = bm->load[i];
-  oTotal = bm->total[i];
-
-  bm->load[i] = load;
-  bm->total[i] = total;
-  bm->loadIndex = (i + 1) % bm->samples;
-
-  /*
-    Because the load returned from libgtop is a value accumulated
-    over time, and not the current load, the current load percentage
-    is calculated as the extra amount of work that has been performed
-    since the last sample.
-  */
-  if (oTotal == 0)  /* oTotal == 0 means that this is the first time
-		       we get here */
-    loadPercentage = 0;
-  else
-    loadPercentage = (100 * (load - oLoad)) / (total - oTotal);
-
-  return loadPercentage;
+    
+    if (bubblePic.pixels != NULL)
+    {
+      free(bubblePic.pixels);
+      bubblePic.pixels = NULL;
+    }
+    
+    if (physics.waterLevels != NULL)
+    {
+      free(physics.waterLevels);
+      physics.waterLevels = NULL;
+    }
+    
+    if (physics.weeds != NULL)
+    {
+      free(physics.weeds);
+      physics.weeds = NULL;
+    }
+    
+    physics.n_bubbles = 0;
+    physics.max_bubbles = 0;
+    if (physics.bubbles != NULL)
+    {
+      free(physics.bubbles);
+      physics.bubbles = NULL;
+    }
+  }
 }
 
-void usage2string(char *string,
-		  u_int64_t used,
-		  u_int64_t max)
+static void usage2string(/*@out@*/ char *string,
+			 u_int64_t used,
+			 u_int64_t max)
 {
   /* Create a string of the form "35/64Mb" */
   
-  u_int64_t divisor = 1;
+  unsigned int shiftme = 0;
   char divisor_char = '\0';
 
-  if (max > 1000000000000)
+  if ((max >> 30) > 7000)
     {
-      divisor = 1000000000000;
+      shiftme = 40;
       divisor_char = 'T';
     }
-  else if (max > 1000000000)
+  else if ((max >> 20) > 7000)
     {
-      divisor = 1000000000;
+      shiftme = 30;
       divisor_char = 'G';
     }
-  else if (max > 1000000)
+  else if ((max >> 10) > 7000)
     {
-      divisor = 1000000;
+      shiftme = 20;
       divisor_char = 'M';
     }
-  else if (max > 1000)
+  else if ((max >> 0) > 7000)
     {
-      divisor = 1000;
+      shiftme = 10;
       divisor_char = 'k';
     }
 
-  if (divisor_char)
+  if (divisor_char == '\0')
     {
-      sprintf(string, "%Ld/%Ld%cb",
-	      used / divisor,
-	      max / divisor,
-	      divisor_char);
+      sprintf(string, "%llu/%llu bytes",
+	      used >> shiftme,
+	      max >> shiftme);
     }
   else
     {
-      sprintf(string, "%Ld/%Ld bytes",
-	      used / divisor,
-	      max / divisor);
+      sprintf(string, "%llu/%llu%cb",
+	      used >> shiftme,
+	      max >> shiftme,
+	      divisor_char);
     }
 }
 
-void get_censored_memory_and_swap(BubbleMonData *bm,
-				  u_int64_t *mem_used,
-				  u_int64_t *mem_max,
-				  u_int64_t *swap_used,
-				  u_int64_t *swap_max)
+const char *bubblemon_getTooltip(void)
 {
-  static glibtop_mem memory;
-  u_int64_t my_mem_used, my_mem_max;
-  u_int64_t my_swap_used, my_swap_max;
-  
-  static glibtop_swap swap;  /* Needs to be static 'cause we don't do it every time */
+  char memstring[20], swapstring[20], loadstring[50];
+  static char *tooltipstring = 0;
+  int cpu_number;
 
-  static int swap_delay = 0, mem_delay = 0;
+  if (!tooltipstring)
+  {
+    /* Prevent the tooltipstring buffer from overflowing on a system
+       with lots of CPUs */
+    tooltipstring =
+      malloc(sizeof(char) * (sysload.nCpus * 50 + 100));
+    assert(tooltipstring != NULL);
+  }
 
-  /*
-    Find out the memory load, but update it only every 10 times we get
-    here.  If we do it every time, it bogs down the program.
+  usage2string(memstring, sysload.memoryUsed, sysload.memorySize);
+  snprintf(tooltipstring, 90,
+           _("Memory used: %s"),
+           memstring);
+  if (sysload.swapSize > 0)
+  {
+    usage2string(swapstring, sysload.swapUsed, sysload.swapSize);
+    snprintf(loadstring, 90,
+	     _("\nSwap used: %s"),
+	     swapstring);
+    strcat(tooltipstring, loadstring);
+  }
 
-    FIXME: I have absolutely no idea how often that is.
-  */
-  if (mem_delay <= 0)
+  if (sysload.nCpus == 1)
     {
-      glibtop_get_mem (&memory);
-      
-      /*
-	FIXME: The following number should be based on a constant or
-	variable.
-      */
-      mem_delay = 10;
-    }
-  mem_delay--;
-  
-  if (memory.total == 0)
-    {
-      g_error("glibtop_get_mem() says you have no memory on line %d in %s",
-			 __LINE__,
-			 __FILE__);
-    }
-  
-  /*
-    Find out the swap load, but update it only every 50 times we get
-    here.  If we do it every time, it bogs down the program.
-
-    FIXME: I have absolutely no idea how often that is.
-  */
-  if (swap_delay <= 0)
-    {
-      glibtop_get_swap (&swap);
-
-      /*
-	FIXME: The following number should be based on a constant or
-	variable.
-      */
-      swap_delay = 50;
-    }
-  swap_delay--;
-
-  /*
-    Calculate the projected memory + swap load to show the user.  The
-    values given to the user is how much memory the system is using
-    relative to the total amount of electronic RAM.  The swap color
-    indicates how much memory above the amount of electronic RAM the
-    system is using.
-    
-    This scheme does *not* show how the system has decided to
-    allocate swap and electronic RAM to the users' processes.
-  */
-
-  my_mem_max = memory.total;
-  my_swap_max = swap.total;
-  
-  my_mem_used = swap.used + memory.used - memory.cached - memory.buffer;
-
-  if (my_mem_used > my_mem_max)
-    {
-      my_swap_used = my_mem_used - my_mem_max;
-      my_mem_used = my_mem_max;
+      snprintf(loadstring, 45,
+               _("\nCPU load: %d%%"),
+               bubblemon_getCpuLoadPercentage(0));
+      strcat(tooltipstring, loadstring);
     }
   else
     {
-      my_swap_used = 0;
+      for (cpu_number = 0;
+           cpu_number < sysload.nCpus;
+           cpu_number++)
+        {
+          snprintf(loadstring, 45,
+                   _("\nCPU #%d load: %d%%"),
+                   cpu_number,
+                   bubblemon_getCpuLoadPercentage(cpu_number));
+          strcat(tooltipstring, loadstring);
+        }
+    }
+  
+  return tooltipstring;
+}
+
+static int bubblemon_getMsecsSinceLastCall()
+{
+  /* Return the number of milliseconds that have passed since the last
+     time this function was called, or -1 if this is the first call.  If
+     a long time has passed since last time, the result is undefined. */
+  static long last_sec = 0L;
+  static long last_usec = 0L;
+
+  int returnMe = -1;
+
+  struct timeval currentTime;
+
+  /* What time is it now? */
+  gettimeofday(&currentTime, NULL);
+
+  if ((last_sec != 0L) || (last_usec != 0L))
+  {
+    returnMe = 1000 * (int)(currentTime.tv_sec - last_sec);
+    returnMe += ((int)(currentTime.tv_usec - last_usec)) / 1000L;
+  }
+
+  last_sec = currentTime.tv_sec;
+  last_usec = currentTime.tv_usec;
+
+  return returnMe;
+}
+
+static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
+{
+  float dt = msecsSinceLastCall / 30.0;
+
+  /* Typing fingers savers */
+  int w = bubblePic.width;
+  int h = bubblePic.height;
+  
+  int x;
+  
+  /* Where is the surface heading? */
+  float waterLevels_goal;
+
+  /* How high can the surface be? */
+  float waterLevels_max = (h - 0.55);
+  
+  /* Move the water level with the current memory usage.  The water
+   * level goes from 0.0 to h so that you can get an integer height by
+   * just chopping off the decimals. */
+  waterLevels_goal =
+    ((float)sysload.memoryUsed / (float)sysload.memorySize) * waterLevels_max;
+  
+  physics.waterLevels[0].y = waterLevels_goal;
+  physics.waterLevels[w - 1].y = waterLevels_goal;
+  
+  for (x = 1; x < (w - 1); x++)
+  {
+    /* Accelerate the current waterlevel towards its correct value */
+    float current_waterlevel_goal = (physics.waterLevels[x - 1].y +
+				     physics.waterLevels[x + 1].y) / 2.0;
+    
+    physics.waterLevels[x].dy +=
+      (current_waterlevel_goal - physics.waterLevels[x].y) * dt * VOLATILITY;
+
+    physics.waterLevels[x].dy *= VISCOSITY;
+
+    if (physics.waterLevels[x].dy > SPEED_LIMIT)
+      physics.waterLevels[x].dy = SPEED_LIMIT;
+    else if (physics.waterLevels[x].dy < -SPEED_LIMIT)
+      physics.waterLevels[x].dy = -SPEED_LIMIT;
+  }
+  
+  for (x = 1; x < (w - 1); x++)
+  {
+    /* Move the current water level */
+    physics.waterLevels[x].y += physics.waterLevels[x].dy * dt;
+    
+    if (physics.waterLevels[x].y > waterLevels_max)
+    {
+      /* Stop the wave if it hits the ceiling... */
+      physics.waterLevels[x].y = waterLevels_max;
+      physics.waterLevels[x].dy = 0.0;
+    }
+    else if (physics.waterLevels[x].y < 0.0)
+    {
+      /* ... or the floor. */
+      physics.waterLevels[x].y = 0.0;
+      physics.waterLevels[x].dy = 0.0;
+    }
+  }
+}
+
+static void bubblemon_addNourishment(bubblemon_Weed *weed, int percentage)
+{
+  float heightLimit = (bubblePic.height * WEED_HEIGHT) / 100.0;
+  
+  weed->nourishment += (heightLimit * percentage) / 100.0;
+  
+  if (weed->nourishment + weed->height > heightLimit)
+  {
+    weed->nourishment = heightLimit - weed->height;
+  }
+}
+
+static void bubblemon_updateWeeds(int msecsSinceLastCall)
+{
+  static int timeToNextUpdate = 0;
+  static int lastUpdatedWeed = 0;
+
+  int w = bubblePic.width;
+  int x;
+
+  // If enough time has elapsed...
+  timeToNextUpdate -= msecsSinceLastCall;
+  while (timeToNextUpdate <= 0)
+  {
+    // ... update the nourishment level of our next weed
+    lastUpdatedWeed--;
+    if ((lastUpdatedWeed <= 0) ||
+	(lastUpdatedWeed >= bubblePic.width))
+    {
+      lastUpdatedWeed = bubblePic.width - 1;
+    }
+    
+    // Distribute the nourishment over several weeds
+    if (lastUpdatedWeed > 0)
+    {
+      bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed - 1]), (netload_getLoadPercentage() * 8) / 10);
+    }
+    bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed]), netload_getLoadPercentage());
+    if (lastUpdatedWeed < (bubblePic.width - 1))
+    {
+      bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed + 1]), (netload_getLoadPercentage() * 8) / 10);
+    }
+    
+    timeToNextUpdate += NETLOAD_INTERVAL;
+  }
+  
+  // For all weeds...
+  for (x = 0; x < w; x++)
+  {
+    // ... grow / shrink them according to their nourishment level
+    float speed;
+    float delta;
+    
+    if (physics.weeds[x].nourishment <= 0.0)
+    {
+      speed = -WEED_MINSPEED;
+    }
+    else
+    {
+      speed = physics.weeds[x].nourishment * WEED_SPEEDFACTOR;
+      if (speed > WEED_MAXSPEED)
+      {
+	speed = WEED_MAXSPEED;
+      }
+      else if (speed < WEED_MINSPEED)
+      {
+	speed = WEED_MINSPEED;
+      }
+    }
+    
+    delta = (speed * msecsSinceLastCall) / 1000.0;
+    if (delta > physics.weeds[x].nourishment)
+    {
+      delta = physics.weeds[x].nourishment;
+    }
+    
+    if (delta > 0.0)
+    {
+      physics.weeds[x].nourishment -= delta;
+    }
+    physics.weeds[x].height += delta;
+    if (physics.weeds[x].height < 0.0)
+    {
+      physics.weeds[x].height = 0.0;
+    }
+  }
+}
+
+/* Update the bubbles (and possibly create new ones) */
+static void bubblemon_updateBubbles(int msecsSinceLastCall)
+{
+  int i;
+  static float createNNewBubbles;
+  static bubblemon_layer_t lastNewBubbleLayer = BACKGROUND;
+
+  float dt = msecsSinceLastCall / 30.0;
+
+  /* Typing fingers saver */
+  int w = bubblePic.width;
+  
+  /* Create new bubble(s) if the planets are correctly aligned... */
+  createNNewBubbles += ((float)bubblemon_getAverageLoadPercentage() *
+			(float)bubblePic.width *
+			dt) / 2000.0;
+  
+  for (i = 0; i < createNNewBubbles; i++)
+  {
+    if (physics.n_bubbles < physics.max_bubbles)
+    {
+      lastNewBubbleLayer = (lastNewBubbleLayer == BACKGROUND) ? FOREGROUND : BACKGROUND;
+      
+      /* We don't allow bubbles on the edges 'cause we'd have to clip them */
+      physics.bubbles[physics.n_bubbles].x = (random() % (w - 2)) + 1;
+      physics.bubbles[physics.n_bubbles].y = 0.0;
+      physics.bubbles[physics.n_bubbles].dy = 0.0;
+      /* Create alternately foreground and background bubbles */
+      physics.bubbles[physics.n_bubbles].layer = lastNewBubbleLayer;
+      
+      if (RIPPLES != 0.0)
+      {
+	/* Raise the water level above where the bubble is created */
+	if ((physics.bubbles[physics.n_bubbles].x - 2) >= 0)
+	  physics.waterLevels[physics.bubbles[physics.n_bubbles].x - 2].y += RIPPLES;
+	physics.waterLevels[physics.bubbles[physics.n_bubbles].x - 1].y   += RIPPLES;
+	physics.waterLevels[physics.bubbles[physics.n_bubbles].x].y       += RIPPLES;
+	physics.waterLevels[physics.bubbles[physics.n_bubbles].x + 1].y   += RIPPLES;
+	if ((physics.bubbles[physics.n_bubbles].x + 2) < w)
+	  physics.waterLevels[physics.bubbles[physics.n_bubbles].x + 2].y += RIPPLES;
+      }
+    
+      /* Count the new bubble */
+      physics.n_bubbles++;
+      createNNewBubbles--;
+    }
+  }
+  
+  /* Move the bubbles */
+  for (i = 0; i < physics.n_bubbles; i++)
+  {
+    /* Accelerate the bubble upwards */
+    physics.bubbles[i].dy -= GRAVITY * dt;
+    
+    /* Move the bubble vertically */
+    physics.bubbles[i].y +=
+      physics.bubbles[i].dy * dt *
+      ((physics.bubbles[i].layer == BACKGROUND) ? BGBUBBLE_SPEED : 1.0);
+    
+    /* Did we lose it? */
+    if (physics.bubbles[i].y > physics.waterLevels[physics.bubbles[i].x].y)
+    {
+      if (RIPPLES != 0.0)
+      {
+        /* Lower the water level around where the bubble is
+           about to vanish */
+        physics.waterLevels[physics.bubbles[i].x - 1].y -= RIPPLES;
+        physics.waterLevels[physics.bubbles[i].x].y     -= 3 * RIPPLES;
+        physics.waterLevels[physics.bubbles[i].x + 1].y -= RIPPLES;
+      }
+      
+      /* We just lost it, so let's nuke it */
+      physics.bubbles[i].x  = physics.bubbles[physics.n_bubbles - 1].x;
+      physics.bubbles[i].y  = physics.bubbles[physics.n_bubbles - 1].y;
+      physics.bubbles[i].dy = physics.bubbles[physics.n_bubbles - 1].dy;
+      physics.n_bubbles--;
+      
+      /* We must check the previously last bubble, which is
+        now the current bubble, also. */
+      i--;
+      continue;
+    }
+  }
+}
+
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+
+/* Update the bottle */
+static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
+{
+  float dt = msecsSinceLastCall / 30.0;
+  float gravityDdy;
+  float dragDdy;
+  int isInWater;
+
+  // The MIN stuff prevents the bottle from floating above the visible
+  // area even when the water surface is at the top of the display
+  isInWater =
+    physics.bottle_y < MIN(physics.waterLevels[bubblePic.width / 2].y,
+			   bubblePic.height - msgInBottle.height / 2);
+
+  if (youveGotMail) {
+    if (physics.bottle_state == GONE) {
+      // Drop a new bottle
+      physics.bottle_y = bubblePic.height + msgInBottle.height;
+      physics.bottle_dy = 0.0;
+      physics.bottle_state = FALLING;
+    } else if (physics.bottle_state == SINKING) {
+      physics.bottle_state = FLOATING;
+    }
+  } else {
+    /* No unread mail */
+    if ((physics.bottle_state == FALLING) ||
+	(physics.bottle_state == FLOATING))
+    {
+      physics.bottle_state = SINKING;
+    }
+  }
+
+  if (physics.bottle_state == GONE) {
+    return;
+  }
+
+  /* Accelerate the bottle */
+  if ((physics.bottle_state == FALLING) ||
+      (physics.bottle_state == SINKING) ||
+      !isInWater)
+  {
+    // Gravity pulls the bottle down
+    gravityDdy = 2.0 * GRAVITY * dt;
+  } else {
+    // Gravity floats the bottle up
+    gravityDdy = 2.0 * -(GRAVITY * dt);
+  }
+
+  if (isInWater) {
+    dragDdy = (physics.bottle_dy * physics.bottle_dy) * BOTTLE_DRAG;
+    // If the speed is positive...
+    if (physics.bottle_dy > 0.0) {
+      // ... then the drag should be negative
+      dragDdy = -dragDdy;
+    }
+  } else {
+    dragDdy = 0.0;
+  }
+
+  physics.bottle_dy += gravityDdy + dragDdy;
+  
+  /* Move the bottle vertically */
+  physics.bottle_y += physics.bottle_dy * dt;
+  
+  // If the bottle has fallen on screen...
+  if ((physics.bottle_state == FALLING) &&
+      (physics.bottle_y < bubblePic.height))
+  {
+    // ... it should start floating instead of falling
+    physics.bottle_state = FLOATING;
+  }
+  
+  /* Did we lose it? */
+  if ((physics.bottle_state == SINKING) && (physics.bottle_y + msgInBottle.height < 0.0)) {
+    physics.bottle_state = GONE;
+  }
+}
+
+
+static const bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
+{
+  bubblemon_color_t returnMe;
+  
+  returnMe.components.r = (constant >> 24) & 0xff;
+  returnMe.components.g = (constant >> 16) & 0xff; 
+  returnMe.components.b = (constant >> 8)  & 0xff; 
+  returnMe.components.a = (constant >> 0)  & 0xff;
+  
+  return returnMe;
+}
+
+/* The amount parameter is 0-255. */
+static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
+							   const bubblemon_color_t c2,
+							   const int amount)
+{
+  int a, r, g, b;
+  bubblemon_color_t returnme;
+
+  assert(amount >= 0 && amount < 256);
+
+  r = ((((int)c1.components.r) * (255 - amount)) +
+       (((int)c2.components.r) * amount)) / 255;
+  g = ((((int)c1.components.g) * (255 - amount)) +
+       (((int)c2.components.g) * amount)) / 255;
+  b = ((((int)c1.components.b) * (255 - amount)) +
+       (((int)c2.components.b) * amount)) / 255;
+  a = ((((int)c1.components.a) * (255 - amount)) +
+       (((int)c2.components.a) * amount)) / 255;
+
+  /*
+  assert(a >= 0 && a <= 255);
+  assert(r >= 0 && r <= 255);
+  assert(g >= 0 && g <= 255);
+  assert(b >= 0 && b <= 255);
+
+  assert(((c1.components.a <= a) && (a <= c2.components.a)) ||
+	 ((c1.components.a >= a) && (a >= c2.components.a)));
+  assert(((c1.components.r <= r) && (r <= c2.components.r)) ||
+	 ((c1.components.r >= r) && (r >= c2.components.r)));
+  assert(((c1.components.g <= g) && (g <= c2.components.g)) ||
+	 ((c1.components.g >= g) && (g >= c2.components.g)));
+  assert(((c1.components.b <= b) && (b <= c2.components.b)) ||
+	 ((c1.components.b >= b) && (b >= c2.components.b)));
+  */
+  
+  returnme.components.r = r;
+  returnme.components.g = g;
+  returnme.components.b = b;
+  returnme.components.a = a;
+
+  assert((amount != 0)   || (returnme.value == c1.value));
+  assert((amount != 255) || (returnme.value == c2.value));
+
+  return returnme;
+}
+
+/* Update the bubble array from the system load */
+static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
+{
+  /* No size -- no go */
+  if ((bubblePic.width == 0) ||
+      (bubblePic.height == 0))
+  {
+    assert(bubblePic.pixels == NULL);
+    assert(bubblePic.airAndWater == NULL);
+    return;
+  }
+  
+  /* Make sure the water levels exist */
+  if (physics.waterLevels == NULL)
+  {
+    physics.waterLevels =
+      (bubblemon_WaterLevel *)calloc(bubblePic.width, sizeof(bubblemon_WaterLevel));
+    assert(physics.waterLevels != NULL);
+  }
+  
+  /* Make sure the sea-weeds exist */
+  if (physics.weeds == NULL)
+  {
+    int i;
+    
+    physics.weeds =
+      (bubblemon_Weed *)calloc(bubblePic.width, sizeof(bubblemon_Weed));
+    assert(physics.weeds != NULL);
+
+    // Colorize the weeds
+    for (i = 0; i < bubblePic.width; i++)
+    {
+      static int stripey = 0;
+      
+      physics.weeds[i].color =
+	bubblemon_interpolateColor(bubblemon_constant2color(WEEDCOLOR0),
+				   bubblemon_constant2color(WEEDCOLOR1),
+				   (random() % 156) + stripey);
+      stripey = 100 - stripey;
+    }
+  }
+  
+  /* Make sure the bubbles exist */
+  if (physics.bubbles == NULL)
+  {
+    physics.n_bubbles = 0;
+    // FIXME: max_bubbles should be the width * the time it takes for
+    // a bubble to rise all the way to the ceiling.
+    physics.max_bubbles = (bubblePic.width * bubblePic.height) / 5;
+    
+    physics.bubbles =
+      (bubblemon_Bubble *)calloc(physics.max_bubbles, sizeof(bubblemon_Bubble));
+    assert(physics.bubbles != NULL);
+  }
+  
+  /* Update our universe */
+  bubblemon_updateWaterlevels(msecsSinceLastCall);
+  bubblemon_updateWeeds(msecsSinceLastCall);
+  bubblemon_updateBubbles(msecsSinceLastCall);
+  bubblemon_updateBottle(msecsSinceLastCall, youveGotMail);
+}
+
+int bubblemon_getMemoryPercentage()
+{
+  int returnme;
+  
+  if (sysload.memorySize == 0L)
+  {
+    returnme = 0;
+  }
+  else
+  {
+    returnme = (int)((200L * sysload.memoryUsed + 1) / (2 * sysload.memorySize));
+  }
+
+#ifdef ENABLE_PROFILING
+  return 100;
+#else
+  return returnme;
+#endif
+}
+
+int bubblemon_getSwapPercentage()
+{
+  int returnme;
+  
+  if (sysload.swapSize == 0L)
+  {
+    returnme = 0;
+  }
+  else
+  {
+    returnme = (int)((200L * sysload.swapUsed + 1) / (2 * sysload.swapSize));
+  }
+
+#ifdef ENABLE_PROFILING
+  return 100;
+#else
+  return returnme;
+#endif
+}
+
+/* The cpu parameter is the cpu number, 1 - #CPUs.  0 means average load */
+int bubblemon_getCpuLoadPercentage(int cpuNo)
+{
+  assert(cpuNo >= 0 && cpuNo < sysload.nCpus);
+  
+#ifdef ENABLE_PROFILING
+  return 100;
+#else
+  return sysload.cpuLoad[cpuNo];
+#endif
+}
+
+int bubblemon_getAverageLoadPercentage()
+{
+  int cpuNo;
+  int totalLoad;
+  
+  totalLoad = 0;
+  for (cpuNo = 0; cpuNo < sysload.nCpus; cpuNo++)
+  {
+    totalLoad += bubblemon_getCpuLoadPercentage(cpuNo);
+  }
+  totalLoad = totalLoad / sysload.nCpus;
+
+  assert(totalLoad >= 0);
+  assert(totalLoad <= 100);
+
+#ifdef ENABLE_PROFILING
+  return 100;
+#else
+  return totalLoad;
+#endif
+}
+
+static void bubblemon_censorLoad()
+{
+  /* Calculate the projected memory + swap load to show the user.  The
+     values given to the user is how much memory the system is using
+     relative to the total amount of electronic RAM.  The swap color
+     indicates how much memory above the amount of electronic RAM the
+     system is using.
+    
+     This scheme does *not* show how the system has decided to
+     allocate swap and electronic RAM to the users' processes.
+  */
+
+  u_int64_t censoredMemUsed;
+  u_int64_t censoredSwapUsed;
+
+  assert(sysload.memorySize > 0);
+
+  censoredMemUsed = sysload.swapUsed + sysload.memoryUsed;
+
+  if (censoredMemUsed > sysload.memorySize)
+    {
+      censoredSwapUsed = censoredMemUsed - sysload.memorySize;
+      censoredMemUsed = sysload.memorySize;
+    }
+  else
+    {
+      censoredSwapUsed = 0;
     }
 
   /* Sanity check that we don't use more swap/mem than what's available */
-  if ((my_mem_used > my_mem_max) ||
-      (my_swap_used > my_swap_max))
-    {
-      g_error("Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
-	      "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-	      "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n",
-	      my_mem_used, my_mem_max,
-	      my_swap_used, my_swap_max,
-	      swap.used,
-	      memory.used,
-	      memory.cached,
-	      memory.buffer,
-	      __LINE__,
-	      __FILE__);
-    }
+  assert((censoredMemUsed <= sysload.memorySize) &&
+         (censoredSwapUsed <= sysload.swapSize));
 
-  *mem_used = my_mem_used;
-  *mem_max = my_mem_max;
-  *swap_used = my_swap_used;
-  *swap_max = my_swap_max;
-}
-
-void get_censored_memory_usage(BubbleMonData *bm,
-			       u_int64_t *mem_used,
-			       u_int64_t *mem_max)
-{
-  u_int64_t dummy;
-
-  get_censored_memory_and_swap(bm,
-			       mem_used, mem_max,
-			       &dummy, &dummy);
-}
-
-void get_censored_swap_usage(BubbleMonData *bm,
-			       u_int64_t *swap_used,
-			       u_int64_t *swap_max)
-{
-  u_int64_t dummy;
-
-  get_censored_memory_and_swap(bm,
-			       &dummy, &dummy,
-			       swap_used, swap_max);
-}
-
-void update_tooltip(BubbleMonData *bm)
-{
-  char memstring[20], swapstring[20], tooltipstring[200];
-
-  int loadPercentage;
-
-  u_int64_t swap_used;
-  u_int64_t swap_max;
-  u_int64_t mem_used;
-  u_int64_t mem_max;
-
-  /* Sanity check */
-  if (!bm)
-    {
-      g_error("bm == NULL in update_tooltip() on line %d of %s\n",
-	      __LINE__,
-	      __FILE__);
-    }
-  get_censored_memory_usage(bm, &mem_used, &mem_max);
-  get_censored_swap_usage(bm, &swap_used, &swap_max);
-  
-  usage2string(memstring, mem_used, mem_max);
-  usage2string(swapstring, swap_used, swap_max);
-
-  loadPercentage = get_cpu_load(bm);
-
-  snprintf(tooltipstring, 190,
-	   "Memory used: %s\nSwap used: %s\nCPU load: %d%%",
-	   memstring,
-	   swapstring,
-	   loadPercentage);
-
-  /* FIXME: How can I prevent the tooltip from being hidden when it's
-     re-generated? */
-
-  /* FIXME: This is a workaround for the gtk+ tool tip problem
-     described in the README file. */
-  applet_widget_set_widget_tooltip(APPLET_WIDGET(bm->applet),
-				   GTK_WIDGET(bm->area),
-				   tooltipstring);
-}
-
-void get_memory_load_percentage(BubbleMonData *bm,
-				int *memoryPercentage,
-				int *swapPercentage)
-{
-  u_int64_t mem_used;
-  u_int64_t mem_max;
-  u_int64_t swap_used;
-  u_int64_t swap_max;
-
-  get_censored_memory_and_swap(bm,
-			       &mem_used, &mem_max,
-			       &swap_used, &swap_max);
-
-  if (mem_max == 0)
-    {
-      g_error("get_censored_memory_and_swap() says you have no memory on line %d in %s",
-	      __LINE__,
-	      __FILE__);
-    }
-  
-  *memoryPercentage = (100 * mem_used) / mem_max;
-
-  if (swap_max != 0)
-    {
-      *swapPercentage = (100 * swap_used) / swap_max;
-    }
-  else
-    {
-      *swapPercentage = 0;
-    }
-
-  /* Sanity check that the percentages are both 0-100. */
-
-  if ((*memoryPercentage < 0) || (*memoryPercentage > 100) ||
-      (*swapPercentage < 0) || (*swapPercentage > 100))
-    {
-      g_error("Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
-	      "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-	      "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n",
-	      *memoryPercentage,
-	      *swapPercentage,
-	      mem_used, mem_max,
-	      swap_used, swap_max,
-	      __LINE__,
-	      __FILE__);
-    }
-}
-
-/*
- * This function, bubblemon_update, gets the CPU usage and updates
- * the bubble array and pixmap.
- */
-gint bubblemon_update (gpointer data)
-{
-  BubbleMonData * bm = data;
-  Bubble *bubbles = bm->bubbles;
-  int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
-  int aircolor, watercolor, aliascolor;
-  int waterlevel_goal, waterlevel_min, waterlevel_max, bias;
-  int swapPercentage, memoryPercentage;
-  int *temp;
-  static int last_waterlevel_min = 0;
+  sysload.memoryUsed = censoredMemUsed;
+  sysload.swapUsed = censoredSwapUsed;
 
 #ifdef ENABLE_PROFILING
-  static int profiling_countdown = 2500;  /* FIXME: Is 2500 calls to here == 50 seconds? */
+  sysload.memoryUsed = sysload.memorySize;
+  sysload.swapUsed = sysload.swapSize;
+#endif
+}
+
+static void bubblemon_draw_bubble(/*@out@*/ bubblemon_picture_t *bubblePic,
+				  int x,
+				  int y)
+{
+  bubblemon_colorcode_t *bubbleBuf = bubblePic->airAndWater;
+  int w = bubblePic->width;
+  int h = bubblePic->height;
+  bubblemon_colorcode_t *buf_ptr;
   
-  if (profiling_countdown-- < 0)
-    {
-      /*
-	We terminate after a little while so we don't have to wait
-	forever for the profiling data to appear.
-      */
-      char *home;
-      
-      /* Change directory to the user's home directory */
-      home = getenv("HOME");
-      if (home)
-	{
-	  if (chdir(home) != 0)
-	    {
-	      char *errormsg = (char *)malloc(sizeof(char) *
-					      (strlen(home) + 100));
-	      sprintf(errormsg, "Couldn't chdir() to $HOME (%s)\n", home);
-	      perror(errormsg);
-	    }
-	}
-      else
-	{
-	  g_warning("$HOME environment variable not set\n");
-	}
-      
-      /* Terminate nicely so that the profiling data gets written */
-      fprintf(stderr,
-	      "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-	      "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n",
-	      (program_name?program_name:"<name of executable>"));
-      exit(EXIT_SUCCESS);
-    }
-#endif  /* ENABLE_PROFILING */
+  /*
+    Clipping is not necessary for x, but it is for y.
+    To prevent ugliness, we draw aliascolor only on top of
+    watercolor, and aircolor on top of aliascolor.
+  */
   
-  /* bm->setup is a status byte that is true if we are rolling */
-  if (!bm->setup)
-    return FALSE;
-
-  /* Find out the CPU load */
-  loadPercentage = get_cpu_load(bm);
-
-  /* Find out the memory load */
-  get_memory_load_percentage(bm, &memoryPercentage, &swapPercentage);
-
-  /*
-    The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
-    an entry in the color table.  A pixel in the buf is accessed
-    using the formula buf[row * w + column].
-  */
-  buf = bm->bubblebuf;
-  col = bm->colors;
-  w = bm->breadth;
-  h = bm->depth;
-  n_pixels = w * h;
-
-  /*
-    Vary the colors of air and water with how many
-    percent of the available swap space that is in use.
-  */
-  watercolor = ((((NUM_COLORS / 3) - 1) * swapPercentage) / 100) * 3;
-  aliascolor = watercolor + 1;
-  aircolor = watercolor + 2;
-
-  /* Sanity check the colors */
-  if ((aircolor < 0) || (aircolor >= NUM_COLORS) ||
-      (watercolor < 0) || (watercolor >= NUM_COLORS) ||
-      (aliascolor < 0) || (aliascolor >= NUM_COLORS))
+  /* Top row */
+  buf_ptr = &(bubbleBuf[(y - 1) * w + x - 1]);
+  if (y <= physics.waterLevels[x].y)
+  {
+    if (*buf_ptr != AIR)
     {
-      g_error("Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
-	      "       swapPercentage (%d) is probably out of range (0-100) too on line %d of %s.\n",
-	      aircolor,
-	      watercolor,
-	      aliascolor,
-	      NUM_COLORS,
-	      swapPercentage,
-	      __LINE__,
-	      __FILE__);
+      (*buf_ptr)++ ;
     }
-
-  /* Move the water level with the current memory usage. */
-  waterlevel_goal = h - ((memoryPercentage * h) / 100);
-
-  /* Update the waterlevels */
-  bm->waterlevels[0] = waterlevel_goal;
-  bm->waterlevels[w - 1] = waterlevel_goal;
-
-  waterlevel_max = 0;
-  waterlevel_min = h;
-
-  for (x = 1; x < (w - 1); x++)
-    {
-      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
-				     bm->waterlevels[x + 1]) >> 1;
-
-      /* Guard from rounding errors */
-      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
-      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
-	bm->waterlevels_inactive[x]++;
-
-      if (bm->waterlevels_inactive[x] > waterlevel_max)
-	waterlevel_max = bm->waterlevels_inactive[x];
-      else if (bm->waterlevels_inactive[x] < waterlevel_min)
-	waterlevel_min = bm->waterlevels_inactive[x];
-    }
-
-  bm->waterlevels_inactive[0] = waterlevel_goal;
-  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
-
-  temp = bm->waterlevels_inactive;
-  bm->waterlevels_inactive = bm->waterlevels;
-  bm->waterlevels = temp;
-
-  /*
-    Here comes the bubble magic.  Pixels are drawn by setting values in
-    buf to 0-NUM_COLORS.  We should possibly make some macros or
-    inline functions to {g|s}et pixels.
-  */
-
-  /*
-    Draw the air-and-water background
-
-    The waterlevel_max is the HIGHEST VALUE for the water level, which is
-    actually the LOWEST VISUAL POINT of the water.  Confusing enough?
-
-    So we want to draw from top to bottom:
-      Just air from (y == 0) to (y <= waterlevel_min)
-      Mixed air and water from (y == waterlevel_min) to (y <= waterlevel_max)
-      Just water from (y == waterlevel_max) to (y <= h)
+    buf_ptr++;
     
-    Three loops is more code than one, but should be faster (fewer comparisons)
-  */
+    *buf_ptr = AIR; buf_ptr++;
+    
+    if (*buf_ptr != AIR)
+    {
+      (*buf_ptr)++ ;
+    }
+    buf_ptr += (w - 2);
+  }
+  else
+  {
+    buf_ptr += w;
+  }
+  
+  /* Middle row - no clipping necessary */
+  *buf_ptr = AIR; buf_ptr++;
+  *buf_ptr = AIR; buf_ptr++;
+  *buf_ptr = AIR; buf_ptr += (w - 2);
+  
+  /* Bottom row */
+  if (y < (h - 1))
+  {
+    if (*buf_ptr != AIR)
+    {
+      (*buf_ptr)++ ;
+    }
+    buf_ptr++;
+    
+    *buf_ptr = AIR; buf_ptr++;
+    
+    if (*buf_ptr != AIR)
+    {
+      (*buf_ptr)++ ;
+    }
+  }
+}
 
-  /* Air only */
-  for (buf_ptr = buf + (last_waterlevel_min * w);
-       buf_ptr < (buf + (waterlevel_min * w));
-       buf_ptr++)
-    *buf_ptr = aircolor;
-  last_waterlevel_min = waterlevel_min;
+static void bubblemon_environmentToBubbleArray(bubblemon_picture_t *bubblePic,
+					       bubblemon_layer_t layer)
+{
+  // Render bubbles, waterlevels and stuff into the bubblePic
+  int w = bubblePic->width;
+  int h = bubblePic->height;
+  int x, y, i;
+  float hf;
 
-  /* Air and water */
+  bubblemon_Bubble *bubble;
+
+  if (bubblePic->airAndWater == NULL)
+  {
+    bubblePic->airAndWater = (bubblemon_colorcode_t *)malloc(w * h * sizeof(bubblemon_colorcode_t));
+    assert(bubblePic->airAndWater != NULL);
+  }
+  
+  // Draw the air and water background
   for (x = 0; x < w; x++)
-    {
-      /* Air... */
-      for (y = waterlevel_min; y < bm->waterlevels[x]; y++)
-	buf[y * w + x] = aircolor;
+  {
+    bubblemon_colorcode_t *pixel;
+    double dummy;
 
-      /* ... and water */
-      for (; y < waterlevel_max; y++)
-	buf[y * w + x] = watercolor;
+    float waterHeight = physics.waterLevels[x].y;
+    int nAirPixels = h - waterHeight;
+    int antialias = 0;
+
+    if (modf(waterHeight, &dummy) >= 0.5) {
+      nAirPixels--;
+      antialias = 1;
     }
 
-  /* Water only */
-  for (buf_ptr = (buf + (waterlevel_max * w));
-       buf_ptr < (buf + (h * w));
-       buf_ptr++)
-    *buf_ptr = watercolor;
-
-  /* Create a new bubble if the planets are correctly aligned... */
-  if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
+    pixel = &(bubblePic->airAndWater[x]);
+    for (y = 0; y < nAirPixels; y++)
     {
-      /* We don't allow bubbles on the edges 'cause we'd have to clip them */
-      bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
-      bubbles[bm->n_bubbles].y = h - 1;
-      bubbles[bm->n_bubbles].dy = 0.0;
-
-      /* Count the new bubble */
-      bm->n_bubbles++;
+      *pixel = AIR;
+      pixel += w;
     }
+
+    if (antialias) {
+      *pixel = ANTIALIAS;
+      pixel += w;
+      y++;
+    }
+
+    for (; y < h; y++) {
+      *pixel = WATER;
+      pixel += w;
+    }
+  }
   
-  /* Update and draw the bubbles */
-  for (i = 0; i < bm->n_bubbles; i++)
+  // Draw the bubbles
+  bubble = physics.bubbles;
+  hf = h; // Move the int->float cast out of the loop
+  for (i = 0; i < physics.n_bubbles; i++)
+  {
+    if (bubble->layer >= layer)
     {
-      /* Accelerate the bubble */
-      bubbles[i].dy -= GRAVITY;
-
-      /* Move the bubble vertically */
-      bubbles[i].y += bubbles[i].dy;
-
-      /* Did we lose it? */
-      if (bubbles[i].y < bm->waterlevels[bubbles[i].x])
-	{
-	  /* Yes; nuke it */
-	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;
-	  bubbles[i].y  = bubbles[bm->n_bubbles - 1].y;
-	  bubbles[i].dy = bubbles[bm->n_bubbles - 1].dy;
-	  bm->n_bubbles--;
- 
-	  /*
-	    We must check the previously last bubble, which is
-	    now the current bubble, also.
-	  */
-	  i--;
-	  continue;
-	}
-
-      /* Draw the bubble */
-      x = bubbles[i].x;
-      y = bubbles[i].y;
-      
-      /*
-        Clipping is not necessary for x, but it *is* for y.
-        To prevent ugliness, we draw aliascolor only on top of
-        watercolor, and aircolor on top of aliascolor.
-      */
-
-      /* Top row */
-      buf_ptr = &(buf[(y - 1) * w + x - 1]);
-      if (y > bm->waterlevels[x])
-        {
-          if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-	  buf_ptr++;
-	  
-          *buf_ptr = aircolor; buf_ptr++;
-	  
-          if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-	  buf_ptr += (w - 2);
-        }
-      else
-        {
-	  buf_ptr += w;
-	}
-
-      /* Middle row - no clipping necessary */
-      *buf_ptr = aircolor; buf_ptr++;
-      *buf_ptr = aircolor; buf_ptr++;
-      *buf_ptr = aircolor; buf_ptr += (w - 2);
-
-      /* Bottom row */
-      if (y < (h - 1))
-        {
-          if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-	  buf_ptr++;
-	  
-          *buf_ptr = aircolor; buf_ptr++;
-
-	  if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-        }
+      bubblemon_draw_bubble(bubblePic,
+			    bubble->x,
+			    hf - bubble->y);
     }
+    bubble++;
+  }
+}
+
+static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic,
+					  bubblemon_layer_t layer)
+{
+  static bubblemon_color_t noSwapAirColor;
+  static bubblemon_color_t noSwapWaterColor;
+
+  static bubblemon_color_t maxSwapAirColor;
+  static bubblemon_color_t maxSwapWaterColor;
   
-  /* Move the water level with the current memory usage. */
-  waterlevel_goal = h - ((memoryPercentage * h) / 100);
+  bubblemon_color_t colors[3];
+  
+  bubblemon_colorcode_t *airOrWater;
+  bubblemon_color_t *pixel;
+  int i;
+  
+  int w, h;
+  
+  noSwapAirColor = bubblemon_constant2color(NOSWAPAIRCOLOR);
+  noSwapWaterColor = bubblemon_constant2color(NOSWAPWATERCOLOR);
 
-  bm->waterlevels[0] = waterlevel_goal;
-  bm->waterlevels[w - 1] = waterlevel_goal;
-
-  for (x = 1; x < (w - 1); x++)
-    {
-      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
-				     bm->waterlevels[x + 1]) >> 1;
-      
-      /* Guard from rounding errors */
-      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
-      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
-	bm->waterlevels_inactive[x]++;
+  maxSwapAirColor = bubblemon_constant2color(MAXSWAPAIRCOLOR);
+  maxSwapWaterColor = bubblemon_constant2color(MAXSWAPWATERCOLOR);
+  
+  colors[AIR] = bubblemon_interpolateColor(noSwapAirColor, maxSwapAirColor, (bubblemon_getSwapPercentage() * 255) / 100);
+  colors[WATER] = bubblemon_interpolateColor(noSwapWaterColor, maxSwapWaterColor, (bubblemon_getSwapPercentage() * 255) / 100);
+  colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
+  
+  w = bubblePic->width;
+  h = bubblePic->height;
+  
+  /* Make sure the pixel array exist */
+  if (bubblePic->pixels == NULL)
+  {
+    bubblePic->pixels =
+      (bubblemon_color_t *)malloc(bubblePic->width * bubblePic->height * sizeof(bubblemon_color_t));
+    assert(bubblePic->pixels != NULL);
+  }
+  
+  pixel = bubblePic->pixels;
+  airOrWater = bubblePic->airAndWater;
+  if (layer == BACKGROUND) {
+    // Erase the old pic as we draw
+    for (i = 0; i < w * h; i++) {
+      *pixel++ = colors[*airOrWater++];
     }
+  } else {
+    // Draw on top of the current pic
+    for (i = 0; i < w * h; i++) {
+      bubblemon_color_t myColor = colors[*airOrWater++];
+      *pixel = bubblemon_interpolateColor(*pixel,
+					  myColor,
+					  myColor.components.a);
+      pixel++;
+    }
+  }
+}
 
-  bm->waterlevels_inactive[0] = waterlevel_goal;
-  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
-
-  temp = bm->waterlevels_inactive;
-  bm->waterlevels_inactive = bm->waterlevels;
-  bm->waterlevels = temp;
-
-  /* Drawing magic resides below this point */
-  bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
-
-  /* Copy the bubbling image data to the gdk image */
-  switch (bytesPerPixel)
-    {
-    case 4:
-      {
-	u_int32_t *ptr = (u_int32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = 0; i < n_pixels; i++)
-	  ptr[i] = col[buf[i]];
-	break;
-      }
+static void bubblemon_bottleToPixmap(bubblemon_picture_t *bubblePic)
+{
+  int bottleX, bottleY;
+  int bottleW, bottleH;
+  int bottleYMin, bottleYMax;
+  int pictureX0, pictureY0;
+  int pictureW, pictureH;
+  
+  if (physics.bottle_state == GONE) {
+    return;
+  }
+  
+  assert(bubblePic->pixels != NULL);
+  
+  pictureW = bubblePic->width;
+  pictureH = bubblePic->height;
+  
+  bottleW = msgInBottle.width;
+  bottleH = msgInBottle.height;
+  
+  // Ditch the bottle if the image is too small
+  // FIXME: Should we check the image height as well?
+  if (pictureW < (bottleW + 4)) {
+    return;
+  }
+  
+  // Center the bottle horizontally
+  pictureX0 = (bubblePic->width - bottleW) / 2;
+  // Position the bottle vertically
+  pictureY0 = pictureH - physics.bottle_y - bottleH / 2;
+  
+  // Clip the bottle vertically to fit it into the picture
+  bottleYMin = 0;
+  if (pictureY0 < 0) {
+    bottleYMin = -pictureY0;
+  }
+  bottleYMax = bottleH;
+  if (pictureY0 + bottleH >= pictureH) {
+    bottleYMax = bottleH - (pictureY0 + bottleH - pictureH);
+  }
+  
+  // Iterate over the bottle
+  for (bottleX = 0; bottleX < bottleW; bottleX++) {
+    for (bottleY = bottleYMin; bottleY < bottleYMax; bottleY++) {
+      int pictureX = pictureX0 + bottleX;
+      int pictureY = pictureY0 + bottleY;
       
-    case 2:
-      {
-	u_int16_t *ptr = (u_int16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = 0; i < n_pixels; i++)
-	  ptr[i] = col[buf[i]];
-	break;
-      }
+      bubblemon_color_t bottlePixel;
+      bubblemon_color_t *picturePixel;
+      
+      // assert(pictureY < pictureH);
+      
+      bottlePixel = ((bubblemon_color_t*)(msgInBottle.pixel_data))[bottleX + bottleY * bottleW];
+      picturePixel = &(bubblePic->pixels[pictureX + pictureY * pictureW]);
+      
+      *picturePixel = bubblemon_interpolateColor(*picturePixel,
+						 bottlePixel,
+						 bottlePixel.components.a);
+    }
+  }
+}
 
-    default:
-      g_error("Error: Bubblemon works only on displays with 2 or 4 bytes/pixel :-(.\n"
-	      "      If you know how to fix this, please let me (d92-jwa@nada.kth.se\n"
-	      "      know).  The fix should probably go into %s, just above line %d.\n",
-	      __FILE__,
-	      __LINE__);
+static void bubblemon_weedsToPixmap(bubblemon_picture_t *bubblePic)
+{
+  int w = bubblePic->width;
+  int h = bubblePic->height;
+
+  int x;
+  
+  for (x = 0; x < w; x++)
+  {
+    int y;
+    int highestWeedPixel = h - physics.weeds[x].height;
+    
+    for (y = highestWeedPixel; y < h; y++)
+    {
+      bubblePic->pixels[y * w + x] = bubblemon_interpolateColor(bubblePic->pixels[y * w + x],
+								physics.weeds[x].color,
+								physics.weeds[x].color.components.a);
+    }
+  }
+}
+
+const bubblemon_picture_t *bubblemon_getPicture()
+{
+  static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
+  static int physicalTimeElapsed = 0;
+  
+  int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
+  int youveGotMail = mail_hasUnreadMail();
+  
+  // Get the system load
+  meter_getLoad(&sysload);
+  bubblemon_censorLoad();
+  
+  // Update the network load statistics.  Since they measure a real
+  // time phenomenon, they need to keep track of how much real time
+  // has actually passed since last time.  Thus, we provide the
+  // uncensored msecsSinceLastCall.
+  netload_updateLoadstats(msecsSinceLastCall);
+  
+  // If a "long" time has passed since the last frame, settle for
+  // updating the physics just a bit of the way.
+  if (msecsSinceLastCall > 200)
+  {
+    msecsSinceLastCall = 200;
   }
 
-  /* Update the display. */
-  bubblemon_expose_handler (bm->area, NULL, bm);
-
-  bubblemon_set_timeout (bm);
-
-  return TRUE;
-} /* bubblemon_update */
-
-
-/*
- * This function, bubblemon_expose, is called whenever a portion of the
- * applet window has been exposed and needs to be redrawn.  In this
- * function, we just blit the whole pixmap onto the window.
- */
-gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
-			       gpointer data)
-{
-  BubbleMonData * bm = data;
-
-  if (!bm->setup)
-    return FALSE;
-
-  gdk_draw_image (bm->area->window, bm->area->style->fg_gc[GTK_WIDGET_STATE (bm->area)],
-                  bm->image, 0, 0, 0, 0, bm->breadth, bm->depth);
-  
-  return FALSE; 
-} /* bubblemon_expose_handler */
-
-gint bubblemon_configure_handler (GtkWidget *widget, GdkEventConfigure *event,
-				  gpointer data)
-{
-  BubbleMonData * bm = data;
-  
-  bubblemon_update ( (gpointer) bm);
-
-  return TRUE;
-}  /* bubblemon_configure_handler */
-
-GtkWidget *applet_start_new_applet (const gchar *goad_id,
-				    const char *params[],
-				    int nparams)
-{
-  return make_new_bubblemon_applet (goad_id);
-} /* applet_start_new_applet */
-
-gint bubblemon_delete (gpointer data)
-{
-  BubbleMonData * bm = data;
-
-  bm->setup = FALSE;
-
-  if (bm->timeout)
-    {
-      gtk_timeout_remove (bm->timeout);
-      bm->timeout = 0;
-    }
-
-  applet_widget_gtk_main_quit();
-
-  return TRUE;  /* We do our own destruction */
-}
-
-/* This is the function that actually creates the display widgets */
-GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
-{
-  BubbleMonData * bm;
-
-  bm = g_new0 (BubbleMonData, 1);
-
-  bm->applet = applet_widget_new (goad_id);
-
-  if (bm->applet == NULL)
-    g_error (_("Can't create applet!\n"));
-
-  if (!glibtop_init_r (&glibtop_global_server, 0, 0))
-    g_error (_("Can't open glibtop!\n"));
-  
-  /*
-   * Load all the saved session parameters (or the defaults if none
-   * exist).
-   */
-  if ( (APPLET_WIDGET (bm->applet)->privcfgpath) &&
-       * (APPLET_WIDGET (bm->applet)->privcfgpath))
-    bubblemon_session_load (APPLET_WIDGET (bm->applet)->privcfgpath, bm);
+  // Push the universe around
+  if (msecsSinceLastCall <= msecsPerPhysicsFrame)
+  {
+    bubblemon_updatePhysics(msecsSinceLastCall, youveGotMail);
+  }
   else
-    bubblemon_session_defaults (bm);
-
-  /* We begin with zero bubbles */
-  bm->n_bubbles = 0;
-
-  /*
-   * area is the drawing area into which the little picture of
-   * the bubblemon gets drawn.
-   */
-  bm->area = gtk_drawing_area_new ();
-  gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
-
-  /* frame is the frame around the drawing area */
-  bm->frame = gtk_frame_new(NULL);
-  gtk_frame_set_shadow_type(GTK_FRAME(bm->frame), GTK_SHADOW_IN);
-
-  /* frame the drawing area */
-  gtk_container_add(GTK_CONTAINER(bm->frame), bm->area);
-
-  /* Set up the event callbacks for the area. */
-  gtk_signal_connect (GTK_OBJECT (bm->area), "expose_event",
-		      GTK_SIGNAL_FUNC(bubblemon_expose_handler),
-		      (gpointer) bm);
-
-  /* Add a signal to the applet for when the mouse exits to update the tooltip */
-  gtk_signal_connect (GTK_OBJECT (bm->applet), "leave_notify_event",
-		      GTK_SIGNAL_FUNC(widget_leave_cb),
-		      (gpointer) bm);
-
-  gtk_widget_set_events (bm->area,
-			 GDK_EXPOSURE_MASK |
-			 GDK_ENTER_NOTIFY_MASK);
-
-  applet_widget_add (APPLET_WIDGET (bm->applet), bm->frame);
-
-  gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
-		      GTK_SIGNAL_FUNC (bubblemon_session_save),
-		      (gpointer) bm);
-
-  gtk_signal_connect (GTK_OBJECT (bm->applet), "delete_event",
-                      GTK_SIGNAL_FUNC (bubblemon_delete),
-		      (gpointer) bm);
-
-  applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
-					 "about",
-					 GNOME_STOCK_MENU_ABOUT,
-					 _("About..."),
-					 about_cb,
-					 bm);
-
-  gtk_widget_show_all (bm->applet);
-
-  /* Size things according to the saved settings. */
-  bubblemon_set_size (bm);
-
-  bubblemon_setup_samples (bm);
-
-  bubblemon_setup_colors (bm);
-
-  /* Nothing is drawn until this is set. */
-  bm->setup = TRUE;
-
-  /* Will schedule a timeout automatically */
-  bubblemon_update (bm);
-
-  return bm->applet;
-} /* make_new_bubblemon_applet */
-
-void bubblemon_set_timeout (BubbleMonData *bm)
-{ 
-  gint when = bm->update;
-  
-  if (when != bm->timeout_t)
+  {
+    while (physicalTimeElapsed < msecsSinceLastCall)
     {
-      if (bm->timeout)
-	{
-	  gtk_timeout_remove (bm->timeout);
-	  bm->timeout = 0;
-	}
-      bm->timeout_t = when;
-      bm->timeout = gtk_timeout_add (when, (GtkFunction) bubblemon_update, bm);
+      bubblemon_updatePhysics(msecsPerPhysicsFrame, youveGotMail);
+      physicalTimeElapsed += msecsPerPhysicsFrame;
     }
+    physicalTimeElapsed -= msecsSinceLastCall;
+  }
+  
+  // Draw the pixels
+  bubblemon_environmentToBubbleArray(&bubblePic, BACKGROUND);
+  bubblemon_bubbleArrayToPixmap(&bubblePic, BACKGROUND);
+  
+  bubblemon_weedsToPixmap(&bubblePic);
+  bubblemon_bottleToPixmap(&bubblePic);
+  
+  bubblemon_environmentToBubbleArray(&bubblePic, FOREGROUND);
+  bubblemon_bubbleArrayToPixmap(&bubblePic, FOREGROUND);
+  
+  return &bubblePic;
 }
 
-void bubblemon_setup_samples (BubbleMonData *bm)
+void bubblemon_init(void)
 {
-  int i;
-  u_int64_t load = 0, total = 0;
-
-  if (bm->load)
-    {
-      load = bm->load[bm->loadIndex];
-      free (bm->load);
-    }
-
-  if (bm->total)
-    {
-      total = bm->total[bm->loadIndex];
-      free (bm->total);
-    }
-
-  bm->loadIndex = 0;
-  bm->load = malloc (bm->samples * sizeof (u_int64_t));
-  bm->total = malloc (bm->samples * sizeof (u_int64_t));
-  for (i = 0; i < bm->samples; i++)
-    {
-      bm->load[i] = load;
-      bm->total[i] = total;
-    }
+#ifdef ENABLE_PROFILING
+  fprintf(stderr,
+	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
+	  "load all the time.\n");
+#endif
+  
+  // Initialize the random number generation
+  srandom(time(NULL));
+  
+  // Initialize the load metering
+  meter_init(&sysload);
+  sysload.cpuLoad = (int *)calloc(sysload.nCpus, sizeof(int));
+  assert(sysload.cpuLoad != NULL);
+  
+  // Initialize the bottle
+  physics.bottle_state = GONE;
 }
 
-void bubblemon_setup_colors (BubbleMonData *bm)
+void bubblemon_done(void)
 {
-  int i, j, *col;
-  int r_air_noswap, g_air_noswap, b_air_noswap;
-  int r_liquid_noswap, g_liquid_noswap, b_liquid_noswap;
-  int r_air_maxswap, g_air_maxswap, b_air_maxswap;
-  int r_liquid_maxswap, g_liquid_maxswap, b_liquid_maxswap;
-  int actual_colors = NUM_COLORS / 3;
-
-  GdkColormap *golormap;
-  Display *display;
-  Colormap colormap;
-
-  golormap = gdk_colormap_get_system ();
-  display = GDK_COLORMAP_XDISPLAY(golormap);
-  colormap = GDK_COLORMAP_XCOLORMAP(golormap);
-
-  if (!bm->colors)
-    bm->colors = malloc (NUM_COLORS * sizeof (int));
-  col = bm->colors;
-
-  r_air_noswap = (bm->air_noswap >> 16) & 0xff;
-  g_air_noswap = (bm->air_noswap >> 8) & 0xff;
-  b_air_noswap = (bm->air_noswap) & 0xff;
-
-  r_liquid_noswap = (bm->liquid_noswap >> 16) & 0xff;
-  g_liquid_noswap = (bm->liquid_noswap >> 8) & 0xff;
-  b_liquid_noswap = (bm->liquid_noswap) & 0xff;
-  
-  r_air_maxswap = (bm->air_maxswap >> 16) & 0xff;
-  g_air_maxswap = (bm->air_maxswap >> 8) & 0xff;
-  b_air_maxswap = (bm->air_maxswap) & 0xff;
-
-  r_liquid_maxswap = (bm->liquid_maxswap >> 16) & 0xff;
-  g_liquid_maxswap = (bm->liquid_maxswap >> 8) & 0xff;
-  b_liquid_maxswap = (bm->liquid_maxswap) & 0xff;
-  
-  for (i = 0; i < actual_colors; i++)
-    {
-      int r, g, b;
-      int r_composite, g_composite, b_composite;
-      char rgbStr[24];
-      XColor exact, screen;
-
-      j = i >> 1;
-
-      /* Liquid */
-      r = (r_liquid_maxswap * j + r_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      g = (g_liquid_maxswap * j + g_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      b = (b_liquid_maxswap * j + b_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-
-      r_composite = r;
-      g_composite = g;
-      b_composite = b;
-
-      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
-      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-      col[(i*3)] = screen.pixel;
-
-      /* Air */
-      r = (r_air_maxswap * j + r_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      g = (g_air_maxswap * j + g_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      b = (b_air_maxswap * j + b_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-
-      r_composite += r;
-      g_composite += g;
-      b_composite += b;
-
-      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
-      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-      col[(i*3) + 2] = screen.pixel;
-      
-      /* Anti-alias */
-      r = r_composite >> 1;
-      g = g_composite >> 1;
-      b = b_composite >> 1;
-
-      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
-      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-      col[(i*3) + 1] = screen.pixel;
-    }
+  // Terminate the load metering
+  meter_done();
 }
-
-void
-destroy_about (GtkWidget *w, gpointer data)
-{
-} /* destroy_about */
-
-void about_cb (AppletWidget *widget, gpointer data)
-{
-  BubbleMonData *bm = data;
-  char *authors[2];
-  
-  authors[0] = "Johan Walles <d92-jwa@nada.kth.se>";
-  authors[1] = NULL;
-
-  bm->about_box =
-    gnome_about_new (_("Bubbling Load Monitor"), VERSION,
-		     _("Copyright (C) 1999 Johan Walles"),
-		     (const char **) authors,
-		     _("This applet displays your CPU load as a bubbling liquid.  "
-		       "GNOME code ripped from Merlin Hughes' Merlin's CPU Fire Applet.  "
-		       "This applet comes with ABSOLUTELY NO WARRANTY.  "
-		       "See the LICENSE file for details.\n"
-		       "This is free software, and you are welcome to redistribute it "
-		       "under certain conditions.  "
-		       "See the LICENSE file for details.\n"),
-		     NULL);
-
-  gtk_signal_connect (GTK_OBJECT (bm->about_box), "destroy",
-		      GTK_SIGNAL_FUNC (destroy_about), bm);
-
-  gtk_widget_show (bm->about_box);
-} /* about_cb */
-
-void widget_leave_cb (GtkWidget *ignored1,
-		      GdkEventAny *ignored2,
-		      gpointer data)
-{
-  /* FIXME: This is a workaround for the gtk+ tool tip problem
-     described in the README file. */
-  update_tooltip((BubbleMonData *) data);
-}
-
-void bubblemon_set_size (BubbleMonData * bm)
-{
-  int bpp, i;
-
-  gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
-
-  if (bm->bubblebuf)
-    free (bm->bubblebuf);
-
-  bm->bubblebuf = malloc (bm->breadth * (bm->depth + 1) * sizeof (int));
-  memset (bm->bubblebuf, 0, bm->breadth * (bm->depth + 1) * sizeof (int));
-
-  if (bm->waterlevels)
-    free (bm->waterlevels);
-
-  bm->waterlevels = malloc (bm->breadth * sizeof (int));
-  for (i = 0; i < bm->breadth; i++)
-    {
-      bm->waterlevels[i] = bm->depth;
-    }
-
-  if (bm->waterlevels_inactive)
-    free (bm->waterlevels_inactive);
-
-  bm->waterlevels_inactive = malloc (bm->breadth * sizeof (int));
-
-  /*
-   * If the image has already been allocated, then free it here
-   * before creating a new one.  */
-  if (bm->image)
-    gdk_image_destroy (bm->image);
-
-  bm->image = gdk_image_new (GDK_IMAGE_SHARED, gtk_widget_get_visual (bm->area), bm->breadth, bm->depth);
-
-  bpp = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / bm->breadth;
-} /* bubblemon_set_size */

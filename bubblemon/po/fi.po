@@ -1,0 +1,114 @@
+# bubblemon Finnish translation.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Pauli Virtanen <pauli.virtanen@saunalahti.fi>, 2000.
+#
+# GNOME Finnish Translation Team: http://gnome-fi.sourceforge.net/
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 0.9.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 22:30+0200\n"
+"PO-Revision-Date: 2001-01-10 22:24+02:00\n"
+"Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
+"Language-Team: Finnish <fi@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+msgid "A CPU load meter monitor"
+msgstr ""
+
+#: gnome/GNOME_BubblemonApplet.xml.h:1
+#, fuzzy
+msgid "_About..."
+msgstr "Tietoja"
+
+#: src/bubblemon.c:152
+#, fuzzy, c-format
+msgid "Memory used: %s"
+msgstr ""
+"Muistia käytössä: %s\n"
+"Sivutettu: %s"
+
+#: src/bubblemon.c:158
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Swap used: %s"
+msgstr ""
+"Muistia käytössä: %s\n"
+"Sivutettu: %s"
+
+#: src/bubblemon.c:166
+#, c-format
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+"\n"
+"Prosessorikuorma: %d%%"
+
+#: src/bubblemon.c:177
+#, c-format
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+"\n"
+"Prosessorin #%d kuorma: %d%%"
+
+#: src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "Kupliva kuormamittari"
+
+#: src/gnome2-ui.c:74
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details."
+msgstr ""
+"Tämä sovelma näyttää prosessorisi kuorman kuplivana nesteenä.\n"
+"Tällä sovelmalla EI OLE MINKÄÄNLAISTA TAKUUTA. Katso lisätietoja tiedostosta "
+"LICENSE.\n"
+"Tämä sovelma on vapaata ohjelmistoa, ja voit levittää sitä tiettyjen\n"
+"ehtojen (GPL) mukaan. Katso lisätietoja tiedostosta LICENSE."
+
+#, fuzzy
+#~ msgid "Can't create bubblemon applet!"
+#~ msgstr "Sovelmaa ei voi luoda!\n"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Virhe: NUM_COLORS vakion tiedostossa bubblemon.h täytyy olla jaollinen\n"
+#~ "       kolmella. Nykyinen arvo %d ei ole.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "glibtop_get_mem() ilmoitti rivillä %d tiedostossa %s, että tietokoneessa "
+#~ "ei ole muistia"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "En voinut siirtyä hakemistoon $HOME (%s)\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "$HOME-ympäristömuuttujaa ei ole asetettu\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon sulkeutuu. Profilointidatan pitäisi olla tiedostossa ~/gmon."
+#~ "out.\n"
+#~ "Ajapa huviksesi 'gprof -l -p %s ~/gmon.out'.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<ohjelmatiedoston nimi>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "glibtop:ia ei voi avata!\n"
