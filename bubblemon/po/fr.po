@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-10 12:47+0200\n"
+"POT-Creation-Date: 2002-05-18 14:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Frank DENIS <j@4u.net>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -14,32 +14,25 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:100
-#, c-format
-msgid ""
-"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-"       The current value of %d is not.\n"
+#: src/bubblemon.c:153
+#, fuzzy, c-format
+msgid "Memory used: %s"
 msgstr ""
-"Erreur: La constante NUM_COLORS dans bubblemon.h doit etre un multiple de "
-"3.\n"
-"        Ce n'est pas le cas de %d , la valeur actuelle.\n"
+"Mémoire utilisée: %s\n"
+"Swap utilisé: %s\n"
+"Charge du CPU: %d%%"
 
-#: src/bubblemon.c:293
-#, c-format
-msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr "D'après glibtop_get_mem() vous n'avez pas de mémoire, ligne %d dans %s"
-
-#: src/bubblemon.c:409
+#: src/bubblemon.c:159
 #, fuzzy, c-format
 msgid ""
-"Memory used: %s\n"
+"\n"
 "Swap used: %s"
 msgstr ""
 "Mémoire utilisée: %s\n"
 "Swap utilisé: %s\n"
 "Charge du CPU: %d%%"
 
-#: src/bubblemon.c:416
+#: src/bubblemon.c:167
 #, c-format
 msgid ""
 "\n"
@@ -48,7 +41,7 @@ msgstr ""
 "\n"
 "Charge du CPU: %d%%"
 
-#: src/bubblemon.c:427
+#: src/bubblemon.c:178
 #, c-format
 msgid ""
 "\n"
@@ -57,47 +50,11 @@ msgstr ""
 "\n"
 "Charge du CPU #%d : %d%%"
 
-#: src/bubblemon.c:661
-#, c-format
-msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr "Impossible d'exécuter chdir() vers $HOME (%s)\n"
-
-#: src/bubblemon.c:667
-msgid "$HOME environment variable not set\n"
-msgstr "La variable d'environnement $HOME est absente\n"
-
-#: src/bubblemon.c:672
-#, c-format
-msgid ""
-"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-msgstr ""
-"Bubblemon se termine.  Les mesures de performance se trouvent dans ~/gmon."
-"out.\n"
-"Pour un résultat correct, lancez 'gprof -l -p %s ~/gmon.out'.\n"
-
-#: src/bubblemon.c:674
-msgid "<name of executable>"
-msgstr "<nom de l'exécutable>"
-
-#: src/bubblemon.c:1046
-msgid "Can't create applet!\n"
-msgstr "Impossible de créer l'appliquette !\n"
-
-#: src/bubblemon.c:1049
-msgid "Can't open glibtop!\n"
-msgstr "Impossible d'employer glibtop\n"
-
-#: src/bubblemon.c:1112
-#, fuzzy
-msgid "About"
-msgstr "À propos..."
-
-#: src/bubblemon.c:1290
+#: src/gnome1-ui.c:147
 msgid "Bubbling Load Monitor"
 msgstr "Moniteur de charge à bulles"
 
-#: src/bubblemon.c:1293
+#: src/gnome1-ui.c:150
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -110,3 +67,45 @@ msgstr ""
 "pour les détails.\n"
 "Ceci est un logiciel libre, et vous êtes conviés à le redistribuer sous "
 "certaines conditions (GPL), lire le fichier LICENSE pour les détails."
+
+#: src/gnome1-ui.c:242
+#, fuzzy
+msgid "Can't create bubblemon applet!"
+msgstr "Impossible de créer l'appliquette !\n"
+
+#: src/gnome1-ui.c:276
+#, fuzzy
+msgid "About..."
+msgstr "À propos..."
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Erreur: La constante NUM_COLORS dans bubblemon.h doit etre un multiple de "
+#~ "3.\n"
+#~ "        Ce n'est pas le cas de %d , la valeur actuelle.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "D'après glibtop_get_mem() vous n'avez pas de mémoire, ligne %d dans %s"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "Impossible d'exécuter chdir() vers $HOME (%s)\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "La variable d'environnement $HOME est absente\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon se termine.  Les mesures de performance se trouvent dans ~/gmon."
+#~ "out.\n"
+#~ "Pour un résultat correct, lancez 'gprof -l -p %s ~/gmon.out'.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<nom de l'exécutable>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "Impossible d'employer glibtop\n"

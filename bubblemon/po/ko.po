@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-10 12:47+0200\n"
+"POT-Creation-Date: 2002-05-18 14:07+0200\n"
 "PO-Revision-Date: 2001-01-10 01:38+0900\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -13,30 +13,23 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:100
-#, c-format
-msgid ""
-"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-"       The current value of %d is not.\n"
+#: src/bubblemon.c:153
+#, fuzzy, c-format
+msgid "Memory used: %s"
 msgstr ""
-"오류: bubblemon.h의 상수인 NUM_COLORS는 3의 배수여야 합니다.\n"
-"       현재 값인 %d 는 배수가 아닙니다.\n"
+"메모리 사용량: %s\n"
+"스왑 사용량: %s"
 
-#: src/bubblemon.c:293
-#, c-format
-msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr "%d 행(%s)에서 glibtop_get_mem 함수가 메모리 없음이라고 보고함"
-
-#: src/bubblemon.c:409
-#, c-format
+#: src/bubblemon.c:159
+#, fuzzy, c-format
 msgid ""
-"Memory used: %s\n"
+"\n"
 "Swap used: %s"
 msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: src/bubblemon.c:416
+#: src/bubblemon.c:167
 #, c-format
 msgid ""
 "\n"
@@ -45,7 +38,7 @@ msgstr ""
 "\n"
 "CPU 부하: %d%%"
 
-#: src/bubblemon.c:427
+#: src/bubblemon.c:178
 #, c-format
 msgid ""
 "\n"
@@ -54,45 +47,11 @@ msgstr ""
 "\n"
 "CPU #%d 부하: %d%%"
 
-#: src/bubblemon.c:661
-#, c-format
-msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr "$HOME (%s)로 chdir()할 수 없음\n"
-
-#: src/bubblemon.c:667
-msgid "$HOME environment variable not set\n"
-msgstr "$HOME 환경변수가 설정되어 있지 않음\n"
-
-#: src/bubblemon.c:672
-#, c-format
-msgid ""
-"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-msgstr ""
-"버블몬 종료. 프로파일링 자료는 ~/gmon.out에 남아있습니다.\n"
-"'gprof -l -p %s ~/gmon.out'을 실행하십시오.\n"
-
-#: src/bubblemon.c:674
-msgid "<name of executable>"
-msgstr "<실행파일 이름>"
-
-#: src/bubblemon.c:1046
-msgid "Can't create applet!\n"
-msgstr "애플릿을 만들 수 없음\n"
-
-#: src/bubblemon.c:1049
-msgid "Can't open glibtop!\n"
-msgstr "glibtop을 열 수 없음!\n"
-
-#: src/bubblemon.c:1112
-msgid "About"
-msgstr "프로그램 정보"
-
-#: src/bubblemon.c:1290
+#: src/gnome1-ui.c:147
 msgid "Bubbling Load Monitor"
 msgstr "물거품 부하 모니터"
 
-#: src/bubblemon.c:1293
+#: src/gnome1-ui.c:150
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -105,3 +64,42 @@ msgstr ""
 "고하십시오.\n"
 "이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 좋습"
 "니다.  자세한 사항은 LICENSE 파일을 참고하십시오."
+
+#: src/gnome1-ui.c:242
+#, fuzzy
+msgid "Can't create bubblemon applet!"
+msgstr "애플릿을 만들 수 없음\n"
+
+#: src/gnome1-ui.c:276
+#, fuzzy
+msgid "About..."
+msgstr "프로그램 정보"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "오류: bubblemon.h의 상수인 NUM_COLORS는 3의 배수여야 합니다.\n"
+#~ "       현재 값인 %d 는 배수가 아닙니다.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr "%d 행(%s)에서 glibtop_get_mem 함수가 메모리 없음이라고 보고함"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "$HOME (%s)로 chdir()할 수 없음\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "$HOME 환경변수가 설정되어 있지 않음\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "버블몬 종료. 프로파일링 자료는 ~/gmon.out에 남아있습니다.\n"
+#~ "'gprof -l -p %s ~/gmon.out'을 실행하십시오.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<실행파일 이름>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "glibtop을 열 수 없음!\n"

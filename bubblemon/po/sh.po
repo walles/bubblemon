@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-10 12:47+0200\n"
+"POT-Creation-Date: 2002-05-18 14:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,85 +14,43 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:100
-#, c-format
-msgid ""
-"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-"       The current value of %d is not.\n"
+#: src/bubblemon.c:153
+#, fuzzy, c-format
+msgid "Memory used: %s"
 msgstr ""
-"Greska: Konstanta NUM_COLORS u bubblemon.h mora biti dijeljiva sa 3\n"
-"        Sadasnja vrednost od %d nije.\n"
+"Upotreba memorije: %s\n"
+"Upotreba svop-a: %s\n"
+"Upotreba procesora: %d%%"
 
-#: src/bubblemon.c:293
-#, c-format
-msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr ""
-"glibtop_get_mem() informise da nema slobodne memorije na liniji %d u %s"
-
-#: src/bubblemon.c:409
+#: src/bubblemon.c:159
 #, fuzzy, c-format
 msgid ""
-"Memory used: %s\n"
+"\n"
 "Swap used: %s"
 msgstr ""
 "Upotreba memorije: %s\n"
 "Upotreba svop-a: %s\n"
 "Upotreba procesora: %d%%"
 
-#: src/bubblemon.c:416
+#: src/bubblemon.c:167
 #, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:427
+#: src/bubblemon.c:178
 #, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:661
-#, c-format
-msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr "Nije uspjela operacija chdir() na $HOME (%s)\n"
-
-#: src/bubblemon.c:667
-msgid "$HOME environment variable not set\n"
-msgstr "$HOME envajronment parametar nije postavljen\n"
-
-#: src/bubblemon.c:672
-#, c-format
-msgid ""
-"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-msgstr ""
-"Bubblemon je zavrsio operaciju.  Profilacijski podaci su stedeni u ~/gmon."
-"out.\n"
-"Da provedete dobro vrijeme, zapocnite 'gprof -l -p %s ~/gmon.out'.\n"
-
-#: src/bubblemon.c:674
-msgid "<name of executable>"
-msgstr "<ime eksekjutabla>"
-
-#: src/bubblemon.c:1046
-msgid "Can't create applet!\n"
-msgstr "Nemoguce stvoriti aplet!\n"
-
-#: src/bubblemon.c:1049
-msgid "Can't open glibtop!\n"
-msgstr "Nemoguce otvoriti glibtop!\n"
-
-#: src/bubblemon.c:1112
-msgid "About"
-msgstr "Opis"
-
-#: src/bubblemon.c:1290
+#: src/gnome1-ui.c:147
 msgid "Bubbling Load Monitor"
 msgstr "Burni indikator opterecenja"
 
-#: src/bubblemon.c:1293
+#: src/gnome1-ui.c:150
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -106,6 +64,47 @@ msgstr ""
 "daje detaljan opis na engleskom jeziku.\n"
 "Ovo je slobodni program koji sami smijete da dstribujisete po licensi (GPL), "
 "za detaljan opis vidite LICENSE fajl."
+
+#: src/gnome1-ui.c:242
+#, fuzzy
+msgid "Can't create bubblemon applet!"
+msgstr "Nemoguce stvoriti aplet!\n"
+
+#: src/gnome1-ui.c:276
+#, fuzzy
+msgid "About..."
+msgstr "Opis"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Greska: Konstanta NUM_COLORS u bubblemon.h mora biti dijeljiva sa 3\n"
+#~ "        Sadasnja vrednost od %d nije.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "glibtop_get_mem() informise da nema slobodne memorije na liniji %d u %s"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "Nije uspjela operacija chdir() na $HOME (%s)\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "$HOME envajronment parametar nije postavljen\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon je zavrsio operaciju.  Profilacijski podaci su stedeni u ~/gmon."
+#~ "out.\n"
+#~ "Da provedete dobro vrijeme, zapocnite 'gprof -l -p %s ~/gmon.out'.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<ime eksekjutabla>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "Nemoguce otvoriti glibtop!\n"
 
 #~ msgid ""
 #~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-10 12:47+0200\n"
+"POT-Creation-Date: 2002-05-18 14:07+0200\n"
 "PO-Revision-Date: 2001-01-09 18:49+0200\n"
 "Last-Translator: Alex Badea <vampire@go.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -14,30 +14,23 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:100
-#, c-format
-msgid ""
-"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-"       The current value of %d is not.\n"
+#: src/bubblemon.c:153
+#, fuzzy, c-format
+msgid "Memory used: %s"
 msgstr ""
-"Eroare: Constanta NUM_COLORS din bubblemon.h trebuie sã fie un multiplu de 3.\n"
-"        Valoarea curentã de %d nu e validã.\n"
+"Memorie ocupatã: %s\n"
+"Swap ocupat: %s"
 
-#: src/bubblemon.c:293
-#, c-format
-msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr "glibtop_get_mem() zice cã nu e destulã memorie, linia %d din %s"
-
-#: src/bubblemon.c:409
-#, c-format
+#: src/bubblemon.c:159
+#, fuzzy, c-format
 msgid ""
-"Memory used: %s\n"
+"\n"
 "Swap used: %s"
 msgstr ""
 "Memorie ocupatã: %s\n"
 "Swap ocupat: %s"
 
-#: src/bubblemon.c:416
+#: src/bubblemon.c:167
 #, c-format
 msgid ""
 "\n"
@@ -46,7 +39,7 @@ msgstr ""
 "\n"
 "Procesor: %d%%"
 
-#: src/bubblemon.c:427
+#: src/bubblemon.c:178
 #, c-format
 msgid ""
 "\n"
@@ -55,45 +48,11 @@ msgstr ""
 "\n"
 "Procesor nr. %d: %d%%"
 
-#: src/bubblemon.c:661
-#, c-format
-msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr "N-am putut sã chdir() în $HOME (%s)\n"
-
-#: src/bubblemon.c:667
-msgid "$HOME environment variable not set\n"
-msgstr "Variabila $HOME nu e setatã\n"
-
-#: src/bubblemon.c:672
-#, c-format
-msgid ""
-"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-msgstr ""
-"Bubblemon se terminã aici. Datele de profiling ar trebui sã fie în ~/gmon.out.\n"
-"Pentru distracþie, ruleazã 'gprof -l -p %s ~/gmon.out'.\n"
-
-#: src/bubblemon.c:674
-msgid "<name of executable>"
-msgstr "<numele executabilului>"
-
-#: src/bubblemon.c:1046
-msgid "Can't create applet!\n"
-msgstr "Nu pot sã creez applet-ul!\n"
-
-#: src/bubblemon.c:1049
-msgid "Can't open glibtop!\n"
-msgstr "Nu pot sã deschid glibtop!\n"
-
-#: src/bubblemon.c:1112
-msgid "About"
-msgstr "Despre"
-
-#: src/bubblemon.c:1290
+#: src/gnome1-ui.c:147
 msgid "Bubbling Load Monitor"
 msgstr "Monitor de Încãrcare cu Bule"
 
-#: src/bubblemon.c:1293
+#: src/gnome1-ui.c:150
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -104,6 +63,45 @@ msgstr ""
 "Acest applet afiºeazã încãrcarea procesorului sub forma unui lichid cu bule de aer.\n"
 "Acest applet vine fãrã ABSOLUT NICI O GARANÞIE, vezi fiºierul LICENSE pentru detalii.\n"
 "Acesta este un soft gratuit, ºi sunteþi binevenit sã-l redistribuiþi sub anumite condiþii (GPL), vezi fiºierul LICENSE pentru detalii."
+
+#: src/gnome1-ui.c:242
+#, fuzzy
+msgid "Can't create bubblemon applet!"
+msgstr "Nu pot sã creez applet-ul!\n"
+
+#: src/gnome1-ui.c:276
+#, fuzzy
+msgid "About..."
+msgstr "Despre"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Eroare: Constanta NUM_COLORS din bubblemon.h trebuie sã fie un multiplu de 3.\n"
+#~ "        Valoarea curentã de %d nu e validã.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr "glibtop_get_mem() zice cã nu e destulã memorie, linia %d din %s"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "N-am putut sã chdir() în $HOME (%s)\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "Variabila $HOME nu e setatã\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon se terminã aici. Datele de profiling ar trebui sã fie în ~/gmon.out.\n"
+#~ "Pentru distracþie, ruleazã 'gprof -l -p %s ~/gmon.out'.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<numele executabilului>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "Nu pot sã deschid glibtop!\n"
 
 #~ msgid ""
 #~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%"

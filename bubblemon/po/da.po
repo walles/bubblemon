@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-10 12:47+0200\n"
+"POT-Creation-Date: 2002-05-18 14:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,84 +14,43 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:100
-#, c-format
-msgid ""
-"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-"       The current value of %d is not.\n"
+#: src/bubblemon.c:153
+#, fuzzy, c-format
+msgid "Memory used: %s"
 msgstr ""
-"Fejl: NUM_COLORS konstanten i bubblmon.h skal være et multiplum af 3.\n"
-"      Det er den nuværende værdi %d ikke.\n"
+"Hukommelse brugt: %s\n"
+"Swap brugt: %s\n"
+"CPU load: %d%%"
 
-#: src/bubblemon.c:293
-#, c-format
-msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr ""
-"glibtop_get_mem() siger at du ikke har nogen hukommelse i linie %d i %s"
-
-#: src/bubblemon.c:409
+#: src/bubblemon.c:159
 #, fuzzy, c-format
 msgid ""
-"Memory used: %s\n"
+"\n"
 "Swap used: %s"
 msgstr ""
 "Hukommelse brugt: %s\n"
 "Swap brugt: %s\n"
 "CPU load: %d%%"
 
-#: src/bubblemon.c:416
+#: src/bubblemon.c:167
 #, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:427
+#: src/bubblemon.c:178
 #, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:661
-#, c-format
-msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr "Kunne ikke chdir() til $HOME (%s)\n"
-
-#: src/bubblemon.c:667
-msgid "$HOME environment variable not set\n"
-msgstr "$HOME environment variablen er ikke sat\n"
-
-#: src/bubblemon.c:672
-#, c-format
-msgid ""
-"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-msgstr ""
-"Bubblemon stopper.  Profil data skulle være i ~/gmon.out.\n"
-"For lidt sjov, kør 'gprof -l -p %s ~/gmon.out'.\n"
-
-#: src/bubblemon.c:674
-msgid "<name of executable>"
-msgstr "<navnet på den binære fil>"
-
-#: src/bubblemon.c:1046
-msgid "Can't create applet!\n"
-msgstr "Kan ikke lave applet!\n"
-
-#: src/bubblemon.c:1049
-msgid "Can't open glibtop!\n"
-msgstr "Kan ikke åbne glibtop!\n"
-
-#: src/bubblemon.c:1112
-msgid "About"
-msgstr "Om"
-
-#: src/bubblemon.c:1290
+#: src/gnome1-ui.c:147
 msgid "Bubbling Load Monitor"
 msgstr "Boblende Load Monitering"
 
-#: src/bubblemon.c:1293
+#: src/gnome1-ui.c:150
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -103,6 +62,46 @@ msgstr ""
 "Der er ABSOLUT INGEN GARENTI på denne applet, se LISENS filen for detaljer.\n"
 "Dette er gratis software og du er velkommen til at redistribuere dette under "
 "en bestemt lisens (GPL), se LISENS filen for detaljer."
+
+#: src/gnome1-ui.c:242
+#, fuzzy
+msgid "Can't create bubblemon applet!"
+msgstr "Kan ikke lave applet!\n"
+
+#: src/gnome1-ui.c:276
+#, fuzzy
+msgid "About..."
+msgstr "Om"
+
+#~ msgid ""
+#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+#~ "       The current value of %d is not.\n"
+#~ msgstr ""
+#~ "Fejl: NUM_COLORS konstanten i bubblmon.h skal være et multiplum af 3.\n"
+#~ "      Det er den nuværende værdi %d ikke.\n"
+
+#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+#~ msgstr ""
+#~ "glibtop_get_mem() siger at du ikke har nogen hukommelse i linie %d i %s"
+
+#~ msgid "Couldn't chdir() to $HOME (%s)\n"
+#~ msgstr "Kunne ikke chdir() til $HOME (%s)\n"
+
+#~ msgid "$HOME environment variable not set\n"
+#~ msgstr "$HOME environment variablen er ikke sat\n"
+
+#~ msgid ""
+#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+#~ msgstr ""
+#~ "Bubblemon stopper.  Profil data skulle være i ~/gmon.out.\n"
+#~ "For lidt sjov, kør 'gprof -l -p %s ~/gmon.out'.\n"
+
+#~ msgid "<name of executable>"
+#~ msgstr "<navnet på den binære fil>"
+
+#~ msgid "Can't open glibtop!\n"
+#~ msgstr "Kan ikke åbne glibtop!\n"
 
 #~ msgid ""
 #~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%"
