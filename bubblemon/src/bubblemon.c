@@ -49,6 +49,7 @@
 
 #ifdef ENABLE_NLS
 #include <libintl.h>
+#include <locale.h>
 #endif
 
 #ifdef ENABLE_PROFILING
@@ -926,7 +927,7 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
   applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
 					 "about",
 					 GNOME_STOCK_MENU_ABOUT,
-					 _("About..."),
+					 _("About"),
 					 about_cb,
 					 bm);
 
