@@ -89,6 +89,21 @@ bubblemon_update (gpointer data)
   static uint64_t swap_used, swap_total;
   uint64_t load, total, oLoad, oTotal;
 
+#ifdef ENABLE_PROFILING
+  static int profiling_countdown = 250;  // FIXME: Is 250 calls to here == 5 seconds?
+
+  if (profiling_countdown-- < 0)
+    {
+      // We terminate after a little while so we don't have to wait
+      // forever for the profiling data to appear
+
+      // FIXME: Change directory to the user's home directory
+
+      // FIXME: Terminate nicely so that the data gets written
+      
+    }
+#endif
+  
   // bm->setup is a status byte that is true if we are rolling
   if (!bm->setup)
     return FALSE;
@@ -124,12 +139,12 @@ bubblemon_update (gpointer data)
   glibtop_get_mem (&memory);
 
   // Find out the swap load, but update it only every 50 times we get
-  // here, which should amount to once a second
+  // here.  FIXME: I have absolutely no idea how often that is.
   if (swap_delay <= 0)
     {
       glibtop_get_swap (&swap);
 
-      // FIXME: Why is this necessary
+      // FIXME: Why is this necessary?
       swap_used = swap.used;
       swap_total = swap.total;
       
@@ -228,8 +243,7 @@ bubblemon_update (gpointer data)
   for (i = 0; i < bm->n_bubbles; i++)
     {
       // Accellerate the bubble
-      bubbles[i].dy -= GRAVITY;  // FIXME: Should bubbles have a
-                                 // limited maximum velocity?
+      bubbles[i].dy -= GRAVITY;
 
       // Move the bubble vertically
       bubbles[i].y += bubbles[i].dy;
