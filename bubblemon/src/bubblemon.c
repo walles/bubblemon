@@ -1118,10 +1118,6 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
 
   if (!bm->colors)
-    /*
-      FIXME: Should the sizeof() on the next line be replaced with
-      some kind of bytes-per-pixel value?
-    */
     bm->colors = malloc (NUM_COLORS * sizeof (int));
   col = bm->colors;
 
