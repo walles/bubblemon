@@ -47,12 +47,8 @@
 static const unsigned int NOSWAPAIRCOLOR    = 0x2299ff00;
 static const unsigned int NOSWAPWATERCOLOR  = 0x0055ff80;
 
-// FIXME: We may want to make the swap water less transparent (so it
-// looks more like blood), and the swap air less transparent (so that
-// it looks fogged up).  OTOH, that may make the bottle hard to spot,
-// so I guess we'll just have to do some experimenting to find out.
-static const unsigned int MAXSWAPAIRCOLOR   = 0xff000000;
-static const unsigned int MAXSWAPWATERCOLOR = 0xaa0000b0;
+static const unsigned int MAXSWAPAIRCOLOR   = 0xff000040;
+static const unsigned int MAXSWAPWATERCOLOR = 0xaa000080;
 
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
