@@ -311,7 +311,7 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
     }
   }
   
-  /* Update and draw the bubbles */
+  /* Move the bubbles */
   for (i = 0; i < physics.n_bubbles; i++)
   {
     /* Accelerate the bubble upwards */
@@ -563,6 +563,8 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
   int h = bubblePic->height;
   int x, y, i;
 
+  bubblemon_Bubble *bubble;
+
   if (bubblePic->airAndWater == NULL)
   {
     bubblePic->airAndWater = (bubblemon_colorcode_t *)malloc(w * h * sizeof(bubblemon_colorcode_t));
@@ -583,11 +585,13 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
   }
   
   // Draw the bubbles
+  bubble = physics.bubbles;
   for (i = 0; i < physics.n_bubbles; i++)
   {
     bubblemon_draw_bubble(bubblePic,
-			  physics.bubbles[i].x,
-			  h - physics.bubbles[i].y);
+			  bubble->x,
+			  h - bubble->y);
+    bubble++;
   }
 }
 
