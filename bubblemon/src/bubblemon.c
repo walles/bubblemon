@@ -1247,7 +1247,7 @@ void bubblemon_set_size (BubbleMonData * bm)
 
   /* Nuke all bubbles */
   bm->n_bubbles = 0;
-  memset (bm->bubbles, 0, MAX_BUBBLES);
+  memset (bm->bubbles, 0, MAX_BUBBLES * sizeof(Bubble));
   
   /* Allocate (zeroed) bubble memory */
   if (bm->bubblebuf)
