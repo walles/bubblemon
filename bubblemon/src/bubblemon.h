@@ -47,6 +47,9 @@
 #define MAXSWAPAIRCOLOR   (bubblemon_color_t)0xff0000
 #define MAXSWAPWATERCOLOR (bubblemon_color_t)0xaa0000
 
+/* Water non-transparency, 0-100 */
+#define WATERALPHA        70
+
 /* Color code constants */
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
 
