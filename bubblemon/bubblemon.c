@@ -37,6 +37,7 @@
 #include <glibtop.h>
 #include <glibtop/cpu.h>
 #include <glibtop/mem.h>
+#include <glibtop/swap.h>
 
 #include <applet-widget.h>
 
@@ -69,8 +70,6 @@ main (int argc, char ** argv)
   return 0;
 } /* main */
 
-int total;
-
 /*
  * This function, bubblemon_update, gets the CPU usage and updates
  * the bubble array and pixmap.
@@ -81,9 +80,10 @@ bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, waterlevel, memoryPercentage;
+  int aircolor, watercolor, waterlevel, memoryPercentage, swapPercentage;
   glibtop_cpu cpu;
   glibtop_mem memory;
+  glibtop_swap swap;
   uint64_t load, total, oLoad, oTotal;
 
   // bm->setup is a status byte that is true if we are rolling
@@ -120,6 +120,11 @@ bubblemon_update (gpointer data)
   // Find out the memory load
   glibtop_get_mem (&memory);
   memoryPercentage = (100 * (memory.used - memory.cached)) / memory.total;
+
+  // Find out the swap load
+  //glibtop_get_swap (&swap);
+  //swapPercentage = (100 * swap.used) / swap.total;
+  swapPercentage = 0;
   
   // The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
   // an entry in the color table.  A pixel in the buf is accessed
@@ -132,14 +137,10 @@ bubblemon_update (gpointer data)
 
   // FIXME: The colors of air and water should vary with how many
   // percent of the available swap space that is in use.
-  aircolor = 0;
-  watercolor = 1;
+  aircolor = ((((NUM_COLORS >> 1) - 1) * swapPercentage) / 100) << 1;
+  watercolor = aircolor + 1;
 
-  // FIXME: The water level should move with the current memory usage.
-  // It is measured in how many pixels of air are above the water
-  // surface.
-
-  // 75% water
+  // Move the water level with the current memory usage.
   waterlevel = h - ((memoryPercentage * h) / 100);
 
   // Here comes the bubble magic.  Pixels are drawn by setting values in
@@ -399,7 +400,12 @@ void bubblemon_setup_samples (BubbleMonData *bm) {
 }
 
 void bubblemon_setup_colors (BubbleMonData *bm) {
-  int i, *col;
+  int i, j, *col;
+  int r_air_noswap, g_air_noswap, b_air_noswap;
+  int r_liquid_noswap, g_liquid_noswap, b_liquid_noswap;
+  int r_air_maxswap, g_air_maxswap, b_air_maxswap;
+  int r_liquid_maxswap, g_liquid_maxswap, b_liquid_maxswap;
+
   GdkColormap *golormap;
   Display *display;
   Colormap colormap;
@@ -411,15 +417,46 @@ void bubblemon_setup_colors (BubbleMonData *bm) {
   if (!bm->colors)
     bm->colors = malloc (NUM_COLORS * sizeof (int));
   col = bm->colors;
+
+  r_air_noswap = (bm->air_noswap >> 16) & 0xff;
+  g_air_noswap = (bm->air_noswap >> 8) & 0xff;
+  b_air_noswap = (bm->air_noswap) & 0xff;
+
+  r_liquid_noswap = (bm->liquid_noswap >> 16) & 0xff;
+  g_liquid_noswap = (bm->liquid_noswap >> 8) & 0xff;
+  b_liquid_noswap = (bm->liquid_noswap) & 0xff;
+  
+  r_air_maxswap = (bm->air_maxswap >> 16) & 0xff;
+  g_air_maxswap = (bm->air_maxswap >> 8) & 0xff;
+  b_air_maxswap = (bm->air_maxswap) & 0xff;
+
+  r_liquid_maxswap = (bm->liquid_maxswap >> 16) & 0xff;
+  g_liquid_maxswap = (bm->liquid_maxswap >> 8) & 0xff;
+  b_liquid_maxswap = (bm->liquid_maxswap) & 0xff;
   
   for (i = 0; i < NUM_COLORS; ++ i) {
     int r, g, b;
     char rgbStr[24];
     XColor exact, screen;
 
-    r = (bubblemon_flame[i] >> 16) & 0xff;
-    g = (bubblemon_flame[i] >> 8) & 0xff;
-    b = bubblemon_flame[i] & 0xff;
+    if (i & 1)
+      {
+	// Liquid
+	j = (i - 1) >> 1;
+	
+	r = (r_liquid_maxswap * j + r_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	g = (g_liquid_maxswap * j + g_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	b = (b_liquid_maxswap * j + b_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+      }
+    else
+      {
+	// Air
+	j = i >> 1;
+
+	r = (r_air_maxswap * j + r_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	g = (g_air_maxswap * j + g_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	b = (b_air_maxswap * j + b_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+      }
 
     sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
     

@@ -38,24 +38,29 @@
 #include "session.h"
 
 void
-bubblemon_session_load(gchar * cfgpath, BubbleMonData * mc)
+bubblemon_session_load(gchar * cfgpath, BubbleMonData * bm)
 {
 
   /* We specify that we want the properties for this applet ... */
   gnome_config_push_prefix (cfgpath);
 
   /* Global configurable parameters */
-  mc->breadth = gnome_config_get_int_with_default
+  bm->breadth = gnome_config_get_int_with_default
     ("bubblemon/width=" BUBBLEMON_DEFAULT_BREADTH, NULL);
 
-  mc->depth = gnome_config_get_int_with_default
+  bm->depth = gnome_config_get_int_with_default
     ("bubblemon/height=" BUBBLEMON_DEFAULT_DEPTH, NULL);
 
-  mc->update = gnome_config_get_int_with_default
+  bm->update = gnome_config_get_int_with_default
     ("bubblemon/update=" BUBBLEMON_DEFAULT_UPDATE_RATE, NULL);
 
-  mc->samples = gnome_config_get_int_with_default
+  bm->samples = gnome_config_get_int_with_default
     ("bubblemon/samples=" BUBBLEMON_DEFAULT_LOAD_SAMPLES, NULL);
+
+  sscanf (BUBBLEMON_DEFAULT_AIR_NOSWAP, "#%x", &(bm->air_noswap));
+  sscanf (BUBBLEMON_DEFAULT_LIQUID_NOSWAP, "#%x", &(bm->liquid_noswap));
+  sscanf (BUBBLEMON_DEFAULT_AIR_MAXSWAP, "#%x", &(bm->air_maxswap));
+  sscanf (BUBBLEMON_DEFAULT_LIQUID_MAXSWAP, "#%x", &(bm->liquid_maxswap));
 
   gnome_config_pop_prefix ();
 } /* bubblemon_session_load */
@@ -66,15 +71,15 @@ bubblemon_session_save(GtkWidget * w,
 		     const char * globcfgpath,
 		     gpointer data)
 {
-  BubbleMonData * mc = data;
+  BubbleMonData * bm = data;
 
   gnome_config_push_prefix (privcfgpath);
 
   /* Global configurable parameters */
-  gnome_config_set_int ("bubblemon/width", mc->breadth);
-  gnome_config_set_int ("bubblemon/height", mc->depth);
-  gnome_config_set_int ("bubblemon/update", mc->update);
-  gnome_config_set_int ("bubblemon/samples", mc->samples);
+  gnome_config_set_int ("bubblemon/width", bm->breadth);
+  gnome_config_set_int ("bubblemon/height", bm->depth);
+  gnome_config_set_int ("bubblemon/update", bm->update);
+  gnome_config_set_int ("bubblemon/samples", bm->samples);
 
   gnome_config_pop_prefix ();
 
@@ -85,11 +90,22 @@ bubblemon_session_save(GtkWidget * w,
 } /* bubblemon_session_save */
 
 void
-bubblemon_session_defaults(BubbleMonData * mc)
+bubblemon_session_defaults(BubbleMonData * bm)
 {
   /* Global configurable parameters */
-  mc->breadth = atoi (BUBBLEMON_DEFAULT_BREADTH);
-  mc->depth = atoi (BUBBLEMON_DEFAULT_DEPTH);
-  mc->update = atoi (BUBBLEMON_DEFAULT_UPDATE_RATE);
-  mc->samples = atoi (BUBBLEMON_DEFAULT_LOAD_SAMPLES);
+  bm->breadth = atoi (BUBBLEMON_DEFAULT_BREADTH);
+  bm->depth = atoi (BUBBLEMON_DEFAULT_DEPTH);
+  bm->update = atoi (BUBBLEMON_DEFAULT_UPDATE_RATE);
+  bm->samples = atoi (BUBBLEMON_DEFAULT_LOAD_SAMPLES);
+
+  sscanf (BUBBLEMON_DEFAULT_AIR_NOSWAP, "#%x", &(bm->air_noswap));
+  sscanf (BUBBLEMON_DEFAULT_LIQUID_NOSWAP, "#%x", &(bm->liquid_noswap));
+  sscanf (BUBBLEMON_DEFAULT_AIR_MAXSWAP, "#%x", &(bm->air_maxswap));
+  sscanf (BUBBLEMON_DEFAULT_LIQUID_MAXSWAP, "#%x", &(bm->liquid_maxswap));
+
+  // FIXME: Remove the following four lines
+  bm->air_noswap = 0xffffff;
+  bm->air_maxswap = 0xffffff;
+  bm->liquid_noswap = 0x000000;
+  bm->liquid_maxswap = 0x000000;
 } /* bubblemon_session_defaults */

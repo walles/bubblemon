@@ -27,4 +27,12 @@ Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
 
 TODO:
 
-. Lots...
+. Make liquid and air color depend on amount of swap used
+. Make liquid flow in and out when memory usage changes, instead of
+ (like now) just changing the water level.  Do it by having an
+ individual water level for each column.  The outermost columns will
+ reflect the current memory usage, and changes in memory usage will
+ propagate to the inner columns by setting all water levels to the
+ average between the column to the left of this one, and the level to
+ the right of this one.
+. I like borders.  Put a border 'round the applet.

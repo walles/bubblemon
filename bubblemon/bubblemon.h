@@ -31,7 +31,8 @@
 
 #include <applet-widget.h>
 
-#define NUM_COLORS 2
+// Note: NUM_COLORS must be an even number
+#define NUM_COLORS 256
 #define MAX_BUBBLES 100
 #define GRAVITY 0.01
 
@@ -51,6 +52,9 @@ typedef struct {
 
   Bubble bubbles[MAX_BUBBLES];
   int n_bubbles;
+
+  // Color definitions
+  int air_noswap, liquid_noswap, air_maxswap, liquid_maxswap;
   
   gboolean setup;
 
@@ -89,7 +93,12 @@ typedef struct {
 #define BUBBLEMON_DEFAULT_DEPTH           "48"
 #define BUBBLEMON_DEFAULT_UPDATE_RATE     "20"
 #define BUBBLEMON_DEFAULT_LOAD_SAMPLES    "16"
-#define BUBBLEMON_DEFAULT_BACKGROUND      "#4C0000"
+
+#define BUBBLEMON_DEFAULT_AIR_NOSWAP      "#2299FF"
+#define BUBBLEMON_DEFAULT_LIQUID_NOSWAP    "#0055FF"
+
+#define BUBBLEMON_DEFAULT_AIR_MAXSWAP     "#FF0000"
+#define BUBBLEMON_DEFAULT_LIQUID_MAXSWAP   "#AA0000"
 
 /*
  *
