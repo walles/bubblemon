@@ -100,9 +100,10 @@ int main (int argc, char ** argv)
               "--activate-goad-server=bubblemon_applet switch.  Add that switch and\n"
               "give it another try.\n"
               "\n"
-              "If you have any idea about how it can be started from within the code,\n"
-              "I'd appreciate it a lot if you could tell me.  Insert your code at the\n"
-              "FIXME just above line %d in `%s'.\n"
+              "If you have any idea about how it can be started from within the code, I'd\n"
+              "appreciate it a lot if you could tell me.  Insert your code at the FIXME just\n"
+              "above line %d in `%s'.  You'll probably want to RTFM first at\n"
+              "`http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html'.\n"
               "\n"
               "Then send me (d92-jwa@nada.kth.se) an e-mail with your changes.\n"
               "Thanks a bunch :-)  //Johan.\n",
