@@ -74,22 +74,26 @@ int total;
  * This function, bubblemon_update, gets the CPU usage and updates
  * the fire array and pixmap.
  *
+ * FIXME: This function should bubble instead of burn.
  */
 gint
 bubblemon_update (gpointer data)
 {
   BubbleMonData * mc = data;
-  int i, w, h, n, bpp, percent, *buf, *col;
+  int i, w, h, n, bytesPerPixel, percent, *buf, *col;
   glibtop_cpu cpu;
   uint64_t load, total, oLoad, oTotal;
 
+  // mc->setup is a status byte that is true if we are rolling
   if (!mc->setup)
     return FALSE;
 
+  // Find out the CPU load
   glibtop_get_cpu (&cpu);
   load = cpu.user + cpu.nice + cpu.sys;
   total = cpu.total;
   
+  // "i" is an index into a load history
   i = mc->loadIndex;
   oLoad = mc->load[i];
   oTotal = mc->total[i];
@@ -98,17 +102,31 @@ bubblemon_update (gpointer data)
   mc->total[i] = total;
   mc->loadIndex = (i + 1) % mc->samples;
 
+  // FIXME: Is the comment on the next line correct?
+  // Because the load returned from libgtop is a value accumulated
+  // over time, and not the current load, the current load percentage
+  // is calculated as the extra amount of work that has been performed
+  // since the last sample.
+  // FIXME: Shouldn't (total - oTotal) be != 0 instead of just oTotal
+  // as on the next line?  Or does oTotal==0 simply imply that this is
+  // the first time we execute the current function?
   if (oTotal == 0)
     percent = 0;
   else
     percent = 100 * (load - oLoad) / (total - oTotal);
 
+  // The buf is made up of ints (0-(NUM_COLOURS-1)), each pointing out
+  // an entry in the color table.  A pixel in the buf is accessed
+  // using the formula buf[row * w + column].
   buf = mc->firebuf;
   col = mc->colours;
   w = mc->breadth;
   h = mc->depth;
   n = w * h;
 
+  // Here comes the fire magic.  Pixels are drawn by setting values in
+  // buf to 0-NUM_COLORS.  We should possibly make some macros or
+  // inline functions to {g|s}et pixels.
   for (i = 0; i < (percent >> 3) + 2; ++ i)
     buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] = random () % NUM_COLOURS;
   for (i = 0; i < (100 - percent) >> 4; ++ i)
@@ -116,9 +134,10 @@ bubblemon_update (gpointer data)
   for (i = n - 1; i >= 0; -- i)
     buf[i] = (buf[i + w - 1] + buf[i + w] + buf[i + w + 1] + buf[i]) >> 2;
 
-  bpp = GDK_IMAGE_XIMAGE (mc->image)->bytes_per_line / w;
+  bytesPerPixel = GDK_IMAGE_XIMAGE (mc->image)->bytes_per_line / w;
 
-  switch (bpp) {
+  // Copy the fire image data to the gdk image
+  switch (bytesPerPixel) {
     case 4: {
       uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (mc->image)->data;
       for (i = 0; i < n; ++ i)
