@@ -485,6 +485,61 @@ void update_screen(BubbleMonData *bm,
   bubblemon_expose_handler (bm->area, NULL, bm);
 }
 
+void draw_bubble(BubbleMonData *bm,
+                 int x, int y,
+                 int aircolor)
+{
+  int *buf = bm->bubblebuf;
+  int w = bm->breadth;
+  int h = bm->depth;
+  int *buf_ptr;
+
+  /* Top row */
+  buf_ptr = &(buf[(y - 1) * w + x - 1]);
+  if (y > bm->waterlevels[x])
+    {
+      if (*buf_ptr != aircolor)
+        {
+          (*buf_ptr)++ ;
+        }
+      buf_ptr++;
+	  
+      *buf_ptr = aircolor; buf_ptr++;
+	  
+      if (*buf_ptr != aircolor)
+        {
+          (*buf_ptr)++ ;
+        }
+      buf_ptr += (w - 2);
+    }
+  else
+    {
+      buf_ptr += w;
+    }
+
+  /* Middle row - no clipping necessary */
+  *buf_ptr = aircolor; buf_ptr++;
+  *buf_ptr = aircolor; buf_ptr++;
+  *buf_ptr = aircolor; buf_ptr += (w - 2);
+
+  /* Bottom row */
+  if (y < (h - 1))
+    {
+      if (*buf_ptr != aircolor)
+        {
+          (*buf_ptr)++ ;
+        }
+      buf_ptr++;
+	  
+      *buf_ptr = aircolor; buf_ptr++;
+
+      if (*buf_ptr != aircolor)
+        {
+          (*buf_ptr)++ ;
+        }
+    }
+}
+
 /*
  * This function, bubblemon_update, gets the CPU usage and updates
  * the bubble array and pixmap.
@@ -802,56 +857,14 @@ gint bubblemon_update (gpointer data)
       if ((y + 2) > action_max)
         action_max = y + 2;
 
+      /* Draw the bubble in the temporary buffer */
+      draw_bubble(bm, x, y, aircolor);
+      
       /*
         Clipping is not necessary for x, but it *is* for y.
         To prevent ugliness, we draw aliascolor only on top of
         watercolor, and aircolor on top of aliascolor.
       */
-
-      /* Top row */
-      buf_ptr = &(buf[(y - 1) * w + x - 1]);
-      if (y > bm->waterlevels[x])
-        {
-          if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-	  buf_ptr++;
-	  
-          *buf_ptr = aircolor; buf_ptr++;
-	  
-          if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-	  buf_ptr += (w - 2);
-        }
-      else
-        {
-	  buf_ptr += w;
-	}
-
-      /* Middle row - no clipping necessary */
-      *buf_ptr = aircolor; buf_ptr++;
-      *buf_ptr = aircolor; buf_ptr++;
-      *buf_ptr = aircolor; buf_ptr += (w - 2);
-
-      /* Bottom row */
-      if (y < (h - 1))
-        {
-          if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-	  buf_ptr++;
-	  
-          *buf_ptr = aircolor; buf_ptr++;
-
-	  if (*buf_ptr != aircolor)
-	    {
-	      (*buf_ptr)++ ;
-	    }
-        }
     }
   
   /*
@@ -872,7 +885,7 @@ gint bubblemon_update (gpointer data)
 
   /* Prevent any unnecessary complete redraws */
   bm->complete_redraw = FALSE;
-
+  
   return TRUE;
 } /* bubblemon_update */
 

@@ -154,4 +154,8 @@ void get_memory_load_percentage(BubbleMonData *bm,
 				int *memoryPercentage,
 				int *swapPercentage);
 
+void draw_bubble(BubbleMonData *bm,
+                 int x, int y,
+                 int aircolor);
+
 #endif /* _BUBBLEMON_H */
