@@ -43,5 +43,8 @@ TODO:
 . Gettextify the applet and translate stuff into Swedish
 
 . Make a properties box using Glade?  In that case, make the
- properties box contain four color options, and have them saved /
- restored by the session handling code.
+ properties box contain four color options and options for changing
+ the update frequency.  Have everything saved / restored by the
+ session handling code.
+
+. Follow resize hints from the GNOME 1.2 panel
