@@ -335,7 +335,7 @@ gint bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, aliascolor, waterlevel_goal, memoryPercentage, bias;
+  int aircolor, watercolor, aliascolor, waterlevel_goal, memoryPercentage;
   int swapPercentage;
   int *temp;
   
@@ -487,10 +487,19 @@ gint bubblemon_update (gpointer data)
       bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
 				     bm->waterlevels[x + 1]) >> 1;
 
-      /* Guard from rounding errors */
-      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
-      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
-	bm->waterlevels_inactive[x]++;
+      /* In cases of uncertainity... */
+      if (bm->waterlevels[x - 1] != bm->waterlevels[x + 1])
+	{
+	  /* ... guard from rounding errors. */
+	  if (bm->waterlevels_inactive[x] > waterlevel_goal)
+	    {
+	      bm->waterlevels_inactive[x]--;
+	    }
+	  else if (bm->waterlevels_inactive[x] < waterlevel_goal)
+	    {
+	      bm->waterlevels_inactive[x]++;
+	    }
+	}
     }
 
   bm->waterlevels_inactive[0] = waterlevel_goal;
