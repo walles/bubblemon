@@ -1,9 +1,23 @@
 To Emacs: This is a -*-text-*- file.
 
 This list is not really sorted, but stuff higher up on the list will
-tend to be completed earlier than stuff towards the end.  If you want
-something on this list done quickly, I've provided some pointers to
-get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
+tend to be completed earlier than stuff towards the end.  Additions?
+Opinions?  Send 'em to me (d92-jwa@nada.kth.se).
+
+. Clean up configure.in:
+  x Put all general system tests first, then general bubblemon tests,
+   then platform (GNOME) specific tests clearly separated by comments.
+
+  x Update the GNOME tests in the macros directory.
+
+  x Move the GNOME tests to macros/gnome.
+
+  x Add a check for whether libgtop returns anything but zero for
+   system load.
+
+  x Add a summary at the end, listing the platforms to be built and
+   excuses for platforms not built.  End with "Now do
+   make ; make install".
 
 . Translate the applet into every single language in existance.  If
  the applet doesn't show up in your favourite language even though
@@ -20,18 +34,7 @@ using the highest amount of memory.
 using 100% CPU" to the tool tip.  The process mentioned should be the
 one using the largest amount of CPU.
  
-. On Linux 2.4 systems, inode cache memory is reported as water
- instead of air.  This should be fixed.  This may require changing
- libgtop.
-
 . Add a "Legend" to the right mouse button menu.
-
-. Run 'gtop' if the user clicks the applet.
-
-. Pause the applet if it ain't visible for some reason (for example if
- the GNOME panel is hidden).
-
-. Make the applet look more like a glass vial.
 
 . Add a pointer to where the FAQ is located to the About box.  Is this
  at all possible to do in some way that survives all different kinds
