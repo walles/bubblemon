@@ -5,6 +5,7 @@ Name[sv]=Bubblande lastmätare
 Name[es]=Monitor burbujeante de la carga
 Name[ca]=Monitor bombollejant de la càrrega
 Name[fr]=Moniteur de charge à bulles
+Name[ko]=¹°°ÅÇ° ºÎÇÏ ¸ð´ÏÅÍ ¾ÖÇÃ¸´
 Name[nl]=Bubbelende belastingsmonitor
 Name[pl]=B±belkowy monitor obci±¿enia systemu
 Comment=Visualize system load as a bubbling liquid
@@ -13,6 +14,7 @@ Comment[de]=Visualisiert die Systembelastung durch eine kochende Flüssigkeit
 Comment[es]=Representación de la carga del sistema mediante un líquido burbujeante
 Comment[ca]=Representació de la càrrega del sistema mitjançant un líquid que bombolleja
 Comment[fr]=Visualise la charge système comme un liquide à bulles
+Comment[ko]=½Ã½ºÅÛ ºÎÇÏ¸¦ ¹°°ÅÇ°À¸·Î º¸¿©ÁØ´Ù.
 Comment[nl]=Visualiseert de systeembelasting als een bubbelende vloeistof
 Comment[pl]=Wy¶wietla obci±¿enie systemu jako p³ywaj±ce pêcherzyki 
 Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
