@@ -17,3 +17,5 @@
 #undef LIBGTOP_VERSION_CODE
 #undef int64_t
 #undef u_int64_t
+
+#undef ENABLE_PROFILING

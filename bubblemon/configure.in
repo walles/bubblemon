@@ -1,10 +1,10 @@
-dnl -*-m4-*- Process this file with autoconf to produce a configure script.
+# -*-m4-*- Process this file with autoconf to produce a configure script.
 
 AC_INIT(src/bubblemon.h)
 AM_INIT_AUTOMAKE(bubblemon, 0.9.1)
 AM_CONFIG_HEADER(config.h)
 
-dnl Pick up the Gnome macros.
+# Pick up the Gnome macros.
 AM_ACLOCAL_INCLUDE(macros)
 
 GNOME_INIT(applets)
@@ -29,9 +29,27 @@ GNOME_DATADIR=`$GNOME_CONFIG --datadir`
 AC_SUBST(GNOME_DATADIR)
 AC_MSG_RESULT($GNOME_DATADIR)
 
-dnl Subst PACKAGE_PIXMAPS_DIR.
+# Subst PACKAGE_PIXMAPS_DIR.
 PACKAGE_PIXMAPS_DIR="`gnome-config --datadir`/pixmaps/${PACKAGE}"
 AC_SUBST(PACKAGE_PIXMAPS_DIR)
+
+# Check if the user wants to enable profiling
+AC_ARG_ENABLE(
+  profiling,
+  [  --enable-profiling      Pass profiling options to the compiler],
+  profiling=yes)
+
+if test "x$profiling" = "xyes"; then
+  AC_MSG_CHECKING(what profiling flags to pass to the compiler)
+
+  profilingFLAGS="-pg"
+
+  CFLAGS="$CFLAGS $profilingFLAGS"
+
+  AC_MSG_RESULT($profilingFLAGS)
+
+  AC_DEFINE(ENABLE_PROFILING)
+fi
 
 AC_OUTPUT([
 Makefile
