@@ -20,6 +20,15 @@ cycles go.  Then, either fix it yourself and send me
 (d92-jwa@nada.kth.se) a patch, or send me a bug report containing the
 output of the commands recommended in PROFILING.
 
-3. I have another question/problem.  What should I do?
+3. The program doesn't do anything; it doesn't even crash!
+
+Try running it from the command line, and see if you get an error
+message.  Do the follwing from the bubblemon directory:
+
+$ ./configure
+$ make
+$ src/bubblemon_applet --activate-goad-server=bubblemon_applet
+
+4. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
