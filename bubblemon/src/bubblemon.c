@@ -225,8 +225,23 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
       *swap_used = 0;
     }
 
-  /* FIXME: Sanity check that we don't use more swap/mem than what's
-     available */
+  /* Sanity check that we don't use more swap/mem than what's available */
+  if ((*mem_used > *mem_max) ||
+      (*swap_used > *swap_max))
+    {
+      fprintf(stderr,
+	      "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+	      "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
+	      "       memory.cached (%Ld) and memory.buffer (%Ld).\n",
+	      *mem_used, *mem_max,
+	      *swap_used, *swap_max,
+	      swap.used,
+	      memory.used,
+	      memory.cached,
+	      memory.buffer);
+
+      exit (EXIT_FAILURE);
+    }
 }
 
 void get_censored_memory_usage(BubbleMonData *bm,
@@ -293,7 +308,22 @@ void get_memory_load_percentage(BubbleMonData *bm,
   *memoryPercentage = (100 * mem_used) / mem_max;
   *swapPercentage = (100 * swap_used) / swap_max;
 
-  /* FIXME: Sanity check that the percentages are both 0-100. */
+  /* Sanity check that the percentages are both 0-100. */
+
+  if ((*memoryPercentage < 0) || (*memoryPercentage > 100) ||
+      (*swapPercentage < 0) || (*swapPercentage > 100))
+    {
+      fprintf(stderr,
+	      "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
+	      "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
+	      "       swap_used (%Ld) and swap_max (%Ld).\n",
+	      memoryPercentage,
+	      swapPercentage,
+	      mem_used, mem_max,
+	      swap_used, swap_max);
+
+      exit (EXIT_FAILURE);
+    }
 }
 
 /*
