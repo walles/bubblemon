@@ -1,7 +1,7 @@
 # -*-m4-*- Process this file with autoconf to produce a configure script.
 
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 1.2.8-pre1)
+AM_INIT_AUTOMAKE(bubblemon, 1.2.9)
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_CC
@@ -65,9 +65,6 @@ AM_GNU_GETTEXT
 AC_CHECK_TYPE(u_int32_t, unsigned int)
 AC_CHECK_TYPE(u_int16_t, unsigned short int)
 AC_CHECK_TYPE(u_int8_t, unsigned char)
-
-# Find out whether we are on a big-endian system
-AC_C_BIGENDIAN
 
 # Find GNOME's sysconf dir
 AC_MSG_CHECKING(for GNOME's sysconf dir)
