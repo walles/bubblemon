@@ -60,9 +60,11 @@ int main (int argc, char ** argv)
   const gchar *goad_id;
   GtkWidget *applet;
 
+#ifdef ENABLE_NLS
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
+#endif
 
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
   applet_factory_new ("bubblemon_applet", NULL,
