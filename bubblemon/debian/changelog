@@ -1,4 +1,4 @@
-bubblemon (1.0.1-1) unstable; urgency=low
+bubblemon (1.0.1-1) stable; urgency=low
 
   * Documentation updates.  Changes to allow this release to be compiled
     with older GNOME libraries.  Danish and Serbo-croatian translations
