@@ -22,8 +22,6 @@
  * This is a platform independent file that drives the program.
  */
 
-#define ENABLE_PROFILING
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
