@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.2pre1\n"
-"POT-Creation-Date: 2002-07-22 19:37+0200\n"
+"POT-Creation-Date: 2002-08-16 21:31+0200\n"
 "PO-Revision-Date: 2001-03-29 15:40+02:00\n"
 "Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:160
+#: src/bubblemon.c:166
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Belegter Speicher: %s\n"
 "Belegter Swapraum: %s"
 
-#: src/bubblemon.c:166
+#: src/bubblemon.c:172
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Belegter Speicher: %s\n"
 "Belegter Swapraum: %s"
 
-#: src/bubblemon.c:174
+#: src/bubblemon.c:180
 #, c-format
 msgid ""
 "\n"
@@ -38,7 +38,7 @@ msgstr ""
 "\n"
 "CPU-Last: %d%%"
 
-#: src/bubblemon.c:185
+#: src/bubblemon.c:191
 #, c-format
 msgid ""
 "\n"
@@ -47,11 +47,11 @@ msgstr ""
 "\n"
 "Last auf CPU Nr. %d: %d%%"
 
-#: src/gnome1-ui.c:147
+#: src/gnome1-ui.c:150
 msgid "Bubbling Load Monitor"
 msgstr "Blubbernde Lastanzeige"
 
-#: src/gnome1-ui.c:150
+#: src/gnome1-ui.c:153
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -66,12 +66,12 @@ msgstr ""
 "unter bestimmten Bedingungen (GPL) weiter zu geben; schauen Sie für Details "
 "in die Datei LICENSE."
 
-#: src/gnome1-ui.c:242
+#: src/gnome1-ui.c:245
 #, fuzzy
 msgid "Can't create bubblemon applet!"
 msgstr "Applet kann nicht angelegt werden!\n"
 
-#: src/gnome1-ui.c:276
+#: src/gnome1-ui.c:279
 #, fuzzy
 msgid "About..."
 msgstr "Info"

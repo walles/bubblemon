@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-07-22 19:37+0200\n"
+"POT-Creation-Date: 2002-08-16 21:31+0200\n"
 "PO-Revision-Date: 2001-01-09 18:49+0200\n"
 "Last-Translator: Alex Badea <vampire@go.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -14,14 +14,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:160
+#: src/bubblemon.c:166
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Memorie ocupatã: %s\n"
 "Swap ocupat: %s"
 
-#: src/bubblemon.c:166
+#: src/bubblemon.c:172
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Memorie ocupatã: %s\n"
 "Swap ocupat: %s"
 
-#: src/bubblemon.c:174
+#: src/bubblemon.c:180
 #, c-format
 msgid ""
 "\n"
@@ -39,7 +39,7 @@ msgstr ""
 "\n"
 "Procesor: %d%%"
 
-#: src/bubblemon.c:185
+#: src/bubblemon.c:191
 #, c-format
 msgid ""
 "\n"
@@ -48,11 +48,11 @@ msgstr ""
 "\n"
 "Procesor nr. %d: %d%%"
 
-#: src/gnome1-ui.c:147
+#: src/gnome1-ui.c:150
 msgid "Bubbling Load Monitor"
 msgstr "Monitor de Încãrcare cu Bule"
 
-#: src/gnome1-ui.c:150
+#: src/gnome1-ui.c:153
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -64,12 +64,12 @@ msgstr ""
 "Acest applet vine fãrã ABSOLUT NICI O GARANÞIE, vezi fiºierul LICENSE pentru detalii.\n"
 "Acesta este un soft gratuit, ºi sunteþi binevenit sã-l redistribuiþi sub anumite condiþii (GPL), vezi fiºierul LICENSE pentru detalii."
 
-#: src/gnome1-ui.c:242
+#: src/gnome1-ui.c:245
 #, fuzzy
 msgid "Can't create bubblemon applet!"
 msgstr "Nu pot sã creez applet-ul!\n"
 
-#: src/gnome1-ui.c:276
+#: src/gnome1-ui.c:279
 #, fuzzy
 msgid "About..."
 msgstr "Despre"

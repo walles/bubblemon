@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.7\n"
-"POT-Creation-Date: 2002-07-22 19:37+0200\n"
+"POT-Creation-Date: 2002-08-16 21:31+0200\n"
 "PO-Revision-Date: 2001-09-12 10:08+0100\n"
 "Last-Translator: Marco Solari <marcosolari@libero.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:160
+#: src/bubblemon.c:166
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Memoria usata: %s\n"
 "Swap usato: %s"
 
-#: src/bubblemon.c:166
+#: src/bubblemon.c:172
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Memoria usata: %s\n"
 "Swap usato: %s"
 
-#: src/bubblemon.c:174
+#: src/bubblemon.c:180
 #, c-format
 msgid ""
 "\n"
@@ -38,7 +38,7 @@ msgstr ""
 "\n"
 "carico CPU: %d%%"
 
-#: src/bubblemon.c:185
+#: src/bubblemon.c:191
 #, c-format
 msgid ""
 "\n"
@@ -47,11 +47,11 @@ msgstr ""
 "\n"
 "carico CPU #%d: %d%%"
 
-#: src/gnome1-ui.c:147
+#: src/gnome1-ui.c:150
 msgid "Bubbling Load Monitor"
 msgstr "Monitor del carico 'a bolle'"
 
-#: src/gnome1-ui.c:150
+#: src/gnome1-ui.c:153
 #, fuzzy
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
@@ -67,12 +67,12 @@ msgstr ""
 "Questo è software libero, e si può redistribuirlo a certe condizioni (GPL), "
 "vedi il file LICENSE per dettagli.\n"
 
-#: src/gnome1-ui.c:242
+#: src/gnome1-ui.c:245
 #, fuzzy
 msgid "Can't create bubblemon applet!"
 msgstr "Impossibile creare l'applet!\n"
 
-#: src/gnome1-ui.c:276
+#: src/gnome1-ui.c:279
 #, fuzzy
 msgid "About..."
 msgstr "A proposito"
