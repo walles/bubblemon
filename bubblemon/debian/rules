@@ -13,15 +13,13 @@ build-stamp:
 	dh_testdir
 	./configure --with-all-linguas --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
 	$(MAKE)
-
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp config.log
+	rm -f build-stamp config.log *~ */*~ debian/*substvars
 	-$(MAKE) distclean
-
 	dh_clean
 
 install: build
@@ -38,7 +36,7 @@ binary-indep: build install
 
 # Build architecture-dependent files here.
 binary-arch: build install
-	./check_version
+	debian/check_version
 #	dh_testversion
 	dh_testdir
 	dh_testroot
@@ -63,7 +61,7 @@ binary-arch: build install
 	dh_installdeb
 #	dh_perl
 	dh_shlibdeps
-	dh_gencontrol
+	dh_gencontrol -- -isp
 	dh_md5sums
 	dh_builddeb
 

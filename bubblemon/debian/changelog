@@ -1,3 +1,9 @@
+bubblemon (0.9.12-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- Bernd Eckenfels <ecki@debian.org>  Sat, 23 Sep 2000 02:09:25 +0200
+
 bubblemon (0.9.7-1) unstable; urgency=low
 
   * Initial Release.
