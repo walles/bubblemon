@@ -1,5 +1,9 @@
-# FIXME: This file should tell automake to include the files
-# bubblemon_applet.desktop and bubblemon_applet.gnorba in the
-# distribution, and that they on 'make install' should be installed in
-# sysconfdir/CORBA/servers/bubblemon_applet.gnorba and
-# datadir/applets/Monitors/bubblemon_applet.desktop
+# Tell am/ac to include these files in the distribution
+EXTRA_DIST = bubblemon_applet.gnorba bubblemon_applet.desktop
+
+# Tell am/ac to install them to the correct locations
+sysdir = $(GNOME_DATADIR)/applets/Monitors
+sys_DATA = bubblemon_applet.desktop
+
+gnorbadir = $(GNOME_SYSCONFDIR)/CORBA/servers
+gnorba_DATA = bubblemon_applet.gnorba
