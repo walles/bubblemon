@@ -31,6 +31,7 @@
 // Note: NUM_COLORS must be divisible by 3
 #define NUM_COLORS 99 /* 384 */
 #define MAX_BUBBLES 100
+#define COOKING_FACTOR 4
 #define GRAVITY 0.01
 
 typedef struct {
@@ -53,10 +54,6 @@ typedef struct {
   /* Color definitions */
   int air_noswap, liquid_noswap, air_maxswap, liquid_maxswap;
 
-  /* How much has the surface been raised / lowered by bubbles being
-     created or killed? */
-  int surface_balance;
-  
   gboolean setup;
 
   guint timeout;

@@ -444,17 +444,9 @@ gint bubblemon_update (gpointer data)
       bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
       bubbles[bm->n_bubbles].y = h - 1;
       bubbles[bm->n_bubbles].dy = 0.0;
-      bm->n_bubbles++;
 
       /* Raise a portion of the surface above the new bubble */
-      if (bm->surface_balance < 0)
-	surface_rise_radius = 3;
-      else if (bm->surface_balance < 10)
-	surface_rise_radius = 2;
-      else if (bm->surface_balance < 20)
-	surface_rise_radius = 1;
-      else
-	surface_rise_radius = 0;
+      surface_rise_radius = COOKING_FACTOR;
 
       if (surface_rise_radius > 0)
 	{
@@ -471,44 +463,12 @@ gint bubblemon_update (gpointer data)
 	       surface_rise <= surface_rise_stop;
 	       surface_rise++)
 	    bm->waterlevels[surface_rise]--;
-
-	  bm->surface_balance += surface_rise_stop - surface_rise_start + 1;
 	}
+
+      /* Count the new bubble */
+      bm->n_bubbles++;
     }
   
-  /* Move the water level with the current memory usage. */
-  waterlevel_goal = h - ((memoryPercentage * h) / 100);
-
-  bm->waterlevels[0] = waterlevel_goal;
-  bm->waterlevels[w - 1] = waterlevel_goal;
-
-  for (x = 1; x < (w - 1); x++)
-    {
-      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
-				     bm->waterlevels[x + 1]) >> 1;
-
-      /* In cases of uncertainity... */
-      if (bm->waterlevels[x - 1] != bm->waterlevels[x + 1])
-	{
-	  /* ... guard from rounding errors. */
-	  if (bm->waterlevels_inactive[x] > waterlevel_goal)
-	    {
-	      bm->waterlevels_inactive[x]--;
-	    }
-	  else if (bm->waterlevels_inactive[x] < waterlevel_goal)
-	    {
-	      bm->waterlevels_inactive[x]++;
-	    }
-	}
-    }
-
-  bm->waterlevels_inactive[0] = waterlevel_goal;
-  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
-
-  temp = bm->waterlevels_inactive;
-  bm->waterlevels_inactive = bm->waterlevels;
-  bm->waterlevels = temp;
-
   /* Update and draw the bubbles */
   for (i = 0; i < bm->n_bubbles; i++)
     {
@@ -519,14 +479,29 @@ gint bubblemon_update (gpointer data)
       bubbles[i].y += bubbles[i].dy;
 
       /* Did we lose it? */
-      if (bubbles[i].y < bm->waterlevels[bubbles[i].x])
+      if (bubbles[i].y < (bm->waterlevels[bubbles[i].x] + 1))
 	{
-	  /* Yes; nuke it */
+	  int x = bubbles[i].x;
+	  int y = bubbles[i].y;
+	  int dent_depth = (bm->waterlevels[x] + 1) - y;
+	  
+	  /* Make a dent in the surface from the lost bubble */
+	  if (x > 1)
+	    {
+	      bm->waterlevels[x - 1] += dent_depth;
+	    }
+	  if (x < (w - 1))
+	    {
+	      bm->waterlevels[x + 1] += dent_depth;
+	    }
+	  bm->waterlevels[x] += dent_depth;
+	  
+	  /* Nuke the lost bubble */
 	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;
 	  bubbles[i].y  = bubbles[bm->n_bubbles - 1].y;
 	  bubbles[i].dy = bubbles[bm->n_bubbles - 1].dy;
 	  bm->n_bubbles--;
-
+ 
 	  /*
 	    We must check the previously last bubble, which is
 	    now the current bubble, also.
@@ -593,6 +568,39 @@ gint bubblemon_update (gpointer data)
         }
     }
   
+  /* Move the water level with the current memory usage. */
+  waterlevel_goal = h - ((memoryPercentage * h) / 100);
+
+  bm->waterlevels[0] = waterlevel_goal;
+  bm->waterlevels[w - 1] = waterlevel_goal;
+
+  for (x = 1; x < (w - 1); x++)
+    {
+      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
+				     bm->waterlevels[x + 1]) >> 1;
+
+      /* In cases of uncertainity... */
+      if (bm->waterlevels[x - 1] != bm->waterlevels[x + 1])
+	{
+	  /* ... guard from rounding errors. */
+	  if (bm->waterlevels_inactive[x] > waterlevel_goal)
+	    {
+	      bm->waterlevels_inactive[x]--;
+	    }
+	  else if (bm->waterlevels_inactive[x] < waterlevel_goal)
+	    {
+	      bm->waterlevels_inactive[x]++;
+	    }
+	}
+    }
+
+  bm->waterlevels_inactive[0] = waterlevel_goal;
+  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
+
+  temp = bm->waterlevels_inactive;
+  bm->waterlevels_inactive = bm->waterlevels;
+  bm->waterlevels = temp;
+
   /* Drawing magic resides below this point */
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
@@ -713,9 +721,6 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
   /* We begin with zero bubbles */
   bm->n_bubbles = 0;
 
-  /* We haven't created or killed any bubbles yet */
-  bm->surface_balance = 0;
-  
   /*
    * area is the drawing area into which the little picture of
    * the bubblemon gets drawn.
