@@ -1,7 +1,7 @@
 # -*-m4-*- Process this file with autoconf to produce a configure script.
 
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 1.0.4)
+AM_INIT_AUTOMAKE(bubblemon, 1.0.5)
 AM_CONFIG_HEADER(config.h)
 
 # Pick up the Gnome macros.
@@ -130,4 +130,6 @@ debian/VERSION
 intl/Makefile
 po/Makefile.in
 po/Makefile
+man/Makefile
+man/bubblemon.1
 ])
