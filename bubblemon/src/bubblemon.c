@@ -29,6 +29,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <dirent.h>
 #include <string.h>
 #include <time.h>
@@ -68,6 +69,102 @@ main (int argc, char ** argv)
   return 0;
 } /* main */
 
+int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent */
+{
+  glibtop_cpu cpu;
+  int loadPercentage;
+  uint64_t load, total, oLoad, oTotal;
+  int i;
+
+  /* Find out the CPU load */
+  glibtop_get_cpu (&cpu);
+  load = cpu.user + cpu.nice + cpu.sys;
+  total = cpu.total;
+  
+  /* "i" is an index into a load history */
+  i = bm->loadIndex;
+  oLoad = bm->load[i];
+  oTotal = bm->total[i];
+
+  bm->load[i] = load;
+  bm->total[i] = total;
+  bm->loadIndex = (i + 1) % bm->samples;
+
+  /* FIXME: Is the next comment correct? */
+  /*
+    Because the load returned from libgtop is a value accumulated
+    over time, and not the current load, the current load percentage
+    is calculated as the extra amount of work that has been performed
+    since the last sample.
+  */
+  /*
+    FIXME: Shouldn't (total - oTotal) be != 0 instead of just oTotal
+    as on the next line?  Or does oTotal==0 simply imply that this is
+    the first time we execute the current function?
+  */
+  if (oTotal == 0)
+    loadPercentage = 0;
+  else
+    loadPercentage = 100 * (load - oLoad) / (total - oTotal);
+
+  return loadPercentage;
+}
+
+void get_memory_load(BubbleMonData *bm,
+		     int *memoryPercentage,
+		     int *swapPercentage)
+{
+  glibtop_mem memory;
+  glibtop_swap swap;
+  static int swap_delay = 0;
+  static uint64_t swap_used, swap_total;
+
+  glibtop_get_mem (&memory);
+
+  /*
+    Find out the swap load, but update it only every 50 times we get
+    here.
+
+    FIXME: I have absolutely no idea how often that is.
+  */
+  if (swap_delay <= 0)
+    {
+      glibtop_get_swap (&swap);
+
+      /* FIXME: Why is this necessary? */
+      swap_used = swap.used;
+      swap_total = swap.total;
+      
+      /*
+	FIXME: The following number should be based on a constant or
+	variable.
+      */
+      swap_delay = 50;
+    }
+  swap_delay--;
+  
+  /*
+    Calculate the projected memory + swap load to show the user.  The
+    waterlevel shown to the user is how much memory the system is
+    using relative to the total amount of electronic RAM.  The swap
+    color indicates how much memory above the amount of electronic
+    RAM the system is using.
+     
+    This scheme does *not* show how the system has decided to
+    allocate swap and electronic RAM to the users' processes.
+  */
+  *memoryPercentage =
+    (100 * (swap_used + memory.used - memory.cached - memory.buffer)) / memory.total;
+  if (*memoryPercentage > 100)
+    *memoryPercentage = 100;
+  
+  *swapPercentage =
+    (100 *
+     (swap_used + memory.used - memory.cached - memory.buffer - memory.total)) / swap_total;
+  if (*swapPercentage < 0)
+    *swapPercentage = 0;
+}
+
 /*
  * This function, bubblemon_update, gets the CPU usage and updates
  * the bubble array and pixmap.
@@ -82,128 +179,84 @@ bubblemon_update (gpointer data)
   int swapPercentage;
   int *temp;
   
-  glibtop_cpu cpu;
-  glibtop_mem memory;
-  glibtop_swap swap;
-  static int swap_delay = 0;
-  static uint64_t swap_used, swap_total;
-  uint64_t load, total, oLoad, oTotal;
-
 #ifdef ENABLE_PROFILING
-  static int profiling_countdown = 250;  // FIXME: Is 250 calls to here == 5 seconds?
+  static int profiling_countdown = 250;  /* FIXME: Is 250 calls to here == 5 seconds? */
 
   if (profiling_countdown-- < 0)
     {
-      // We terminate after a little while so we don't have to wait
-      // forever for the profiling data to appear
+      /*
+	We terminate after a little while so we don't have to wait
+	forever for the profiling data to appear.
+      */
+      char *home;
 
-      // FIXME: Change directory to the user's home directory
-
-      // FIXME: Terminate nicely so that the data gets written
+      /* Change directory to the user's home directory */
+      home = getenv("HOME");
+      if (home)
+	{
+	  if (chdir(home) != 0)
+	    {
+	      char *errormsg = (char *)malloc(sizeof(char) *
+					      (strlen(home) + 100));
+	      sprintf(errormsg, "Couldn't chdir() to $HOME (%s)\n", home);
+	      perror(errormsg);
+	    }
+	}
+      else
+	{
+	  fprintf(stderr, "Error: $HOME environment variable not set\n");
+	}
       
+      /* Terminate nicely so that the profiling data gets written */
+      fprintf(stderr, "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n");
+      exit(EXIT_SUCCESS);
     }
-#endif
+#endif  /* ENABLE_PROFILING */
   
-  // bm->setup is a status byte that is true if we are rolling
+  /* bm->setup is a status byte that is true if we are rolling */
   if (!bm->setup)
     return FALSE;
 
-  // Find out the CPU load
-  glibtop_get_cpu (&cpu);
-  load = cpu.user + cpu.nice + cpu.sys;
-  total = cpu.total;
-  
-  // "i" is an index into a load history
-  i = bm->loadIndex;
-  oLoad = bm->load[i];
-  oTotal = bm->total[i];
+  /* Find out the CPU load */
+  loadPercentage = get_cpu_load(bm);
 
-  bm->load[i] = load;
-  bm->total[i] = total;
-  bm->loadIndex = (i + 1) % bm->samples;
+  /* Find out the memory load */
+  get_memory_load(bm, &memoryPercentage, &swapPercentage);
 
-  // FIXME: Is the comment on the next line correct?
-  // Because the load returned from libgtop is a value accumulated
-  // over time, and not the current load, the current load percentage
-  // is calculated as the extra amount of work that has been performed
-  // since the last sample.
-  // FIXME: Shouldn't (total - oTotal) be != 0 instead of just oTotal
-  // as on the next line?  Or does oTotal==0 simply imply that this is
-  // the first time we execute the current function?
-  if (oTotal == 0)
-    loadPercentage = 0;
-  else
-    loadPercentage = 100 * (load - oLoad) / (total - oTotal);
-
-  // Find out the memory load
-  glibtop_get_mem (&memory);
-
-  // Find out the swap load, but update it only every 50 times we get
-  // here.  FIXME: I have absolutely no idea how often that is.
-  if (swap_delay <= 0)
-    {
-      glibtop_get_swap (&swap);
-
-      // FIXME: Why is this necessary?
-      swap_used = swap.used;
-      swap_total = swap.total;
-      
-      // FIXME: The following number should be based on a constant or
-      // variable.
-      swap_delay = 50;
-    }
-  swap_delay--;
-  
-  // Calculate the projected memory + swap load to show the user.  The
-  // waterlevel shown to the user is how much memory the system is
-  // using relative to the total amount of electronic RAM.  The swap
-  // color indicates how much memory above the amount of electronic
-  // RAM the system is using.
-  //
-  // This scheme does *not* show how the system has decided to
-  // allocate swap and electronic RAM to the users' processes.
-  memoryPercentage =
-    (100 * (swap_used + memory.used - memory.cached - memory.buffer)) / memory.total;
-  if (memoryPercentage > 100)
-    memoryPercentage = 100;
-  
-  swapPercentage =
-    (100 *
-     (swap_used + memory.used - memory.cached - memory.buffer - memory.total)) / swap_total;
-  if (swapPercentage < 0)
-    swapPercentage = 0;
-  
-  // The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
-  // an entry in the color table.  A pixel in the buf is accessed
-  // using the formula buf[row * w + column].
+  /*
+    The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
+    an entry in the color table.  A pixel in the buf is accessed
+    using the formula buf[row * w + column].
+  */
   buf = bm->bubblebuf;
   col = bm->colors;
   w = bm->breadth;
   h = bm->depth;
   n = w * h;
 
-  // Vary the colors of air and water with how many
-  // percent of the available swap space that is in use.
+  /*
+    Vary the colors of air and water with how many
+    percent of the available swap space that is in use.
+  */
   aircolor = ((((NUM_COLORS >> 1) - 1) * swapPercentage) / 100) << 1;
   watercolor = aircolor + 1;
 
-  // Move the water level with the current memory usage.
+  /* Move the water level with the current memory usage. */
   waterlevel_goal = h - ((memoryPercentage * h) / 100);
 
-  // Update the waterlevels
+  /* Update the waterlevels */
   bm->waterlevels[0] = waterlevel_goal;
   bm->waterlevels[w - 1] = waterlevel_goal;
-      
+
   for (x = 1; x < w; x++)
     {
       bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
 				     bm->waterlevels[x + 1]) >> 1;
 
-      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
-
       if (bm->waterlevels_inactive[x] == bm->waterlevels_inactive[x])
 	{
-	  // This waterlevel hasn't moved; guard from rounding errors
+	  /* This waterlevel hasn't moved; guard from rounding errors */
+	  bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
 	  if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
 	    bm->waterlevels_inactive[x]++;
 	}
@@ -216,11 +269,13 @@ bubblemon_update (gpointer data)
   bm->waterlevels_inactive = bm->waterlevels;
   bm->waterlevels = temp;
 
-  // Here comes the bubble magic.  Pixels are drawn by setting values in
-  // buf to 0-NUM_COLORS.  We should possibly make some macros or
-  // inline functions to {g|s}et pixels.
+  /*
+    Here comes the bubble magic.  Pixels are drawn by setting values in
+    buf to 0-NUM_COLORS.  We should possibly make some macros or
+    inline functions to {g|s}et pixels.
+  */
 
-  // Draw the air-and-water background
+  /* Draw the air-and-water background */
   for (x = 0; x < w; x++)
     for (y = 0; y < h; y++)
       {
@@ -230,7 +285,7 @@ bubblemon_update (gpointer data)
 	  buf[y * w + x] = watercolor;
       }
 
-  // Create a new bubble if the planets are correctly aligned...
+  /* Create a new bubble if the planets are correctly aligned... */
   if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
     {
       bubbles[bm->n_bubbles].x = random() % w;
@@ -239,40 +294,43 @@ bubblemon_update (gpointer data)
       bm->n_bubbles++;
     }
   
-  // Update and draw the bubbles
+  /* Update and draw the bubbles */
   for (i = 0; i < bm->n_bubbles; i++)
     {
-      // Accellerate the bubble
+      /* Accellerate the bubble */
       bubbles[i].dy -= GRAVITY;
 
-      // Move the bubble vertically
+      /* Move the bubble vertically */
       bubbles[i].y += bubbles[i].dy;
 
-      // Did we lose it?
+      /* Did we lose it? */
       if (bubbles[i].y < bm->waterlevels[bubbles[i].x])
 	{
-	  // Yes; nuke it
+	  /* Yes; nuke it */
 	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;
 	  bubbles[i].y  = bubbles[bm->n_bubbles - 1].y;
 	  bubbles[i].dy = bubbles[bm->n_bubbles - 1].dy;
 	  bm->n_bubbles--;
 
-	  i--;  // We must check the previously last bubble, which is
-  	        // now the current bubble, also.
+	  /*
+	    We must check the previously last bubble, which is
+	    now the current bubble, also.
+	  */
+	  i--;
 	  continue;
 	}
 
-      // Draw the bubble
+      /* Draw the bubble */
       x = bubbles[i].x;
       y = bubbles[i].y;
       
       buf[y * w + x] = aircolor;
     }
   
-  // Drawing magic resides below this point
+  /* Drawing magic resides below this point */
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
-  // Copy the bubbling image data to the gdk image
+  /* Copy the bubbling image data to the gdk image */
   switch (bytesPerPixel) {
     case 4: {
       uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
@@ -349,7 +407,7 @@ bubblemon_delete (gpointer data) {
 
   applet_widget_gtk_main_quit();
 
-  return TRUE;  // We do our own destruction
+  return TRUE;  /* We do our own destruction */
 }
 
 /* This is the function that actually creates the display widgets */
@@ -379,7 +437,7 @@ make_new_bubblemon_applet (const gchar *goad_id)
   else
     bubblemon_session_defaults (bm);
 
-  // We begin with zero bubbles
+  /* We begin with zero bubbles */
   bm->n_bubbles = 0;
   
   /*
@@ -514,7 +572,7 @@ void bubblemon_setup_colors (BubbleMonData *bm) {
 
     if (i & 1)
       {
-	// Liquid
+	/* Liquid */
 	j = (i - 1) >> 1;
 	
 	r = (r_liquid_maxswap * j + r_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
@@ -523,7 +581,7 @@ void bubblemon_setup_colors (BubbleMonData *bm) {
       }
     else
       {
-	// Air
+	/* Air */
 	j = i >> 1;
 
 	r = (r_air_maxswap * j + r_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);

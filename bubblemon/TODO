@@ -1,2 +1,0 @@
-Finish adding profiling option (--enable-profiling) to configure by
-fixing the #ifdef:ed FIXMEs in bubblemon.c.
