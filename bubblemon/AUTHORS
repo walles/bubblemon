@@ -3,6 +3,7 @@ Bubbling Load Monitoring Applet
   bubbling liquid.
 Copyright (C) 1999 Johan Walles
 - d92-jwa@nada.kth.se
+- http://www.nada.kth.se/~d92-jwa/code
 Copyright (C) 1999 Merlin Hughes
 - merlin@merlin.org
 - http://nitric.com/freeware/
@@ -13,5 +14,5 @@ AUTHORS:
 
 Bubbling code: Johan Walles <d92-jwa@nada.kth.se>
 GNOME code: Merlin Hughes <merlin@merlin.org>
-Fire code ripped from Zinx Verituse' cpufire.
-Core ruthlessly adopted and adapted from Nat Friedman's battery monitor.
+Core ruthlessly adopted and adapted from Nat Friedman's battery
+monitor.
