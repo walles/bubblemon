@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.7\n"
-"POT-Creation-Date: 2002-05-19 21:54+0200\n"
+"POT-Creation-Date: 2002-06-20 17:47+0200\n"
 "PO-Revision-Date: 2001-09-12 10:08+0100\n"
 "Last-Translator: Marco Solari <marcosolari@libero.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,8 @@ msgstr ""
 "ebollizione.\n"
 "Questa applet non fornisce ASSOLUTAMENTE NESSUNA GARANZIA, vedi il file "
 "LICENSE per dettagli.\n"
-"Questo è software libero, e si può redistribuirlo a certe condizioni (GPL), vedi il file LICENSE per dettagli.\n"
+"Questo è software libero, e si può redistribuirlo a certe condizioni (GPL), "
+"vedi il file LICENSE per dettagli.\n"
 
 #: src/gnome1-ui.c:242
 #, fuzzy
