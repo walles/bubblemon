@@ -28,4 +28,4 @@ COMPILING:
   make prefix=/usr etcdir=/etc install
 
 . Start up the applet:
-  Choose Add Applet->Utility->Bubbling Load Monitor in your GNOME panel.
+  Choose Add Applet->Monitors->Bubbling Load Monitor in your GNOME panel.

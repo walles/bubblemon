@@ -40,4 +40,4 @@ clean:
 install: ${target}
 	install -c -D -m755 ${target} ${bindir}/${target}
 	install -c -D -m644 ${target}.gnorba ${etcdir}/CORBA/servers/${target}.gnorba
-	install -c -D -m644 ${target}.desktop ${sharedir}/applets/Utility/${target}.desktop
+	install -c -D -m644 ${target}.desktop ${sharedir}/applets/Monitors/${target}.desktop

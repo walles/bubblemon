@@ -14,7 +14,7 @@ Requires: gnome-libs >= 1.0
 This is a panel applet that displays the CPU and memory load as a
 bubbling liquid.  It is based heavily on Merlin's CPU Fire Applet
 available at http://nitric.com/freeware.
-Choose Add Applet->Utility->Bubbling Load Monitor in your GNOME Panel.
+Choose Add Applet->Monitors->Bubbling Load Monitor in your GNOME Panel.
 
 %changelog
 
@@ -47,6 +47,6 @@ rm -rf $RPM_BUILD_ROOT
 
 /usr/bin/bubblemon_applet
 /etc/CORBA/servers/bubblemon_applet.gnorba
-/usr/share/applets/Utility/bubblemon_applet.desktop
+/usr/share/applets/Monitors/bubblemon_applet.desktop
 
 %doc AUTHORS CHANGES INSTALL LICENSE README URL VERSION
