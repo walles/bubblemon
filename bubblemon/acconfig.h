@@ -27,3 +27,5 @@
 #undef RIPPLES
 
 #undef ENABLE_PROFILING
+
+#undef HAVE_CHANGE_PIXEL_SIZE

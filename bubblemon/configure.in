@@ -17,6 +17,21 @@ GNOME_INIT_LIBGTOP(1.0.0, fail)
 GNOME_COMPILE_WARNINGS
 GNOME_X_CHECKS
 
+# Find out if the GNOME panel is resizable
+AC_MSG_CHECKING(whether panel resizing is supported)
+AC_EGREP_HEADER(
+  change_pixel_size,
+  applet-widget.h,
+  have_change_pixel_size=yes,
+  have_change_pixel_size=no)
+
+if test "x$have_change_pixel_size" = "xyes"; then
+  AC_MSG_RESULT(yes)
+  AC_DEFINE(HAVE_CHANGE_PIXEL_SIZE)
+else
+  AC_MSG_RESULT(no)
+fi
+
 # For i18n and l10n
 ALL_LINGUAS="sv fr pl de ko fi da"
 
