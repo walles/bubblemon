@@ -20,7 +20,7 @@ ldFlags = ${ldFlags_${mode}}
 
 ldLibs = ${shell gnome-config --libs glib gnome gnomeui gnorba} -lpanel_applet -lgtop -lgtop_sysdeps -lgtop_common -lXau
 
-srcs = bubblemon.c properties.c session.c flame.c
+srcs = bubblemon.c properties.c session.c colors.c
 
 objs = ${srcs:.c=.o}
 
