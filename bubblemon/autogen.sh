@@ -23,7 +23,7 @@ echo "Generating configuration files for bubblemon..."
 echo
 
 gettextize
-aclocal -I `aclocal --print-ac-dir`/gnome-macros
+aclocal -I macros/gnome
 autoheader
 automake --add-missing
 autoconf

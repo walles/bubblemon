@@ -133,6 +133,7 @@ fi
 AC_OUTPUT([
 Makefile
 macros/Makefile
+macros/gnome/Makefile
 src/Makefile
 gnome/Makefile
 pixmaps/Makefile

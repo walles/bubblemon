@@ -8,15 +8,11 @@ Opinions?  Send 'em to me (d92-jwa@nada.kth.se).
   x Put all general system tests first, then general bubblemon tests,
    then platform (GNOME) specific tests clearly separated by comments.
 
-  x Update the GNOME tests in the macros directory.
-
-  x Move the GNOME tests to macros/gnome.
-
   x Add a check for whether libgtop returns anything but zero for
    system load.
 
   x Add a summary at the end, listing the platforms to be built and
-   excuses for platforms not built.  End with "Now do
+   excuses for platforms not built.  End with something like "Now do
    make ; make install".
 
 . Translate the applet into every single language in existance.  If
