@@ -1,17 +1,10 @@
-1. The program crashes.  What should I do?
+1. How do I start the applet from the command line?
 
-Either fix it yourself and send me (d92-jwa@nada.kth.se) a patch, or
-send me a bug report.  The bug report should contain the result of
-changing directory into the bubblemon directory and doing the
-following:
+Change to the bubblemon directory and do the following:
 
 $ ./configure
 $ make
-$ cd src
-$ gdb bubblemon_applet
-(gdb) run --activate-goad-server=bubblemon_applet
-<SEGFAULT>
-(gdb) info stack
+$ src/bubblemon_applet --activate-goad-server=bubblemon_applet
 
 
 2. Performance sucks.  What should I do?
@@ -24,6 +17,16 @@ See the file PROFILING for instructions on finding out where your
 cycles go.  Then, either fix it yourself and send me
 (d92-jwa@nada.kth.se) a patch, or send me a bug report containing the
 output of the commands recommended in PROFILING.
+
+Note also that two users have reported a CPU utilization of over 30%
+for a system similar to mine.  In both of the cases, the profiling
+said that only 0-2% of the CPU was used by my code.  This means that
+cycles are disappearing outside of my code.  I know for a fact that
+at least one of these people was running an old GNOME version, and
+that *might* be the problem.  If you are experiencing very high CPU
+usage caused by my applet, please e-mail me (d92-jwa@nada.kth.se)
+which GNOME version you are running.  If you're unsure, tell me
+instead what Linux distribution you are using.
 
 
 3. The program doesn't do anything; it doesn't even crash!
@@ -42,6 +45,22 @@ Yes it is and the code is there for it.  See the README file under the
 TODO section for more info.
 
 
-5. I have another question/problem.  What should I do?
+5. The program crashes.  What should I do?
+
+Either fix it yourself and send me (d92-jwa@nada.kth.se) a patch, or
+send me a bug report.  The bug report should contain the result of
+changing directory into the bubblemon directory and doing the
+following:
+
+$ ./configure
+$ make
+$ cd src
+$ gdb bubblemon_applet
+(gdb) run --activate-goad-server=bubblemon_applet
+<SEGFAULT>
+(gdb) info stack
+
+
+6. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
