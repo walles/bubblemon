@@ -7,6 +7,15 @@
 # to work at Johan's place.  Portability enhancements are greatly
 # appreciated, send them to d92-jwa@nada.kth.se.
 
+# FIXME: This script will erase files in your RPM_SOURCES directory,
+# in your BUBBLEMON_ROOT directory and in your RPMS directory.  For
+# this script to ever get any good it should probably be rewritten in
+# some real scripting language.
+
+# FIXME: If you don't have write permissions in your RPM_SOURCES
+# directory, in your BUBBLEMON_ROOT directory or in your RPMS
+# directory, I don't know what happens.
+
 BUBBLEMON_ROOT=/home/johan/src/Gnome/bubblemon
 RPM_SOURCES=/home/johan/src/RPM/SOURCES
 RPMS=/home/johan/src/RPM/RPMS/i386
@@ -18,7 +27,7 @@ This script ($0) works only when started from the directory in the
 \$BUBBLEMON_ROOT variable (currently $BUBBLEMON_ROOT).
 
 The \$BUBBLEMON_ROOT variable can be configured at the top of this
-script.
+script.  It must *not* end with a slash (/).
 EOF
 
     exit 1
@@ -26,17 +35,33 @@ fi
 
 # Build a Debian package
 debuild
+if [ $? != 0 ] ; then
+    echo Error: Debian package building failed > /dev/stderr
+    exit 1
+fi
 rm ../*.changes ../*.dsc ../*.dsc.asc ../bubblemon_*.tar.gz
 
 # Build a source package
 make dist
+if [ $? != 0 ] ; then
+    echo Error: Source package building failed > /dev/stderr
+    exit 1
+fi
 mv bubblemon-*.tar.gz ..
 
 # Build an RPM
 rm -f bubblemon-*.tar.gz
 make dist
+if [ $? != 0 ] ; then
+    echo Error: Source package building failed > /dev/stderr
+    exit 1
+fi
 ln -s $(BUBBLEMON_ROOT)/bubblemon-*.tar.gz $(RPM_SOURCES)
 rm -f $(RPMS)/bubblemon*rpm
 rpm -bb packaging/bubblemon.spec
+if [ $? != 0 ] ; then
+    echo Error: RPM package building failed > /dev/stderr
+    exit 1
+fi
 mv $(RPMS)/bubblemon*rpm ..
-rm bubblemon-*.tar.gz
+rm bubblemon-*.tar.gz $(RPM_SOURCES)/bubblemon-*.tar.gz
