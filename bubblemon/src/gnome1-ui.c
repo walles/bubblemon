@@ -145,7 +145,7 @@ static void about (AppletWidget *applet, gpointer data)
     return;
   }
   about_box = gnome_about_new (_("Bubbling Load Monitor"), VERSION,
-			       _("Copyright (C) 1999-2002 Johan Walles"),
+			       "Copyright (C) 1999-2002 Johan Walles",
 			       authors,
 			       _("This applet displays your CPU load as a bubbling liquid.\n"
 				 "This applet comes with ABSOLUTELY NO WARRANTY, "
