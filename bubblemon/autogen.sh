@@ -37,7 +37,7 @@ USE_GNOME2_MACROS=1 . gnome-autogen.sh
 echo "Generating configuration files for bubblemon..."
 echo
 
-aclocal 
+aclocal
 autoheader
 automake --add-missing
 autoconf
