@@ -1,3 +1,11 @@
+bubblemon (1.2.4-1) stable; urgency=medium
+
+  * Fix intermittent crash on startup.
+  * Fix minor visual glitch where the top pixels of each bubble were
+    chopped off for bubbles over a certain altitude.
+
+ --
+
 bubblemon (1.2.3-1) stable; urgency=medium
 
   * A message in a bottle now appears when there is unread mail.
