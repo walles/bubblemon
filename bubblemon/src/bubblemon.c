@@ -23,6 +23,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <sys/stat.h>
 #include <time.h>
@@ -30,7 +32,6 @@
 #include <dirent.h>
 #include <string.h>
 #include <time.h>
-/* #include <config.h> */
 #include <gnome.h>
 #include <gdk/gdkx.h>
 
@@ -343,7 +344,6 @@ make_new_bubblemon_applet (const gchar *goad_id)
 {
   BubbleMonData * bm;
   GtkWidget *frame;
-  gchar * param = "bubblemon_applet";
 
   bm = g_new0 (BubbleMonData, 1);
 
@@ -528,7 +528,6 @@ void bubblemon_setup_colors (BubbleMonData *bm) {
 void
 destroy_about (GtkWidget *w, gpointer data)
 {
-  BubbleMonData *bm = data;
 } /* destroy_about */
 
 void

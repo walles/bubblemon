@@ -9,4 +9,9 @@ bubblemon_applet_SOURCES = \
 	bubblemon.c bubblemon.h \
 	session.c session.h
 
-bubblemon_appletLDADD = $(GNOME_LIBDIR) $(GNOMEUI_LIBS)
+bubblemon_applet_LDADD = \
+	$(GNOME_LIBDIR) \
+	$(GNOMEUI_LIBS) \
+	$(GNOME_APPLETS_LIBS) \
+	$(LIBGTOP_LIBS) \
+	$(LIBGTOP_EXTRA_LIBS)

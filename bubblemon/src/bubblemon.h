@@ -26,9 +26,6 @@
 #ifndef _BUBBLEMON_H
 #define _BUBBLEMON_H
 
-/* I dunno what PACKAGE means... */
-#define VERSION "0.1.1"
-
 #include <applet-widget.h>
 
 // Note: NUM_COLORS must be an even number
@@ -115,6 +112,7 @@ void bubblemon_setup_colors(BubbleMonData *mc);
 void bubblemon_set_size(BubbleMonData *mc);
 void bubblemon_set_timeout(BubbleMonData *mc);
 gint bubblemon_update(gpointer data);
+gint bubblemon_delete(gpointer data);
 gint bubblemon_orient_handler(GtkWidget *w, PanelOrientType o,
 				   gpointer data);
 gint bubblemon_configure_handler(GtkWidget *widget, GdkEventConfigure *event,
