@@ -75,8 +75,11 @@ int main (int argc, char ** argv)
 #endif
 
   goad_id = goad_server_activation_id ();
-  if (! goad_id)
-    exit(EXIT_FAILURE);
+  if (!goad_id)
+    /* FIXME: What should this error message *really* say? */
+    g_error("Couldn't activate GOAD server.  If you understand what this means,\n"
+	    "please write an e-mail to d92-jwa@nada.kth.se and explain it so that\n"
+	    "this error message can be replaced by something a bit more useful.\n");
 
   /* Create the bubblemon applet widget */
   applet = make_new_bubblemon_applet (goad_id);
@@ -334,10 +337,12 @@ gint bubblemon_update (gpointer data)
 {
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
-  int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, aliascolor, waterlevel_goal, memoryPercentage, bias;
-  int swapPercentage;
+  int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
+  int aircolor, watercolor, aliascolor;
+  int waterlevel_goal, waterlevel_min, waterlevel_max, bias;
+  int swapPercentage, memoryPercentage;
   int *temp;
+  static int last_waterlevel_min = 0;
   
 #ifdef ENABLE_PROFILING
   static int profiling_countdown = 2500;  /* FIXME: Is 2500 calls to here == 50 seconds? */
@@ -401,9 +406,9 @@ gint bubblemon_update (gpointer data)
     Vary the colors of air and water with how many
     percent of the available swap space that is in use.
   */
-  aircolor = ((((NUM_COLORS / 3) - 1) * swapPercentage) / 100) << 1;
-  watercolor = aircolor + 1;
-  aliascolor = aircolor + 2;
+  watercolor = ((((NUM_COLORS / 3) - 1) * swapPercentage) / 100) * 3;
+  aliascolor = watercolor + 1;
+  aircolor = watercolor + 2;
 
   /* Sanity check the colors */
   if ((aircolor < 0) || (aircolor >= NUM_COLORS) ||
@@ -419,21 +424,83 @@ gint bubblemon_update (gpointer data)
 	      swapPercentage);
     }
 
+  /* Move the water level with the current memory usage. */
+  waterlevel_goal = h - ((memoryPercentage * h) / 100);
+
+  /* Update the waterlevels */
+  bm->waterlevels[0] = waterlevel_goal;
+  bm->waterlevels[w - 1] = waterlevel_goal;
+
+  waterlevel_max = 0;
+  waterlevel_min = h;
+
+  for (x = 1; x < (w - 1); x++)
+    {
+      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
+				     bm->waterlevels[x + 1]) >> 1;
+
+      /* Guard from rounding errors */
+      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
+      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
+	bm->waterlevels_inactive[x]++;
+
+      if (bm->waterlevels_inactive[x] > waterlevel_max)
+	waterlevel_max = bm->waterlevels_inactive[x];
+      else if (bm->waterlevels_inactive[x] < waterlevel_min)
+	waterlevel_min = bm->waterlevels_inactive[x];
+    }
+
+  bm->waterlevels_inactive[0] = waterlevel_goal;
+  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
+
+  temp = bm->waterlevels_inactive;
+  bm->waterlevels_inactive = bm->waterlevels;
+  bm->waterlevels = temp;
+
   /*
     Here comes the bubble magic.  Pixels are drawn by setting values in
     buf to 0-NUM_COLORS.  We should possibly make some macros or
     inline functions to {g|s}et pixels.
   */
 
-  /* Draw the air-and-water background */
+  /*
+    Draw the air-and-water background
+
+    The waterlevel_max is the HIGHEST VALUE for the water level, which is
+    actually the LOWEST VISUAL POINT of the water.  Confusing enough?
+
+    So we want to draw from top to bottom:
+      Just air from (y == 0) to (y <= waterlevel_min)
+      Mixed air and water from (y == waterlevel_min) to (y <= waterlevel_max)
+      Just water from (y == waterlevel_max) to (y <= h)
+    
+    Three loops is more code than one, but should be faster (fewer comparisons)
+  */
+
+  /* Air only */
+  for (buf_ptr = buf + (last_waterlevel_min * w);
+       buf_ptr < (buf + (waterlevel_min * w));
+       buf_ptr++)
+    *buf_ptr = aircolor;
+  last_waterlevel_min = waterlevel_min;
+
+  /* Air and water */
   for (x = 0; x < w; x++)
-    for (y = 0; y < h; y++)
-      {
-	if (y < bm->waterlevels[x])
-	  buf[y * w + x] = aircolor;
-	else
-	  buf[y * w + x] = watercolor;
-      }
+    {
+      /* Air... */
+      for (y = waterlevel_min; y < bm->waterlevels[x]; y++)
+	buf[y * w + x] = aircolor;
+
+      /* ... and water */
+      for (; y < waterlevel_max; y++)
+	buf[y * w + x] = watercolor;
+    }
+
+  /* Water only */
+  for (buf_ptr = (buf + (waterlevel_max * w));
+       buf_ptr < (buf + (h * w));
+       buf_ptr++)
+    *buf_ptr = watercolor;
 
   /* Create a new bubble if the planets are correctly aligned... */
   if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
@@ -450,7 +517,7 @@ gint bubblemon_update (gpointer data)
   /* Update and draw the bubbles */
   for (i = 0; i < bm->n_bubbles; i++)
     {
-      /* Accellerate the bubble */
+      /* Accelerate the bubble */
       bubbles[i].dy -= GRAVITY;
 
       /* Move the bubble vertically */
@@ -477,56 +544,54 @@ gint bubblemon_update (gpointer data)
       x = bubbles[i].x;
       y = bubbles[i].y;
       
-      /* Clipping is not necessary for x, but it *is* for y */
-      /* To prevent ugliness, we *don't* draw aliascolor on top of */
-      /* aircolor, and aliascolor on aliascolor yields aircolor */
+      /*
+        Clipping is not necessary for x, but it *is* for y.
+        To prevent ugliness, we draw aliascolor only on top of
+        watercolor, and aircolor on top of aliascolor.
+      */
 
       /* Top row */
+      buf_ptr = &(buf[(y - 1) * w + x - 1]);
       if (y > bm->waterlevels[x])
         {
-          if (buf[(y - 1) * w + x - 1] == aliascolor)
+          if (*buf_ptr != aircolor)
 	    {
-	      buf[(y - 1) * w + x - 1] = aircolor;
+	      (*buf_ptr)++ ;
 	    }
-          else if (buf[(y - 1) * w + x - 1] == watercolor)
+	  buf_ptr++;
+	  
+          *buf_ptr = aircolor; buf_ptr++;
+	  
+          if (*buf_ptr != aircolor)
 	    {
-	      buf[(y - 1) * w + x - 1] = aliascolor;
+	      (*buf_ptr)++ ;
 	    }
-          buf[(y - 1) * w + x] = aircolor;
-          if (buf[(y - 1) * w + x + 1] == aliascolor)
-	    {
-	      buf[(y - 1) * w + x + 1] = aircolor;
-	    }
-          else if (buf[(y - 1) * w + x + 1] == watercolor)
-	    {
-	      buf[(y - 1) * w + x + 1] = aliascolor;
-	    }
+	  buf_ptr += (w - 2);
         }
+      else
+        {
+	  buf_ptr += w;
+	}
 
       /* Middle row - no clipping necessary */
-      buf[y * w + x - 1] = aircolor;
-      buf[y * w + x] = aircolor;
-      buf[y * w + x + 1] = aircolor;
+      *buf_ptr = aircolor; buf_ptr++;
+      *buf_ptr = aircolor; buf_ptr++;
+      *buf_ptr = aircolor; buf_ptr += (w - 2);
 
       /* Bottom row */
       if (y < (h - 1))
         {
-          if (buf[(y + 1) * w + x - 1] == aliascolor)
+          if (*buf_ptr != aircolor)
 	    {
-	      buf[(y + 1) * w + x - 1] = aircolor;
+	      (*buf_ptr)++ ;
 	    }
-          else if (buf[(y + 1) * w + x - 1] == watercolor)
+	  buf_ptr++;
+	  
+          *buf_ptr = aircolor; buf_ptr++;
+
+	  if (*buf_ptr != aircolor)
 	    {
-	      buf[(y + 1) * w + x - 1] = aliascolor;
-	    }
-          buf[(y + 1) * w + x] = aircolor;
-          if (buf[(y + 1) * w + x + 1] == aliascolor)
-	    {
-	      buf[(y + 1) * w + x + 1] = aircolor;
-	    }
-          else if (buf[(y + 1) * w + x + 1] == watercolor)
-	    {
-	      buf[(y + 1) * w + x + 1] = aliascolor;
+	      (*buf_ptr)++ ;
 	    }
         }
     }
@@ -656,12 +721,12 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 
   bm->applet = applet_widget_new (goad_id);
 
-  if (!glibtop_init_r (&glibtop_global_server, 0, 0))
-    g_error (_("Can't open glibtop!\n"));
-  
   if (bm->applet == NULL)
     g_error (_("Can't create applet!\n"));
 
+  if (!glibtop_init_r (&glibtop_global_server, 0, 0))
+    g_error (_("Can't open glibtop!\n"));
+  
   /*
    * Load all the saved session parameters (or the defaults if none
    * exist).
@@ -824,10 +889,10 @@ void bubblemon_setup_colors (BubbleMonData *bm)
 
       j = i >> 1;
 
-      /* Air */
-      r = (r_air_maxswap * j + r_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      g = (g_air_maxswap * j + g_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      b = (b_air_maxswap * j + b_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      /* Liquid */
+      r = (r_liquid_maxswap * j + r_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      g = (g_liquid_maxswap * j + g_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      b = (b_liquid_maxswap * j + b_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
 
       r_composite = r;
       g_composite = g;
@@ -837,10 +902,10 @@ void bubblemon_setup_colors (BubbleMonData *bm)
       XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
       col[(i*3)] = screen.pixel;
 
-      /* Liquid */
-      r = (r_liquid_maxswap * j + r_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      g = (g_liquid_maxswap * j + g_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-      b = (b_liquid_maxswap * j + b_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      /* Air */
+      r = (r_air_maxswap * j + r_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      g = (g_air_maxswap * j + g_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      b = (b_air_maxswap * j + b_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
 
       r_composite += r;
       g_composite += g;
@@ -848,16 +913,16 @@ void bubblemon_setup_colors (BubbleMonData *bm)
 
       sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
       XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-      col[(i*3) + 1] = screen.pixel;
+      col[(i*3) + 2] = screen.pixel;
       
       /* Anti-alias */
-      r = r_composite / 2;
-      g = g_composite / 2;
-      b = b_composite / 2;
+      r = r_composite >> 1;
+      g = g_composite >> 1;
+      b = b_composite >> 1;
 
       sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
       XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-      col[(i*3) + 2] = screen.pixel;
+      col[(i*3) + 1] = screen.pixel;
     }
 }
 
