@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-20 19:55+0200\n"
+"POT-Creation-Date: 2000-09-24 20:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Frank DENIS <j@4u.net>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -21,12 +21,12 @@ msgid ""
 "       The current value of %d is not.\n"
 msgstr ""
 
-#: src/bubblemon.c:240
+#: src/bubblemon.c:241
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr ""
 
-#: src/bubblemon.c:293
+#: src/bubblemon.c:294
 #, c-format
 msgid ""
 "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
@@ -34,12 +34,12 @@ msgid ""
 "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:348
+#: src/bubblemon.c:349
 #, c-format
 msgid "bm == NULL in update_tooltip() on line %d of %s\n"
 msgstr ""
 
-#: src/bubblemon.c:361
+#: src/bubblemon.c:362
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s\n"
@@ -49,12 +49,12 @@ msgstr ""
 "Swap utilisé: %s\n"
 "Charge du CPU: %d%%"
 
-#: src/bubblemon.c:391
+#: src/bubblemon.c:392
 #, c-format
 msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
 msgstr ""
 
-#: src/bubblemon.c:412
+#: src/bubblemon.c:413
 msgid ""
 "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
 "(0-100)\n"
@@ -62,27 +62,27 @@ msgid ""
 "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:471
+#: src/bubblemon.c:472
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr ""
 
-#: src/bubblemon.c:477
+#: src/bubblemon.c:478
 msgid "$HOME environment variable not set\n"
 msgstr ""
 
-#: src/bubblemon.c:482
+#: src/bubblemon.c:483
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
 
-#: src/bubblemon.c:484
+#: src/bubblemon.c:485
 msgid "<name of executable>"
 msgstr ""
 
-#: src/bubblemon.c:584
+#: src/bubblemon.c:585
 #, c-format
 msgid ""
 "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
@@ -91,24 +91,24 @@ msgid ""
 "of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:889
+#: src/bubblemon.c:890
 msgid "Can't create applet!\n"
 msgstr "Impossible de créer l'appliquette !\n"
 
-#: src/bubblemon.c:892
+#: src/bubblemon.c:893
 msgid "Can't open glibtop!\n"
 msgstr "Impossible d'employer glibtop\n"
 
-#: src/bubblemon.c:948
+#: src/bubblemon.c:949
 #, fuzzy
 msgid "About"
 msgstr "À propos..."
 
-#: src/bubblemon.c:1112
+#: src/bubblemon.c:1113
 msgid "Bubbling Load Monitor"
 msgstr "Moniteur de charge à bulles"
 
-#: src/bubblemon.c:1115
+#: src/bubblemon.c:1116
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
