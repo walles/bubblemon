@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-10-28 19:16+0100\n"
+"POT-Creation-Date: 2002-05-10 12:47+0200\n"
 "PO-Revision-Date: wto 09 sty 2001 10:35:08 CET\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -23,12 +23,12 @@ msgstr ""
 "B³±d: Warto¶æ sta³ej NUM_COLORS w bubblemon.h musi byæ wielokrotno¶ci± 3.\n"
 "      Bie¿±ca warto¶æ (%d) ni± nie jest.\n"
 
-#: src/bubblemon.c:289
+#: src/bubblemon.c:293
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() - brak pamiêci (linia %d w %s)"
 
-#: src/bubblemon.c:400
+#: src/bubblemon.c:409
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Zu¿ycie pamiêci: %s\n"
 "Zu¿ycie swap'a: %s"
 
-#: src/bubblemon.c:407
+#: src/bubblemon.c:416
 #, c-format
 msgid ""
 "\n"
@@ -46,7 +46,7 @@ msgstr ""
 "\n"
 "Obci±¿enie CPU: %d%%"
 
-#: src/bubblemon.c:418
+#: src/bubblemon.c:427
 #, c-format
 msgid ""
 "\n"
@@ -55,16 +55,16 @@ msgstr ""
 "\n"
 "Obci±¿enie CPU #%d: %d%%"
 
-#: src/bubblemon.c:652
+#: src/bubblemon.c:661
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "B³±d wykonania chdir() na $HOME (%s)\n"
 
-#: src/bubblemon.c:658
+#: src/bubblemon.c:667
 msgid "$HOME environment variable not set\n"
 msgstr "Nieustawiona zmienna $HOME\n"
 
-#: src/bubblemon.c:663
+#: src/bubblemon.c:672
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -73,27 +73,27 @@ msgstr ""
 "Koniec dzia³ania Bubblemon. Dane powinny znajdowaæ siê w pliku ~/gmon.out.\n"
 "Uruchom 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:665
+#: src/bubblemon.c:674
 msgid "<name of executable>"
 msgstr "<nazwa pliku wykonywalnego>"
 
-#: src/bubblemon.c:1037
+#: src/bubblemon.c:1046
 msgid "Can't create applet!\n"
 msgstr "Nie mo¿na utworzyæ apletu!\n"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1049
 msgid "Can't open glibtop!\n"
 msgstr "Nie mo¿na otworzyæ biblioteki glibtop!\n"
 
-#: src/bubblemon.c:1103
+#: src/bubblemon.c:1112
 msgid "About"
 msgstr "Informacje o..."
 
-#: src/bubblemon.c:1283
+#: src/bubblemon.c:1290
 msgid "Bubbling Load Monitor"
 msgstr "B±belkowy monitor obci±¿enia systemu"
 
-#: src/bubblemon.c:1286
+#: src/bubblemon.c:1293
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.12\n"
-"POT-Creation-Date: 2001-10-28 19:16+0100\n"
+"POT-Creation-Date: 2002-05-10 12:47+0200\n"
 "PO-Revision-Date: 2001-01-10 22:24+02:00\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -24,14 +24,14 @@ msgstr ""
 "Virhe: NUM_COLORS vakion tiedostossa bubblemon.h täytyy olla jaollinen\n"
 "       kolmella. Nykyinen arvo %d ei ole.\n"
 
-#: src/bubblemon.c:289
+#: src/bubblemon.c:293
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr ""
 "glibtop_get_mem() ilmoitti rivillä %d tiedostossa %s, että tietokoneessa ei "
 "ole muistia"
 
-#: src/bubblemon.c:400
+#: src/bubblemon.c:409
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -40,7 +40,7 @@ msgstr ""
 "Muistia käytössä: %s\n"
 "Sivutettu: %s"
 
-#: src/bubblemon.c:407
+#: src/bubblemon.c:416
 #, c-format
 msgid ""
 "\n"
@@ -49,7 +49,7 @@ msgstr ""
 "\n"
 "Prosessorikuorma: %d%%"
 
-#: src/bubblemon.c:418
+#: src/bubblemon.c:427
 #, c-format
 msgid ""
 "\n"
@@ -58,16 +58,16 @@ msgstr ""
 "\n"
 "Prosessorin #%d kuorma: %d%%"
 
-#: src/bubblemon.c:652
+#: src/bubblemon.c:661
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "En voinut siirtyä hakemistoon $HOME (%s)\n"
 
-#: src/bubblemon.c:658
+#: src/bubblemon.c:667
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME-ympäristömuuttujaa ei ole asetettu\n"
 
-#: src/bubblemon.c:663
+#: src/bubblemon.c:672
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -76,27 +76,27 @@ msgstr ""
 "Bubblemon sulkeutuu. Profilointidatan pitäisi olla tiedostossa ~/gmon.out.\n"
 "Ajapa huviksesi 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:665
+#: src/bubblemon.c:674
 msgid "<name of executable>"
 msgstr "<ohjelmatiedoston nimi>"
 
-#: src/bubblemon.c:1037
+#: src/bubblemon.c:1046
 msgid "Can't create applet!\n"
 msgstr "Sovelmaa ei voi luoda!\n"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1049
 msgid "Can't open glibtop!\n"
 msgstr "glibtop:ia ei voi avata!\n"
 
-#: src/bubblemon.c:1103
+#: src/bubblemon.c:1112
 msgid "About"
 msgstr "Tietoja"
 
-#: src/bubblemon.c:1283
+#: src/bubblemon.c:1290
 msgid "Bubbling Load Monitor"
 msgstr "Kupliva kuormamittari"
 
-#: src/bubblemon.c:1286
+#: src/bubblemon.c:1293
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
