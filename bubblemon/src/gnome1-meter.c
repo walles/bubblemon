@@ -126,7 +126,7 @@ static int getCpuLoad(int currentCpu, int nCpus)
   // Fix for Debian bug #220255
   if (total - oTotal == 0)
   {
-    return previousLoad;
+    return previousLoadPercentage;
   }
 
   cpuLoadHistory[currentCpu][i] = load;
@@ -158,7 +158,7 @@ static int getCpuLoad(int currentCpu, int nCpus)
   // We should never get < 0% load
   g_assert(loadPercentage >= 0);
 
-  previousLoad = loadPercentage;
+  previousLoadPercentage = loadPercentage;
   return loadPercentage;
 }
 
