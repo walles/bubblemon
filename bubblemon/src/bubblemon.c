@@ -49,6 +49,9 @@
 #include "meter.h"
 #include "config.h"
 
+// Bottle graphics
+#include "msgInBottle.c"
+
 static bubblemon_picture_t bubblePic;
 static bubblemon_Physics physics;
 static meter_sysload_t sysload;
@@ -629,21 +632,21 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
 
 static bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
 						    const bubblemon_color_t c2,
-						    const int percentage)
+						    const int amount)
 {
   int a, r, g, b;
   bubblemon_color_t returnme;
 
-  assert(percentage >= 0 && percentage <= 100);
+  assert(amount >= 0 && amount < 256);
 
-  a = ((((int)c1.components.a) * (100 - percentage)) +
-       (((int)c2.components.a) * percentage)) / 100;
-  r = ((((int)c1.components.r) * (100 - percentage)) +
-       (((int)c2.components.r) * percentage)) / 100;
-  g = ((((int)c1.components.g) * (100 - percentage)) +
-       (((int)c2.components.g) * percentage)) / 100;
-  b = ((((int)c1.components.b) * (100 - percentage)) +
-       (((int)c2.components.b) * percentage)) / 100;
+  a = ((((int)c1.components.a) * (255 - amount)) +
+       (((int)c2.components.a) * amount)) / 255;
+  r = ((((int)c1.components.r) * (255 - amount)) +
+       (((int)c2.components.r) * amount)) / 255;
+  g = ((((int)c1.components.g) * (255 - amount)) +
+       (((int)c2.components.g) * amount)) / 255;
+  b = ((((int)c1.components.b) * (255 - amount)) +
+       (((int)c2.components.b) * amount)) / 255;
 
   /*
   assert(a >= 0 && a <= 255);
@@ -666,41 +669,112 @@ static bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
   returnme.components.g = g;
   returnme.components.b = b;
 
-  assert((percentage != 0)   || (returnme.value == c1.value));
-  assert((percentage != 100) || (returnme.value == c2.value));
+  assert((amount != 0)   || (returnme.value == c1.value));
+  assert((amount != 255) || (returnme.value == c2.value));
 
   return returnme;
 }
 
-static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic)
+static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic, int clear)
 {
   bubblemon_color_t colors[3];
-
+  
   bubblemon_colorcode_t *airOrWater;
   bubblemon_color_t *pixel;
   int i;
   
   int w, h;
-
-  colors[AIR] = bubblemon_interpolateColor(NOSWAPAIRCOLOR, MAXSWAPAIRCOLOR, bubblemon_getSwapPercentage());
-  colors[WATER] = bubblemon_interpolateColor(NOSWAPWATERCOLOR, MAXSWAPWATERCOLOR, bubblemon_getSwapPercentage());
-  colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 50);
-
+  
+  colors[AIR] = bubblemon_interpolateColor(NOSWAPAIRCOLOR, MAXSWAPAIRCOLOR, (bubblemon_getSwapPercentage() * 255) / 100);
+  colors[WATER] = bubblemon_interpolateColor(NOSWAPWATERCOLOR, MAXSWAPWATERCOLOR, (bubblemon_getSwapPercentage() * 255) / 100);
+  colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
+  
   w = bubblePic->width;
   h = bubblePic->height;
-
+  
   /* Make sure the pixel array exist */
   if (bubblePic->pixels == NULL)
   {
     bubblePic->pixels =
       (bubblemon_color_t *)malloc(bubblePic->width * bubblePic->height * sizeof(bubblemon_color_t));
   }
-
+  
   pixel = bubblePic->pixels;
   airOrWater = bubblePic->airAndWater;
-  for (i = 0; i < w * h; i++)
-  {
-    *pixel++ = colors[*airOrWater++];
+  if (clear) {
+    // Erase the old pic as we draw
+    for (i = 0; i < w * h; i++) {
+      *pixel++ = colors[*airOrWater++];
+    }
+  } else {
+    // Draw on top of the current pic
+    colors[AIR].components.a = 0;
+    colors[WATER].components.a = (30 /* % */ * 255) / 100;
+    colors[ANTIALIAS].components.a = (colors[AIR].components.a + colors[WATER].components.a) / 2;
+    for (i = 0; i < w * h; i++) {
+      bubblemon_color_t myColor = colors[*airOrWater++];
+      *pixel = bubblemon_interpolateColor(*pixel,
+					  myColor,
+					  myColor.components.a);
+      pixel++;
+    }
+  }
+}
+
+static void bubblemon_bottleToPixmap(bubblemon_picture_t *bubblePic)
+{
+  int bottleX, bottleY;
+  int bottleW, bottleH;
+  int bottleYMin, bottleYMax;
+  int pictureX0, pictureY0;
+  int pictureW, pictureH;
+
+  assert(bubblePic->pixels != NULL);
+
+  pictureW = bubblePic->width;
+  pictureH = bubblePic->height;
+  
+  bottleW = msgInBottle.width;
+  bottleH = msgInBottle.height;
+
+  // Ditch the bottle if the image is too small
+  // FIXME: We should check the image height as well
+  if (pictureW < (bottleW + 4)) {
+    return;
+  }
+
+  // Center the bottle horizontally
+  pictureX0 = (bubblePic->width - bottleW) / 2;
+  pictureY0 = 25; // FIXME: This should come from physics.bottle_y
+
+  // Clip the bottle vertically to fit it into the picture
+  bottleYMin = 0;
+  if (pictureY0 < 0) {
+    bottleYMin = -pictureY0;
+  }
+  bottleYMax = bottleH;
+  if (pictureY0 + bottleH >= pictureH) {
+    bottleYMax = bottleH - (pictureY0 + bottleH - pictureH);
+  }
+  
+  // Iterate over the bottle
+  for (bottleX = 0; bottleX < bottleW; bottleX++) {
+    for (bottleY = bottleYMin; bottleY < bottleYMax; bottleY++) {
+      int pictureX = pictureX0 + bottleX;
+      int pictureY = pictureY0 + bottleY;
+      
+      bubblemon_color_t bottlePixel;
+      bubblemon_color_t *picturePixel;
+
+      // assert(pictureY < pictureH);
+      
+      bottlePixel = ((bubblemon_color_t*)(msgInBottle.pixel_data))[bottleX + bottleY * bottleW];
+      picturePixel = &(bubblePic->pixels[pictureX + pictureY * pictureW]);
+
+      *picturePixel = bubblemon_interpolateColor(*picturePixel,
+						 bottlePixel,
+						 bottlePixel.components.a);
+    }
   }
 }
 
@@ -717,7 +791,13 @@ const bubblemon_picture_t *bubblemon_getPicture()
   bubblemon_physicsToBubbleArray(&bubblePic);
 
   // Convert the water-and-air array into a colormap
-  bubblemon_bubbleArrayToPixmap(&bubblePic);
+  bubblemon_bubbleArrayToPixmap(&bubblePic, 1);
+
+  // Add the bottle to the colormap
+  bubblemon_bottleToPixmap(&bubblePic);
+
+  // Add a suitably transparent water-and-air array to the colormap
+  bubblemon_bubbleArrayToPixmap(&bubblePic, 0);
   
   return &bubblePic;
 }
