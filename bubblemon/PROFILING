@@ -13,8 +13,6 @@ To find out which functions take the most time, try:
 
 gprof -p ./bubblemon_applet ~/gmon.out
 
-This will tell you in which functions the program spends most of its time.
-
 Happy profiling!
 
   //Johan

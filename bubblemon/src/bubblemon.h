@@ -98,7 +98,9 @@ typedef struct {
  *
  */
 void about_cb (AppletWidget *widget, gpointer data);
-void widget_enter_cb (GtkWidget *, GdkEventAny *, gpointer data);
+/* (Begin) PoolGod 26/06/2000 */
+void widget_leave_cb (GtkWidget *, GdkEventAny *, gpointer data);
+/* (End) PoolGod */
 void destroy_about(GtkWidget *w, gpointer data);
 
 void bubblemon_setup_samples(BubbleMonData *mc);

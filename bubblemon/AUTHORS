@@ -24,3 +24,6 @@ performance enhancements, and for probably doing at least one more
 thing that I have currently forgotten about.
 
 Thanks to Bernd Eckenfels for adding Debian packaging stuff.
+
+Thanks to Thomas McGuffey for working around the GTK+ tooltip bug, and
+for finding a problem with get_censored_memory_and_swap().
