@@ -417,8 +417,16 @@ gint bubblemon_update (gpointer data)
   float waterlevels_goal;
   float current_waterlevel_goal;
 
+  // These values are for keeping track of where we have to start
+  // drawing water.
   int waterlevel_min, waterlevel_max;
   static int last_waterlevel_min = 0;
+
+  // These values are for keeping track of which pixels in the drawing
+  // area that we have to update this turn.
+  int start_drawing, stop_drawing;
+  int action_min = bm->depth, action_max = 0;
+  static int last_action_min = 0, last_action_max = -1;
 
 #ifdef ENABLE_PROFILING
   static int profiling_countdown = 2500;  /* FIXME: Is 2500 calls to here == 50 seconds? */
@@ -456,6 +464,11 @@ gint bubblemon_update (gpointer data)
       exit(EXIT_SUCCESS);
     }
 #endif  /* ENABLE_PROFILING */
+  
+  // When we get here the first time we have to initialize the value
+  // that tells us what parts of the picture have to be updated.
+  if (last_action_max == -1)
+    last_action_max = bm->depth;
   
   /* bm->setup is a status byte that is true if we are rolling */
   if (!bm->setup)
@@ -525,10 +538,15 @@ gint bubblemon_update (gpointer data)
       // Keep track of the highest and lowest water levels
       if (bm->waterlevels[x] > waterlevel_max)
         waterlevel_max = bm->waterlevels[x];
-      else if (bm->waterlevels[x] < waterlevel_min)
+      if (bm->waterlevels[x] < waterlevel_min)
         waterlevel_min = bm->waterlevels[x];
     }
 
+  if (action_max < waterlevel_max)
+    action_max = waterlevel_max;
+  if (action_min > waterlevel_min)
+    action_min = waterlevel_min;
+  
   /*
     Vary the colors of air and water with how many
     percent of the available swap space that is in use.
@@ -660,7 +678,14 @@ gint bubblemon_update (gpointer data)
       /* Draw the bubble */
       x = bubbles[i].x;
       y = bubbles[i].y;
-      
+
+      // Keep track of which parts of the picture we have to update on
+      // screen.  One of the +2 is a because we don't want miss the
+      // lowest row of the bubble.  FIXME: the other is because of
+      // some kind of off-by-one problem in the following lines.
+      if ((y + 2) > action_max)
+        action_max = y + 2;
+
       /*
         Clipping is not necessary for x, but it *is* for y.
         To prevent ugliness, we draw aliascolor only on top of
@@ -716,6 +741,14 @@ gint bubblemon_update (gpointer data)
   /* Drawing magic resides below this point */
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
+  // Find out which parts of the drawing are that actually needs to be
+  // updated
+  start_drawing = (last_action_min < action_min) ? last_action_min : action_min;
+  stop_drawing = (last_action_max > action_max) ? last_action_max : action_max;
+
+  start_drawing *= w;
+  stop_drawing *= w;
+
   /* Copy the bubbling image data to the gdk image.  A regular
      memcpy() won't do, because all pixels will have to be looked up
      using col[buf[i]] before being copied to the image buffer. */
@@ -724,7 +757,7 @@ gint bubblemon_update (gpointer data)
     case 4:
       {
 	u_int32_t *ptr = (u_int32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = 0; i < n_pixels; i++)
+	for (i = start_drawing; i < stop_drawing; i++)
 	  ptr[i] = col[buf[i]];
 	break;
       }
@@ -732,7 +765,7 @@ gint bubblemon_update (gpointer data)
     case 2:
       {
 	u_int16_t *ptr = (u_int16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = 0; i < n_pixels; i++)
+	for (i = start_drawing; i < stop_drawing; i++)
 	  ptr[i] = col[buf[i]];
 	break;
       }
@@ -740,7 +773,7 @@ gint bubblemon_update (gpointer data)
     case 1:
       {
 	u_int8_t *ptr = (u_int8_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = 0; i < n_pixels; i++)
+	for (i = start_drawing; i < stop_drawing; i++)
 	  ptr[i] = col[buf[i]];
 	break;
       }
@@ -754,6 +787,10 @@ gint bubblemon_update (gpointer data)
 	      __LINE__);
   }
 
+  // Remember where we have been poking around this round
+  last_action_max = action_max;
+  last_action_min = action_min;
+  
   /* Update the display. */
   bubblemon_expose_handler (bm->area, NULL, bm);
 
