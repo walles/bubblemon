@@ -2,6 +2,8 @@
 
 SUBDIRS = macros src gnome packaging
 
+EXTRA_DIST = PROFILING FAQ
+
 install-data-local:
 	@$(NORMAL_INSTALL)
 	if test -d $(srcdir)/pixmaps; then \
