@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-20 19:55+0200\n"
+"POT-Creation-Date: 2000-12-02 22:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:76
+#: src/bubblemon.c:75
 #, c-format
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
@@ -23,12 +23,13 @@ msgstr ""
 "Fejl: NUM_COLORS konstanten i bubblmon.h skal være et multiplum af 3.\n"
 "      Det er den nuværende værdi %d ikke.\n"
 
-#: src/bubblemon.c:240
+#: src/bubblemon.c:242
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr "glibtop_get_mem() siger at du ikke har nogen hukommelse i linie %d i %s"
+msgstr ""
+"glibtop_get_mem() siger at du ikke har nogen hukommelse i linie %d i %s"
 
-#: src/bubblemon.c:293
+#: src/bubblemon.c:295
 #, c-format
 msgid ""
 "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
@@ -39,12 +40,12 @@ msgstr ""
 "      Disse var beregnet ud fra swap.used (%Ld), memory.used (%Ld),\n"
 "      memory.cached (%Ld) og memory.buffer (%Ld) på linie %d af %s.\n"
 
-#: src/bubblemon.c:348
+#: src/bubblemon.c:350
 #, c-format
 msgid "bm == NULL in update_tooltip() on line %d of %s\n"
 msgstr "bm == NULL i update_tooltip() på linie %d af %s\n"
 
-#: src/bubblemon.c:361
+#: src/bubblemon.c:363
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s\n"
@@ -54,33 +55,35 @@ msgstr ""
 "Swap brugt: %s\n"
 "CPU load: %d%%"
 
-#: src/bubblemon.c:391
+#: src/bubblemon.c:393
 #, c-format
 msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-msgstr "get_censored_memory_and_swap() siger at du ikke har noget hukommelse på linie %d i %s"
+msgstr ""
+"get_censored_memory_and_swap() siger at du ikke har noget hukommelse på "
+"linie %d i %s"
 
-#: src/bubblemon.c:412
+#: src/bubblemon.c:414
 msgid ""
 "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
 "(0-100)\n"
 "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
 "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 msgstr ""
-"Error: memoryPercentage (%d%%) eller swapPercentage (%d%%) har forkert størrelse "
-"(0-100)\n"
+"Error: memoryPercentage (%d%%) eller swapPercentage (%d%%) har forkert "
+"størrelse (0-100)\n"
 "       De var beregnet ud fra mem_used (%Ld), mem_max (%Ld),\n"
 "       swap_used (%Ld) og swap_max (%Ld) på linie %d af %s.\n"
 
-#: src/bubblemon.c:471
+#: src/bubblemon.c:539
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunne ikke chdir() til $HOME (%s)\n"
 
-#: src/bubblemon.c:477
+#: src/bubblemon.c:545
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME environment variablen er ikke sat\n"
 
-#: src/bubblemon.c:482
+#: src/bubblemon.c:550
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -89,11 +92,11 @@ msgstr ""
 "Bubblemon stopper.  Profil data skulle være i ~/gmon.out.\n"
 "For lidt sjov, kør 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:484
+#: src/bubblemon.c:552
 msgid "<name of executable>"
 msgstr "<navnet på den binære fil>"
 
-#: src/bubblemon.c:584
+#: src/bubblemon.c:664
 #, c-format
 msgid ""
 "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
@@ -101,28 +104,28 @@ msgid ""
 "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
 "of %s.\n"
 msgstr ""
-"Fejl: luft farve (%d) eller vand farve (%d) eller alias farve (%d) har forkert værdi "
-"(0-%d).\n"
-"       swapPercentage (%d) har sandsynligvis også forkert værdi (0-100) på linie %d "
-"af %s.\n"
+"Fejl: luft farve (%d) eller vand farve (%d) eller alias farve (%d) har "
+"forkert værdi (0-%d).\n"
+"       swapPercentage (%d) har sandsynligvis også forkert værdi (0-100) på "
+"linie %d af %s.\n"
 
-#: src/bubblemon.c:889
+#: src/bubblemon.c:965
 msgid "Can't create applet!\n"
 msgstr "Kan ikke lave applet!\n"
 
-#: src/bubblemon.c:892
+#: src/bubblemon.c:968
 msgid "Can't open glibtop!\n"
 msgstr "Kan ikke åbne glibtop!\n"
 
-#: src/bubblemon.c:948
+#: src/bubblemon.c:1030
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1112
+#: src/bubblemon.c:1204
 msgid "Bubbling Load Monitor"
 msgstr "Boblende Load Monitering"
 
-#: src/bubblemon.c:1115
+#: src/bubblemon.c:1207
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

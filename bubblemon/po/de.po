@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.11\n"
-"POT-Creation-Date: 2000-10-27 23:48+0200\n"
+"POT-Creation-Date: 2000-12-02 22:12+0100\n"
 "PO-Revision-Date: 2000-09-04 21:46+0100\n"
 "Last-Translator: Detlef Reichl <detlef.reichl@arcormail.de>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
@@ -116,16 +116,16 @@ msgstr "Kann Applet nicht erstellen\n"
 msgid "Can't open glibtop!\n"
 msgstr "Kann glibtop nicht öffnen\n"
 
-#: src/bubblemon.c:1028
+#: src/bubblemon.c:1030
 #, fuzzy
 msgid "About"
 msgstr "Über"
 
-#: src/bubblemon.c:1195
+#: src/bubblemon.c:1204
 msgid "Bubbling Load Monitor"
 msgstr "Blubber Auslastungs Anzeige"
 
-#: src/bubblemon.c:1198
+#: src/bubblemon.c:1207
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

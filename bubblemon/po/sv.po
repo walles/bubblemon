@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-10-27 23:48+0200\n"
+"POT-Creation-Date: 2000-12-02 22:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,15 +105,15 @@ msgstr "Kan inte skapa applet!\n"
 msgid "Can't open glibtop!\n"
 msgstr "Kan inte öppna glibtop!\n"
 
-#: src/bubblemon.c:1028
+#: src/bubblemon.c:1030
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1195
+#: src/bubblemon.c:1204
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
-#: src/bubblemon.c:1198
+#: src/bubblemon.c:1207
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

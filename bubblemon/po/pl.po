@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-10-27 23:48+0200\n"
+"POT-Creation-Date: 2000-12-02 22:12+0100\n"
 "PO-Revision-Date: nie 06 sie 2000 13:18:25 CEST\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -99,16 +99,16 @@ msgstr "Nie mo¿na utworzyæ apletu!\n"
 msgid "Can't open glibtop!\n"
 msgstr "Nie mo¿na otworzyæ biblioteki glibtop!\n"
 
-#: src/bubblemon.c:1028
+#: src/bubblemon.c:1030
 #, fuzzy
 msgid "About"
 msgstr "Informacje o..."
 
-#: src/bubblemon.c:1195
+#: src/bubblemon.c:1204
 msgid "Bubbling Load Monitor"
 msgstr "B±belkowy monitor obci±¿enia systemu"
 
-#: src/bubblemon.c:1198
+#: src/bubblemon.c:1207
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
