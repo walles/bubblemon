@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <marcosolari@libero.it>, 2001.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.7\n"
+"POT-Creation-Date: 2001-09-10 22:35+0200\n"
+"PO-Revision-Date: 2001-09-12 10:08+0100\n"
+"Last-Translator: Marco Solari <marcosolari@libero.it>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/bubblemon.c:101
+#, c-format
+msgid ""
+"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+"       The current value of %d is not.\n"
+msgstr "La costante NUM_COLORS in bubblemon.h deve essere un multiplo di r.\n"
+"       Il valore attuale di %d non lo è.\n"
+
+#: src/bubblemon.c:292
+#, c-format
+msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+msgstr "glibtop_get_mem() dice che non hai memoria alla riga %d in %s"
+
+#: src/bubblemon.c:403
+#, c-format
+msgid ""
+"Memory used: %s\n"
+"Swap used: %s"
+msgstr ""
+"Memoria usata: %s\n"
+"Swap usato: %s"
+
+#: src/bubblemon.c:410
+#, c-format
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+"\n"
+"carico CPU: %d%%"
+
+#: src/bubblemon.c:421
+#, c-format
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+"\n"
+"carico CPU #%d: %d%%"
+
+#: src/bubblemon.c:655
+#, c-format
+msgid "Couldn't chdir() to $HOME (%s)\n"
+msgstr "Impossibile chdir() a $HOME (%s)\n"
+
+#: src/bubblemon.c:661
+msgid "$HOME environment variable not set\n"
+msgstr "Variabile d'ambiente $HOME non impostata\n"
+
+#: src/bubblemon.c:666
+#, c-format
+msgid ""
+"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+msgstr ""
+"Bubblemon sta terminando.  Informazioni per il profiling dovrebbero essere in ~/gmon.out.\n"
+"Per divertirti, esegui 'gprof -l -p %s ~/gmon.out'.\n"
+
+#: src/bubblemon.c:668
+msgid "<name of executable>"
+msgstr "<nome dell'eseguibile>"
+
+#: src/bubblemon.c:1040
+msgid "Can't create applet!\n"
+msgstr "Impossibile creare l'applet!\n"
+
+#: src/bubblemon.c:1043
+msgid "Can't open glibtop!\n"
+msgstr "Impossibile aprire glibtop!\n"
+
+#: src/bubblemon.c:1106
+msgid "About"
+msgstr "A proposito"
+
+#: src/bubblemon.c:1281
+msgid "Bubbling Load Monitor"
+msgstr "Monitor del carico 'a bolle'"
+
+#: src/bubblemon.c:1284
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details.\n"
+msgstr ""
+"Questa applet visualizza il carico della tua CPU come un liquido in "
+"ebollizione.\n"
+"Questa applet non fornisce ASSOLUTAMENTE NESSUNA GARANZIA, vedi il file "
+"LICENSE per dettagli.\n"
+"Questo è software libero, e si può redistribuirlo a certe condizioni "
+"(GPL), vedi il file LICENSE per dettagli.\n"
+
