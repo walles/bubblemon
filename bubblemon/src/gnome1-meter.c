@@ -59,14 +59,14 @@ void meter_init(int argc, char *argv[], meter_sysload_t *load)
   g_assert(load->nCpus > 0);
 
   // FIXME: Initialize the load histories and indices
-  cpuLoadIndex = (int *)malloc(load->nCpus * sizeof(int));
-  cpuLoadHistory = (int **)malloc(load->nCpus * sizeof(int *));
-  cpuTotalLoadHistory = (int **)malloc(load->nCpus * sizeof(int *));
+  cpuLoadIndex = (int *)calloc(load->nCpus, sizeof(int));
+  cpuLoadHistory = (int **)calloc(load->nCpus, sizeof(int *));
+  cpuTotalLoadHistory = (int **)calloc(load->nCpus, sizeof(int *));
 
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++)
   {
-    cpuLoadHistory[cpuNo] = (int *)malloc(LOADSAMPLES * sizeof(int));
-    cpuTotalLoadHistory[cpuNo] = (int *)malloc(LOADSAMPLES * sizeof(int));
+    cpuLoadHistory[cpuNo] = (int *)calloc(LOADSAMPLES, sizeof(int));
+    cpuTotalLoadHistory[cpuNo] = (int *)calloc(LOADSAMPLES, sizeof(int));
   }
   
   // Initialize memory and swap sizes
