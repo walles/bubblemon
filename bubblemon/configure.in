@@ -43,20 +43,11 @@ AC_MSG_CHECKING(what languages to include)
 AC_MSG_RESULT($LINGUAS)
 
 GETTEXT_PACKAGE=bubblemon
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext's opinion on the package name])
 AC_SUBST(GETTEXT_PACKAGE)
 
 # For i18n and l10n (continued)
 AM_GLIB_GNU_GETTEXT
-
-# Where do we put locale information?
-if test "x$prefix" = "xNONE"; then
-  LOCALEDIR=$ac_default_prefix/share/locale
-else
-  LOCALEDIR=$prefix/share/locale
-fi
-AC_DEFINE_UNQUOTED(LOCALEDIR, "$LOCALEDIR")
-
 
 
 ######################################################################
@@ -80,7 +71,7 @@ if test "x$profiling" = "xyes"; then
 
   AC_MSG_RESULT($profilingFLAGS)
 
-  AC_DEFINE(ENABLE_PROFILING)
+  AC_DEFINE(ENABLE_PROFILING, 1, [Whether to make a special profiling-oriented build])
 
   AC_MSG_WARN()
   AC_MSG_WARN(You have enabled profiling by specifying the --enable-profiling switch.)
@@ -116,15 +107,13 @@ AC_SUBST(GTOP_APPLETS_CFLAGS)
 AC_SUBST(GTOP_APPLETS_LIBS)
 AM_CONDITIONAL(BUILD_GTOP_APPLETS, $build_gtop_applets)
 
-# The gnome2 panel is resizable
-AC_DEFINE(HAVE_CHANGE_PIXEL_SIZE)
-
 
 ######################################################################
 #
 # Output our test results
 #
 #
+
 AC_OUTPUT([
 Makefile
 src/Makefile
