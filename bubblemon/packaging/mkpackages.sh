@@ -42,7 +42,7 @@ fi
 rm ../*.changes ../*.dsc ../*.dsc.asc ../bubblemon_*.tar.gz
 
 # Build a source package
-make dist
+make -j2 dist
 if [ $? != 0 ] ; then
     echo Error: Source package building failed > /dev/stderr
     exit 1
@@ -51,7 +51,7 @@ mv bubblemon-*.tar.gz ..
 
 # Build an RPM
 rm -f bubblemon-*.tar.gz
-make dist
+make -j2 dist
 if [ $? != 0 ] ; then
     echo Error: Source package building failed > /dev/stderr
     exit 1
