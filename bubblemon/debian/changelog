@@ -4,7 +4,7 @@ bubblemon (1.2.4-1) stable; urgency=medium
   * Fix minor visual glitch where the top pixels of each bubble were
     chopped off for bubbles over a certain altitude.
 
- --
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 29 Jun 2002 18:46:54 +0200
 
 bubblemon (1.2.3-1) stable; urgency=medium
 
