@@ -14,6 +14,7 @@ Name[ro]=Applet Monitor de Încãrcare cu Bule
 Name[nl]=Bubbelende belastingsmonitor
 Name[pl]=B±belkowy monitor obci±¿enia systemu
 Name[pt]=Monitor de carga borbulhento
+Name[hu]=Buborékoló terheltség figyelõ applet
 Comment=Visualize system load as a bubbling liquid
 Comment[no]=Viser belastninga på systemet som en boblende væske
 Comment[sh]=Opterecenje sistema vizualisano u burnost tecnosti
@@ -29,6 +30,7 @@ Comment[ro]=Afiºeazã încãrcarea procesorului sub forma unui lichid cu bule
 Comment[nl]=Visualiseert de systeembelasting als een bubbelende vloeistof
 Comment[pl]=Wy¶wietla obci±¿enie systemu jako p³ywaj±ce pêcherzyki
 Comment[pt]=Visualize a carga do sistema como um liquido borbulhento
+Comment[hu]=A rendszer terheltségét buborékoló folyadék formájában jeleníti meg
 Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
 Icon=bubblemon.png
 Terminal=0

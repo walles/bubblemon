@@ -1,0 +1,107 @@
+# bubblemon Hungarian translation
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Robert Vanyi <robi@mora.u-szeged.hu>, 2001.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-05-11 21:35+0200\n"
+"PO-Revision-Date: 2001-09-09 03:08I+0200\n"
+"Last-Translator: Robert Vanyi <robi@mora.u-szeged.hu>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/bubblemon.c:84
+#, c-format
+msgid ""
+"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+"       The current value of %d is not.\n"
+msgstr ""
+"Hiba: A bubblemon.h fájlban a NUM_COLOR konstansnak 3 többszörösének "
+"kell lennie.\n"
+"      A jelenlegi érték, %d, nem az.\n"
+
+#: src/bubblemon.c:290
+#, c-format
+msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+msgstr "glibtop_get_mem() az mondja, nincs több memória, %s, %d. sor"
+
+#: src/bubblemon.c:401
+#, c-format
+msgid ""
+"Memory used: %s\n"
+"Swap used: %s"
+msgstr ""
+"Használt memória: %s\n"
+"Használt swap: %s"
+
+#: src/bubblemon.c:408
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+"\n"
+"CPU foglaltság: %d%%"
+
+#: src/bubblemon.c:419
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+"\n"
+"%d. CPU foglaltsága: %d%%"
+
+#: src/bubblemon.c:653
+#, c-format
+msgid "Couldn't chdir() to $HOME (%s)\n"
+msgstr "Nem sikerült a $HOME könyvtárba váltani (%s)\n"
+
+#: src/bubblemon.c:659
+msgid "$HOME environment variable not set\n"
+msgstr "A $HOME környezeti változó nincs beállítva\n"
+
+#: src/bubblemon.c:664
+#, c-format
+msgid ""
+"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+msgstr ""
+"A bubblemon kilép. A profiling adatok a ~/gmon.out-ban lesznek.\n"
+"Futtassd a 'gprof -l -p %s ~/gmon.out' parancsot.\n"
+
+#: src/bubblemon.c:666
+msgid "<name of executable>"
+msgstr "<futtatható fájl neve>"
+
+#: src/bubblemon.c:1038
+msgid "Can't create applet!\n"
+msgstr "Nem sikerült az applet létrehozása!\n"
+
+#: src/bubblemon.c:1041
+msgid "Can't open glibtop!\n"
+msgstr "Nem sikerült a glibtop megnyitása!\n"
+
+#: src/bubblemon.c:1104
+msgid "About"
+msgstr "Névjegy"
+
+#: src/bubblemon.c:1279
+msgid "Bubbling Load Monitor"
+msgstr "Buborékoló terheltség figyelõ"
+
+#: src/bubblemon.c:1282
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details."
+msgstr ""
+"Ez az applet a CPU terheltségét jelzi ki buborékoló folyadék formájában.\n"
+"Ehhez az applethez SEMMIFÉLE GARANCIA nem jár, részletekért lásd a LICENSE "
+"fájlt.\n"
+"Ez szabad szoftver, és bizonyos feltételek mellett (GPL) szabadon "
+"terjeszthetõ, részletekért lásd a LICENSE fájlt."
+
