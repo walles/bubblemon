@@ -98,6 +98,10 @@ int main (int argc, char ** argv)
       /* A quick-and-dirty hack to start the GOAD server pseudo-automatically.
        * There is probably a better way to do this.
        *       -- Alex Badea
+       *
+       * If so, it's probably documented at:
+       * http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html
+       *       -- Johan Walles
        */
 
       if (!no_loop)
@@ -114,24 +118,14 @@ int main (int argc, char ** argv)
           execv(argv[0], new_argv);
         }
 
-      /* FIXME: Try starting the bubblemon_applet GOAD server manually
-         before failing.  Some hints on doing this can be found at
-         "http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html"
-      */
-
       fprintf(stderr,
-              "Couldn't activate GOAD server.  This usually means that you are trying\n"
-              "to run the applet from the command line and haven't specified the\n"
-              "--activate-goad-server=bubblemon_applet switch.  Add that switch and\n"
-              "give it another try.\n"
-              "\n"
-              "If you have any idea about how it can be started from within the code, I'd\n"
-              "appreciate it a lot if you could tell me.  Insert your code at the FIXME just\n"
-              "above line %d in `%s'.  You'll probably want to RTFM first at\n"
+              "Couldn't activate GOAD server.  If you know what this means, or how\n"
+              "to fix it, I'd appreciate it a lot if you could tell me.  You may\n"
+              "want to RTFM first at\n"
               "`http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html'.\n"
               "\n"
-              "Then send me (d92-jwa@nada.kth.se) an e-mail (in English or Swedish) with your\n"
-              "changes.\n"
+              "Then send me (d92-jwa@nada.kth.se) an e-mail (in English or Swedish)"
+              "with your solution.\n"
               "\n"
               "Thanks a bunch :-)  /Johan.\n",
               __LINE__,
