@@ -53,6 +53,7 @@ make clean
 /etc/CORBA/servers/bubblemon-gnome1.gnorba
 /usr/share/applets/Monitors/bubblemon-gnome1.desktop
 /usr/share/locale/*/LC_MESSAGES/bubblemon.mo
+/usr/share/pixmaps/bubblemon.png
 
 %doc AUTHORS COPYING FAQ README FAQ PROFILING TRANSLATIONS TODO
 
