@@ -9,13 +9,14 @@ INCLUDES = \
 	$(defaultincludes)
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
-bin_PROGRAMS = bubblemon_applet
+bin_PROGRAMS = bubblemon-gnome1
 
-bubblemon_applet_SOURCES = \
+bubblemon_gnome1_SOURCES = \
 	bubblemon.c bubblemon.h \
-	session.c session.h
+	meter.h ui.h \
+	gnome1-meter.c gnome1-ui.c
 
-bubblemon_applet_LDADD = \
+bubblemon_gnome1_LDADD = \
 	$(GNOME_LIBDIR) \
 	$(GNOME_APPLETS_LIBS) \
 	$(LIBGTOP_LIBS) \

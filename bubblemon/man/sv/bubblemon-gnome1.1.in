@@ -4,7 +4,7 @@
 Bubblande lastmätare \- Visar systemlasten som en bubblande vätska
 .SH "SYNTAX"
 .LP 
-bubblemon_applet
+bubblemon-gnome1
 .SH "BESKRIVNING"
 .LP
 Detta panelprogram för GNOME visar systemlasten som en bubblande

@@ -49,13 +49,13 @@ make clean
 
 %files 
 
-/usr/bin/bubblemon_applet
-/etc/CORBA/servers/bubblemon_applet.gnorba
-/usr/share/applets/Monitors/bubblemon_applet.desktop
+/usr/bin/bubblemon-gnome1
+/etc/CORBA/servers/bubblemon-gnome1.gnorba
+/usr/share/applets/Monitors/bubblemon-gnome1.desktop
 /usr/share/locale/*/LC_MESSAGES/bubblemon.mo
 
 %doc AUTHORS COPYING FAQ README FAQ PROFILING TRANSLATIONS TODO
 
-/usr/man/man1/bubblemon_applet.1*
-/usr/man/sv/man1/bubblemon_applet.1*
-/usr/man/hu/man1/bubblemon_applet.1*
+/usr/man/man1/bubblemon-gnome1.1*
+/usr/man/sv/man1/bubblemon-gnome1.1*
+/usr/man/hu/man1/bubblemon-gnome1.1*

@@ -33,7 +33,7 @@ Comment[pl]=Wy¶wietla obci±¿enie systemu jako p³ywaj±ce pêcherzyki
 Comment[pt]=Visualize a carga do sistema como um liquido borbulhento
 Comment[hu]=A rendszer terheltségét buborékoló folyadék formájában jeleníti meg
 Comment[it]=Visualizza il carico di sistema come un liquido in ebollizione
-Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
+Exec=bubblemon-gnome1 --activate-goad-server=bubblemon-gnome1
 Icon=bubblemon.png
 Terminal=0
 Type=Application

@@ -1,11 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  - A GNOME panel applet that displays the CPU + memory load as a
- *    bubbling liquid.
- *  Copyright (C) 1999 Johan Walles
- *  - d92-jwa@nada.kth.se
- *  Copyright (C) 1999 Merlin Hughes
- *  - http://nitric.com/freeware/
+ *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
+ *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,16 +18,12 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _SESSION_H
-#define _SESSION_H
+#ifndef UI_H
+#define UI_H
 
 #include "bubblemon.h"
 
-void bubblemon_session_load(char * cfgpath, BubbleMonData * mc);
-int bubblemon_session_save(GtkWidget * w,
-			 const char * cfgpath,
-			 const char * globcfgpath,
-			 gpointer data);
-void bubblemon_session_defaults(BubbleMonData * mc);
+/* Start the UI.  Returns on exit. */
+extern int ui_main(int argc, char *argv[]);
 
-#endif /* _SESSION_H */
+#endif

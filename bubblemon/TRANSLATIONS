@@ -12,7 +12,7 @@ know.
   favourite language.
 
 2. To translate the GNOME panel menu entry, open the file
-  gnome/bubblemon_applet.desktop in your favourite editor, and just
+  gnome/bubblemon-gnome1.desktop in your favourite editor, and just
   add your translations to the others (if you look at the file, it
   should be obvious).  Use the language code from step one (above).
   Mail the result to me (d92-jwa@nada.kth.se).

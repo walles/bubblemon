@@ -6,7 +6,7 @@ Change to the bubblemon directory and do the following:
 
 $ ./configure
 $ make
-$ src/bubblemon_applet --activate-goad-server=bubblemon_applet
+$ src/bubblemon-gnome1
 
 
 2. Can you add this feature to the applet?
@@ -42,21 +42,21 @@ message.  Do the follwing from the bubblemon directory:
 
 $ ./configure
 $ make
-$ src/bubblemon_applet --activate-goad-server=bubblemon_applet
+$ src/bubblemon-gnome1
 
 
 5. The program crashes.  What should I do?
 
 Either fix it yourself and send me (d92-jwa@nada.kth.se) a patch, or
 send me a bug report.  The bug report should contain the result of
-changing directory into the bubblemon directory and doing the
+changing directory into the bubblemon src directory and doing the
 following:
 
 $ ./configure
 $ make
 $ cd src
-$ gdb bubblemon_applet
-(gdb) run --activate-goad-server=bubblemon_applet
+$ gdb bubblemon-gnome1
+(gdb) run
 <SEGFAULT>
 (gdb) info stack
 

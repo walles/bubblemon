@@ -26,55 +26,10 @@ one using the largest amount of CPU.
 
 . Add a "Legend" to the right mouse button menu.
 
-. Make a properties box using Glade/libGlade?  In that case, make the
- properties box contain four color options, options for changing the
- update frequency and a slider for setting the ripple factor.  Have
- everything saved / restored by the session handling code.  If you
- want to look into this, a good start would be reading the libGlade
- docs at "http://developer.gnome.org/doc/API/libglade/libglade.html".
- If you want to learn how to easily write GUIs for GNOME, this one is
- for you.
-
-. When the applet gets a properties box it should be possible for the
- user to choose between censored / uncensored memory measurement.  The
- measuring technique for the tool tip and the water level should be
- separately selectable.
- 
-. When the applet gets a properties box, make it run some configurable
- command line when clicked.
+. Run 'gtop' if the user clicks the applet.
 
 . Pause the applet if it ain't visible for some reason (for example if
- the GNOME panel is hidden).  If you know about or want to learn how
- to make nice GNOME 1.2 compliant panel applets, this one is for you.
- You should probably connect some additional signals to the applet in
- the make_new_bubblemon_applet() function in bubblemon.c and add some
- variable that is checked at the beginning of bubblemon_update() to
- see whether the applet should be updated or not.
-
-. The color handling should be re-written.  If you want to look into
- this, the function bubblemon_setup_colors() in bubblemon.c should be
- re-written.  Also, the last lines of bubblemon_update() in
- bubblemon.c (below the comment about "drawing magic") should be
- re-written.  Currently, 96 colors are allocated to begin with, and
- depending on swap load three of them are used for drawing the applet
- at any time.  The way it should be done (if that's possible, I don't
- know) is to allocate three colors, and use them for drawing all the
- time.  These three colors should then be modified according to the
- current swap load.  If you know about, or want to learn about GTK+
- color handling, this one is for *you*.  Some notes on this topic are
- in the DRAWING_REWRITE file.
-
-. Split the currently *enormous* bubblemon_update() function in
- bubblemon.c into several smaller functions for code readability and
- maintainability.
-
-. Split bubblemon.c into several files.
-
-. Make bubble movement independent of update frequency.  If you know
- about or wish to learn about how to make real time visualizations of
- physical phenomenon, this one is for you.  You should probably modify
- the code around the "Move the bubble vertically" comment in
- bubblemon.c for doing this.
+ the GNOME panel is hidden).
 
 . Fix the bubblemon.spec file (that describes what should go into the
  RPM) so that it makes 'root' own all files (instead of 'johan'...).
@@ -91,9 +46,6 @@ one using the largest amount of CPU.
 . Make the configure script check for if we are running on a Linux 2.2
  system.  If that's the case, check memory usage a lot more seldom.
 
-. I want a rubber duck.  Timecop's Windowmaker fork
- (http://www.ne.jp/asahi/linux/timecop/#bubblemon) has one that could
- possibly be ported (if it works well, what happens with the duck if
- the water level hits the roof?).  This point probably requires
- rewriting the color handling code as outlined above (and in the
- DRAWING_REWRITE file).
+. Add a message in a bottle that drops from the sky when new mail
+ arrives.  After mail has been read, the bottle should sink out of the
+ vial.  The bottle should only appear if the applet is big enough.
