@@ -26,6 +26,11 @@ the applet on, this is very hard for me to track down.  So if you know
 some C and want to help me find the problem, I will greatly appreciate
 any help I can get!  I'm really stuck on this one, so please HELP!
 
+My only lead is that one person who did *not* have this problem added
+128 megs to his system, and was then hit by it.  This makes me guess
+that libgtop (http://www.home-of-linux.org/gnome/libgtop) is the
+perpetrator.  If you want to look into this, please do!
+
 
 3. The program doesn't do anything; it doesn't even crash!
 

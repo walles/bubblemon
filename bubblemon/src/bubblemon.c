@@ -179,16 +179,32 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 				  u_int64_t *swap_used,
 				  u_int64_t *swap_max)
 {
-  glibtop_mem memory;
+  static glibtop_mem memory;
   u_int64_t my_mem_used, my_mem_max;
   u_int64_t my_swap_used, my_swap_max;
   
   static glibtop_swap swap;  /* Needs to be static 'cause we don't do it every time */
 
-  static int swap_delay = 0;
+  static int swap_delay = 0, mem_delay = 0;
 
-  glibtop_get_mem (&memory);
+  /*
+    Find out the memory load, but update it only every 10 times we get
+    here.  If we do it every time, it bogs down the program.
 
+    FIXME: I have absolutely no idea how often that is.
+  */
+  if (mem_delay <= 0)
+    {
+      glibtop_get_mem (&memory);
+      
+      /*
+	FIXME: The following number should be based on a constant or
+	variable.
+      */
+      mem_delay = 10;
+    }
+  mem_delay--;
+  
   if (memory.total == 0)
     {
       g_error("glibtop_get_mem() says you have no memory on line %d in %s",
