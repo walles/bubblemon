@@ -3,12 +3,12 @@
 # This script is used to verify that the Debian packet gets the
 # same version number that the source code has.
 
-ACTUAL_VERSION_NUMBER=@VERSION@
+ACTUAL_VERSION_NUMBER=`cat VERSION`
 
 # Check the version number of the changelog
 
 if [ -z "`head -1 changelog | grep $ACTUAL_VERSION_NUMBER`" ]; then
-    echo \'changelog\' should start with an entry for the current version \($ACTUAL_VERSION_NUMBER\)
+    echo Error: \'changelog\' should start with an entry for the current version \($ACTUAL_VERSION_NUMBER\)
     exit 1
     
 #else
@@ -19,7 +19,7 @@ fi
 # Check the version number of the 'files' file
 
 if [ -z "`grep $ACTUAL_VERSION_NUMBER files`" ]; then
-    echo \'files\' should contain the current version number \($ACTUAL_VERSION_NUMBER\)
+    echo Error: \'files\' should contain the current version number \($ACTUAL_VERSION_NUMBER\)
     exit 1
     
 #else

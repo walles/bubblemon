@@ -30,6 +30,7 @@ install: build
 	dh_clean -k
 	dh_installdirs
 	$(MAKE) install DESTDIR=`pwd`/debian/tmp
+	$(MAKE) install DESTDIR=`pwd`/debian/tmp gnulocaledir=`pwd`/debian/tmp/usr/share/locale
 
 # Build architecture-independent files here.
 binary-indep: build install

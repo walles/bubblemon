@@ -110,7 +110,7 @@ gnome/Makefile
 packaging/Makefile
 packaging/bubblemon.spec
 debian/Makefile
-debian/check_version
+debian/VERSION
 intl/Makefile
 po/Makefile.in
 ])
