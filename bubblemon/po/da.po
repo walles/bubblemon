@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-29 18:49+0200\n"
+"POT-Creation-Date: 2002-07-22 19:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,12 +13,12 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:158
+#: src/bubblemon.c:160
 #, c-format
 msgid "Memory used: %s"
 msgstr "Hukommelse brugt: %s"
 
-#: src/bubblemon.c:164
+#: src/bubblemon.c:166
 #, c-format
 msgid ""
 "\n"
@@ -27,7 +27,7 @@ msgstr ""
 "\n"
 "Swap brugt: %s"
 
-#: src/bubblemon.c:172
+#: src/bubblemon.c:174
 #, c-format
 msgid ""
 "\n"
@@ -36,7 +36,7 @@ msgstr ""
 "\n"
 "CPU load: %d%%"
 
-#: src/bubblemon.c:183
+#: src/bubblemon.c:185
 #, c-format
 msgid ""
 "\n"

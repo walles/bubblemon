@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-29 18:49+0200\n"
+"POT-Creation-Date: 2002-07-22 19:37+0200\n"
 "PO-Revision-Date: wto 09 sty 2001 10:35:08 CET\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -14,14 +14,14 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:158
+#: src/bubblemon.c:160
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Zu¿ycie pamiêci: %s\n"
 "Zu¿ycie swap'a: %s"
 
-#: src/bubblemon.c:164
+#: src/bubblemon.c:166
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Zu¿ycie pamiêci: %s\n"
 "Zu¿ycie swap'a: %s"
 
-#: src/bubblemon.c:172
+#: src/bubblemon.c:174
 #, c-format
 msgid ""
 "\n"
@@ -39,7 +39,7 @@ msgstr ""
 "\n"
 "Obci±¿enie CPU: %d%%"
 
-#: src/bubblemon.c:183
+#: src/bubblemon.c:185
 #, c-format
 msgid ""
 "\n"

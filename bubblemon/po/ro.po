@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-29 18:49+0200\n"
+"POT-Creation-Date: 2002-07-22 19:37+0200\n"
 "PO-Revision-Date: 2001-01-09 18:49+0200\n"
 "Last-Translator: Alex Badea <vampire@go.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -14,14 +14,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:158
+#: src/bubblemon.c:160
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Memorie ocupatã: %s\n"
 "Swap ocupat: %s"
 
-#: src/bubblemon.c:164
+#: src/bubblemon.c:166
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Memorie ocupatã: %s\n"
 "Swap ocupat: %s"
 
-#: src/bubblemon.c:172
+#: src/bubblemon.c:174
 #, c-format
 msgid ""
 "\n"
@@ -39,7 +39,7 @@ msgstr ""
 "\n"
 "Procesor: %d%%"
 
-#: src/bubblemon.c:183
+#: src/bubblemon.c:185
 #, c-format
 msgid ""
 "\n"
