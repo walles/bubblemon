@@ -48,14 +48,14 @@ typedef struct {
   GtkWidget *applet;
 
   gint breadth, depth, update, samples;
-  int *bubblebuf, *colors;
+  int *bubblebuf, *colors, *waterlevels, *waterlevels_inactive;
 
   Bubble bubbles[MAX_BUBBLES];
   int n_bubbles;
 
   // Color definitions
   int air_noswap, liquid_noswap, air_maxswap, liquid_maxswap;
-  
+
   gboolean setup;
 
   guint timeout;

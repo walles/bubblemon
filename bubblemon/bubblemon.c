@@ -78,7 +78,9 @@ bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, waterlevel, memoryPercentage;
+  int aircolor, watercolor, waterlevel_goal, memoryPercentage, bias;
+  int *temp;
+  
   glibtop_cpu cpu;
   glibtop_mem memory;
   glibtop_swap swap;
@@ -149,7 +151,29 @@ bubblemon_update (gpointer data)
   watercolor = aircolor + 1;
 
   // Move the water level with the current memory usage.
-  waterlevel = h - ((memoryPercentage * h) / 100);
+  waterlevel_goal = h - ((memoryPercentage * h) / 100);
+
+  // Update the waterlevels
+  bm->waterlevels[0] = waterlevel_goal;
+  bm->waterlevels[w - 1] = waterlevel_goal;
+      
+  for (x = 1; x < w; x++)
+    {
+      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
+				     bm->waterlevels[x + 1]) >> 1;
+
+      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
+
+      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
+	bm->waterlevels_inactive[x]++;
+    }
+
+  bm->waterlevels_inactive[0] = waterlevel_goal;
+  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
+
+  temp = bm->waterlevels_inactive;
+  bm->waterlevels_inactive = bm->waterlevels;
+  bm->waterlevels = temp;
 
   // Here comes the bubble magic.  Pixels are drawn by setting values in
   // buf to 0-NUM_COLORS.  We should possibly make some macros or
@@ -159,7 +183,7 @@ bubblemon_update (gpointer data)
   for (x = 0; x < w; x++)
     for (y = 0; y < h; y++)
       {
-	if (y < waterlevel)
+	if (y < bm->waterlevels[x])
 	  buf[y * w + x] = aircolor;
 	else
 	  buf[y * w + x] = watercolor;
@@ -185,7 +209,7 @@ bubblemon_update (gpointer data)
       bubbles[i].y += bubbles[i].dy;
 
       // Did we lose it?
-      if (bubbles[i].y < waterlevel)
+      if (bubbles[i].y < bm->waterlevels[bubbles[i].x])
 	{
 	  // Yes; nuke it
 	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;
@@ -520,7 +544,7 @@ about_cb (AppletWidget *widget, gpointer data)
 void
 bubblemon_set_size (BubbleMonData * bm)
 {
-  int bpp;
+  int bpp, i;
 
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
@@ -529,6 +553,20 @@ bubblemon_set_size (BubbleMonData * bm)
 
   bm->bubblebuf = malloc (bm->breadth * (bm->depth + 1) * sizeof (int));
   memset (bm->bubblebuf, 0, bm->breadth * (bm->depth + 1) * sizeof (int));
+
+  if (bm->waterlevels)
+    free (bm->waterlevels);
+
+  bm->waterlevels = malloc (bm->breadth * sizeof (int));
+  for (i = 0; i < bm->breadth; i++)
+    {
+      bm->waterlevels[i] = bm->depth;
+    }
+
+  if (bm->waterlevels_inactive)
+    free (bm->waterlevels_inactive);
+
+  bm->waterlevels_inactive = malloc (bm->breadth * sizeof (int));
 
   /*
    * If the image has already been allocated, then free them here
