@@ -2,7 +2,7 @@ bubblemon (1.2.8) unstable; urgency=medium
 
   * Fix colors on big-endian systems.
 
- --
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 12 Oct 2002 22:11:57 +0200
 
 bubblemon (1.2.7) unstable; urgency=medium
 
