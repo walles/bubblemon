@@ -7,7 +7,7 @@
 # stuff.
 #
 #
-AC_INIT(bubblemon, 2.0.2)
+AC_INIT(bubblemon, 2.0.3)
 AC_CONFIG_SRCDIR(src/bubblemon.h)
 
 AM_INIT_AUTOMAKE([1.5])
