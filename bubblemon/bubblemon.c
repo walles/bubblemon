@@ -45,8 +45,6 @@
 #include "session.h"
 #include "properties.h"
 
-gint bubblemon_expose_handler (GtkWidget *, GdkEventExpose *, gpointer);
-
 int
 main (int argc, char ** argv)
 {
@@ -84,6 +82,7 @@ bubblemon_update (gpointer data)
   glibtop_cpu cpu;
   glibtop_mem memory;
   glibtop_swap swap;
+  static int swap_delay = 0;
   uint64_t load, total, oLoad, oTotal;
 
   // bm->setup is a status byte that is true if we are rolling
@@ -121,10 +120,17 @@ bubblemon_update (gpointer data)
   glibtop_get_mem (&memory);
   memoryPercentage = (100 * (memory.used - memory.cached)) / memory.total;
 
-  // Find out the swap load
-  //glibtop_get_swap (&swap);
-  //swapPercentage = (100 * swap.used) / swap.total;
-  swapPercentage = 0;
+  // Find out the swap load, but update it only every 50 times we get
+  // here, which should amount to once a second
+  if (swap_delay <= 0)
+    {
+      glibtop_get_swap (&swap);
+      // FIXME: The following number should be based on a constant or
+      // variable.
+      swap_delay = 50;
+    }
+  swapPercentage = (100 * swap.used) / swap.total;
+  swap_delay--;
   
   // The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
   // an entry in the color table.  A pixel in the buf is accessed
@@ -170,7 +176,8 @@ bubblemon_update (gpointer data)
   for (i = 0; i < bm->n_bubbles; i++)
     {
       // Accellerate the bubble
-      bubbles[i].dy -= GRAVITY;
+      bubbles[i].dy -= GRAVITY;  // FIXME: Should bubbles have a
+                                 // limited maximum velocity?
 
       // Move the bubble vertically
       bubbles[i].y += bubbles[i].dy;
@@ -216,7 +223,8 @@ bubblemon_update (gpointer data)
   }
 
   /* Update the display. */
-  bubblemon_expose_handler (bm->area, NULL, bm);
+  if (bm->setup)
+    bubblemon_expose_handler (bm->area, NULL, bm);
 
   bubblemon_set_timeout (bm);
 
@@ -232,7 +240,7 @@ bubblemon_update (gpointer data)
  */
 gint
 bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
-			gpointer data)
+			  gpointer data)
 {
   BubbleMonData * bm = data;
 
@@ -276,6 +284,8 @@ bubblemon_delete (gpointer data) {
 
   applet_widget_gtk_main_quit();
 
+  // FIXME: Is this line ever reached?
+  
   return 0;  // Gets us rid of a warning
 }
 

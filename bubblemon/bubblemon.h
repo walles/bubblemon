@@ -93,6 +93,8 @@ typedef struct {
 #define BUBBLEMON_DEFAULT_DEPTH           "48"
 #define BUBBLEMON_DEFAULT_UPDATE_RATE     "20"
 #define BUBBLEMON_DEFAULT_LOAD_SAMPLES    "16"
+// FIXME: There should be three constants for how often the cpu, swap
+// and memory loads are updated.
 
 #define BUBBLEMON_DEFAULT_AIR_NOSWAP      "#2299FF"
 #define BUBBLEMON_DEFAULT_LIQUID_NOSWAP    "#0055FF"
@@ -116,6 +118,8 @@ gint bubblemon_update(gpointer data);
 gint bubblemon_orient_handler(GtkWidget *w, PanelOrientType o,
 				   gpointer data);
 gint bubblemon_configure_handler(GtkWidget *widget, GdkEventConfigure *event,
+			       gpointer data);
+gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 			       gpointer data);
 GtkWidget *make_new_bubblemon_applet (const gchar *goad_id);
 GtkWidget *applet_start_new_applet (const gchar *goad_id,
