@@ -13,7 +13,9 @@ används är vätskan nära toppen.  Mängden bubblor talar om hur mycket
 processorn arbetar, mycket bubblor betyder hög processorlast.  Färgen
 på vätskan talar om hur mycket växlingsutrymme ("swap") som används.
 Så länge som vätskan är vattenfärgad används inget växlingsutrymme,
-men ju mer växlingsutrymme som används desto rödare blir vätskan.
+men ju mer växlingsutrymme som används desto rödare blir vätskan.  En
+flaskpost dyker upp när det finns oläst mail i filen som pekas ut av
+miljövariabeln $MAIL.
 .LP
 Om du håller muspekaren ovanför lastmätaren någon sekund får du se
 exakta siffror på systemlasten.
