@@ -27,6 +27,7 @@
 #define _BUBBLEMON_H
 
 #include <applet-widget.h>
+#include <sys/types.h>
 
 // Note: NUM_COLORS must be divisible by 3
 #define NUM_COLORS 99 /* 384 */
@@ -59,7 +60,7 @@ typedef struct {
   gint timeout_t;
 
   int loadIndex;
-  uint64_t *load, *total;
+  u_int64_t *load, *total;
   
   /* Widgets n stuff... */
   GtkWidget *area;
@@ -117,18 +118,18 @@ GtkWidget *applet_start_new_applet (const gchar *goad_id,
 				     const char **params, int nparams);
 
 int get_cpu_load(BubbleMonData *bm);
-void usage2string(char *string, uint64_t used, uint64_t max);
+void usage2string(char *string, u_int64_t used, u_int64_t max);
 void get_censored_memory_and_swap(BubbleMonData *bm,
-				  uint64_t *mem_used,
-				  uint64_t *mem_max,
-				  uint64_t *swap_used,
-				  uint64_t *swap_max);
+				  u_int64_t *mem_used,
+				  u_int64_t *mem_max,
+				  u_int64_t *swap_used,
+				  u_int64_t *swap_max);
 void get_censored_memory_usage(BubbleMonData *bm,
-			       uint64_t *mem_used,
-			       uint64_t *mem_max);
+			       u_int64_t *mem_used,
+			       u_int64_t *mem_max);
 void get_censored_swap_usage(BubbleMonData *bm,
-			       uint64_t *swap_used,
-			     uint64_t *swap_max);
+			       u_int64_t *swap_used,
+			     u_int64_t *swap_max);
 void update_tooltip(BubbleMonData *bm);
 void get_memory_load_percentage(BubbleMonData *bm,
 				int *memoryPercentage,

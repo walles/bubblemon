@@ -27,6 +27,7 @@
 
 #include <stdio.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -95,7 +96,7 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
 {
   glibtop_cpu cpu;
   int loadPercentage;
-  uint64_t load, total, oLoad, oTotal;
+  u_int64_t load, total, oLoad, oTotal;
   int i;
 
   /* Find out the CPU load */
@@ -128,12 +129,12 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
 }
 
 void usage2string(char *string,
-		  uint64_t used,
-		  uint64_t max)
+		  u_int64_t used,
+		  u_int64_t max)
 {
   /* Create a string of the form "35/64Mb" */
   
-  uint64_t divisor = 1;
+  u_int64_t divisor = 1;
   char divisor_char = '\0';
 
   if (max > 1000000000000)
@@ -173,10 +174,10 @@ void usage2string(char *string,
 }
 
 void get_censored_memory_and_swap(BubbleMonData *bm,
-				  uint64_t *mem_used,
-				  uint64_t *mem_max,
-				  uint64_t *swap_used,
-				  uint64_t *swap_max)
+				  u_int64_t *mem_used,
+				  u_int64_t *mem_max,
+				  u_int64_t *swap_used,
+				  u_int64_t *swap_max)
 {
   glibtop_mem memory;
   static glibtop_swap swap;  /* Needs to be static 'cause we don't do it every time */
@@ -255,10 +256,10 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 }
 
 void get_censored_memory_usage(BubbleMonData *bm,
-			       uint64_t *mem_used,
-			       uint64_t *mem_max)
+			       u_int64_t *mem_used,
+			       u_int64_t *mem_max)
 {
-  uint64_t dummy;
+  u_int64_t dummy;
 
   get_censored_memory_and_swap(bm,
 			       mem_used, mem_max,
@@ -266,10 +267,10 @@ void get_censored_memory_usage(BubbleMonData *bm,
 }
 
 void get_censored_swap_usage(BubbleMonData *bm,
-			       uint64_t *swap_used,
-			       uint64_t *swap_max)
+			       u_int64_t *swap_used,
+			       u_int64_t *swap_max)
 {
-  uint64_t dummy;
+  u_int64_t dummy;
 
   get_censored_memory_and_swap(bm,
 			       &dummy, &dummy,
@@ -280,10 +281,10 @@ void update_tooltip(BubbleMonData *bm)
 {
   char memstring[20], swapstring[20], tooltipstring[200];
 
-  uint64_t swap_used;
-  uint64_t swap_max;
-  uint64_t mem_used;
-  uint64_t mem_max;
+  u_int64_t swap_used;
+  u_int64_t swap_max;
+  u_int64_t mem_used;
+  u_int64_t mem_max;
 
   /* Sanity check */
   if (!bm)
@@ -314,10 +315,10 @@ void get_memory_load_percentage(BubbleMonData *bm,
 				int *memoryPercentage,
 				int *swapPercentage)
 {
-  uint64_t mem_used;
-  uint64_t mem_max;
-  uint64_t swap_used;
-  uint64_t swap_max;
+  u_int64_t mem_used;
+  u_int64_t mem_max;
+  u_int64_t swap_used;
+  u_int64_t swap_max;
 
   get_censored_memory_and_swap(bm,
 			       &mem_used, &mem_max,
@@ -850,7 +851,7 @@ void bubblemon_set_timeout (BubbleMonData *bm)
 void bubblemon_setup_samples (BubbleMonData *bm)
 {
   int i;
-  uint64_t load = 0, total = 0;
+  u_int64_t load = 0, total = 0;
 
   if (bm->load)
     {
@@ -865,8 +866,8 @@ void bubblemon_setup_samples (BubbleMonData *bm)
     }
 
   bm->loadIndex = 0;
-  bm->load = malloc (bm->samples * sizeof (uint64_t));
-  bm->total = malloc (bm->samples * sizeof (uint64_t));
+  bm->load = malloc (bm->samples * sizeof (u_int64_t));
+  bm->total = malloc (bm->samples * sizeof (u_int64_t));
   for (i = 0; i < bm->samples; i++)
     {
       bm->load[i] = load;
