@@ -1,0 +1,134 @@
+# bubblemon Finnish translation.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Pauli Virtanen <pauli.virtanen@saunalahti.fi>, 2000.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 0.9.12\n"
+"POT-Creation-Date: 2000-09-20 19:55+0200\n"
+"PO-Revision-Date: 2000-09-24 20:39+03:00\n"
+"Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
+"Language-Team: Finnish <fi@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/bubblemon.c:76
+#, c-format
+msgid ""
+"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+"       The current value of %d is not.\n"
+msgstr ""
+"Virhe: NUM_COLORS vakion tiedostossa bubblemon.h täytyy olla jaollinen\n"
+"       kolmella. Nykyinen arvo %d ei ole.\n"
+
+#: src/bubblemon.c:240
+#, c-format
+msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+msgstr "glibtop_get_mem() ilmoitti rivillä %d tiedostossa %s, että tietokoneessa ei ole muistia"
+
+#: src/bubblemon.c:293
+#, c-format
+msgid ""
+"Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+"       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
+"       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
+msgstr ""
+"Virhe: mem_used (%Ld) > mem_max (%Ld) tai swap_used (%Ld) > swap_max(%Ld)\n"
+"       Ne laskettiin muuttujista swap.used (%Ld), memory.used(%Ld),\n"
+"       memory.cached (%Ld) ja memory.buffer (%Ld) rivillä %d tiedostossa %s.\n"
+
+#: src/bubblemon.c:348
+#, c-format
+msgid "bm == NULL in update_tooltip() on line %d of %s\n"
+msgstr "bm == NULL funktiossa update_tooltip() rivillä %d tiedostossa %s\n"
+
+#: src/bubblemon.c:361
+#, c-format
+msgid ""
+"Memory used: %s\n"
+"Swap used: %s\n"
+"CPU load: %d%%"
+msgstr ""
+"Muistia käytössä: %s\n"
+"Sivutusta käytetty: %s\n"
+"Prosessorikuorma: %d%%"
+
+#: src/bubblemon.c:391
+#, c-format
+msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
+msgstr "get_censored_memory_and_swap() ilmoitti rivillä %d tiedostossa %s, että koneessa ei ole muistia"
+
+#: src/bubblemon.c:412
+#, c-format
+msgid ""
+"Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
+"(0-100)\n"
+"       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
+"       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
+msgstr ""
+"Virhe: memoryPercentage (%d%%) tai swapPercentage (%d%%) ei alueella 0-100\n"
+"       Ne laskettiin muuttujista mem_used (%Ld), mem_max (%Ld),\n"
+"       swap_used (%Ld) ja swap_max (%Ld) rivillä %d tiedostossa %s.\n"
+
+#: src/bubblemon.c:471
+#, c-format
+msgid "Couldn't chdir() to $HOME (%s)\n"
+msgstr "En voinut siirtyä hakemistoon $HOME (%s)\n"
+
+#: src/bubblemon.c:477
+msgid "$HOME environment variable not set\n"
+msgstr "$HOME-ympäristömuuttuja ei ole asetettu.\n"
+
+#: src/bubblemon.c:482
+#, c-format
+msgid ""
+"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+msgstr ""
+"Bubblemon sulkeutuu. Profilointidatan pitäisi olla tiedostossa ~/gmon.out.\n"
+"Ajapa huviksesi 'gprof -l -p %s ~/gmon.out'.\n"
+
+#: src/bubblemon.c:484
+msgid "<name of executable>"
+msgstr "<ohjelmatiedoston nimi>"
+
+#: src/bubblemon.c:584
+#, c-format
+msgid ""
+"Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
+"(0-%d).\n"
+"       swapPercentage (%d) is probably out of range (0-100) too on line %d "
+"of %s.\n"
+msgstr ""
+"Error: aircolor (%d) tai watercolor (%d) tai aliascolor (%d) ei alueella (0-%d).\n"
+"       swapPercentage (%d) ei ole luultavasti alueella (0-100) myöskään rivillä %d tiedostossa %s.\n"
+
+#: src/bubblemon.c:889
+msgid "Can't create applet!\n"
+msgstr "Sovelmaa ei voitu luoda!\n"
+
+#: src/bubblemon.c:892
+msgid "Can't open glibtop!\n"
+msgstr "glibtop:ia ei voitu avata!\n"
+
+#: src/bubblemon.c:948
+msgid "About"
+msgstr "Tietoja"
+
+#: src/bubblemon.c:1112
+msgid "Bubbling Load Monitor"
+msgstr "Kupliva kuormamittari"
+
+#: src/bubblemon.c:1115
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details."
+msgstr ""
+"Tämä sovelma näyttää prosessorisi kuorman kuplivana nesteenä.\n"
+"Tällä sovelmalla EI OLE MINKÄÄNLAISTA TAKUUTA. Katso lisätietoja tiedostosta LICENSE.\n"
+"Tämä sovelma on vapaata ohjelmistoa, ja voit levittää sitä tiettyjen\n"
+"ehtojen (GPL) mukaan. Katso lisätietoja tiedostosta LICENSE."
