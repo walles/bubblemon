@@ -1,7 +1,9 @@
 To Emacs: This is a -*-text-*- file.
 
 This file will tell you how to translate the applet into your
-favourite language.
+favourite language.  No programming skills are required for this, and
+if you need any help with this, please let me (d92-jwa@nada.kth.se)
+know.
 
 1. Find out your language code from
   "http://www.unicode.org/unicode/onlinedat/languages.html".  In the
@@ -9,37 +11,44 @@ favourite language.
   where ever you see xx, you should replace it with the code for your
   favourite language.
 
-2. Create the template file (more on this later) by doing...
+2. To translate the GNOME panel menu entry, open the file
+  gnome/bubblemon_applet.desktop in your favourite editor, and just
+  add your translations to the others (if you look at the file, it
+  should be obvious).  Use the language code from step one (above).
+  Mail the result to me (d92-jwa@nada.kth.se).
+
+3. Create the template file (more on this later) by doing...
 
   ./configure
   make
 
   ... from the bubblemon directory.
 
-3. Enter the 'po' directory:
+4. Enter the 'po' directory:
 
   cd po
 
-4. Initialize your translation by copying bubblemon.pot into xx.po
-   (but use *your* language code instead of xx):
+5. Initialize your translation by copying bubblemon.pot into xx.po
+   (but remember to use *your* language code instead of xx):
 
   cp bubblemon.pot xx.po
 
-5. Edit xx.po using your favourite text editor:
+6. Edit xx.po using your favourite text editor:
 
   emacs xx.po
 
-6. When you have translated everything in that file, mail it to me
+7. When you have translated everything in that file, mail it to me
    (d92-jwa@nada.kth.se) for inclusion in the next version.
 
-7. If you want to see your newly created translation in action, edit
-   configure.in in the bubblemon directory, and add your language to
-   the ALL_LINGUAS variable.  This is what the ALL_LINGUAS line should
-   look like if there are translations for Swedish and xx:
+8. If you want to see your newly created translation in action, use
+   your favourite text editor to edit configure.in in the bubblemon
+   directory, and add your language to the ALL_LINGUAS variable.  This
+   is what the ALL_LINGUAS line should look like if there are
+   translations for Swedish and xx:
 
   ALL_LINGUAS="sv xx"
 
-8. Run autoconf, build and install the project:
+9. Run autoconf, build and install the project:
 
   autoconf
   ./configure

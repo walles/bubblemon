@@ -2,7 +2,7 @@
 
 SUBDIRS = macros src gnome packaging debian intl po
 
-EXTRA_DIST = PROFILING FAQ ABOUT-NLS
+EXTRA_DIST = PROFILING FAQ ABOUT-NLS TRANSLATIONS
 
 install-data-local:
 	@$(NORMAL_INSTALL)
