@@ -113,7 +113,7 @@ cycles go.
 
 The build process is broken.  It shouldn't be.  Send me
 (d92-jwa@nada.kth.se) a mail with the output from both 'configure' and
-'make', and also tell me what Linux distribution you are using and I'll
+'make', and also tell me what kind of Unix you are using and I'll
 try to fix it.
 
 
