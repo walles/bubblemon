@@ -23,6 +23,14 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  If you want to learn how to easily write GUIs for GNOME, this one is
  for you.
 
+. When the applet gets a properties box it should be possible for the
+ user to choose between censored / uncensored memory measurement.  The
+ measuring technique for the tool tip and the water level should be
+ separately selectable.
+ 
+. When the applet gets a properties box, make it run some configurable
+ command line when clicked.
+
 . Pause the applet if it ain't visible for some reason (for example if
  the GNOME panel is hidden).  If you know about or want to learn how
  to make nice GNOME 1.2 compliant panel applets, this one is for you.
@@ -55,9 +63,6 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  physical phenomenon, this one is for you.  You should probably modify
  the code around the "Move the bubble vertically" comment in
  bubblemon.c for doing this.
-
-. When the applet gets a properties box, make it run some configurable
- command line when clicked.
 
 . Fix the bubblemon.spec file (that describes what should go into the
  RPM) so that it makes 'root' own all files (instead of 'johan'...).
