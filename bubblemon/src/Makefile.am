@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+EXTRA_DIST = msgInBottle.c
+
 localedir=$(datadir)/locale
 defaultincludes = -I. -I$(srcdir) -I..
 
