@@ -178,7 +178,6 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 				  uint64_t *swap_used,
 				  uint64_t *swap_max)
 {
-  
   glibtop_mem memory;
   static glibtop_swap swap;  /* Needs to be static 'cause we don't do it every time */
 
@@ -186,6 +185,13 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 
   glibtop_get_mem (&memory);
 
+  if (memory.total == 0)
+    {
+      g_error("glibtop_get_mem() says you have no memory on line %d in %s",
+	      __LINE__,
+	      __FILE__);
+    }
+  
   /*
     Find out the swap load, but update it only every 50 times we get
     here.  If we do it every time, it bogs down the program.
@@ -214,6 +220,7 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
     This scheme does *not* show how the system has decided to
     allocate swap and electronic RAM to the users' processes.
   */
+
   *mem_max = memory.total;
   *swap_max = swap.total;
   
@@ -312,8 +319,23 @@ void get_memory_load_percentage(BubbleMonData *bm,
 			       &mem_used, &mem_max,
 			       &swap_used, &swap_max);
 
+  if (mem_max == 0)
+    {
+      g_error("get_censored_memory_and_swap() says you have no memory on line %d in %s",
+	      __LINE__,
+	      __FILE__);
+    }
+  
   *memoryPercentage = (100 * mem_used) / mem_max;
-  *swapPercentage = (100 * swap_used) / swap_max;
+
+  if (swap_max != 0)
+    {
+      *swapPercentage = (100 * swap_used) / swap_max;
+    }
+  else
+    {
+      *swapPercentage = 0;
+    }
 
   /* Sanity check that the percentages are both 0-100. */
 
