@@ -56,7 +56,7 @@
 
 /* How fast the weed grows in pixels/sec */
 #define WEED_MAXSPEED 10
-#define WEED_MINSPEED 1
+#define WEED_MINSPEED 3
 #define WEED_SPEEDFACTOR 1
 
 /* Swap usage color scale */              /*              rrggbbaa */
@@ -75,7 +75,7 @@ static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
 
 /* How often is the network load meter updated?  The unit is
  * milliseconds between updates. */
-#define NETLOAD_INTERVAL 500
+#define NETLOAD_INTERVAL 250
 
 /* The maximum height of the weeds indicating the network load,
  * expressed in percent of the full height */

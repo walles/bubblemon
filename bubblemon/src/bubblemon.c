@@ -288,7 +288,6 @@ static void bubblemon_addNourishment(bubblemon_Weed *weed, int percentage)
 static void bubblemon_updateWeeds(int msecsSinceLastCall)
 {
   static int timeToNextUpdate = 0;
-  static int lastUpdatedWeed = 0;
 
   int w = bubblePic.width;
   int x;
@@ -298,22 +297,17 @@ static void bubblemon_updateWeeds(int msecsSinceLastCall)
   while (timeToNextUpdate <= 0)
   {
     // ... update the nourishment level of our next weed
-    lastUpdatedWeed--;
-    if ((lastUpdatedWeed <= 0) ||
-	(lastUpdatedWeed >= bubblePic.width))
-    {
-      lastUpdatedWeed = bubblePic.width - 1;
-    }
+    int weed = random() % bubblePic.width;
     
     // Distribute the nourishment over several weeds
-    if (lastUpdatedWeed > 0)
+    if (weed > 0)
     {
-      bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed - 1]), (netload_getLoadPercentage() * 8) / 10);
+      bubblemon_addNourishment(&(physics.weeds[weed - 1]), (netload_getLoadPercentage() * 8) / 10);
     }
-    bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed]), netload_getLoadPercentage());
-    if (lastUpdatedWeed < (bubblePic.width - 1))
+    bubblemon_addNourishment(&(physics.weeds[weed]), netload_getLoadPercentage());
+    if (weed < (bubblePic.width - 1))
     {
-      bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed + 1]), (netload_getLoadPercentage() * 8) / 10);
+      bubblemon_addNourishment(&(physics.weeds[weed + 1]), (netload_getLoadPercentage() * 8) / 10);
     }
     
     timeToNextUpdate += NETLOAD_INTERVAL;
