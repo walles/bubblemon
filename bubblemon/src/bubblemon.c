@@ -22,6 +22,8 @@
  * This is a platform independent file that drives the program.
  */
 
+#define ENABLE_PROFILING
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -611,7 +613,7 @@ static void bubblemon_draw_bubble(bubblemon_picture_t *bubblePic,
   
   /* Top row */
   buf_ptr = &(bubbleBuf[(y - 1) * w + x - 1]);
-  if (y > physics.waterLevels[x].y)
+  if (y <= physics.waterLevels[x].y)
   {
     if (*buf_ptr != AIR)
     {
@@ -909,7 +911,7 @@ const bubblemon_picture_t *bubblemon_getPicture()
   
   int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
   int youveGotMail = mail_hasUnreadMail();
-  
+
   // Get the system load
   meter_getLoad(&sysload);
   bubblemon_censorLoad();
@@ -951,7 +953,7 @@ int main(int argc, char *argv[])
 
 #ifdef ENABLE_PROFILING
   fprintf(stderr,
-	  "Warning: " PACKAGE "has been configured with --enable-profiling and will show max\n"
+	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
 	  "load all the time.\n");
 #endif
   
