@@ -5,31 +5,15 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-11-22 02:39-0300\n"
-"PO-Revision-Date: 2002-04-30 16:54+GMT\n"
+"Project-Id-Version: bubblemon 1.0.5\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2004-01-11 20:46+0100\n"
+"PO-Revision-Date: 2004-01-11 21:00+0100\n"
 "Last-Translator: Johann Helgi Agnarsson <johann@firmanet.is>\n"
 "Language-Team: Ísland <johann@firmanet.is>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
-msgstr ""
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:2
-msgid "Bubblemon"
-msgstr ""
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:3
-msgid "Utility"
-msgstr ""
-
-#: gnome/GNOME_BubblemonApplet.xml.h:1
-#, fuzzy
-msgid "_About..."
-msgstr "Um"
 
 #: src/bubblemon.c:152
 #, fuzzy, c-format
@@ -52,9 +36,7 @@ msgstr ""
 msgid ""
 "\n"
 "CPU load: %d%%"
-msgstr ""
-"\n"
-"CPU álag: %D%%"
+msgstr "\nCPU álag: %d%%"
 
 #: src/bubblemon.c:177
 #, c-format
@@ -86,6 +68,10 @@ msgstr ""
 "smáatriði.\n"
 "Þetta forrit heyrir undir GPL leyfið og er þér velkomið að dreifa því undir "
 "Skilmálum GPL."
+
+#, fuzzy
+#~ msgid "_About..."
+#~ msgstr "Um"
 
 #, fuzzy
 #~ msgid "Can't create bubblemon applet!"

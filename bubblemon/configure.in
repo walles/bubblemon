@@ -51,7 +51,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
 AC_SUBST(GETTEXT_PACKAGE)
 
 # For i18n and l10n (continued)
-AM_GLIB_GNU_GETTEXT
+AM_GNU_GETTEXT
 
 # Where do we put locale information?
 if test "x$prefix" = "xNONE"; then
@@ -130,15 +130,16 @@ AC_DEFINE(HAVE_CHANGE_PIXEL_SIZE)
 #
 #
 AC_OUTPUT([
+intl/Makefile 
 Makefile
 m4/Makefile
+po/Makefile.in
+po/Makefile
 src/Makefile
 gnome/Makefile
 pixmaps/Makefile
 packaging/Makefile
 packaging/bubblemon.spec
-po/Makefile.in
-po/Makefile
 man/Makefile
 man/bubblemon-gnome2.1
 man/hu/Makefile

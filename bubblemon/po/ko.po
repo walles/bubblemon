@@ -4,31 +4,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-11-22 02:39-0300\n"
-"PO-Revision-Date: 2001-01-10 01:38+0900\n"
+"Project-Id-Version: bubblemon 1.0.5\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2004-01-11 20:46+0100\n"
+"PO-Revision-Date: 2004-01-11 20:52+0100\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
-msgstr ""
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:2
-msgid "Bubblemon"
-msgstr ""
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:3
-msgid "Utility"
-msgstr ""
-
-#: gnome/GNOME_BubblemonApplet.xml.h:1
-#, fuzzy
-msgid "_About..."
-msgstr "프로그램 정보"
 
 #: src/bubblemon.c:152
 #, fuzzy, c-format
@@ -85,6 +69,10 @@ msgstr ""
 "고하십시오.\n"
 "이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 좋습"
 "니다.  자세한 사항은 LICENSE 파일을 참고하십시오."
+
+#, fuzzy
+#~ msgid "_About..."
+#~ msgstr "프로그램 정보"
 
 #, fuzzy
 #~ msgid "Can't create bubblemon applet!"
