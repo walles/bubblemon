@@ -132,7 +132,7 @@ void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long
 
 static void netload_receiveUpdates()
 {
-  struct netload_interface *iter, *prev;
+  struct netload_interface *iter;
   
   // Mark all known interfaces as shut down
   for (iter = interfaces;
@@ -150,13 +150,15 @@ static void netload_receiveUpdates()
   // Forget about all interfaces marked as shut down.
   while (interfaces != NULL && !interfaces->isAlive)
   {
-    struct netload_interface *temp = interfaces->next;
+    struct netload_interface *nextInterface = interfaces->next;
     free(interfaces->name);
     free(interfaces);
-    interfaces = temp;
+    interfaces = nextInterface;
   }
   if (interfaces != NULL)
   {
+    struct netload_interface *prev;
+    
     for (prev = interfaces, iter = interfaces->next;
 	 iter != NULL;
 	 prev = iter, iter = iter->next)
