@@ -105,25 +105,25 @@ static GtkWidget *ui_create(void)
 {
   GtkWidget *frame;
   
-  frame = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+  frame = gtk_frame_new(NULL);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
   
-  gtk_widget_push_visual (gdk_rgb_get_visual ());
-  gtk_widget_push_colormap (gdk_rgb_get_cmap ());
+  gtk_widget_push_visual(gdk_rgb_get_visual());
+  gtk_widget_push_colormap(gdk_rgb_get_cmap());
   drawingArea = gtk_drawing_area_new();
   g_assert(drawingArea != NULL);
-  gtk_widget_pop_colormap ();
-  gtk_widget_pop_visual ();
+  gtk_widget_pop_colormap();
+  gtk_widget_pop_visual();
   
-  gtk_widget_set_events (drawingArea,
-			 GDK_EXPOSURE_MASK |
-			 GDK_ENTER_NOTIFY_MASK);
+  gtk_widget_set_events(drawingArea,
+			GDK_EXPOSURE_MASK |
+			GDK_ENTER_NOTIFY_MASK);
 
   gtk_drawing_area_size(GTK_DRAWING_AREA(drawingArea), width, height);
   
-  gtk_container_add (GTK_CONTAINER (frame), drawingArea);
-  gtk_widget_show (drawingArea);
-  gtk_widget_show (frame);
+  gtk_container_add(GTK_CONTAINER (frame), drawingArea);
+  gtk_widget_show(drawingArea);
+  gtk_widget_show(frame);
 
   gtk_signal_connect_after(GTK_OBJECT(drawingArea), "realize",
 			   GTK_SIGNAL_FUNC(ui_update), NULL);
@@ -133,7 +133,7 @@ static GtkWidget *ui_create(void)
   return frame;
 }
 
-static void about (AppletWidget *applet, gpointer data)
+static void about(AppletWidget *applet, gpointer data)
 {
   static const char *authors[] = { "Johan Walles <d92-jwa@nada.kth.se>", NULL };
   static GtkWidget *about_box = NULL;
@@ -144,16 +144,16 @@ static void about (AppletWidget *applet, gpointer data)
     gdk_window_raise(about_box->window);
     return;
   }
-  about_box = gnome_about_new (_("Bubbling Load Monitor"), VERSION,
-			       "Copyright (C) 1999-2002 Johan Walles",
-			       authors,
-			       _("This applet displays your CPU load as a bubbling liquid.\n"
-				 "This applet comes with ABSOLUTELY NO WARRANTY, "
-				 "see the LICENSE file for details.\n"
-				 "This is free software, and you are welcome to redistribute it "
-				 "under certain conditions (GPL), "
-				 "see the LICENSE file for details."),
-			       NULL);
+  about_box = gnome_about_new(_("Bubbling Load Monitor"), VERSION,
+			      "Copyright (C) 1999-2002 Johan Walles",
+			      authors,
+			      _("This applet displays your CPU load as a bubbling liquid.\n"
+				"This applet comes with ABSOLUTELY NO WARRANTY, "
+				"see the LICENSE file for details.\n"
+				"This is free software, and you are welcome to redistribute it "
+				"under certain conditions (GPL), "
+				"see the LICENSE file for details."),
+			      NULL);
   
   gtk_signal_connect( GTK_OBJECT(about_box), "destroy",
 		      GTK_SIGNAL_FUNC(gtk_widget_destroyed), &about_box );
@@ -201,7 +201,7 @@ static void applet_change_pixel_size(GtkWidget *ignored1,
 
 // FIXME: Update this to reflect bubblemon info
 /*
-static void help_cb (AppletWidget *applet, gpointer data)
+static void help_cb(AppletWidget *applet, gpointer data)
 {
   GnomeHelpMenuEntry help_entry = { "life_applet", "index.html"};
   gnome_help_display(NULL, &help_entry);
@@ -216,9 +216,9 @@ static void update_tooltip()
 				   bubblemon_getTooltip());
 }
 
-static void applet_leave_cb (GtkWidget *ignored1,
-		      GdkEventAny *ignored2,
-		      gpointer data)
+static void applet_leave_cb(GtkWidget *ignored1,
+			    GdkEventAny *ignored2,
+			    gpointer data)
 {
   /* This is part of a workaround for a gtk+ tool tip problem. */
   update_tooltip();
@@ -233,13 +233,13 @@ int ui_main(int argc, char *argv[])
   textdomain (PACKAGE);
 #endif
   
-  applet_widget_init (PACKAGE, VERSION, argc, argv, NULL, 0, NULL);
-  // gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/gnome-life.png");
+  applet_widget_init("bubblemon-gnome1", VERSION, argc, argv, NULL, 0, NULL);
+  // FIXME: gnome_window_icon_set_default_from_file(GNOME_DATADIR "/pixmaps/bubblemon.png");
 
-  applet = applet_widget_new (PACKAGE);
+  applet = applet_widget_new("bubblemon-gnome1");
   if (!applet)
   {
-    g_error (_("Can't create bubblemon applet!"));
+    g_error(_("Can't create bubblemon applet!"));
   }
   
 #ifdef HAVE_CHANGE_PIXEL_SIZE
@@ -255,9 +255,9 @@ int ui_main(int argc, char *argv[])
   bubblemon = ui_create();
   
   /* Add a signal to the applet for when the mouse exits to update the tooltip */
-  gtk_signal_connect (GTK_OBJECT (applet), "leave_notify_event",
-		      GTK_SIGNAL_FUNC(applet_leave_cb),
-		      NULL);
+  gtk_signal_connect(GTK_OBJECT (applet), "leave_notify_event",
+		     GTK_SIGNAL_FUNC(applet_leave_cb),
+		     NULL);
   
   applet_widget_add(APPLET_WIDGET(applet), bubblemon);
   gtk_widget_show(bubblemon);
@@ -265,21 +265,21 @@ int ui_main(int argc, char *argv[])
   gtk_widget_show(applet);
 
   /*
-  applet_widget_register_stock_callback (APPLET_WIDGET (applet),
-					 "help",
-					 GNOME_STOCK_PIXMAP_HELP,
-					 _("Help"), help_cb, NULL);
+  applet_widget_register_stock_callback(APPLET_WIDGET(applet),
+					"help",
+					GNOME_STOCK_PIXMAP_HELP,
+					_("Help"), help_cb, NULL);
   */
-  applet_widget_register_stock_callback (APPLET_WIDGET (applet),
-					 "about",
-					 GNOME_STOCK_MENU_ABOUT,
-					 _("About..."),
-					 about,
-					 NULL);
+  applet_widget_register_stock_callback(APPLET_WIDGET(applet),
+					"about",
+					GNOME_STOCK_MENU_ABOUT,
+					_("About..."),
+					about,
+					NULL);
 
   gtk_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, NULL);
 
-  applet_widget_gtk_main ();
+  applet_widget_gtk_main();
 
   return 0;
 }
