@@ -55,10 +55,11 @@ bubblemon src directory and doing the following:
 $ ./configure
 $ make
 $ cd src
-$ gdb bubblemon-gnome1
+$ gdb ./bubblemon-gnome1
 (gdb) run
 <SEGFAULT>
 (gdb) info stack
+(gdb) info locals
 
 Note that the build stage is essential, because it puts debug metadata
 in the binary.
