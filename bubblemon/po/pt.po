@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
-"POT-Creation-Date: 2002-11-22 02:39-0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-25 22:54+0200\n"
 "PO-Revision-Date: 2001-01-10 14:56+0000\n"
 "Last-Translator: Edson Medina <edson@mrnet.pt>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,15 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
+msgid "A CPU load monitor"
 msgstr ""
 
 #: gnome/GNOME_BubblemonApplet.server.in.in.h:2
 msgid "Bubblemon"
-msgstr ""
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:3
-msgid "Utility"
 msgstr ""
 
 #: gnome/GNOME_BubblemonApplet.xml.h:1
@@ -69,11 +66,7 @@ msgstr ""
 msgid "Bubbling Load Monitor"
 msgstr "Monitor de carga borbulhento"
 
-#: src/gnome2-ui.c:73
-msgid "Copyright (C) 1999-2002 Johan Walles"
-msgstr ""
-
-#: src/gnome2-ui.c:74
+#: src/gnome2-ui.c:75
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

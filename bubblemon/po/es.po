@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.3\n"
-"POT-Creation-Date: 2002-11-22 02:39-0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-25 22:54+0200\n"
 "PO-Revision-Date: 2001-02-19 14:19-03:00\n"
 "Last-Translator: Edgardo Garcia Hoeffler <edybsd@yahoo.com.ar>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -14,16 +15,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
+#, fuzzy
+msgid "A CPU load monitor"
 msgstr "Un monitor de carga burbujeante"
 
 #: gnome/GNOME_BubblemonApplet.server.in.in.h:2
 msgid "Bubblemon"
 msgstr "Bubblemon"
-
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:3
-msgid "Utility"
-msgstr "Utilidades"
 
 #: gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
@@ -65,11 +63,7 @@ msgstr ""
 msgid "Bubbling Load Monitor"
 msgstr "Monitor Burbujeante de Carga"
 
-#: src/gnome2-ui.c:73
-msgid "Copyright (C) 1999-2002 Johan Walles"
-msgstr ""
-
-#: src/gnome2-ui.c:74
+#: src/gnome2-ui.c:75
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -82,3 +76,6 @@ msgstr ""
 "para más detalles.\n"
 "Esto es software gratis, y estás bienvenido a redistribuirlobajo ciertas "
 "condiciones (GPL), vea el archivo LICENSE para más detalles."
+
+#~ msgid "Utility"
+#~ msgstr "Utilidades"
