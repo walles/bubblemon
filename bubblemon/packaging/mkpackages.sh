@@ -58,7 +58,7 @@ if [ $? != 0 ] ; then
 fi
 ln -s $BUBBLEMON_ROOT/bubblemon-*.tar.gz $RPM_SOURCES
 rm -f $RPMS/RPM/*/bubblemon*rpm $RPMS/SRPM/bubblemon*rpm
-rpm -ba packaging/bubblemon.spec
+rpm -bs packaging/bubblemon.spec
 if [ $? != 0 ] ; then
     echo Error: RPM package building failed > /dev/stderr
     rm -f bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
