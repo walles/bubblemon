@@ -34,7 +34,7 @@
 
 /* 0.0 means the liquid never moves.
    1.0 means the liquid will continue to oscillate forever. */
-#define VISCOSITY 0.98
+#define VISCOSITY 0.99
 
 /* How fast are the water levels allowed to move? */
 #define SPEED_LIMIT 1.0
@@ -45,7 +45,7 @@
 
 /* Swap usage color scale */              /*    rrggbbaa */
 static const unsigned int NOSWAPAIRCOLOR    = 0x2299ff00;
-static const unsigned int NOSWAPWATERCOLOR  = 0x0055ffb0;
+static const unsigned int NOSWAPWATERCOLOR  = 0x0055ff80;
 
 // FIXME: We may want to make the swap water less transparent (so it
 // looks more like blood), and the swap air less transparent (so that
