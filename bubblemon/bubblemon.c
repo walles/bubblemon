@@ -164,8 +164,12 @@ bubblemon_update (gpointer data)
 
       bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
 
-      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
-	bm->waterlevels_inactive[x]++;
+      if (bm->waterlevels_inactive[x] == bm->waterlevels_inactive[x])
+	{
+	  // This waterlevel hasn't moved; guard from rounding errors
+	  if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
+	    bm->waterlevels_inactive[x]++;
+	}
     }
 
   bm->waterlevels_inactive[0] = waterlevel_goal;
