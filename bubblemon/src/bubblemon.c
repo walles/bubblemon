@@ -77,7 +77,7 @@ int main (int argc, char ** argv)
 	      "       The current value of %d is not.\n"),
 	      NUM_COLORS);
     }
-  
+
 #ifdef ENABLE_PROFILING
   program_name = strdup(argv[0]);
 
@@ -88,11 +88,29 @@ int main (int argc, char ** argv)
 
   goad_id = goad_server_activation_id ();
   if (!goad_id)
-    g_error("Couldn't activate GOAD server.  This usually means that you are trying\n"
-	    "to run the applet from the command line and haven't specified the\n"
-	    "--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
-	    "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
-	    "and explain it, because I really have no idea what it does.\n");
+    {
+      /* FIXME: Try starting the bubblemon_applet GOAD server manually
+         before failing.  Some hints on doing this can be found at
+         "http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html"
+      */
+      
+      fprintf(stderr,
+              "Couldn't activate GOAD server.  This usually means that you are trying\n"
+              "to run the applet from the command line and haven't specified the\n"
+              "--activate-goad-server=bubblemon_applet switch.  Add that switch and\n"
+              "give it another try.\n"
+              "\n"
+              "If you have any idea about how it can be started from within the code,\n"
+              "I'd appreciate it a lot if you could tell me.  Insert your code at the\n"
+              "FIXME just above line %d in `%s'.\n"
+              "\n"
+              "Then send me (d92-jwa@nada.kth.se) an e-mail with your changes.\n"
+              "Thanks a bunch :-)  //Johan.\n",
+              __LINE__,
+              __FILE__);
+
+      exit (EXIT_FAILURE);
+    }
 
   /* Create the bubblemon applet widget */
   applet = make_new_bubblemon_applet (goad_id);
