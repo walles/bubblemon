@@ -360,6 +360,7 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
   }
 }
 
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
 
 /* Update the bottle */
 static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
@@ -369,7 +370,11 @@ static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
   float dragDdy;
   int isInWater;
 
-  isInWater = physics.bottle_y < physics.waterLevels[bubblePic.width / 2].y;
+  // The MIN stuff prevents the bottle from floating above the visible
+  // area even when the water surface is at the top of the display
+  isInWater =
+    physics.bottle_y < MIN(physics.waterLevels[bubblePic.width / 2].y,
+			   bubblePic.height - msgInBottle.height / 2);
 
   if (youveGotMail) {
     if (physics.bottle_state == GONE) {
@@ -856,7 +861,7 @@ static void bubblemon_bottleToPixmap(bubblemon_picture_t *bubblePic)
   bottleH = msgInBottle.height;
   
   // Ditch the bottle if the image is too small
-  // FIXME: We should check the image height as well
+  // FIXME: Should we check the image height as well?
   if (pictureW < (bottleW + 4)) {
     return;
   }
