@@ -1,10 +1,19 @@
-bubblemon (1.0.11-1) unstable; urgency=low
+bubblemon (1.2.0-1) unstable; urgency=low
+
+  * Platform independent sources separated from platfom dependent ones to
+    simplify porting.
+  * GNOME1.x code thrown out and rewritten based on the Life applet that
+    comes with GNOME.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 18 May 2002 13:37:38 +0200
+
+bubblemon (1.0.11-1) stable; urgency=low
 
   * Swap space colorization now works properly.
 
  -- Johan Walles <d92-jwa@nada.kth.se>  Fri, 10 May 2002 12:41:32 +0200
 
-bubblemon (1.0.10-1) unstable; urgency=low
+bubblemon (1.0.10-1) stable; urgency=low
 
   * New icon
   * Icelandic translation
