@@ -1,11 +1,17 @@
+bubblemon (1.0.1-1) unstable; urgency=low
+
+  * Documentation updates.  Changes to allow this release to be compiled
+    with older GNOME libraries.  Danish and Serbo-croatian translations
+    added.  Display bug at 16bpp worked around.  Code cleanups.
+
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 25 Nov 2000 17:31:44 +0100
+
 bubblemon (1.0.0-1) stable; urgency=medium
 
   * Korean and Finnish translations added.  Applet now automatically
     adapts to the panel size.
 
-  --
-
- -- Johan Walles <johan@localhost.localdomain>  Sat, 25 Nov 2000 17:31:44 +0100
+ -- Johan Walles <d92-jwa@nada.kth.se>  Sat, 25 Nov 2000 17:31:44 +0100
 
 bubblemon (0.9.12-1) unstable; urgency=low
 
