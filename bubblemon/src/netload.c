@@ -148,6 +148,7 @@ static void netload_receiveUpdates()
   receivingUpdates = 0;
 
   // Forget about all interfaces marked as shut down.
+  // Start with interfaces at the start of the list.
   while (interfaces != NULL && !interfaces->isAlive)
   {
     struct netload_interface *nextInterface = interfaces->next;
@@ -155,6 +156,7 @@ static void netload_receiveUpdates()
     free(interfaces);
     interfaces = nextInterface;
   }
+  // Clean out interfaces after the start of the list
   if (interfaces != NULL)
   {
     struct netload_interface *prev;
@@ -169,6 +171,11 @@ static void netload_receiveUpdates()
 	free(iter->name);
 	free(iter);
 	iter = prev->next;
+      }
+      
+      if (iter == NULL)
+      {
+	break;
       }
     }
   }
