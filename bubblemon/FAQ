@@ -7,7 +7,20 @@ $ make
 $ src/bubblemon_applet --activate-goad-server=bubblemon_applet
 
 
-2. I'm running a background process on my system that should be using
+2. Can you add this feature to the applet?
+
+Possibly.  If you want to improve your odds, here are my suggestions
+though:
+* Do it yourself and send me a patch.  If you run into problems I'll
+ gladly answer your questions.
+* If you can't do it yourself (or get someone else to do it for you
+ :-), see if it is in the TODO file.  If it is, it will probably be
+ added sooner or later whether you suggest it to me again or not.
+* If you can't do it yourself and it's not on the TODO list, send me a
+ mail and if I like the idea I'll put it on the TODO list.
+
+ 
+3. I'm running a background process on my system that should be using
   all of my CPU, but the Bubblemon shows very few or no bubbles at
   all.  Why is that?
 
@@ -19,7 +32,7 @@ power at my disposal, even with a 'nice' background job running.
 Therefore: 'nice' processes don't bubble.
 
 
-3. The program doesn't do anything; it doesn't even crash!
+4. The program doesn't do anything; it doesn't even crash!
 
 Try running it from the command line, and see if you get an error
 message.  Do the follwing from the bubblemon directory:
@@ -29,7 +42,7 @@ $ make
 $ src/bubblemon_applet --activate-goad-server=bubblemon_applet
 
 
-4. The program crashes.  What should I do?
+5. The program crashes.  What should I do?
 
 Either fix it yourself and send me (d92-jwa@nada.kth.se) a patch, or
 send me a bug report.  The bug report should contain the result of
@@ -45,7 +58,7 @@ $ gdb bubblemon_applet
 (gdb) info stack
 
 
-5. The amount of memory used reported by the applet is different from
+6. The amount of memory used reported by the applet is different from
   what [other program] says.  How come?
 
 Free memory measuring on Linux (at least) is somewhat complicated.
@@ -82,7 +95,7 @@ If you want to know more than this, have a look at the
 get_censored_memory_and_swap() function in bubblemon.c.
 
 
-6. Performance sucks.  What should I do?
+7. Performance sucks.  What should I do?
 
 To give you some frame of reference of what kind of performance to
 expect; on my 400MHz PII system I have never seen the bubblemon go
@@ -92,7 +105,7 @@ See the file PROFILING for instructions on finding out where your
 cycles go.
 
 
-7. The configure script reports no problems, but I still get errors
+8. The configure script reports no problems, but I still get errors
   (or warnings) when doing 'make'.  What's up?
 
 The build process is broken.  It shouldn't be.  Send me
@@ -101,6 +114,6 @@ The build process is broken.  It shouldn't be.  Send me
 try to fix it.
 
 
-8. I have another question/problem.  What should I do?
+9. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.

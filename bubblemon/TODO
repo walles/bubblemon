@@ -1,1 +1,62 @@
-See the README file.
+This list is not really sorted, but stuff higher up on the list will
+tend to be completed earlier than stuff towards the end.  If you want
+something on this list done quickly, I've provided some pointers to
+get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
+
+. Gettextify the applet and translate stuff into Swedish.  This
+ requires reading the GNU gettext manual (available in all sorts of
+ formats at http://www.gnu.org/manual/gettext/), integrating it with
+ automake and autoconf (edit configure.in and Makefile.am), and
+ marking all translatable strings in bubblemon.c with _().  If you
+ want to learn how to write programs that can be used by people
+ speaking different languages than yourself, this one is for you.
+
+. Follow resize hints from the GNOME 1.2 panel.  If you know about or
+ want to learn how to make nice GNOME 1.2 compliant panel applets,
+ this one is for you.
+
+. Stop the applet if it ain't visible for some reason (for example if
+ the GNOME panel is hidden).  If you know about or want to learn how
+ to make nice GNOME 1.2 compliant panel applets, this one is for you.
+
+. Make bubble movement independent of update frequency.  If you know
+ about or wish to learn about how to make real time visualizations of
+ physical phenomenon, this one is for you.
+
+. Make a properties box using Glade/libGlade?  In that case, make the
+ properties box contain four color options and options for changing
+ the update frequency.  Have everything saved / restored by the
+ session handling code.  If you want to look into this, a good start
+ would be reading the libGlade docs at
+ "http://developer.gnome.org/doc/API/libglade/libglade.html".  If you
+ want to learn how to easily write GUIs for GNOME, this one is for
+ you.
+
+. For some (but not all) people with 24 bit displays, the applet won't
+ work.  For this reason, the color handling should be re-written.  If
+ you want to look into this, the function bubblemon_setup_colors() in
+ bubblemon.c should be re-written.  Also, the last lines of
+ bubblemon_update() in bubblemon.c (below the comment about "drawing
+ magic") should be re-written.  Currently, 96 colors are allocated to
+ begin with, and depending on swap load three of them are used for
+ drawing the applet at any time.  The way it should be done (if that's
+ possible, I don't know) is to allocate three colors, and use them for
+ drawing all the time.  These three colors should then be modified
+ according to the current swap load.  If you know about, or want to
+ learn about GTK+ color handling, this one is for *you*.
+
+. When the applet gets a properties box, make it run some configurable
+ command line when clicked.
+
+. Make the applet look more like a glass vial.  Perhaps by drawing a
+ vial outline, and making the bubbles transparent instead of
+ air-colored?
+
+. Fix the GTK+ bug 15891 (http://bugs.gnome.org/db/15/15891.html).
+ The applet_widget_set_widget_tooltip() function erroneously hides the
+ tooltip if it is visible when applet_widget_set_widget_tooltip() is
+ called.
+
+. Fix the performance problems that glibtop are having with swap space
+ measurement and with memory measurement on systems with >= 128Mb
+ memory.

@@ -22,33 +22,3 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
-
---
-
-TODO:
-
-. Gettextify the applet and translate stuff into Swedish
-
-. Follow resize hints from the GNOME 1.2 panel
-
-. Make bubble movement independent of update frequency
-
-. Make a properties box using Glade?  In that case, make the
- properties box contain four color options and options for changing
- the update frequency.  Have everything saved / restored by the
- session handling code.
-
-. Make the applet look more like a glass vial.  Perhaps by drawing a
- vial outline, and making the bubbles transparent instead of
- air-colored?
-
-. Get the applet working on 24 bit displays (at least one person
- claims that it already does work there).
-
-. Fix the GTK+ bug 15891 (http://bugs.gnome.org/db/15/15891.html).
- The applet_widget_set_widget_tooltip() function erroneously hides the
- tooltip if it is visible when applet_widget_set_widget_tooltip() is
- called.
-
-. Fix the performance problems that glibtop are having with swap space
- measurement and with memory measurement on some systems.
