@@ -47,6 +47,9 @@
 #define MAXSWAPAIRCOLOR   (bubblemon_color_t)0xff0000
 #define MAXSWAPWATERCOLOR (bubblemon_color_t)0xaa0000
 
+/* How many times per sec the physics get updated */
+#define PHYSICS_FRAMERATE 100
+
 /* Color code constants */
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
 
