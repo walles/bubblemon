@@ -4,7 +4,7 @@
 Bubbling Load Monitor \- Displays the system load as a bubbling liquid
 .SH "SYNTAX"
 .LP 
-bubblemon
+bubblemon_applet
 .SH "DESCRIPTION"
 .LP 
 This GNOME applet displays the system load in the form of a bubbling liquid.
@@ -22,5 +22,5 @@ mouse pointer over the applet for a second.
 Johan Walles <d92\-jwa@nada.kth.se>
 .SH "URL"
 .LP 
-The home page of bubblemon is at
+The home page of Bubblemon is at
 "http://www.nada.kth.se/~d92\-jwa/code".

@@ -1,2 +1,2 @@
-man_MANS = bubblemon.1
-EXTRA_DIST = bubblemon.1.in
+man_MANS = bubblemon_applet.1
+EXTRA_DIST = bubblemon_applet.1.in
