@@ -34,7 +34,11 @@ know.
 
   cp bubblemon.pot xx.po
 
-6. Edit xx.po using your favourite text editor:
+6. Edit xx.po using your favourite text editor.  Leave the lines
+  containing English (marked "msgid") alone; your translations should
+  be added under the "msgstr" heading.  If you are unsure, look at
+  some other translation (sv.po for example) to see how it's done.
+  Here we go:
 
   emacs xx.po
 

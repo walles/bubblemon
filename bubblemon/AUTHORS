@@ -38,3 +38,6 @@ problem was with glibtop, but then "timecop" informed me that the
 problem is with Linux 2.2 and not glibtop.  Also, "timecop" claimed
 that these problems should be fixed (or at least not as visible) by
 2.4.
+
+Thanks to Leandro Fanzone for fixing the applet so that it can be
+displayed on remote X displays.
