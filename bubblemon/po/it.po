@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.7\n"
-"POT-Creation-Date: 2001-09-10 22:35+0200\n"
+"POT-Creation-Date: 2001-09-14 22:23+0200\n"
 "PO-Revision-Date: 2001-09-12 10:08+0100\n"
 "Last-Translator: Marco Solari <marcosolari@libero.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,20 +14,21 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:101
+#: src/bubblemon.c:94
 #, c-format
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
-msgstr "La costante NUM_COLORS in bubblemon.h deve essere un multiplo di r.\n"
+msgstr ""
+"La costante NUM_COLORS in bubblemon.h deve essere un multiplo di r.\n"
 "       Il valore attuale di %d non lo è.\n"
 
-#: src/bubblemon.c:292
+#: src/bubblemon.c:285
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() dice che non hai memoria alla riga %d in %s"
 
-#: src/bubblemon.c:403
+#: src/bubblemon.c:396
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -36,7 +37,7 @@ msgstr ""
 "Memoria usata: %s\n"
 "Swap usato: %s"
 
-#: src/bubblemon.c:410
+#: src/bubblemon.c:403
 #, c-format
 msgid ""
 "\n"
@@ -45,7 +46,7 @@ msgstr ""
 "\n"
 "carico CPU: %d%%"
 
-#: src/bubblemon.c:421
+#: src/bubblemon.c:414
 #, c-format
 msgid ""
 "\n"
@@ -54,56 +55,56 @@ msgstr ""
 "\n"
 "carico CPU #%d: %d%%"
 
-#: src/bubblemon.c:655
+#: src/bubblemon.c:648
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Impossibile chdir() a $HOME (%s)\n"
 
-#: src/bubblemon.c:661
+#: src/bubblemon.c:654
 msgid "$HOME environment variable not set\n"
 msgstr "Variabile d'ambiente $HOME non impostata\n"
 
-#: src/bubblemon.c:666
+#: src/bubblemon.c:659
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
-"Bubblemon sta terminando.  Informazioni per il profiling dovrebbero essere in ~/gmon.out.\n"
+"Bubblemon sta terminando.  Informazioni per il profiling dovrebbero essere "
+"in ~/gmon.out.\n"
 "Per divertirti, esegui 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:668
+#: src/bubblemon.c:661
 msgid "<name of executable>"
 msgstr "<nome dell'eseguibile>"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1033
 msgid "Can't create applet!\n"
 msgstr "Impossibile creare l'applet!\n"
 
-#: src/bubblemon.c:1043
+#: src/bubblemon.c:1036
 msgid "Can't open glibtop!\n"
 msgstr "Impossibile aprire glibtop!\n"
 
-#: src/bubblemon.c:1106
+#: src/bubblemon.c:1099
 msgid "About"
 msgstr "A proposito"
 
-#: src/bubblemon.c:1281
+#: src/bubblemon.c:1274
 msgid "Bubbling Load Monitor"
 msgstr "Monitor del carico 'a bolle'"
 
-#: src/bubblemon.c:1284
+#: src/bubblemon.c:1277
+#, fuzzy
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
 "details.\n"
 "This is free software, and you are welcome to redistribute it under certain "
-"conditions (GPL), see the LICENSE file for details.\n"
+"conditions (GPL), see the LICENSE file for details."
 msgstr ""
 "Questa applet visualizza il carico della tua CPU come un liquido in "
 "ebollizione.\n"
 "Questa applet non fornisce ASSOLUTAMENTE NESSUNA GARANZIA, vedi il file "
 "LICENSE per dettagli.\n"
-"Questo è software libero, e si può redistribuirlo a certe condizioni "
-"(GPL), vedi il file LICENSE per dettagli.\n"
-
+"Questo è software libero, e si può redistribuirlo a certe condizioni (GPL), vedi il file LICENSE per dettagli.\n"
