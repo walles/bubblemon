@@ -103,9 +103,9 @@ bubblemon_session_defaults(BubbleMonData * bm)
   sscanf (BUBBLEMON_DEFAULT_AIR_MAXSWAP, "#%x", &(bm->air_maxswap));
   sscanf (BUBBLEMON_DEFAULT_LIQUID_MAXSWAP, "#%x", &(bm->liquid_maxswap));
 
-  // FIXME: Remove the following four lines
+  /* FIXME: Remove the following four lines */
   bm->air_noswap = 0xffffff;
   bm->air_maxswap = 0xffffff;
   bm->liquid_noswap = 0x000000;
   bm->liquid_maxswap = 0x000000;
-} /* bubblemon_session_defaults */
+}

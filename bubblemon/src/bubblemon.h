@@ -29,16 +29,16 @@
 #include <applet-widget.h>
 
 // Note: NUM_COLORS must be divisible by 3
-#define NUM_COLORS 384
+#define NUM_COLORS 99 /* 384 */
 #define MAX_BUBBLES 100
 #define GRAVITY 0.01
 
 typedef struct {
-  int x;    // Horizontal coordinate
-  float y;  // Vertical coordinate
-  float dy; // Vertical velocity
+  int x;    /* Horizontal coordinate */
+  float y;  /* Vertical coordinate   */
+  float dy; /* Vertical velocity     */
 
-  // FIXME: Should we give every bubble a radius?
+  /* FIXME: Should we give every bubble a radius? */
 } Bubble;
 
 typedef struct {
@@ -50,9 +50,13 @@ typedef struct {
   Bubble bubbles[MAX_BUBBLES];
   int n_bubbles;
 
-  // Color definitions
+  /* Color definitions */
   int air_noswap, liquid_noswap, air_maxswap, liquid_maxswap;
 
+  /* How much has the surface been raised / lowered by bubbles being
+     created or killed? */
+  int surface_balance;
+  
   gboolean setup;
 
   guint timeout;
@@ -61,22 +65,11 @@ typedef struct {
   int loadIndex;
   uint64_t *load, *total;
   
-  GdkColor background;
-
   /* Widgets n stuff... */
   GtkWidget *area;
   GtkWidget *frame;
   GdkImage *image;
   GtkWidget *about_box;
-
-  /*
-   *
-   * For the  "Properties" window ...
-   *
-   */
-  GnomePropertyBox *prop_win;
-  GtkObject *breadth_adj, *depth_adj, *update_adj, *samples_adj;
-  GnomeColorPicker *background_sel;
 
 } BubbleMonData;
 
@@ -91,8 +84,10 @@ typedef struct {
 #define BUBBLEMON_DEFAULT_DEPTH           "40"
 #define BUBBLEMON_DEFAULT_UPDATE_RATE     "20"
 #define BUBBLEMON_DEFAULT_LOAD_SAMPLES    "16"
-// FIXME: There should be three constants for how often the cpu, swap
-// and memory loads are updated.
+/*
+  FIXME: There should be three constants for how often the cpu, swap
+  and memory loads are updated.
+*/
 
 #define BUBBLEMON_DEFAULT_AIR_NOSWAP      "#2299FF"
 #define BUBBLEMON_DEFAULT_LIQUID_NOSWAP    "#0055FF"
@@ -124,5 +119,23 @@ gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 GtkWidget *make_new_bubblemon_applet (const gchar *goad_id);
 GtkWidget *applet_start_new_applet (const gchar *goad_id,
 				     const char **params, int nparams);
+
+int get_cpu_load(BubbleMonData *bm);
+void usage2string(char *string, uint64_t used, uint64_t max);
+void get_censored_memory_and_swap(BubbleMonData *bm,
+				  uint64_t *mem_used,
+				  uint64_t *mem_max,
+				  uint64_t *swap_used,
+				  uint64_t *swap_max);
+void get_censored_memory_usage(BubbleMonData *bm,
+			       uint64_t *mem_used,
+			       uint64_t *mem_max);
+void get_censored_swap_usage(BubbleMonData *bm,
+			       uint64_t *swap_used,
+			     uint64_t *swap_max);
+void update_tooltip(BubbleMonData *bm);
+void get_memory_load_percentage(BubbleMonData *bm,
+				int *memoryPercentage,
+				int *swapPercentage);
 
 #endif /* _BUBBLEMON_H */

@@ -59,13 +59,19 @@ int main (int argc, char ** argv)
   applet_factory_new ("bubblemon_applet", NULL,
 		     (AppletFactoryActivator) applet_start_new_applet);
 
+  if (NUM_COLORS % 3)
+    {
+      g_error("Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+	      "       The current value of %d is not.\n",
+	      NUM_COLORS);
+    }
+  
 #ifdef ENABLE_PROFILING
   program_name = strdup(argv[0]);
 
-  fprintf(stderr,
-	  PACKAGE " has been configured with --enable-profiling and will terminate in\n"
-	  "roughly one minute.  Let's try to make it as representative of normal use\n"
-	  "as possible, shall we?\n");
+  g_warning(PACKAGE " has been configured with --enable-profiling and will terminate in\n"
+	    "roughly one minute.  Let's try to make it as representative of normal use\n"
+	    "as possible, shall we?\n");
 #endif
 
   goad_id = goad_server_activation_id ();
@@ -113,9 +119,6 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
     loadPercentage = 0;
   else
     loadPercentage = (100 * (load - oLoad)) / (total - oTotal);
-
-/* fprintf(stderr, "(%Ld - %Ld) / (%Ld - %Ld) yielded %d\n", load, oLoad, total, oTotal, loadPercentage); */
-/* fflush(stderr); */
 
   return loadPercentage;
 }
@@ -226,8 +229,7 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   if ((*mem_used > *mem_max) ||
       (*swap_used > *swap_max))
     {
-      fprintf(stderr,
-	      "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+      g_error("Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
 	      "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
 	      "       memory.cached (%Ld) and memory.buffer (%Ld).\n",
 	      *mem_used, *mem_max,
@@ -236,8 +238,6 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 	      memory.used,
 	      memory.cached,
 	      memory.buffer);
-
-      exit (EXIT_FAILURE);
     }
 }
 
@@ -275,9 +275,7 @@ void update_tooltip(BubbleMonData *bm)
   /* Sanity check */
   if (!bm)
     {
-      fprintf(stderr, "Error: bm == NULL in update_tooltip()\n");
-
-      exit (EXIT_FAILURE);
+      g_error("Error: bm == NULL in update_tooltip()\n");
     }
   get_censored_memory_usage(bm, &mem_used, &mem_max);
   get_censored_swap_usage(bm, &swap_used, &swap_max);
@@ -318,16 +316,13 @@ void get_memory_load_percentage(BubbleMonData *bm,
   if ((*memoryPercentage < 0) || (*memoryPercentage > 100) ||
       (*swapPercentage < 0) || (*swapPercentage > 100))
     {
-      fprintf(stderr,
-	      "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
+      g_error("Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
 	      "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
 	      "       swap_used (%Ld) and swap_max (%Ld).\n",
 	      *memoryPercentage,
 	      *swapPercentage,
 	      mem_used, mem_max,
 	      swap_used, swap_max);
-
-      exit (EXIT_FAILURE);
     }
 }
 
@@ -369,7 +364,7 @@ gint bubblemon_update (gpointer data)
 	}
       else
 	{
-	  fprintf(stderr, "Error: $HOME environment variable not set\n");
+	  g_warning("$HOME environment variable not set\n");
 	}
       
       /* Terminate nicely so that the profiling data gets written */
@@ -411,17 +406,17 @@ gint bubblemon_update (gpointer data)
   aliascolor = aircolor + 2;
 
   /* Sanity check the colors */
-  if ((aircolor < 0) || (watercolor >= NUM_COLORS) || (aliascolor >= NUM_COLORS))
+  if ((aircolor < 0) || (aircolor >= NUM_COLORS) ||
+      (watercolor < 0) || (watercolor >= NUM_COLORS) ||
+      (aliascolor < 0) || (aliascolor >= NUM_COLORS))
     {
-      fprintf(stderr,
-	      "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
+      g_error("Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
 	      "       swapPercentage (%d) is probably out of range (0-100) too.\n",
 	      aircolor,
 	      watercolor,
 	      aliascolor,
 	      NUM_COLORS,
 	      swapPercentage);
-      exit(EXIT_FAILURE);
     }
 
   /* Move the water level with the current memory usage. */
@@ -436,13 +431,10 @@ gint bubblemon_update (gpointer data)
       bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
 				     bm->waterlevels[x + 1]) >> 1;
 
-      if (bm->waterlevels[x] == bm->waterlevels_inactive[x])
-	{
-	  /* This waterlevel hasn't moved; guard from rounding errors */
-	  bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
-	  if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
-	    bm->waterlevels_inactive[x]++;
-	}
+      /* Guard from rounding errors */
+      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
+      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
+	bm->waterlevels_inactive[x]++;
     }
 
   bm->waterlevels_inactive[0] = waterlevel_goal;
@@ -571,7 +563,7 @@ gint bubblemon_update (gpointer data)
     case 4:
       {
 	uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = 0; i < n_pixels; ++ i)
+	for (i = 0; i < n_pixels; i++)
 	  ptr[i] = col[buf[i]];
 	break;
       }
@@ -579,19 +571,17 @@ gint bubblemon_update (gpointer data)
     case 2:
       {
 	uint16_t *ptr = (uint16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-	for (i = 0; i < n_pixels; ++ i)
+	for (i = 0; i < n_pixels; i++)
 	  ptr[i] = col[buf[i]];
 	break;
       }
 
     default:
-      fprintf(stderr,
-	      "Error: Bubblemon works only on displays with 2 or 4 bytes/pixel :-(.\n"
+      g_error("Error: Bubblemon works only on displays with 2 or 4 bytes/pixel :-(.\n"
 	      "      If you know how to fix this, please let me (d92-jwa@nada.kth.se\n"
 	      "      know).  The fix should probably go into %s, just above line %d.\n",
 	      __FILE__,
 	      __LINE__);
-      exit(EXIT_FAILURE);
   }
 
   /* Update the display. */
@@ -606,8 +596,7 @@ gint bubblemon_update (gpointer data)
 /*
  * This function, bubblemon_expose, is called whenever a portion of the
  * applet window has been exposed and needs to be redrawn.  In this
- * function, we just blit the appropriate portion of the pixmap onto the window.
- *
+ * function, we just blit the whole pixmap onto the window.
  */
 gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 			       gpointer data)
@@ -684,6 +673,9 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 
   /* We begin with zero bubbles */
   bm->n_bubbles = 0;
+
+  /* We haven't created or killed any bubbles yet */
+  bm->surface_balance = 0;
   
   /*
    * area is the drawing area into which the little picture of
@@ -781,7 +773,7 @@ void bubblemon_setup_samples (BubbleMonData *bm)
   bm->loadIndex = 0;
   bm->load = malloc (bm->samples * sizeof (uint64_t));
   bm->total = malloc (bm->samples * sizeof (uint64_t));
-  for (i = 0; i < bm->samples; ++ i)
+  for (i = 0; i < bm->samples; i++)
     {
       bm->load[i] = load;
       bm->total[i] = total;
@@ -825,50 +817,50 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   g_liquid_maxswap = (bm->liquid_maxswap >> 8) & 0xff;
   b_liquid_maxswap = (bm->liquid_maxswap) & 0xff;
   
-  for (i = 0; i < actual_colors; ++ i) {
-    int r, g, b;
-    int r_composite, g_composite, b_composite;
-    char rgbStr[24];
-    XColor exact, screen;
+  for (i = 0; i < actual_colors; i++)
+    {
+      int r, g, b;
+      int r_composite, g_composite, b_composite;
+      char rgbStr[24];
+      XColor exact, screen;
 
-    j = i >> 1;
+      j = i >> 1;
 
-    /* Air */
-    r = (r_air_maxswap * j + r_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-    g = (g_air_maxswap * j + g_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-    b = (b_air_maxswap * j + b_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      /* Air */
+      r = (r_air_maxswap * j + r_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      g = (g_air_maxswap * j + g_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      b = (b_air_maxswap * j + b_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
 
-    r_composite = r;
-    g_composite = g;
-    b_composite = b;
+      r_composite = r;
+      g_composite = g;
+      b_composite = b;
 
-    sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
-    XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-    col[(i*3)] = screen.pixel;
+      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
+      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
+      col[(i*3)] = screen.pixel;
 
-    /* Liquid */
-    r = (r_liquid_maxswap * j + r_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-    g = (g_liquid_maxswap * j + g_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
-    b = (b_liquid_maxswap * j + b_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      /* Liquid */
+      r = (r_liquid_maxswap * j + r_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      g = (g_liquid_maxswap * j + g_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+      b = (b_liquid_maxswap * j + b_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
 
-    r_composite += r;
-    g_composite += g;
-    b_composite += b;
+      r_composite += r;
+      g_composite += g;
+      b_composite += b;
 
-    sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
-    XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-    col[(i*3) + 1] = screen.pixel;
+      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
+      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
+      col[(i*3) + 1] = screen.pixel;
+      
+      /* Anti-alias */
+      r = r_composite / 2;
+      g = g_composite / 2;
+      b = b_composite / 2;
 
-    /* Anti-alias */
-    r = r_composite / 2;
-    g = g_composite / 2;
-    b = b_composite / 2;
-
-    sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
-    XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-    col[(i*3) + 2] = screen.pixel;
-
-  }
+      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
+      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
+      col[(i*3) + 2] = screen.pixel;
+    }
 }
 
 void
