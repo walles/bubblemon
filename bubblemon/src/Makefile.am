@@ -11,7 +11,6 @@ bubblemon_applet_SOURCES = \
 
 bubblemon_applet_LDADD = \
 	$(GNOME_LIBDIR) \
-	$(GNOMEUI_LIBS) \
 	$(GNOME_APPLETS_LIBS) \
 	$(LIBGTOP_LIBS) \
 	$(LIBGTOP_EXTRA_LIBS)
