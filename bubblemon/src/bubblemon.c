@@ -419,10 +419,66 @@ gint bubblemon_update (gpointer data)
 	      swapPercentage);
     }
 
+  /*
+    Here comes the bubble magic.  Pixels are drawn by setting values in
+    buf to 0-NUM_COLORS.  We should possibly make some macros or
+    inline functions to {g|s}et pixels.
+  */
+
+  /* Draw the air-and-water background */
+  for (x = 0; x < w; x++)
+    for (y = 0; y < h; y++)
+      {
+	if (y < bm->waterlevels[x])
+	  buf[y * w + x] = aircolor;
+	else
+	  buf[y * w + x] = watercolor;
+      }
+
+  /* Create a new bubble if the planets are correctly aligned... */
+  if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
+    {
+      int surface_rise_start, surface_rise_stop, surface_rise_radius, surface_rise;
+      
+      /* We don't allow bubbles on the edges 'cause we'd have to clip them */
+      bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
+      bubbles[bm->n_bubbles].y = h - 1;
+      bubbles[bm->n_bubbles].dy = 0.0;
+      bm->n_bubbles++;
+
+      /* Raise a portion of the surface above the new bubble */
+      if (bm->surface_balance < 0)
+	surface_rise_radius = 3;
+      else if (bm->surface_balance < 10)
+	surface_rise_radius = 2;
+      else if (bm->surface_balance < 20)
+	surface_rise_radius = 1;
+      else
+	surface_rise_radius = 0;
+
+      if (surface_rise_radius > 0)
+	{
+	  /* Clip the surface rise */
+	  surface_rise_start = bubbles[bm->n_bubbles].x - surface_rise_radius;
+	  if (surface_rise_start < 1)
+	    surface_rise_start = 1;
+      
+	  surface_rise_stop = bubbles[bm->n_bubbles].x + surface_rise_radius;
+	  if (surface_rise_stop > (w - 2))
+	    surface_rise_stop = w - 2;
+
+	  for (surface_rise = surface_rise_start;
+	       surface_rise <= surface_rise_stop;
+	       surface_rise++)
+	    bm->waterlevels[surface_rise]--;
+
+	  bm->surface_balance += surface_rise_stop - surface_rise_start + 1;
+	}
+    }
+  
   /* Move the water level with the current memory usage. */
   waterlevel_goal = h - ((memoryPercentage * h) / 100);
 
-  /* Update the waterlevels */
   bm->waterlevels[0] = waterlevel_goal;
   bm->waterlevels[w - 1] = waterlevel_goal;
 
@@ -444,32 +500,6 @@ gint bubblemon_update (gpointer data)
   bm->waterlevels_inactive = bm->waterlevels;
   bm->waterlevels = temp;
 
-  /*
-    Here comes the bubble magic.  Pixels are drawn by setting values in
-    buf to 0-NUM_COLORS.  We should possibly make some macros or
-    inline functions to {g|s}et pixels.
-  */
-
-  /* Draw the air-and-water background */
-  for (x = 0; x < w; x++)
-    for (y = 0; y < h; y++)
-      {
-	if (y < bm->waterlevels[x])
-	  buf[y * w + x] = aircolor;
-	else
-	  buf[y * w + x] = watercolor;
-      }
-
-  /* Create a new bubble if the planets are correctly aligned... */
-  if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
-    {
-      /* We don't allow bubbles on the edges 'cause we'd have to clip them */
-      bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
-      bubbles[bm->n_bubbles].y = h - 1;
-      bubbles[bm->n_bubbles].dy = 0.0;
-      bm->n_bubbles++;
-    }
-  
   /* Update and draw the bubbles */
   for (i = 0; i < bm->n_bubbles; i++)
     {
