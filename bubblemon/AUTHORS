@@ -44,3 +44,5 @@ displayed on remote X displays.
 
 Thanks to Alex Badea for writing a workaround for the need for the
 --activate-goad-server switch.
+
+Thanks a lot to Charles Gales for adding initial SMP support.
