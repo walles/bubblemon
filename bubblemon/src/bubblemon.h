@@ -26,6 +26,9 @@
 /* How fast do the bubbles rise? */
 #define GRAVITY -0.01
 
+/* The drag coefficient of the bottle */
+#define BOTTLE_DRAG 0.2
+
 /* How fast do the water levels accelerate? */
 #define VOLATILITY 1.0
 
@@ -40,12 +43,16 @@
 #define RELATIVE_WIDTH 32
 #define RELATIVE_HEIGHT 40
 
-/* Swap usage color scale */              /*   rrggbb */
-#define NOSWAPAIRCOLOR    (bubblemon_color_t)0x2299ff
-#define NOSWAPWATERCOLOR  (bubblemon_color_t)0x0055ff
+/* Swap usage color scale */              /*    rrggbbaa */
+static const unsigned int NOSWAPAIRCOLOR    = 0x2299ff00;
+static const unsigned int NOSWAPWATERCOLOR  = 0x0055ffb0;
 
-#define MAXSWAPAIRCOLOR   (bubblemon_color_t)0xff0000
-#define MAXSWAPWATERCOLOR (bubblemon_color_t)0xaa0000
+// FIXME: We may want to make the swap water less transparent (so it
+// looks more like blood), and the swap air less transparent (so that
+// it looks fogged up).  OTOH, that may make the bottle hard to spot,
+// so I guess we'll just have to do some experimenting to find out.
+static const unsigned int MAXSWAPAIRCOLOR   = 0xff000000;
+static const unsigned int MAXSWAPWATERCOLOR = 0xaa0000b0;
 
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
@@ -53,24 +60,18 @@
 /* Color code constants */
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
 
+/* Bottle behaviour */
+typedef enum { GONE, FLOATING, SINKING, FALLING } bubblemon_bottlestate_t;
+
 /* An (a)rgb color value */
 typedef union {
   int value;
-#ifdef WORDS_BIGENDIAN
   struct {
-    unsigned char a;
     unsigned char r;
     unsigned char g;
     unsigned char b;
-  } components;
-#else
-  struct {
-    unsigned char b;
-    unsigned char g;
-    unsigned char r;
     unsigned char a;
   } components;
-#endif
 } bubblemon_color_t;
 
 typedef struct
@@ -105,6 +106,10 @@ typedef struct
   int n_bubbles;
   int max_bubbles;
   bubblemon_Bubble *bubbles;
+
+  float bottle_y;
+  float bottle_dy;
+  bubblemon_bottlestate_t bottle_state;
 } bubblemon_Physics;
 
 /* The 'pixels' field of the returned struct contains the pixels to

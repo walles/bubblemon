@@ -47,7 +47,11 @@
 #include "bubblemon.h"
 #include "ui.h"
 #include "meter.h"
+#include "mail.h"
 #include "config.h"
+
+// Bottle graphics
+#include "msgInBottle.c"
 
 static bubblemon_picture_t bubblePic;
 static bubblemon_Physics physics;
@@ -351,8 +355,85 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
   }
 }
 
+
+/* Update the bottle */
+static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
+{
+  float dt = msecsSinceLastCall / 30.0;
+  float gravityDdy;
+  float dragDdy;
+  int isInWater;
+
+  isInWater = physics.bottle_y < physics.waterLevels[bubblePic.width / 2].y;
+
+  if (youveGotMail) {
+    if (physics.bottle_state == GONE) {
+      // Drop a new bottle
+      // -5.0 = arbitrary margin
+      physics.bottle_y = bubblePic.height + msgInBottle.height;
+      physics.bottle_dy = 0.0;
+      physics.bottle_state = FALLING;
+    } else if (physics.bottle_state == SINKING) {
+      physics.bottle_state = FLOATING;
+    }
+  } else {
+    /* No unread mail */
+    if ((physics.bottle_state == FALLING) ||
+	(physics.bottle_state == FLOATING))
+    {
+      physics.bottle_state = SINKING;
+    }
+  }
+
+  if (physics.bottle_state == GONE) {
+    return;
+  }
+
+  /* Accelerate the bottle */
+  if ((physics.bottle_state == FALLING) ||
+      (physics.bottle_state == SINKING) ||
+      !isInWater)
+  {
+    // Gravity pulls the bottle down
+    gravityDdy = 2.0 * GRAVITY * dt;
+  } else {
+    // Gravity floats the bottle up
+    gravityDdy = 2.0 * -(GRAVITY * dt);
+  }
+
+  if (isInWater) {
+    dragDdy = (physics.bottle_dy * physics.bottle_dy) * BOTTLE_DRAG;
+    // If the speed is positive...
+    if (physics.bottle_dy > 0.0) {
+      // ... then the drag should be negative
+      dragDdy = -dragDdy;
+    }
+  } else {
+    dragDdy = 0.0;
+  }
+
+  physics.bottle_dy += gravityDdy + dragDdy;
+  
+  /* Move the bottle vertically */
+  physics.bottle_y += physics.bottle_dy * dt;
+  
+  // If the bottle has fallen on screen...
+  if ((physics.bottle_state == FALLING) &&
+      (physics.bottle_y < bubblePic.height))
+  {
+    // ... it should start floating instead of falling
+    physics.bottle_state = FLOATING;
+  }
+  
+  /* Did we lose it? */
+  if ((physics.bottle_state == SINKING) && (physics.bottle_y + msgInBottle.height < 0.0)) {
+    physics.bottle_state = GONE;
+  }
+}
+
+
 /* Update the bubble array from the system load */
-static void bubblemon_updatePhysics(int msecsSinceLastCall)
+static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
 {
   /* No size -- no go */
   if ((bubblePic.width == 0) ||
@@ -369,7 +450,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall)
     physics.waterLevels =
       (bubblemon_WaterLevel *)malloc(bubblePic.width * sizeof(bubblemon_WaterLevel));
   }
-
+  
   /* Make sure the bubbles exist */
   if (physics.bubbles == NULL)
   {
@@ -385,6 +466,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall)
   /* Update our universe */
   bubblemon_updateWaterlevels(msecsSinceLastCall);
   bubblemon_updateBubbles(msecsSinceLastCall);
+  bubblemon_updateBottle(msecsSinceLastCall, youveGotMail);
 }
 
 int bubblemon_getMemoryPercentage()
@@ -627,21 +709,21 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
 
 static bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
 						    const bubblemon_color_t c2,
-						    const int percentage)
+						    const int amount)
 {
   int a, r, g, b;
   bubblemon_color_t returnme;
 
-  assert(percentage >= 0 && percentage <= 100);
+  assert(amount >= 0 && amount < 256);
 
-  a = ((((int)c1.components.a) * (100 - percentage)) +
-       (((int)c2.components.a) * percentage)) / 100;
-  r = ((((int)c1.components.r) * (100 - percentage)) +
-       (((int)c2.components.r) * percentage)) / 100;
-  g = ((((int)c1.components.g) * (100 - percentage)) +
-       (((int)c2.components.g) * percentage)) / 100;
-  b = ((((int)c1.components.b) * (100 - percentage)) +
-       (((int)c2.components.b) * percentage)) / 100;
+  r = ((((int)c1.components.r) * (255 - amount)) +
+       (((int)c2.components.r) * amount)) / 255;
+  g = ((((int)c1.components.g) * (255 - amount)) +
+       (((int)c2.components.g) * amount)) / 255;
+  b = ((((int)c1.components.b) * (255 - amount)) +
+       (((int)c2.components.b) * amount)) / 255;
+  a = ((((int)c1.components.a) * (255 - amount)) +
+       (((int)c2.components.a) * amount)) / 255;
 
   /*
   assert(a >= 0 && a <= 255);
@@ -659,54 +741,160 @@ static bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
 	 ((c1.components.b >= b) && (b >= c2.components.b)));
   */
   
-  returnme.components.a = a;
   returnme.components.r = r;
   returnme.components.g = g;
   returnme.components.b = b;
+  returnme.components.a = a;
 
-  assert((percentage != 0)   || (returnme.value == c1.value));
-  assert((percentage != 100) || (returnme.value == c2.value));
+  assert((amount != 0)   || (returnme.value == c1.value));
+  assert((amount != 255) || (returnme.value == c2.value));
 
   return returnme;
 }
 
-static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic)
+static const bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
 {
-  bubblemon_color_t colors[3];
+  bubblemon_color_t returnMe;
 
+#if defined(WORDS_BIGENDIAN)
+  returnMe.components.a = (constant >> 24) & 0xff;
+  returnMe.components.b = (constant >> 16) & 0xff; 
+  returnMe.components.g = (constant >> 8)  & 0xff; 
+  returnMe.components.r = (constant >> 0)  & 0xff;
+#else
+  returnMe.components.r = (constant >> 24) & 0xff;
+  returnMe.components.g = (constant >> 16) & 0xff; 
+  returnMe.components.b = (constant >> 8)  & 0xff; 
+  returnMe.components.a = (constant >> 0)  & 0xff;
+#endif
+  
+  return returnMe;
+}
+
+static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic, int clear)
+{
+  static bubblemon_color_t noSwapAirColor;
+  static bubblemon_color_t noSwapWaterColor;
+
+  static bubblemon_color_t maxSwapAirColor;
+  static bubblemon_color_t maxSwapWaterColor;
+  
+  bubblemon_color_t colors[3];
+  
   bubblemon_colorcode_t *airOrWater;
   bubblemon_color_t *pixel;
   int i;
   
   int w, h;
+  
+  noSwapAirColor = bubblemon_constant2color(NOSWAPAIRCOLOR);
+  noSwapWaterColor = bubblemon_constant2color(NOSWAPWATERCOLOR);
 
-  colors[AIR] = bubblemon_interpolateColor(NOSWAPAIRCOLOR, MAXSWAPAIRCOLOR, bubblemon_getSwapPercentage());
-  colors[WATER] = bubblemon_interpolateColor(NOSWAPWATERCOLOR, MAXSWAPWATERCOLOR, bubblemon_getSwapPercentage());
-  colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 50);
-
+  maxSwapAirColor = bubblemon_constant2color(MAXSWAPAIRCOLOR);
+  maxSwapWaterColor = bubblemon_constant2color(MAXSWAPWATERCOLOR);
+  
+  colors[AIR] = bubblemon_interpolateColor(noSwapAirColor, maxSwapAirColor, (bubblemon_getSwapPercentage() * 255) / 100);
+  colors[WATER] = bubblemon_interpolateColor(noSwapWaterColor, maxSwapWaterColor, (bubblemon_getSwapPercentage() * 255) / 100);
+  colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
+  
   w = bubblePic->width;
   h = bubblePic->height;
-
+  
   /* Make sure the pixel array exist */
   if (bubblePic->pixels == NULL)
   {
     bubblePic->pixels =
       (bubblemon_color_t *)malloc(bubblePic->width * bubblePic->height * sizeof(bubblemon_color_t));
   }
-
+  
   pixel = bubblePic->pixels;
   airOrWater = bubblePic->airAndWater;
-  for (i = 0; i < w * h; i++)
-  {
-    *pixel++ = colors[*airOrWater++];
+  if (clear) {
+    // Erase the old pic as we draw
+    for (i = 0; i < w * h; i++) {
+      *pixel++ = colors[*airOrWater++];
+    }
+  } else {
+    // Draw on top of the current pic
+    for (i = 0; i < w * h; i++) {
+      bubblemon_color_t myColor = colors[*airOrWater++];
+      *pixel = bubblemon_interpolateColor(*pixel,
+					  myColor,
+					  myColor.components.a);
+      pixel++;
+    }
+  }
+}
+
+static void bubblemon_bottleToPixmap(bubblemon_picture_t *bubblePic)
+{
+  int bottleX, bottleY;
+  int bottleW, bottleH;
+  int bottleYMin, bottleYMax;
+  int pictureX0, pictureY0;
+  int pictureW, pictureH;
+  
+  if (physics.bottle_state == GONE) {
+    return;
+  }
+  
+  assert(bubblePic->pixels != NULL);
+  
+  pictureW = bubblePic->width;
+  pictureH = bubblePic->height;
+  
+  bottleW = msgInBottle.width;
+  bottleH = msgInBottle.height;
+  
+  // Ditch the bottle if the image is too small
+  // FIXME: We should check the image height as well
+  if (pictureW < (bottleW + 4)) {
+    return;
+  }
+  
+  // Center the bottle horizontally
+  pictureX0 = (bubblePic->width - bottleW) / 2;
+  // Position the bottle vertically
+  pictureY0 = pictureH - physics.bottle_y - bottleH / 2;
+  
+  // Clip the bottle vertically to fit it into the picture
+  bottleYMin = 0;
+  if (pictureY0 < 0) {
+    bottleYMin = -pictureY0;
+  }
+  bottleYMax = bottleH;
+  if (pictureY0 + bottleH >= pictureH) {
+    bottleYMax = bottleH - (pictureY0 + bottleH - pictureH);
+  }
+  
+  // Iterate over the bottle
+  for (bottleX = 0; bottleX < bottleW; bottleX++) {
+    for (bottleY = bottleYMin; bottleY < bottleYMax; bottleY++) {
+      int pictureX = pictureX0 + bottleX;
+      int pictureY = pictureY0 + bottleY;
+      
+      bubblemon_color_t bottlePixel;
+      bubblemon_color_t *picturePixel;
+      
+      // assert(pictureY < pictureH);
+      
+      bottlePixel = ((bubblemon_color_t*)(msgInBottle.pixel_data))[bottleX + bottleY * bottleW];
+      picturePixel = &(bubblePic->pixels[pictureX + pictureY * pictureW]);
+      
+      *picturePixel = bubblemon_interpolateColor(*picturePixel,
+						 bottlePixel,
+						 bottlePixel.components.a);
+    }
   }
 }
 
 const bubblemon_picture_t *bubblemon_getPicture()
 {
-  int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
   static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
   static int physicalTimeElapsed = 0;
+  
+  int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
+  int youveGotMail = mail_hasUnreadMail();
   
   // Get the system load
   meter_getLoad(&sysload);
@@ -719,13 +907,13 @@ const bubblemon_picture_t *bubblemon_getPicture()
   }
   if (msecsSinceLastCall <= msecsPerPhysicsFrame)
   {
-    bubblemon_updatePhysics(msecsSinceLastCall);
+    bubblemon_updatePhysics(msecsSinceLastCall, youveGotMail);
   }
   else
   {
     while (physicalTimeElapsed < msecsSinceLastCall)
     {
-      bubblemon_updatePhysics(msecsPerPhysicsFrame);
+      bubblemon_updatePhysics(msecsPerPhysicsFrame, youveGotMail);
       physicalTimeElapsed += msecsPerPhysicsFrame;
     }
     physicalTimeElapsed -= msecsSinceLastCall;
@@ -735,7 +923,13 @@ const bubblemon_picture_t *bubblemon_getPicture()
   bubblemon_physicsToBubbleArray(&bubblePic);
 
   // Convert the water-and-air array into a colormap
-  bubblemon_bubbleArrayToPixmap(&bubblePic);
+  bubblemon_bubbleArrayToPixmap(&bubblePic, 1);
+
+  // Add the bottle to the colormap
+  bubblemon_bottleToPixmap(&bubblePic);
+
+  // Add a suitably transparent water-and-air array to the colormap
+  bubblemon_bubbleArrayToPixmap(&bubblePic, 0);
   
   return &bubblePic;
 }
@@ -754,6 +948,9 @@ int main(int argc, char *argv[])
   meter_init(argc, argv, &sysload);
   sysload.cpuLoad = (int *)malloc(sizeof(int) * sysload.nCpus);
 
+  // Initialize the bottle
+  physics.bottle_state = GONE;
+  
   // Do the disco duck
   exitcode = ui_main(argc, argv);
   

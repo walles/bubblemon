@@ -14,7 +14,8 @@ bin_PROGRAMS = bubblemon-gnome1
 bubblemon_gnome1_SOURCES = \
 	bubblemon.c bubblemon.h \
 	meter.h ui.h \
-	gnome1-meter.c gnome1-ui.c
+	gnome1-meter.c gnome1-ui.c \
+	unix-mail.c mail.h
 
 bubblemon_gnome1_LDADD = \
 	$(GNOME_LIBDIR) \
