@@ -130,7 +130,7 @@ void get_memory_load(BubbleMonData *bm,
   glibtop_mem memory;
   glibtop_swap swap;
   static int swap_delay = 0;
-  static uint64_t swap_used, swap_total;
+  static uint64_t swap_used = 0, swap_total = 0;
 
   glibtop_get_mem (&memory);
 
