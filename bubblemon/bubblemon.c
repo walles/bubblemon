@@ -120,7 +120,7 @@ bubblemon_update (gpointer data)
 
   // Find out the memory load
   glibtop_get_mem (&memory);
-  memoryPercentage = (100 * (memory.used - memory.cached)) / memory.total;
+  memoryPercentage = (100 * (memory.used - memory.cached - memory.buffer)) / memory.total;
 
   // Find out the swap load, but update it only every 50 times we get
   // here, which should amount to once a second
