@@ -32,13 +32,25 @@
 #include <applet-widget.h>
 
 #define NUM_COLOURS 2
+#define MAX_BUBBLES 100
 
-typedef struct BubbleMonData {
+typedef struct {
+  int x;    // Horizontal coordinate
+  float y;  // Vertical coordinate
+  float dy; // Vertical velocity
+
+  // FIXME: Should we give every bubble a radius?
+} Bubble;
+
+typedef struct {
   GtkWidget *applet;
 
   gint breadth, depth, update, samples;
-  int *firebuf, *colours;
+  int *bubblebuf, *colours;
 
+  Bubble bubbles[MAX_BUBBLES];
+  int n_bubbles;
+  
   gboolean setup;
 
   guint timeout;

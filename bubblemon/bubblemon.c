@@ -66,8 +66,6 @@ main (int argc, char ** argv)
   return 0;
 } /* main */
 
-#define SPARK_EDGE 4
-
 int total;
 
 /*
@@ -79,14 +77,14 @@ int total;
 gint
 bubblemon_update (gpointer data)
 {
-  BubbleMonData * mc = data;
+  BubbleMonData * bm = data;
   int i, w, h, n, bytesPerPixel, percent, *buf, *col, x, y;
   int aircolor, watercolor, waterlevel;
   glibtop_cpu cpu;
   uint64_t load, total, oLoad, oTotal;
 
-  // mc->setup is a status byte that is true if we are rolling
-  if (!mc->setup)
+  // bm->setup is a status byte that is true if we are rolling
+  if (!bm->setup)
     return FALSE;
 
   // Find out the CPU load
@@ -95,13 +93,13 @@ bubblemon_update (gpointer data)
   total = cpu.total;
   
   // "i" is an index into a load history
-  i = mc->loadIndex;
-  oLoad = mc->load[i];
-  oTotal = mc->total[i];
+  i = bm->loadIndex;
+  oLoad = bm->load[i];
+  oTotal = bm->total[i];
 
-  mc->load[i] = load;
-  mc->total[i] = total;
-  mc->loadIndex = (i + 1) % mc->samples;
+  bm->load[i] = load;
+  bm->total[i] = total;
+  bm->loadIndex = (i + 1) % bm->samples;
 
   // FIXME: Is the comment on the next line correct?
   // Because the load returned from libgtop is a value accumulated
@@ -119,10 +117,10 @@ bubblemon_update (gpointer data)
   // The buf is made up of ints (0-(NUM_COLOURS-1)), each pointing out
   // an entry in the color table.  A pixel in the buf is accessed
   // using the formula buf[row * w + column].
-  buf = mc->firebuf;
-  col = mc->colours;
-  w = mc->breadth;
-  h = mc->depth;
+  buf = bm->bubblebuf;
+  col = bm->colours;
+  w = bm->breadth;
+  h = bm->depth;
   n = w * h;
 
   // FIXME: The colors of air and water should vary with how many
@@ -130,12 +128,18 @@ bubblemon_update (gpointer data)
   aircolor = 0;
   watercolor = 1;
 
-  // Set the water level depending on the system load
-  waterlevel = h - ((h * percent) / 100);
+  // FIXME: The water level should move with the current memory usage.
+  // It is measured in how many pixels of air are above the water
+  // surface.
 
-  // Here comes the fire magic.  Pixels are drawn by setting values in
+  // 75% water
+  waterlevel = h - ((75 * h) / 100);
+
+  // Here comes the bubble magic.  Pixels are drawn by setting values in
   // buf to 0-NUM_COLORS.  We should possibly make some macros or
   // inline functions to {g|s}et pixels.
+
+  // Draw the air-and-water background
   for (x = 0; x < w; x++)
     for (y = 0; y < h; y++)
       {
@@ -144,26 +148,22 @@ bubblemon_update (gpointer data)
 	else
 	  buf[y * w + x] = watercolor;
       }
-  
-/*    for (i = 0; i < (percent >> 3) + 2; ++ i) */
-/*      buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] = random () % NUM_COLOURS; */
-/*    for (i = 0; i < (100 - percent) >> 4; ++ i) */
-/*      buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] >>= 1; */
-/*    for (i = n - 1; i >= 0; -- i) */
-/*      buf[i] = (buf[i + w - 1] + buf[i + w] + buf[i + w + 1] + buf[i]) >> 2; */
 
-  bytesPerPixel = GDK_IMAGE_XIMAGE (mc->image)->bytes_per_line / w;
+  // FIXME: Update and draw the bubbles
+  
+  // Drawing magic resides below this point
+  bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
   // Copy the fire image data to the gdk image
   switch (bytesPerPixel) {
     case 4: {
-      uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (mc->image)->data;
+      uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
       for (i = 0; i < n; ++ i)
         ptr[i] = col[buf[i]];
       break;
     }
     case 2: {
-      uint16_t *ptr = (uint16_t *) GDK_IMAGE_XIMAGE (mc->image)->data;
+      uint16_t *ptr = (uint16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
       for (i = 0; i < n; ++ i)
         ptr[i] = col[buf[i]];
       break;
@@ -171,9 +171,9 @@ bubblemon_update (gpointer data)
   }
 
   /* Update the display. */
-  bubblemon_expose_handler (mc->area, NULL, mc);
+  bubblemon_expose_handler (bm->area, NULL, bm);
 
-  bubblemon_set_timeout (mc);
+  bubblemon_set_timeout (bm);
 
   return TRUE;
 } /* bubblemon_update */
@@ -189,13 +189,13 @@ gint
 bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 			gpointer data)
 {
-  BubbleMonData * mc = data;
+  BubbleMonData * bm = data;
 
-  if (!mc->setup)
+  if (!bm->setup)
     return FALSE;
 
-  gdk_draw_image (mc->area->window, mc->area->style->fg_gc[GTK_WIDGET_STATE (mc->area)],
-                  mc->image, 0, 0, 0, 0, mc->breadth, mc->depth);
+  gdk_draw_image (bm->area->window, bm->area->style->fg_gc[GTK_WIDGET_STATE (bm->area)],
+                  bm->image, 0, 0, 0, 0, bm->breadth, bm->depth);
   
   return FALSE; 
 } /* bubblemon_expose_handler */
@@ -204,9 +204,9 @@ gint
 bubblemon_configure_handler (GtkWidget *widget, GdkEventConfigure *event,
 			   gpointer data)
 {
-  BubbleMonData * mc = data;
+  BubbleMonData * bm = data;
   
-  bubblemon_update ( (gpointer) mc);
+  bubblemon_update ( (gpointer) bm);
 
   return TRUE;
 }  /* bubblemon_configure_handler */
@@ -220,13 +220,13 @@ applet_start_new_applet (const gchar *goad_id, const char **params,
 
 gint
 bubblemon_delete (gpointer data) {
-  BubbleMonData * mc = data;
+  BubbleMonData * bm = data;
 
-  mc->setup = FALSE;
+  bm->setup = FALSE;
 
-  if (mc->timeout) {
-    gtk_timeout_remove (mc->timeout);
-    mc->timeout = 0;
+  if (bm->timeout) {
+    gtk_timeout_remove (bm->timeout);
+    bm->timeout = 0;
   }
 
   applet_widget_gtk_main_quit();
@@ -236,120 +236,120 @@ bubblemon_delete (gpointer data) {
 GtkWidget *
 make_new_bubblemon_applet (const gchar *goad_id)
 {
-  BubbleMonData * mc;
+  BubbleMonData * bm;
   gchar * param = "bubblemon_applet";
 
-  mc = g_new0 (BubbleMonData, 1);
+  bm = g_new0 (BubbleMonData, 1);
 
-  mc->applet = applet_widget_new (goad_id);
+  bm->applet = applet_widget_new (goad_id);
 
   if (!glibtop_init_r (&glibtop_global_server, 0, 0))
     g_error (_("Can't open glibtop!\n"));
   
-  if (mc->applet == NULL)
+  if (bm->applet == NULL)
     g_error (_("Can't create applet!\n"));
 
   /*
    * Load all the saved session parameters (or the defaults if none
    * exist).
    */
-  if ( (APPLET_WIDGET (mc->applet)->privcfgpath) &&
-       * (APPLET_WIDGET (mc->applet)->privcfgpath))
-    bubblemon_session_load (APPLET_WIDGET (mc->applet)->privcfgpath, mc);
+  if ( (APPLET_WIDGET (bm->applet)->privcfgpath) &&
+       * (APPLET_WIDGET (bm->applet)->privcfgpath))
+    bubblemon_session_load (APPLET_WIDGET (bm->applet)->privcfgpath, bm);
   else
-    bubblemon_session_defaults (mc);
+    bubblemon_session_defaults (bm);
 
   /*
    * area is the drawing area into which the little picture of
    * the bubblemon gets drawn.
    */
-  mc->area = gtk_drawing_area_new ();
-  gtk_widget_set_usize (mc->area, mc->breadth, mc->depth);
+  bm->area = gtk_drawing_area_new ();
+  gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
   /* Set up the event callbacks for the area. */
-  gtk_signal_connect (GTK_OBJECT (mc->area), "expose_event",
-		      (GtkSignalFunc)bubblemon_expose_handler, mc);
-  gtk_widget_set_events (mc->area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
+  gtk_signal_connect (GTK_OBJECT (bm->area), "expose_event",
+		      (GtkSignalFunc)bubblemon_expose_handler, bm);
+  gtk_widget_set_events (bm->area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
 
-  applet_widget_add (APPLET_WIDGET (mc->applet), mc->area);
+  applet_widget_add (APPLET_WIDGET (bm->applet), bm->area);
 
-  gtk_signal_connect (GTK_OBJECT (mc->applet), "save_session",
+  gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
 		      GTK_SIGNAL_FUNC (bubblemon_session_save),
-		      mc);
+		      bm);
 
-  gtk_signal_connect (GTK_OBJECT (mc->applet), "delete_event",
+  gtk_signal_connect (GTK_OBJECT (bm->applet), "delete_event",
                       GTK_SIGNAL_FUNC (bubblemon_delete),
-                      mc);
+                      bm);
 
-  applet_widget_register_stock_callback (APPLET_WIDGET (mc->applet),
+  applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
 					 "about",
 					 GNOME_STOCK_MENU_ABOUT,
 					 _("About..."),
 					 about_cb,
-					 mc);
+					 bm);
 
-  applet_widget_register_stock_callback (APPLET_WIDGET (mc->applet),
+  applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
 					 "properties",
 					 GNOME_STOCK_MENU_PROP,
 					 ("Properties..."),
 					 bubblemon_properties_window,
-					 mc);
+					 bm);
 
-  gtk_widget_show_all (mc->applet);
+  gtk_widget_show_all (bm->applet);
 
   /* Size things according to the saved settings. */
-  bubblemon_set_size (mc);
+  bubblemon_set_size (bm);
 
-  bubblemon_setup_samples (mc);
+  bubblemon_setup_samples (bm);
 
-  bubblemon_setup_colours (mc);
+  bubblemon_setup_colours (bm);
 
   /* Nothing is drawn until this is set. */
-  mc->setup = TRUE;
+  bm->setup = TRUE;
 
   /* Will schedule a timeout automatically */
-  bubblemon_update (mc);
+  bubblemon_update (bm);
 
-  return mc->applet;
+  return bm->applet;
 } /* make_new_bubblemon_applet */
 
-void bubblemon_set_timeout (BubbleMonData *mc) { 
-  gint when = mc->update;
+void bubblemon_set_timeout (BubbleMonData *bm) { 
+  gint when = bm->update;
   
-  if (when != mc->timeout_t) {
-    if (mc->timeout) {
-      gtk_timeout_remove (mc->timeout);
-      mc->timeout = 0;
+  if (when != bm->timeout_t) {
+    if (bm->timeout) {
+      gtk_timeout_remove (bm->timeout);
+      bm->timeout = 0;
     }
-    mc->timeout_t = when;
-    mc->timeout = gtk_timeout_add (when, (GtkFunction) bubblemon_update, mc);
+    bm->timeout_t = when;
+    bm->timeout = gtk_timeout_add (when, (GtkFunction) bubblemon_update, bm);
   }
 }
 
-void bubblemon_setup_samples (BubbleMonData *mc) {
+void bubblemon_setup_samples (BubbleMonData *bm) {
   int i;
   uint64_t load = 0, total = 0;
 
-  if (mc->load) {
-    load = mc->load[mc->loadIndex];
-    free (mc->load);
+  if (bm->load) {
+    load = bm->load[bm->loadIndex];
+    free (bm->load);
   }
 
-  if (mc->total) {
-    total = mc->total[mc->loadIndex];
-    free (mc->total);
+  if (bm->total) {
+    total = bm->total[bm->loadIndex];
+    free (bm->total);
   }
 
-  mc->loadIndex = 0;
-  mc->load = malloc (mc->samples * sizeof (uint64_t));
-  mc->total = malloc (mc->samples * sizeof (uint64_t));
-  for (i = 0; i < mc->samples; ++ i) {
-    mc->load[i] = load;
-    mc->total[i] = total;
+  bm->loadIndex = 0;
+  bm->load = malloc (bm->samples * sizeof (uint64_t));
+  bm->total = malloc (bm->samples * sizeof (uint64_t));
+  for (i = 0; i < bm->samples; ++ i) {
+    bm->load[i] = load;
+    bm->total[i] = total;
   }
 }
 
-void bubblemon_setup_colours (BubbleMonData *mc) {
+void bubblemon_setup_colours (BubbleMonData *bm) {
   int i, *col;
   GdkColormap *golormap;
   Display *display;
@@ -359,9 +359,9 @@ void bubblemon_setup_colours (BubbleMonData *mc) {
   display = GDK_COLORMAP_XDISPLAY(golormap);
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
 
-  if (!mc->colours)
-    mc->colours = malloc (NUM_COLOURS * sizeof (int));
-  col = mc->colours;
+  if (!bm->colours)
+    bm->colours = malloc (NUM_COLOURS * sizeof (int));
+  col = bm->colours;
   
   for (i = 0; i < NUM_COLOURS; ++ i) {
     int r, g, b;
@@ -383,19 +383,19 @@ void bubblemon_setup_colours (BubbleMonData *mc) {
 void
 destroy_about (GtkWidget *w, gpointer data)
 {
-  BubbleMonData *mc = data;
+  BubbleMonData *bm = data;
 } /* destroy_about */
 
 void
 about_cb (AppletWidget *widget, gpointer data)
 {
-  BubbleMonData *mc = data;
+  BubbleMonData *bm = data;
   char *authors[2];
   
   authors[0] = "Johan Walles <d92-jwa@nada.kth.se>";
   authors[1] = NULL;
 
-  mc->about_box =
+  bm->about_box =
     gnome_about_new (_("Bubbling Load Monitor"), VERSION,
 		     _("Copyright (C) 1999 Johan Walles"),
 		     (const char **) authors,
@@ -409,34 +409,34 @@ about_cb (AppletWidget *widget, gpointer data)
                "See the LICENSE file for details.\n"),
 		     NULL);
 
-  gtk_signal_connect (GTK_OBJECT (mc->about_box), "destroy",
-		      GTK_SIGNAL_FUNC (destroy_about), mc);
+  gtk_signal_connect (GTK_OBJECT (bm->about_box), "destroy",
+		      GTK_SIGNAL_FUNC (destroy_about), bm);
 
-  gtk_widget_show (mc->about_box);
+  gtk_widget_show (bm->about_box);
 } /* about_cb */
 
 void
-bubblemon_set_size (BubbleMonData * mc)
+bubblemon_set_size (BubbleMonData * bm)
 {
   int bpp;
 
-  gtk_widget_set_usize (mc->area, mc->breadth, mc->depth);
+  gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
-  if (mc->firebuf)
-    free (mc->firebuf);
+  if (bm->bubblebuf)
+    free (bm->bubblebuf);
 
-  mc->firebuf = malloc (mc->breadth * (mc->depth + 1) * sizeof (int));
-  memset (mc->firebuf, 0, mc->breadth * (mc->depth + 1) * sizeof (int));
+  bm->bubblebuf = malloc (bm->breadth * (bm->depth + 1) * sizeof (int));
+  memset (bm->bubblebuf, 0, bm->breadth * (bm->depth + 1) * sizeof (int));
 
   /*
    * If the image has already been allocated, then free them here
    * before creating a new one.  */
-  if (mc->image)
-    gdk_image_destroy (mc->image);
+  if (bm->image)
+    gdk_image_destroy (bm->image);
 
-  mc->image = gdk_image_new (GDK_IMAGE_SHARED, gtk_widget_get_visual (mc->area), mc->breadth, mc->depth);
+  bm->image = gdk_image_new (GDK_IMAGE_SHARED, gtk_widget_get_visual (bm->area), bm->breadth, bm->depth);
 
-  bpp = GDK_IMAGE_XIMAGE (mc->image)->bytes_per_line / mc->breadth;
+  bpp = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / bm->breadth;
 
   if ((bpp != 2) && (bpp != 4))
     gnome_error_dialog (_("Bubbling Load Monitor:\nOnly 16bpp and 32bpp modes are supported!\n"));
