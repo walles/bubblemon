@@ -3,7 +3,7 @@ dnl Turn on many useful compiler warnings
 dnl For now, only works on GCC
 AC_DEFUN([GNOME_COMPILE_WARNINGS],[
   AC_ARG_ENABLE(compile-warnings, 
-    [  --enable-compile-warnings=[no/minimum/yes]	Turn on compiler warnings.],,enable_compile_warnings=minimum)
+    [  --enable-compile-warnings=[no/minimum/yes]	Turn on compiler warnings.],,enable_compile_warnings=yes)
 
   AC_MSG_CHECKING(what warning flags to pass to the C compiler)
   warnCFLAGS=
