@@ -94,11 +94,6 @@ void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long
   assert(!interface->isAlive &&
 	 "netload_reportBack() called twice on the same interface");
   
-  // Verify that the incoming values are >= the ones we already got.
-  assert(bytesSent >= interface->currentBytesOut &&
-	 bytesReceived >= interface->currentBytesIn &&
-	 "The interface byte count has moved backwards");
-  
   // Store the incoming values.
   interface->previousBytesIn = interface->currentBytesIn;
   interface->currentBytesIn = bytesReceived;
@@ -108,6 +103,12 @@ void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long
   {
     interface->previousBytesIn = interface->currentBytesIn;
   }
+  else
+  {
+    // Verify that the counter isn't moving backwards
+    assert(((interface->currentBytesIn - interface->previousBytesIn) < (1 << 30)) &&
+	   "Input byte counter is moving backwards");
+  }
 
   interface->previousBytesOut = interface->currentBytesOut;
   interface->currentBytesOut = bytesSent;
@@ -116,6 +117,12 @@ void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long
   if (interface->previousBytesOut == 0)
   {
     interface->previousBytesOut = interface->currentBytesOut;
+  }
+  else
+  {
+    // Verify that the counter isn't moving backwards
+    assert(((interface->currentBytesOut - interface->previousBytesOut) < (1 << 30)) &&
+	   "Output byte counter is moving backwards");
   }
 
   // Mark the interface live
