@@ -9,7 +9,8 @@ echo
 aclocal-1.7 &&\
 autoheader2.50 &&\
 automake-1.7 --add-missing &&\
-autoconf2.50 ||\ exit $?
+autoconf2.50 &&\
+intltoolize ||\ exit $?
 
 echo
 echo "Done generating configuration files for bubblemon, now do \"./configure ; make ; make install\""

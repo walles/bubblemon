@@ -7,6 +7,11 @@
 # functionality.
 # Please note that the actual code of GNU gettext is covered by the GNU
 # General Public License and is *not* in the public domain.
+#
+# - Modified by Intltool to use intltool instead of gettext directly. +#
+#
+# GENPOT
+
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -16,6 +21,7 @@ SHELL = /bin/sh
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
+top_builddir = ..
 VPATH = @srcdir@
 
 prefix = @prefix@
@@ -29,11 +35,13 @@ INSTALL_DATA = @INSTALL_DATA@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 mkinstalldirs = $(SHELL) $(MKINSTALLDIRS)
 
+DOMAIN = $(GETTEXT_PACKAGE)
 GMSGFMT = @GMSGFMT@
 MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
-MSGMERGE = msgmerge
-MSGMERGE_UPDATE = @MSGMERGE@ --update
+INTLTOOL_UPDATE = @INTLTOOL_UPDATE@
+INTLTOOL_EXTRACT = @INTLTOOL_EXTRACT@
+INTLTOOL_MERGE = INTLTOOL_EXTRACT=$(INTLTOOL_EXTRACT) $(INTLTOOL_UPDATE) --dist --gettext-package $(DOMAIN)
 MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
@@ -97,26 +105,9 @@ stamp-po: $(srcdir)/$(DOMAIN).pot
 
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
-$(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
-	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
-	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --files-from=$(srcdir)/POTFILES.in \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)'
-	test ! -f $(DOMAIN).po || { \
-	  if test -f $(srcdir)/$(DOMAIN).pot; then \
-	    sed -f remove-potcdate.sed < $(srcdir)/$(DOMAIN).pot > $(DOMAIN).1po && \
-	    sed -f remove-potcdate.sed < $(DOMAIN).po > $(DOMAIN).2po && \
-	    if cmp $(DOMAIN).1po $(DOMAIN).2po >/dev/null 2>&1; then \
-	      rm -f $(DOMAIN).1po $(DOMAIN).2po $(DOMAIN).po; \
-	    else \
-	      rm -f $(DOMAIN).1po $(DOMAIN).2po $(srcdir)/$(DOMAIN).pot && \
-	      mv $(DOMAIN).po $(srcdir)/$(DOMAIN).pot; \
-	    fi; \
-	  else \
-	    mv $(DOMAIN).po $(srcdir)/$(DOMAIN).pot; \
-	  fi; \
-	}
+$(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in
+	INTLTOOL_EXTRACT=$(INTLTOOL_EXTRACT) srcdir=$(srcdir) $(INTLTOOL_UPDATE) --pot --gettext-package $(DOMAIN)
+
 
 # This rule has no dependencies: we don't need to update $(DOMAIN).pot at
 # every "make" invocation, only create it when it is missing.
@@ -129,8 +120,8 @@ $(srcdir)/$(DOMAIN).pot:
 $(POFILES): $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
-	cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot
+	echo "$${cdcmd}$(INTLTOOL_UPDATE) $${lang}.po"; \
+	cd $(srcdir) && $(INTLTOOL_UPDATE) $${lang};
 
 
 install: install-exec install-data
@@ -267,6 +258,7 @@ mostlyclean:
 	rm -f stamp-poT
 	rm -f core core.* $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 	rm -fr *.o
+	rm -f .intltool-merge-cache
 
 clean: mostlyclean
 
@@ -318,9 +310,9 @@ update-po: Makefile
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
+	echo "$${cdcmd}$(INTLTOOL_MERGE) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
 	cd $(srcdir); \
-	if $(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
+	if INTLTOOL_EXTRACT=$$tmpdir/$(INTLTOOL_EXTRACT) $$tmpdir/$(INTLTOOL_UPDATE) --dist --gettext-package $(DOMAIN) -o $$tmpdir/$$lang.new.po $$lang; then \
 	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	    rm -f $$tmpdir/$$lang.new.po; \
 	  else \
