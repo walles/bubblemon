@@ -198,7 +198,7 @@ static int bubblemon_getMsecsSinceLastCall()
 
   /* What time is it now? */
   gettimeofday(&currentTime, NULL);
-
+  
   if ((last_sec != 0L) || (last_usec != 0L))
   {
     returnMe = 1000 * (int)(currentTime.tv_sec - last_sec);
@@ -1035,8 +1035,13 @@ const bubblemon_picture_t *bubblemon_getPicture()
   static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
   static int physicalTimeElapsed = 0;
   
-  int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
+  int msecsSinceLastCall;
   int youveGotMail = mail_hasUnreadMail();
+  
+  // Make sure we never try to move things backwards
+  do {
+    msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
+  } while (msecsSinceLastCall < 0);
   
   // Get the system load
   meter_getLoad(&sysload);
