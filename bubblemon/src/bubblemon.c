@@ -76,10 +76,11 @@ int main (int argc, char ** argv)
 
   goad_id = goad_server_activation_id ();
   if (!goad_id)
-    /* FIXME: What should this error message *really* say? */
-    g_error("Couldn't activate GOAD server.  If you understand what this means,\n"
-	    "please write an e-mail to d92-jwa@nada.kth.se and explain it so that\n"
-	    "this error message can be replaced by something a bit more useful.\n");
+    g_error("Couldn't activate GOAD server.  This usually means that you are trying\n"
+	    "to run the applet from the command line and haven't specified the\n"
+	    "--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
+	    "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
+	    "and explain it, because I really have no idea what it does.\n");
 
   /* Create the bubblemon applet widget */
   applet = make_new_bubblemon_applet (goad_id);
@@ -757,10 +758,10 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
   /* Set up the event callbacks for the area. */
   gtk_signal_connect (GTK_OBJECT (bm->area), "expose_event",
 		      GTK_SIGNAL_FUNC(bubblemon_expose_handler),
-		      GTK_OBJECT(bm));
+		      (gpointer) bm);
   gtk_signal_connect (GTK_OBJECT (bm->area), "enter_notify_event",
 		      GTK_SIGNAL_FUNC(widget_enter_cb),
-		      GTK_OBJECT(bm));
+		      (gpointer) bm);
   gtk_widget_set_events (bm->area,
 			 GDK_EXPOSURE_MASK |
 			 GDK_ENTER_NOTIFY_MASK);
@@ -769,11 +770,11 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
 		      GTK_SIGNAL_FUNC (bubblemon_session_save),
-		      GTK_OBJECT(bm));
+		      (gpointer) bm);
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "delete_event",
                       GTK_SIGNAL_FUNC (bubblemon_delete),
-                      GTK_OBJECT(bm));
+		      (gpointer) bm);
 
   applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
 					 "about",
