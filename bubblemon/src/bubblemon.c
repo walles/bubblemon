@@ -939,7 +939,7 @@ gint bubblemon_size_change_handler(GtkWidget * w,
   /* Leave some space for the borders */
   new_size -= 4;
 
-  /* FIXME: This doesn't work for vertical panels */
+  /* Calculate our new dimensions */
   bm->depth = new_size;
   bm->breadth = (new_size * RELATIVE_WIDTH) / RELATIVE_HEIGHT;
 
@@ -1008,10 +1008,12 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 			 GDK_EXPOSURE_MASK |
 			 GDK_ENTER_NOTIFY_MASK);
 
+#ifdef HAVE_CHANGE_PIXEL_SIZE
   gtk_signal_connect (GTK_OBJECT (bm->applet), "change_pixel_size",
 		      GTK_SIGNAL_FUNC (bubblemon_size_change_handler),
 		      (gpointer) bm);
-
+#endif
+  
   gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
 		      GTK_SIGNAL_FUNC (bubblemon_session_save),
 		      (gpointer) bm);
@@ -1029,21 +1031,26 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 					 about_cb,
 					 bm);
 
+  /* Initialize the CPU load metering... */
+  bubblemon_setup_samples (bm);
+
+  /* ... and our color table. */
+  bubblemon_setup_colors (bm);
+
+  /* This will prevent stuff from happening until the breadth is
+     properly initialized. */
+  bm->breadth = 0;
+
   /* Add the applet to the panel.  When we add it, we are supposed to
-     receive both a signal informing us about the panel orientation,
-     and a signal informing us about the panel width.  Thus, those
-     values don't have to be initialized anywhere else.  Keep your
+     receive a signal informing us about the panel width.  Thus, that
+     value doesn't have to be initialized anywhere else.  Keep your
      fingers crossed :-). */
   gtk_widget_show_all (bm->applet);
 
-  /* Size things according to the saved settings. */
-  bubblemon_setup_samples (bm);
-
-  bubblemon_setup_colors (bm);
-
-  /* This will prevent stuff from working until the breadth is
-     properly initialized. */
-  bm->breadth = 0;
+#ifndef HAVE_CHANGE_PIXEL_SIZE
+  /* The panel is always 48 pixels high */
+  bubblemon_size_change_handler(NULL, 48, bm);
+#endif
 
   return bm->applet;
 } /* make_new_bubblemon_applet */
@@ -1066,6 +1073,8 @@ void bubblemon_set_timeout (BubbleMonData *bm)
 
 void bubblemon_setup_samples (BubbleMonData *bm)
 {
+  /* Initialize the CPU load monitoring. */
+
   int i;
   u_int64_t load = 0, total = 0;
 

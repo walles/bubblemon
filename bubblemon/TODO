@@ -12,9 +12,6 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  programming skills, and should be a both easy and useful way to
  improve the applet.
 
-. Wrap all panel resizing specific code inside
- "#ifdef HAVE_PANEL_PIXEL_SIZE".
-
 . Pause the applet if it ain't visible for some reason (for example if
  the GNOME panel is hidden).  If you know about or want to learn how
  to make nice GNOME 1.2 compliant panel applets, this one is for you.
