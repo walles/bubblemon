@@ -34,7 +34,7 @@ EOF
 fi
 
 # Build a Debian package
-debuild
+debuild -uc -us
 if [ $? != 0 ] ; then
     echo Error: Debian package building failed > /dev/stderr
     exit 1
@@ -56,12 +56,13 @@ if [ $? != 0 ] ; then
     echo Error: Source package building failed > /dev/stderr
     exit 1
 fi
-ln -s $(BUBBLEMON_ROOT)/bubblemon-*.tar.gz $(RPM_SOURCES)
-rm -f $(RPMS)/bubblemon*rpm
+ln -s $BUBBLEMON_ROOT/bubblemon-*.tar.gz $RPM_SOURCES
+rm -f $RPMS/bubblemon*rpm
 rpm -bb packaging/bubblemon.spec
 if [ $? != 0 ] ; then
     echo Error: RPM package building failed > /dev/stderr
+    rm -f bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
     exit 1
 fi
-mv $(RPMS)/bubblemon*rpm ..
-rm bubblemon-*.tar.gz $(RPM_SOURCES)/bubblemon-*.tar.gz
+mv $RPMS/bubblemon*rpm ..
+rm bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
