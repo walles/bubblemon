@@ -55,3 +55,5 @@ make clean
 %doc AUTHORS COPYING FAQ README FAQ PROFILING TRANSLATIONS TODO
 
 /usr/man/man1/bubblemon_applet.1
+/usr/man/sv/man1/bubblemon_applet.1
+/usr/man/hu/man1/bubblemon_applet.1
