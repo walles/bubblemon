@@ -1229,7 +1229,7 @@ void widget_leave_cb (GtkWidget *ignored1,
 
 void bubblemon_set_size (BubbleMonData * bm)
 {
-  int bpp, i;
+  int i;
 
   if (bm->breadth == 0)
     return;
@@ -1273,8 +1273,6 @@ void bubblemon_set_size (BubbleMonData * bm)
                              gtk_widget_get_visual (bm->area),
                              bm->breadth,
                              bm->depth);
-
-  bpp = ((GDK_IMAGE_XIMAGE (bm->image))->bytes_per_line) / bm->breadth;
 
   if (!bm->setup)
     {
