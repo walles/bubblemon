@@ -25,8 +25,7 @@
 
 #include "mail.h"
 
-/* Perform an actual check for new mail on every N calls to
- * mail_hasUnreadMail. */
+/* Check $MAIL for new mail on every N calls to mail_hasUnreadMail. */
 static const int CHECKEVERYNTH = 100;
 
 int mail_hasUnreadMail(void)
