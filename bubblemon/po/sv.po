@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-16 17:10+0200\n"
+"POT-Creation-Date: 2000-09-20 19:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,12 +23,12 @@ msgstr ""
 "Fel: Konstanten NUM_COLORS i bubblemon.h måste vara en multipel av\n"
 "    tre.  Nuvarande värde (%d) är inte det.\n"
 
-#: src/bubblemon.c:222
+#: src/bubblemon.c:240
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() hävdar att du inte har något minne på rad %d i %s"
 
-#: src/bubblemon.c:275
+#: src/bubblemon.c:293
 #, c-format
 msgid ""
 "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
@@ -36,12 +36,12 @@ msgid ""
 "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:330
+#: src/bubblemon.c:348
 #, c-format
 msgid "bm == NULL in update_tooltip() on line %d of %s\n"
 msgstr "bm == NULL i update_tooltip() på rad %d i %s\n"
 
-#: src/bubblemon.c:343
+#: src/bubblemon.c:361
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s\n"
@@ -51,14 +51,14 @@ msgstr ""
 "Virtuellt minne: %s\n"
 "Processor: %d%%"
 
-#: src/bubblemon.c:373
+#: src/bubblemon.c:391
 #, c-format
 msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
 msgstr ""
 "get_censored_memory_and_swap() hävdar att du inte har något minne på\n"
 "rad %d i %s"
 
-#: src/bubblemon.c:394
+#: src/bubblemon.c:412
 msgid ""
 "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
 "(0-100)\n"
@@ -66,16 +66,16 @@ msgid ""
 "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:453
+#: src/bubblemon.c:471
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunde inte byta katalog till $HOME (%s)\n"
 
-#: src/bubblemon.c:459
+#: src/bubblemon.c:477
 msgid "$HOME environment variable not set\n"
 msgstr "Miljövariabeln $HOME är inte satt\n"
 
-#: src/bubblemon.c:464
+#: src/bubblemon.c:482
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -84,11 +84,11 @@ msgstr ""
 "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
 "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
 
-#: src/bubblemon.c:466
+#: src/bubblemon.c:484
 msgid "<name of executable>"
 msgstr "<programmets namn>"
 
-#: src/bubblemon.c:566
+#: src/bubblemon.c:584
 #, c-format
 msgid ""
 "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
@@ -97,23 +97,23 @@ msgid ""
 "of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:871
+#: src/bubblemon.c:889
 msgid "Can't create applet!\n"
 msgstr "Kan inte skapa applet!\n"
 
-#: src/bubblemon.c:874
+#: src/bubblemon.c:892
 msgid "Can't open glibtop!\n"
 msgstr "Kan inte öppna glibtop!\n"
 
-#: src/bubblemon.c:930
+#: src/bubblemon.c:948
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1094
+#: src/bubblemon.c:1112
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
-#: src/bubblemon.c:1097
+#: src/bubblemon.c:1115
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
