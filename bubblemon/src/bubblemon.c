@@ -408,12 +408,13 @@ gint bubblemon_update (gpointer data)
 {
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
-  int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
+  int i, w, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
   int aircolor, watercolor, aliascolor;
-  int waterlevel_goal, waterlevel_min, waterlevel_max, bias;
   int swapPercentage, memoryPercentage;
-  int *temp;
-  static int last_waterlevel_min = 0;
+  float waterlevel_goal, waterlevel_min, waterlevel_max;
+  float h;
+  float *temp;
+  static float last_waterlevel_min = 0;
 
 #ifdef ENABLE_PROFILING
   static int profiling_countdown = 2500;  /* FIXME: Is 2500 calls to here == 50 seconds? */
@@ -473,6 +474,34 @@ gint bubblemon_update (gpointer data)
   h = bm->depth;
   n_pixels = w * h;
 
+  waterlevel_max = 0;
+  waterlevel_min = h;
+
+  /* Move the water level with the current memory usage. */
+  waterlevel_goal = h - ((memoryPercentage * h) / 100.0);
+
+  bm->waterlevels[0] = waterlevel_goal;
+  bm->waterlevels[w - 1] = waterlevel_goal;
+
+  for (x = 1; x < (w - 1); x++)
+    {
+      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
+				     bm->waterlevels[x + 1]) / 2.0;
+
+      // Keep track of the highest and lowest water levels
+      if (bm->waterlevels_inactive[x] > waterlevel_max)
+        waterlevel_max = bm->waterlevels_inactive[x];
+      else if (bm->waterlevels_inactive[x] < waterlevel_min)
+        waterlevel_min = bm->waterlevels_inactive[x];
+    }
+
+  bm->waterlevels_inactive[0] = waterlevel_goal;
+  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
+
+  temp = bm->waterlevels_inactive;
+  bm->waterlevels_inactive = bm->waterlevels;
+  bm->waterlevels = temp;
+
   /*
     Vary the colors of air and water with how many
     percent of the available swap space that is in use.
@@ -497,39 +526,6 @@ gint bubblemon_update (gpointer data)
 	      __FILE__);
     }
 
-  /* Move the water level with the current memory usage. */
-  waterlevel_goal = h - ((memoryPercentage * h) / 100);
-
-  /* Update the waterlevels */
-  bm->waterlevels[0] = waterlevel_goal;
-  bm->waterlevels[w - 1] = waterlevel_goal;
-
-  waterlevel_max = 0;
-  waterlevel_min = h;
-
-  for (x = 1; x < (w - 1); x++)
-    {
-      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
-				     bm->waterlevels[x + 1]) >> 1;
-
-      /* Guard from rounding errors */
-      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
-      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
-	bm->waterlevels_inactive[x]++;
-
-      if (bm->waterlevels_inactive[x] > waterlevel_max)
-	waterlevel_max = bm->waterlevels_inactive[x];
-      else if (bm->waterlevels_inactive[x] < waterlevel_min)
-	waterlevel_min = bm->waterlevels_inactive[x];
-    }
-
-  bm->waterlevels_inactive[0] = waterlevel_goal;
-  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
-
-  temp = bm->waterlevels_inactive;
-  bm->waterlevels_inactive = bm->waterlevels;
-  bm->waterlevels = temp;
-
   /*
     Here comes the bubble magic.  Pixels are drawn by setting values in
     buf to 0-NUM_COLORS.  We should possibly make some macros or
@@ -551,8 +547,8 @@ gint bubblemon_update (gpointer data)
   */
 
   /* Air only */
-  for (buf_ptr = buf + (last_waterlevel_min * w);
-       buf_ptr < (buf + (waterlevel_min * w));
+  for (buf_ptr = buf + ((int)(last_waterlevel_min * w + 0.5));
+       buf_ptr < (buf + ((int)(waterlevel_min * w + 0.5)));
        buf_ptr++)
     *buf_ptr = aircolor;
   last_waterlevel_min = waterlevel_min;
@@ -570,8 +566,8 @@ gint bubblemon_update (gpointer data)
     }
 
   /* Water only */
-  for (buf_ptr = (buf + (waterlevel_max * w));
-       buf_ptr < (buf + (h * w));
+  for (buf_ptr = (buf + ((int)(waterlevel_max * w + 0.5)));
+       buf_ptr < (buf + ((int)(h * w + 0.5)));
        buf_ptr++)
     *buf_ptr = watercolor;
 
@@ -580,7 +576,7 @@ gint bubblemon_update (gpointer data)
     {
       /* We don't allow bubbles on the edges 'cause we'd have to clip them */
       bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
-      bubbles[bm->n_bubbles].y = h - 1;
+      bubbles[bm->n_bubbles].y = h - 1.0;
       bubbles[bm->n_bubbles].dy = 0.0;
 
       /* Count the new bubble */
@@ -669,30 +665,6 @@ gint bubblemon_update (gpointer data)
         }
     }
   
-  /* Move the water level with the current memory usage. */
-  waterlevel_goal = h - ((memoryPercentage * h) / 100);
-
-  bm->waterlevels[0] = waterlevel_goal;
-  bm->waterlevels[w - 1] = waterlevel_goal;
-
-  for (x = 1; x < (w - 1); x++)
-    {
-      bm->waterlevels_inactive[x] = (bm->waterlevels[x - 1] +
-				     bm->waterlevels[x + 1]) >> 1;
-      
-      /* Guard from rounding errors */
-      bias = (x < (w >> 1)) ? (x - 1) : (x + 1);
-      if (bm->waterlevels_inactive[x] < bm->waterlevels[bias])
-	bm->waterlevels_inactive[x]++;
-    }
-
-  bm->waterlevels_inactive[0] = waterlevel_goal;
-  bm->waterlevels_inactive[w - 1] = waterlevel_goal;
-
-  temp = bm->waterlevels_inactive;
-  bm->waterlevels_inactive = bm->waterlevels;
-  bm->waterlevels = temp;
-
   /* Drawing magic resides below this point */
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
@@ -948,7 +920,7 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
 
   if (!bm->colors)
-    // FIXME: Shouldn't the sizeof() on the next line be replaced with
+    // FIXME: Shouldn the sizeof() on the next line be replaced with
     // some bytes-per-pixel value?
     bm->colors = malloc (NUM_COLORS * sizeof (int));
   col = bm->colors;
@@ -1070,7 +1042,7 @@ void bubblemon_set_size (BubbleMonData * bm)
   if (bm->waterlevels)
     free (bm->waterlevels);
 
-  bm->waterlevels = malloc (bm->breadth * sizeof (int));
+  bm->waterlevels = malloc (bm->breadth * sizeof (float));
   for (i = 0; i < bm->breadth; i++)
     {
       bm->waterlevels[i] = bm->depth;
@@ -1079,7 +1051,7 @@ void bubblemon_set_size (BubbleMonData * bm)
   if (bm->waterlevels_inactive)
     free (bm->waterlevels_inactive);
 
-  bm->waterlevels_inactive = malloc (bm->breadth * sizeof (int));
+  bm->waterlevels_inactive = malloc (bm->breadth * sizeof (float));
 
   /*
    * If the image has already been allocated, then free it here
