@@ -602,7 +602,9 @@ gint bubblemon_update (gpointer data)
   for (x = 0; x < w; x++)
     {
       /* Air... */
-      for (y = waterlevel_min; y < ((int)(bm->waterlevels[x])); y++)
+      for (y = waterlevel_min;
+           y < ((int)(bm->waterlevels[x]));
+           y++)
 	buf[y * w + x] = aircolor;
 
       /* ... and water */

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-08-11 12:52+0200\n"
+"POT-Creation-Date: 2000-08-15 13:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,8 @@ msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
 msgstr ""
+"Fel: Konstanten NUM_COLORS i bubblemon.h måste vara en multipel av\n"
+"    tre.  Nuvarande värde (%d) är inte det.\n"
 
 #: src/bubblemon.c:88
 msgid ""
@@ -29,6 +31,10 @@ msgid ""
 "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
 "and explain it, because I really have no idea what it does.\n"
 msgstr ""
+"Kan inte aktivera GOAD-servern.  Detta betyder förmodligen att du\n"
+"försöker köra från kommandoraden utan att ange flaggan\n"
+"--activate-goad-server=bubblemon_applet.  Testa att lägga till den och\n"
+"försöka igen.\n"
 
 #: src/bubblemon.c:219
 #, c-format
@@ -73,16 +79,16 @@ msgid ""
 "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:437
+#: src/bubblemon.c:450
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunde inte byta katalog till $HOME (%s)\n"
 
-#: src/bubblemon.c:443
+#: src/bubblemon.c:456
 msgid "$HOME environment variable not set\n"
 msgstr "Miljövariabeln $HOME är inte satt\n"
 
-#: src/bubblemon.c:448
+#: src/bubblemon.c:461
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -91,11 +97,11 @@ msgstr ""
 "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
 "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
 
-#: src/bubblemon.c:450
+#: src/bubblemon.c:463
 msgid "<name of executable>"
 msgstr "<programmets namn>"
 
-#: src/bubblemon.c:489
+#: src/bubblemon.c:563
 #, c-format
 msgid ""
 "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
@@ -104,23 +110,23 @@ msgid ""
 "of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:809
+#: src/bubblemon.c:868
 msgid "Can't create applet!\n"
 msgstr "Kan inte skapa applet!\n"
 
-#: src/bubblemon.c:812
+#: src/bubblemon.c:871
 msgid "Can't open glibtop!\n"
 msgstr "Kan inte öppna glibtop!\n"
 
-#: src/bubblemon.c:868
+#: src/bubblemon.c:927
 msgid "About..."
 msgstr "Om..."
 
-#: src/bubblemon.c:1032
+#: src/bubblemon.c:1091
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
-#: src/bubblemon.c:1035
+#: src/bubblemon.c:1094
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
