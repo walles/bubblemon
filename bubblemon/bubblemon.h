@@ -37,7 +37,7 @@ typedef struct BubbleMonData {
   GtkWidget *applet;
 
   gint breadth, depth, update, samples;
-  int *bubblebuf, *colours;
+  int *firebuf, *colours;
 
   gboolean setup;
 
@@ -87,19 +87,19 @@ typedef struct BubbleMonData {
 void about_cb (AppletWidget *widget, gpointer data);
 void destroy_about(GtkWidget *w, gpointer data);
 
-void cpufire_setup_samples(BubbleMonData *mc);
-void cpufire_setup_colours(BubbleMonData *mc);
-void cpufire_set_size(BubbleMonData *mc);
-void cpufire_set_timeout(BubbleMonData *mc);
-gint cpufire_update(gpointer data);
-gint cpufire_orient_handler(GtkWidget *w, PanelOrientType o,
+void bubblemon_setup_samples(BubbleMonData *mc);
+void bubblemon_setup_colours(BubbleMonData *mc);
+void bubblemon_set_size(BubbleMonData *mc);
+void bubblemon_set_timeout(BubbleMonData *mc);
+gint bubblemon_update(gpointer data);
+gint bubblemon_orient_handler(GtkWidget *w, PanelOrientType o,
 				   gpointer data);
-gint cpufire_configure_handler(GtkWidget *widget, GdkEventConfigure *event,
+gint bubblemon_configure_handler(GtkWidget *widget, GdkEventConfigure *event,
 			       gpointer data);
-GtkWidget *make_new_cpufire_applet (const gchar *goad_id);
+GtkWidget *make_new_bubblemon_applet (const gchar *goad_id);
 GtkWidget *applet_start_new_applet (const gchar *goad_id,
 				     const char **params, int nparams);
 
-extern int cpufire_flame[];
+extern int bubblemon_flame[];
 
 #endif /* _BUBBLEMON_H */

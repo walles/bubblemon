@@ -1,4 +1,4 @@
-int cpufire_flame[256] = {
+int bubblemon_flame[256] = {
   0x000000,
   0x000001,
   0x000002,
