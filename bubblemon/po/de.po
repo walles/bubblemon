@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.11\n"
-"POT-Creation-Date: 2000-12-02 22:12+0100\n"
+"POT-Creation-Date: 2000-12-20 20:05+0100\n"
 "PO-Revision-Date: 2000-09-04 21:46+0100\n"
 "Last-Translator: Detlef Reichl <detlef.reichl@arcormail.de>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
@@ -75,27 +75,27 @@ msgstr ""
 "       Sie wurden berechnet von mem_used (%Ld), mem_max (%Ld),\n"
 "       swap_used (%Ld) und swap_max (%Ld) in Zeile %d in %s.\n"
 
-#: src/bubblemon.c:539
+#: src/bubblemon.c:600
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kann nicht chdir() in $HOME (%s)\n"
 
-#: src/bubblemon.c:545
+#: src/bubblemon.c:606
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME Umgebungs-Variable ist nicht gesetzt\n"
 
-#: src/bubblemon.c:550
+#: src/bubblemon.c:611
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
 
-#: src/bubblemon.c:552
+#: src/bubblemon.c:613
 msgid "<name of executable>"
 msgstr ""
 
-#: src/bubblemon.c:664
+#: src/bubblemon.c:725
 #, c-format
 msgid ""
 "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
@@ -108,24 +108,24 @@ msgstr ""
 "\tSwapWert(%d) ist wahrscheinlich auserhalb des Bereichs (0-100) in Zeile %d "
 "in %s.\n"
 
-#: src/bubblemon.c:965
+#: src/bubblemon.c:989
 msgid "Can't create applet!\n"
 msgstr "Kann Applet nicht erstellen\n"
 
-#: src/bubblemon.c:968
+#: src/bubblemon.c:992
 msgid "Can't open glibtop!\n"
 msgstr "Kann glibtop nicht öffnen\n"
 
-#: src/bubblemon.c:1030
+#: src/bubblemon.c:1054
 #, fuzzy
 msgid "About"
 msgstr "Über"
 
-#: src/bubblemon.c:1204
+#: src/bubblemon.c:1224
 msgid "Bubbling Load Monitor"
 msgstr "Blubber Auslastungs Anzeige"
 
-#: src/bubblemon.c:1207
+#: src/bubblemon.c:1227
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-12-02 22:12+0100\n"
+"POT-Creation-Date: 2000-12-20 20:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,16 +74,16 @@ msgstr ""
 "       De var beregnet ud fra mem_used (%Ld), mem_max (%Ld),\n"
 "       swap_used (%Ld) og swap_max (%Ld) på linie %d af %s.\n"
 
-#: src/bubblemon.c:539
+#: src/bubblemon.c:600
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunne ikke chdir() til $HOME (%s)\n"
 
-#: src/bubblemon.c:545
+#: src/bubblemon.c:606
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME environment variablen er ikke sat\n"
 
-#: src/bubblemon.c:550
+#: src/bubblemon.c:611
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -92,11 +92,11 @@ msgstr ""
 "Bubblemon stopper.  Profil data skulle være i ~/gmon.out.\n"
 "For lidt sjov, kør 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:552
+#: src/bubblemon.c:613
 msgid "<name of executable>"
 msgstr "<navnet på den binære fil>"
 
-#: src/bubblemon.c:664
+#: src/bubblemon.c:725
 #, c-format
 msgid ""
 "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
@@ -109,23 +109,23 @@ msgstr ""
 "       swapPercentage (%d) har sandsynligvis også forkert værdi (0-100) på "
 "linie %d af %s.\n"
 
-#: src/bubblemon.c:965
+#: src/bubblemon.c:989
 msgid "Can't create applet!\n"
 msgstr "Kan ikke lave applet!\n"
 
-#: src/bubblemon.c:968
+#: src/bubblemon.c:992
 msgid "Can't open glibtop!\n"
 msgstr "Kan ikke åbne glibtop!\n"
 
-#: src/bubblemon.c:1030
+#: src/bubblemon.c:1054
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1204
+#: src/bubblemon.c:1224
 msgid "Bubbling Load Monitor"
 msgstr "Boblende Load Monitering"
 
-#: src/bubblemon.c:1207
+#: src/bubblemon.c:1227
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
