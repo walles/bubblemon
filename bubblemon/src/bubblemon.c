@@ -573,14 +573,32 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
   // Draw the air and water background
   for (x = 0; x < w; x++)
   {
+    bubblemon_colorcode_t *pixel;
+    bubblemon_colorcode_t *oldpixel;
+
+    pixel = &(bubblePic->airAndWater[x]);
     for (y = 0; y < (h - physics.waterLevels[x].y); y++)
     {
-      bubblePic->airAndWater[y * w + x] = AIR;
+      *pixel = AIR;
+      pixel += w;
     }
 
+    y = (h - physics.waterLevels[x].y);
+    oldpixel = pixel;
+    pixel = &(bubblePic->airAndWater[(y + 0) * w + x]);
+    /*
+    if (x == 0)
+    {
+      printf("Difference is %d pixels, a line is %d pixels.\n",
+	     (((unsigned int)pixel) - ((unsigned int)oldpixel)) / sizeof(pixel),
+	     w);
+      assert(pixel == oldpixel);
+    }
+    */
     for (y = (h - physics.waterLevels[x].y); y < h; y++)
     {
-      bubblePic->airAndWater[y * w + x] = WATER;
+      *pixel = WATER;
+      pixel += w;
     }
   }
   
