@@ -159,8 +159,10 @@ int get_cpu_load(BubbleMonData *bm, int cpu_number)  /* Returns the current CPU 
   /* Find out the CPU load */
   glibtop_get_cpu (&cpu);
 
-  /* FIXME: The following if() wouldn't be necessary if libgtop was
-     better designed. */
+  /* FIXME: The following if() shouldn't be necessary.  Either glibtop
+     is badly designed, or I don't know how to use it.  If anybody can
+     clarify this, could you please mail me at d92-jwa@nada.kth.se?
+     Thanks. */
   if (bm->number_of_cpus == 1)
     {
       my_user = cpu.user;
