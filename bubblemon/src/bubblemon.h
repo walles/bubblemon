@@ -22,6 +22,7 @@
 #define BUBBLEMON_H
 
 #include <sys/types.h>
+#include "config.h"
 
 /* How fast do the bubbles rise? */
 #define GRAVITY -0.01
@@ -38,6 +39,9 @@
 
 /* How fast are the water levels allowed to move? */
 #define SPEED_LIMIT 1.0
+
+/* How much newly created bubbles make the surface ripple */
+#define RIPPLES 0.2
 
 /* The applet's dimensions */
 #define RELATIVE_WIDTH 32
@@ -163,5 +167,11 @@ extern int bubblemon_getCpuLoadPercentage(int cpu);
 
 /* Return a suitable tool tip */
 extern const char *bubblemon_getTooltip(void);
+
+/* Must be called at the very start of the program */
+extern void bubblemon_init(void);
+
+/* Should be called at shutdown */
+extern void bubblemon_done(void);
 
 #endif

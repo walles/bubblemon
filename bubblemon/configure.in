@@ -1,46 +1,28 @@
 # -*-m4-*- Process this file with autoconf to produce a configure script.
 
+
+######################################################################
+#
+# General system tests required for building platform independent
+# stuff.
+#
+#
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 1.2.8)
+AM_INIT_AUTOMAKE(bubblemon, 2.0.0)
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_CC
 AM_PROG_CC_STDC
-AC_HEADER_STDC
 AC_ISC_POSIX
+AC_HEADER_STDC
 
-# Pick up the Gnome macros.
-#AM_ACLOCAL_INCLUDE(macros)
+# Find some more or less non-standard data types
+AC_CHECK_TYPE(u_int32_t, unsigned int)
+AC_CHECK_TYPE(u_int16_t, unsigned short int)
+AC_CHECK_TYPE(u_int8_t, unsigned char)
 
-# Find GLIB
-AM_PATH_GLIB()
-CFLAGS="$CFLAGS $GLIB_CFLAGS"
-LDFLAGS="$LDFLAGS $GLIB_CFLAGS"
-
-# Find GNOME and its applet making flags
-GNOME_INIT(applets)
-
-GNOME_INIT_LIBGTOP(1.0.0, fail)
-GNOME_COMPILE_WARNINGS
-GNOME_X_CHECKS
-
-# Find out if the GNOME panel is resizable
-AC_MSG_CHECKING(whether panel resizing is supported)
-AC_EGREP_HEADER(
-  change_pixel_size,
-  applet-widget.h,
-  have_change_pixel_size=yes,
-  have_change_pixel_size=no)
-
-if test "x$have_change_pixel_size" = "xyes"; then
-  AC_MSG_RESULT(yes)
-  AC_DEFINE(HAVE_CHANGE_PIXEL_SIZE)
-else
-  AC_MSG_RESULT(no)
-fi
-
-# Check for headers
-AC_CHECK_HEADERS(sys/sysinfo.h)
+# Find out whether we are on a big-endian system
+AC_C_BIGENDIAN
 
 # For i18n and l10n
 ALL_LINGUAS="sv fr pl de ko fi da sh pt ro es no hu it is"
@@ -58,50 +40,28 @@ fi
 AC_MSG_CHECKING(what languages to include)
 AC_MSG_RESULT($LINGUAS)
 
+GETTEXT_PACKAGE=bubblemon
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
+AC_SUBST(GETTEXT_PACKAGE)
+
 # For i18n and l10n (continued)
-AM_GNU_GETTEXT
+AM_GLIB_GNU_GETTEXT
 
-# Find some more or less non-standard data types
-AC_CHECK_TYPE(u_int32_t, unsigned int)
-AC_CHECK_TYPE(u_int16_t, unsigned short int)
-AC_CHECK_TYPE(u_int8_t, unsigned char)
-
-# Find GNOME's sysconf dir
-AC_MSG_CHECKING(for GNOME's sysconf dir)
-GNOME_SYSCONFDIR=`$GNOME_CONFIG --sysconfdir`
-AC_SUBST(GNOME_SYSCONFDIR)
-AC_MSG_RESULT($GNOME_SYSCONFDIR)
-
-# Find GNOME's data dir
-AC_MSG_CHECKING(for GNOME's data dir)
-GNOME_DATADIR=`$GNOME_CONFIG --datadir`
-AC_SUBST(GNOME_DATADIR)
-AC_MSG_RESULT($GNOME_DATADIR)
-
-# Subst PACKAGE_PIXMAPS_DIR.
-PACKAGE_PIXMAPS_DIR="`gnome-config --datadir`/pixmaps/${PACKAGE}"
-AC_SUBST(PACKAGE_PIXMAPS_DIR)
-
-# Check if the user wants to enable ripples
-AC_ARG_ENABLE(
-  ripples,
-  [  --enable-ripples[=amount]  Makes surface ripple whith bubbles.  Amount defaults to 0.2])
-
-# Set rippling to 0.2 if no value is given
-if test -z "$enableval"; then
-  enableval="0.2"
+# Where do we put locale information?
+if test "x$prefix" = "xNONE"; then
+  LOCALEDIR=$ac_default_prefix/share/locale
+else
+  LOCALEDIR=$prefix/share/locale
 fi
+AC_DEFINE_UNQUOTED(LOCALEDIR, "$LOCALEDIR")
 
-# Set rippling to 0.2 if no value is given
-if test "$enableval" = "yes"; then
-  enableval="0.2"
-fi
 
-AC_MSG_CHECKING(how much the bubbles should make the surface ripple)
 
-AC_DEFINE_UNQUOTED(RIPPLES, $enableval, How much the bubbles make the surface ripple (0.0 - 1.0))
-
-AC_MSG_RESULT($enableval)
+######################################################################
+#
+# Bubblemon specific tests
+#
+#
 
 # Check if the user wants to enable profiling
 AC_ARG_ENABLE(
@@ -127,24 +87,55 @@ if test "x$profiling" = "xyes"; then
   AC_MSG_WARN()
 fi
 
+
+##############################
+# GNOME 2.x specific tests
+
+# Versions required
+LIBPANEL_REQUIRED=2.0.0
+LIBGTOP_REQUIRED=2.0.0
+
+# We need the panel for the applets
+build_gpanel=false;
+PKG_CHECK_MODULES(GNOME_APPLETS, 
+	[libpanelapplet-2.0 >= $LIBPANEL_REQUIRED],
+	build_gpanel=true,
+	AC_MSG_WARN([GNOME2 panel not found.]))
+AC_SUBST(GNOME_APPLETS_CFLAGS)
+AC_SUBST(GNOME_APPLETS_LIBS)
+
+# Check for gtop2 libs
+build_gtop_applets=false
+PKG_CHECK_MODULES(GTOP_APPLETS,
+	[libgtop-2.0 >= $LIBGTOP_REQUIRED],
+	build_gtop_applets=true,
+	AC_MSG_WARN([libgtop not found.]))
+AC_SUBST(GTOP_APPLETS_CFLAGS)
+AC_SUBST(GTOP_APPLETS_LIBS)
+AM_CONDITIONAL(BUILD_GTOP_APPLETS, $build_gtop_applets)
+
+# The gnome2 panel is resizable
+AC_DEFINE(HAVE_CHANGE_PIXEL_SIZE)
+
+
+######################################################################
+#
+# Output our test results
+#
+#
 AC_OUTPUT([
 Makefile
-macros/Makefile
-macros/gnome/Makefile
 src/Makefile
 gnome/Makefile
 pixmaps/Makefile
 packaging/Makefile
 packaging/bubblemon.spec
-debian/Makefile
-debian/VERSION
-intl/Makefile
 po/Makefile.in
 po/Makefile
 man/Makefile
-man/bubblemon-gnome1.1
+man/bubblemon-gnome2.1
 man/hu/Makefile
-man/hu/bubblemon-gnome1.1
+man/hu/bubblemon-gnome2.1
 man/sv/Makefile
-man/sv/bubblemon-gnome1.1
+man/sv/bubblemon-gnome2.1
 ])

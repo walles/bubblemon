@@ -1,5 +1,5 @@
 SUBDIRS = hu sv
 
-man_MANS = bubblemon-gnome1.1
+man_MANS = bubblemon-gnome2.1
 
-EXTRA_DIST = bubblemon-gnome1.1.in
+EXTRA_DIST = bubblemon-gnome2.1.in

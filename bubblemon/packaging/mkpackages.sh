@@ -16,9 +16,9 @@
 # directory, in your BUBBLEMON_ROOT directory or in your RPMS
 # directory, I don't know what happens.
 
-BUBBLEMON_ROOT=/home/johan/src/Gnome/bubblemon
-RPM_SOURCES=/home/johan/src/RPM/SOURCES
-RPMS=/home/johan/src/RPM
+BUBBLEMON_ROOT=/home/rael/src/Gnome/bubblemon
+RPM_SOURCES=/home/rael/src/RPM/SOURCES
+RPMS=/home/rael/src/RPM
 
 # See to that we are in the root bubblemon directory
 if [ `pwd` != $BUBBLEMON_ROOT ] ; then

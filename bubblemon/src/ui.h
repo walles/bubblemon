@@ -21,9 +21,11 @@
 #ifndef UI_H
 #define UI_H
 
-#include "bubblemon.h"
+// Unintentionally left blank...  This file is here for historical
+// reasons.  At some time in the future it may get used for something,
+// but currently it's not.
 
-/* Start the UI.  Returns on exit. */
-extern int ui_main(int argc, char *argv[]);
+// Remember to call bubblemon_init() before doing anything else, and
+// call bubblemon_done() after displaying your last frame.
 
 #endif

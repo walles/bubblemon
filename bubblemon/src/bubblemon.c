@@ -1098,32 +1098,28 @@ const bubblemon_picture_t *bubblemon_getPicture()
   return &bubblePic;
 }
 
-int main(int argc, char *argv[])
+void bubblemon_init(void)
 {
-  int exitcode;
-
 #ifdef ENABLE_PROFILING
   fprintf(stderr,
 	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
 	  "load all the time.\n");
 #endif
-
+  
   // Initialize the random number generation
   srandom(time(NULL));
   
   // Initialize the load metering
-  meter_init(argc, argv, &sysload);
+  meter_init(&sysload);
   sysload.cpuLoad = (int *)calloc(sysload.nCpus, sizeof(int));
   assert(sysload.cpuLoad != NULL);
   
   // Initialize the bottle
   physics.bottle_state = GONE;
-  
-  // Do the disco duck
-  exitcode = ui_main(argc, argv);
-  
+}
+
+void bubblemon_done(void)
+{
   // Terminate the load metering
   meter_done();
-
-  return exitcode;
 }

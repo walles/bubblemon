@@ -45,9 +45,7 @@ static u_int64_t **cpuLoadHistory;
 static u_int64_t **cpuTotalLoadHistory;
 
 /* Initialize the load metering */
-void meter_init(/*@unused@*/ int argc,
-		/*@unused@*/ char *argv[],
-		meter_sysload_t *load)
+void meter_init(meter_sysload_t *load)
 {
   int cpuNo;
   glibtop_mem memory;

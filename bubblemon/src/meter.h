@@ -43,7 +43,7 @@ typedef struct
 } meter_sysload_t;
 
 /* Initialize the load metering */
-extern void meter_init(int argc, char *argv[], meter_sysload_t *);
+extern void meter_init(meter_sysload_t *);
 
 /* Meter the system load */
 extern void meter_getLoad(meter_sysload_t *);

@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = macros src gnome pixmaps packaging intl po man
+SUBDIRS = src gnome pixmaps packaging po man
 
-EXTRA_DIST = PROFILING FAQ ABOUT-NLS TRANSLATIONS
+EXTRA_DIST = PROFILING FAQ TRANSLATIONS

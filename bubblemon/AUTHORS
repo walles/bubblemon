@@ -13,25 +13,28 @@ AUTHORS:
 
 Main author: Johan Walles <d92-jwa@nada.kth.se>
 
+GNOME2 port: Juan Salaverria <rael@vectorstar.net>
+
 Thanks to Merlin Hughes for the inspiration!
 
 Thanks to Harri Haataja for fixing the RPM spec.
 
-Thanks to Pete Rijks and Florian Hinzmann, who helped me find the very
+Thanks to Pete Rijks and Florian Hinzmann, who helped me find a very
 annoying segfault.
 
 Thanks a lot to Nathan "Nato" Uno for reviewing my code, finding lots
 of errors, writing the larger-bubbles patch, making a bunch of
 performance enhancements, and for probably doing at least one more
-thing that I have currently forgotten about.
+thing that I have forgotten about.
 
-Thanks to Bernd Eckenfels for adding Debian packaging stuff.
+Thanks to Bernd Eckenfels for adding Debian packaging stuff, and for
+maintaining the Debian package.
 
 Thanks to Thomas McGuffey for working around the GTK+ tooltip bug, and
 for finding a problem with get_censored_memory_and_swap().
 
 Thanks to Justin McAleer for providing me with my first actual lead to
-what may be causing the performance problems some people are having.
+what may be causing the performance problems some people were having.
 This also lead to me actually tracking it down to problems with
 checking the amounts of used memory and swap.  At first I thought the
 problem was with glibtop, but then "timecop" informed me that the

@@ -2,5 +2,5 @@
 EXTRA_DIST = bubblemon.png
 
 # Tell am/ac to install them to the correct locations
-pixmapsdir = $(GNOME_DATADIR)/pixmaps
+pixmapsdir = $(datadir)/pixmaps
 pixmaps_DATA = bubblemon.png

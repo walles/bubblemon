@@ -9,7 +9,7 @@ Copyright (C) 1999-2000 Johan Walles
 
 COMPILING:
 
-./configure
+./configure --prefix=/usr
 make
 
 INSTALLING:
@@ -20,4 +20,4 @@ make install
 
 RUNNING:
 Right-click some free spot on any GNOME panel.  Choose
-Add Applet -> Monitors -> Bubbling Load Monitoring Applet.
+Add to Panel->Utility->Bubblemon.

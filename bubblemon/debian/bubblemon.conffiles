@@ -1,1 +1,2 @@
-/etc/CORBA/servers/bubblemon-gnome1.gnorba
+/usr/lib/bonobo/servers/GNOME_BubblemonApplet.server
+/usr/share/gnome-2.0/ui/GNOME_BubblemonApplet.xml

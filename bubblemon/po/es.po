@@ -47,32 +47,29 @@ msgstr ""
 "\n"
 "Carga CPU #%d: %d%%"
 
-#: src/gnome1-ui.c:150
+#: src/gnome2-ui.c:72
 msgid "Bubbling Load Monitor"
 msgstr "Monitor Burbujeante de Carga"
 
-#: src/gnome1-ui.c:153
+#: src/gnome2-ui.c:74
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
-"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-"details.\n"
-"This is free software, and you are welcome to redistribute it under certain "
-"conditions (GPL), see the LICENSE file for details."
+"This applet comes with ABSOLUTELY NO WARRANTY, "
+"see the LICENSE file for details.\n"
+"This is free software, and you are welcome to redistribute it "
+"under certain conditions (GPL), "
+"see the LICENSE file for details."
 msgstr ""
 "Esta applet muestra la carga de tu CPU como un líquido burbujeante.\n"
-"Esta applet viene con ABSOLUTAMENTE NINGUNA GARANTÍA, vea el archivo LICENSE "
-"para más detalles.\n"
-"Esto es software gratis, y estás bienvenido a redistribuirlo bajo ciertas "
-"condiciones (GPL), vea el archivo LICENSE para más detalles."
+"Esta applet viene con ABSOLUTAMENTE NINGUNA GARANTÍA,"
+"vea el archivo LICENSE para más detalles.\n"
+"Esto es software gratis, y estás bienvenido a redistribuirlo"
+"bajo ciertas condiciones (GPL), "
+"vea el archivo LICENSE para más detalles."
 
-#: src/gnome1-ui.c:245
+#: src/gnome2-ui.c:264
 #, fuzzy
-msgid "Can't create bubblemon applet!"
-msgstr "¡No se puede crear el applet!\n"
-
-#: src/gnome1-ui.c:279
-#, fuzzy
-msgid "About..."
+msgid "About"
 msgstr "Acerca"
 
 #~ msgid ""

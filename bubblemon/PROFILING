@@ -1,3 +1,6 @@
+This option was intended to track a problem that was fixed 
+time ago. I left it for informational purposes.
+
 If performance sucks, try this from the bubblemon directory:
 
 ./configure --enable-profiling

@@ -46,10 +46,10 @@ int mail_hasUnreadMail(void)
 
   if (mailFileName == NULL)
   {
-    mailFileName = strdup(getenv("MAIL"));
+    mailFileName = getenv("MAIL") ? strdup(getenv("MAIL")) : "";
   }
 
-  if (mailFileName == NULL)
+  if (!mailFileName || strcmp(mailFileName, "") == 0)
   {
     // We don't know where to look for new mail
     return 0;

@@ -2,7 +2,7 @@
 
 @SET_MAKE@
 
-man_MANS	= bubblemon-gnome1.1
+man_MANS	= bubblemon-gnome2.1
 mandir		= @mandir@/hu
 
-EXTRA_DIST	= bubblemon-gnome1.1.in
+EXTRA_DIST	= bubblemon-gnome2.1.in
