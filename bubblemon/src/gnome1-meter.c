@@ -45,7 +45,9 @@ static u_int64_t **cpuLoadHistory;
 static u_int64_t **cpuTotalLoadHistory;
 
 /* Initialize the load metering */
-void meter_init(int argc, char *argv[], meter_sysload_t *load)
+void meter_init(/*@unused@*/ int argc,
+		/*@unused@*/ char *argv[],
+		meter_sysload_t *load)
 {
   int cpuNo;
   glibtop_mem memory;
@@ -60,13 +62,18 @@ void meter_init(int argc, char *argv[], meter_sysload_t *load)
 
   // Initialize the load histories and indices
   cpuLoadIndex = (int *)calloc(load->nCpus, sizeof(int));
+  g_assert(cpuLoadIndex != NULL);
   cpuLoadHistory = (u_int64_t **)calloc(load->nCpus, sizeof(u_int64_t *));
+  g_assert(cpuLoadHistory != NULL);
   cpuTotalLoadHistory = (u_int64_t **)calloc(load->nCpus, sizeof(u_int64_t *));
+  g_assert(cpuTotalLoadHistory != NULL);
 
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++)
   {
     cpuLoadHistory[cpuNo] = (u_int64_t *)calloc(LOADSAMPLES, sizeof(u_int64_t));
+    g_assert(cpuLoadHistory[cpuNo] != NULL);
     cpuTotalLoadHistory[cpuNo] = (u_int64_t *)calloc(LOADSAMPLES, sizeof(u_int64_t));
+    g_assert(cpuTotalLoadHistory[cpuNo] != NULL);
   }
   
   // Initialize memory and swap sizes

@@ -58,6 +58,7 @@ static struct netload_interface *netload_forcedFindInterface(const char *name)
   if (interface == NULL)
   {
     interface = (struct netload_interface *)malloc(sizeof(struct netload_interface));
+    assert(interface != NULL);
 
     interface->name = strdup(name);
 

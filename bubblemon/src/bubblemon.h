@@ -52,16 +52,16 @@
 #define WEED_MINSPEED 1
 #define WEED_SPEEDFACTOR 1
 
-/* Swap usage color scale */              /*    rrggbbaa */
-static const unsigned int NOSWAPAIRCOLOR    = 0x2299ff00;
-static const unsigned int NOSWAPWATERCOLOR  = 0x0055ff80;
+/* Swap usage color scale */              /*              rrggbbaa */
+static const unsigned int NOSWAPAIRCOLOR    = (unsigned)0x2299ff00;
+static const unsigned int NOSWAPWATERCOLOR  = (unsigned)0x0055ff80;
 
-static const unsigned int MAXSWAPAIRCOLOR   = 0xff000040;
-static const unsigned int MAXSWAPWATERCOLOR = 0xaa000080;
+static const unsigned int MAXSWAPAIRCOLOR   = (unsigned)0xff000040;
+static const unsigned int MAXSWAPWATERCOLOR = (unsigned)0xaa000080;
 
 /* Weeds have a random color between these two */
-static const unsigned int WEEDCOLOR0        = 0x00ff0080;
-static const unsigned int WEEDCOLOR1        = 0xffff40ff;
+static const unsigned int WEEDCOLOR0        = (unsigned)0x00ff0080;
+static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
 
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100

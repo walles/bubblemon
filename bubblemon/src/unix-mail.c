@@ -22,6 +22,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "mail.h"
 
@@ -45,7 +46,7 @@ int mail_hasUnreadMail(void)
 
   if (mailFileName == NULL)
   {
-    mailFileName = getenv("MAIL");
+    mailFileName = strdup(getenv("MAIL"));
   }
 
   if (mailFileName == NULL)

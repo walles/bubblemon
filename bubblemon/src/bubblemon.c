@@ -102,13 +102,13 @@ void bubblemon_setSize(int width, int height)
   }
 }
 
-static void usage2string(char *string,
+static void usage2string(/*@out@*/ char *string,
 			 u_int64_t used,
 			 u_int64_t max)
 {
   /* Create a string of the form "35/64Mb" */
   
-  int shiftme = 0;
+  unsigned int shiftme = 0;
   char divisor_char = '\0';
 
   if ((max >> 30) > 7000)
@@ -132,18 +132,18 @@ static void usage2string(char *string,
       divisor_char = 'k';
     }
 
-  if (divisor_char)
+  if (divisor_char == '\0')
     {
-      sprintf(string, "%lld/%lld%cb",
+      sprintf(string, "%llu/%llu bytes",
 	      used >> shiftme,
-	      max >> shiftme,
-	      divisor_char);
+	      max >> shiftme);
     }
   else
     {
-      sprintf(string, "%lld/%lld bytes",
+      sprintf(string, "%llu/%llu%cb",
 	      used >> shiftme,
-	      max >> shiftme);
+	      max >> shiftme,
+	      divisor_char);
     }
 }
 
@@ -159,6 +159,7 @@ const char *bubblemon_getTooltip(void)
        with lots of CPUs */
     tooltipstring =
       malloc(sizeof(char) * (sysload.nCpus * 50 + 100));
+    assert(tooltipstring != NULL);
   }
 
   usage2string(memstring, sysload.memoryUsed, sysload.memorySize);
@@ -291,7 +292,7 @@ static void bubblemon_addNourishment(bubblemon_Weed *weed, int percentage)
 {
   float heightLimit = (bubblePic.height * WEED_HEIGHT) / 100.0;
   
-  weed->nourishment += (heightLimit * netload_getLoadPercentage()) / 100.0;
+  weed->nourishment += (heightLimit * percentage) / 100.0;
   
   if (weed->nourishment + weed->height > heightLimit)
   {
@@ -616,6 +617,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
   {
     physics.waterLevels =
       (bubblemon_WaterLevel *)calloc(bubblePic.width, sizeof(bubblemon_WaterLevel));
+    assert(physics.waterLevels != NULL);
   }
   
   /* Make sure the sea-weeds exist */
@@ -625,6 +627,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
     
     physics.weeds =
       (bubblemon_Weed *)calloc(bubblePic.width, sizeof(bubblemon_Weed));
+    assert(physics.weeds != NULL);
 
     // Colorize the weeds
     for (i = 0; i < bubblePic.width; i++)
@@ -649,6 +652,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
     
     physics.bubbles =
       (bubblemon_Bubble *)calloc(physics.max_bubbles, sizeof(bubblemon_Bubble));
+    assert(physics.bubbles != NULL);
   }
   
   /* Update our universe */
@@ -774,7 +778,7 @@ static void bubblemon_censorLoad()
 #endif
 }
 
-static void bubblemon_draw_bubble(bubblemon_picture_t *bubblePic,
+static void bubblemon_draw_bubble(/*@out@*/ bubblemon_picture_t *bubblePic,
 				  int x,
 				  int y)
 {
@@ -849,6 +853,7 @@ static void bubblemon_environmentToBubbleArray(bubblemon_picture_t *bubblePic,
   if (bubblePic->airAndWater == NULL)
   {
     bubblePic->airAndWater = (bubblemon_colorcode_t *)malloc(w * h * sizeof(bubblemon_colorcode_t));
+    assert(bubblePic->airAndWater != NULL);
   }
   
   // Draw the air and water background
@@ -935,6 +940,7 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic,
   {
     bubblePic->pixels =
       (bubblemon_color_t *)malloc(bubblePic->width * bubblePic->height * sizeof(bubblemon_color_t));
+    assert(bubblePic->pixels != NULL);
   }
   
   pixel = bubblePic->pixels;
@@ -1108,7 +1114,8 @@ int main(int argc, char *argv[])
   // Initialize the load metering
   meter_init(argc, argv, &sysload);
   sysload.cpuLoad = (int *)calloc(sysload.nCpus, sizeof(int));
-
+  assert(sysload.cpuLoad != NULL);
+  
   // Initialize the bottle
   physics.bottle_state = GONE;
   
