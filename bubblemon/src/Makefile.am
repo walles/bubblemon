@@ -5,6 +5,7 @@ defaultincludes = -I. -I$(srcdir) -I..
 
 INCLUDES = \
 	$(GNOME_INCLUDEDIR) \
+	-I $(LIBGTOP_INCLUDEDIR) \
 	$(defaultincludes)
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
