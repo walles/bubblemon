@@ -27,7 +27,11 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+#ifdef HAVE_SYS_SYSINFO_H
 #include <sys/sysinfo.h>
+#endif
+
 #include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -157,10 +161,8 @@ int get_cpu_load(BubbleMonData *bm, int cpu_number)  /* Returns the current CPU 
   /* Find out the CPU load */
   glibtop_get_cpu (&cpu);
 
-  /* FIXME: The following if() shouldn't be necessary.  Either glibtop
-     is badly designed, or I don't know how to use it.  If anybody can
-     clarify this, could you please mail me at d92-jwa@nada.kth.se?
-     Thanks. */
+  /* The following if() shouldn't be necessary, but according to the
+     OpenBSD libgtop maintainer (nino@nforced.com) it is. */
   if (bm->number_of_cpus == 1)
     {
       my_user = cpu.user;
@@ -236,14 +238,14 @@ void usage2string(char *string,
 
   if (divisor_char)
     {
-      sprintf(string, "%Ld/%Ld%cb",
+      sprintf(string, "%lld/%lld%cb",
 	      used >> shiftme,
 	      max >> shiftme,
 	      divisor_char);
     }
   else
     {
-      sprintf(string, "%Ld/%Ld bytes",
+      sprintf(string, "%lld/%lld bytes",
 	      used >> shiftme,
 	      max >> shiftme);
     }
@@ -1103,7 +1105,12 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 					 bm);
 
   /* Determine number of CPUs we will monitor */
+
+#if LIBGTOP_VERSION_CODE >= 1001005
   bm->number_of_cpus = glibtop_get_sysinfo()->ncpu;
+#else
+  bm->number_of_cpus = 1;
+#endif  
   g_assert(bm->number_of_cpus != 0);
 
   /* Initialize the CPU load metering... */

@@ -32,6 +32,9 @@ else
   AC_MSG_RESULT(no)
 fi
 
+# Check for headers
+AC_CHECK_HEADERS(sys/sysinfo.h)
+
 # For i18n and l10n
 ALL_LINGUAS="sv fr pl de ko fi da sh pt ro es no hu it"
 
