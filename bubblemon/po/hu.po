@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-10 16:32+0200\n"
+"POT-Creation-Date: 2001-09-10 22:35+0200\n"
 "PO-Revision-Date: 2001-09-09 03:08I+0200\n"
 "Last-Translator: Robert Vanyi <robi@mora.u-szeged.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/bubblemon.c:84
+#: src/bubblemon.c:101
 #, c-format
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
@@ -23,12 +23,12 @@ msgstr ""
 "lennie.\n"
 "      A jelenlegi érték, %d, nem az.\n"
 
-#: src/bubblemon.c:290
+#: src/bubblemon.c:292
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() az mondja, nincs több memória, %s, %d. sor"
 
-#: src/bubblemon.c:401
+#: src/bubblemon.c:403
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Használt memória: %s\n"
 "Használt swap: %s"
 
-#: src/bubblemon.c:408
+#: src/bubblemon.c:410
 #, c-format
 msgid ""
 "\n"
@@ -46,7 +46,7 @@ msgstr ""
 "\n"
 "CPU foglaltság: %d%%"
 
-#: src/bubblemon.c:419
+#: src/bubblemon.c:421
 #, c-format
 msgid ""
 "\n"
@@ -55,16 +55,16 @@ msgstr ""
 "\n"
 "%d. CPU foglaltsága: %d%%"
 
-#: src/bubblemon.c:653
+#: src/bubblemon.c:655
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Nem sikerült a $HOME könyvtárba váltani (%s)\n"
 
-#: src/bubblemon.c:659
+#: src/bubblemon.c:661
 msgid "$HOME environment variable not set\n"
 msgstr "A $HOME környezeti változó nincs beállítva\n"
 
-#: src/bubblemon.c:664
+#: src/bubblemon.c:666
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -73,27 +73,27 @@ msgstr ""
 "A bubblemon kilép. A profiling adatok a ~/gmon.out-ban lesznek.\n"
 "Futtassd a 'gprof -l -p %s ~/gmon.out' parancsot.\n"
 
-#: src/bubblemon.c:666
+#: src/bubblemon.c:668
 msgid "<name of executable>"
 msgstr "<futtatható fájl neve>"
 
-#: src/bubblemon.c:1038
+#: src/bubblemon.c:1040
 msgid "Can't create applet!\n"
 msgstr "Nem sikerült az applet létrehozása!\n"
 
-#: src/bubblemon.c:1041
+#: src/bubblemon.c:1043
 msgid "Can't open glibtop!\n"
 msgstr "Nem sikerült a glibtop megnyitása!\n"
 
-#: src/bubblemon.c:1104
+#: src/bubblemon.c:1106
 msgid "About"
 msgstr "Névjegy"
 
-#: src/bubblemon.c:1279
+#: src/bubblemon.c:1281
 msgid "Bubbling Load Monitor"
 msgstr "Buborékoló terheltség figyelõ"
 
-#: src/bubblemon.c:1282
+#: src/bubblemon.c:1284
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
