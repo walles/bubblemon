@@ -1,0 +1,20 @@
+If performance sucks, try this from the bubblemon directory:
+
+./configure --enable-profiling
+make clean ; make
+cd src
+./bubblemon_applet --activate-goad-server=bubblemon_applet
+[use your system "normally" for roughly one minute, until bubblemon terminates]
+gprof -l -p ./bubblemon_applet ~/gmon.out
+
+This will tell you on what lines the program spends most of its time.
+
+To find out which functions take the most time, try:
+
+gprof -p ./bubblemon_applet ~/gmon.out
+
+This will tell you in which functions the program spends most of its time.
+
+Happy profiling!
+
+  //Johan

@@ -46,6 +46,10 @@
 #include "bubblemon.h"
 #include "session.h"
 
+#ifdef ENABLE_PROFILING
+char *program_name = NULL;
+#endif
+
 int
 main (int argc, char ** argv)
 {
@@ -55,6 +59,15 @@ main (int argc, char ** argv)
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
   applet_factory_new ("bubblemon_applet", NULL,
 		     (AppletFactoryActivator) applet_start_new_applet);
+
+#ifdef ENABLE_PROFILING
+  program_name = strdup(argv[0]);
+
+  fprintf(stderr,
+	  PACKAGE " has been configured with --enable-profiling and will terminate in\n"
+	  "roughly one minute.  Let's try to make it as representative of normal use\n"
+	  "as possible, shall we?\n");
+#endif
 
   goad_id = goad_server_activation_id ();
   if (! goad_id)
@@ -180,8 +193,8 @@ bubblemon_update (gpointer data)
   int *temp;
   
 #ifdef ENABLE_PROFILING
-  static int profiling_countdown = 250;  /* FIXME: Is 250 calls to here == 5 seconds? */
-
+  static int profiling_countdown = 2500;  /* FIXME: Is 250 calls to here == 5 seconds? */
+  
   if (profiling_countdown-- < 0)
     {
       /*
@@ -189,7 +202,7 @@ bubblemon_update (gpointer data)
 	forever for the profiling data to appear.
       */
       char *home;
-
+      
       /* Change directory to the user's home directory */
       home = getenv("HOME");
       if (home)
@@ -208,7 +221,10 @@ bubblemon_update (gpointer data)
 	}
       
       /* Terminate nicely so that the profiling data gets written */
-      fprintf(stderr, "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n");
+      fprintf(stderr,
+	      "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+	      "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n",
+	      (program_name?program_name:"<name of executable>"));
       exit(EXIT_SUCCESS);
     }
 #endif  /* ENABLE_PROFILING */
