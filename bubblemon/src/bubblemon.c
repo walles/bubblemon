@@ -404,6 +404,7 @@ void update_screen(BubbleMonData *bm,
   buf = bm->bubblebuf;
   col = bm->colors;
   w = bm->breadth;
+  g_assert(bm->image != NULL);
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
   start_drawing *= w;
@@ -858,6 +859,7 @@ gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
   if (!bm->setup)
     return FALSE;
 
+  g_assert(bm->image != NULL);
   gdk_draw_image (bm->area->window, bm->area->style->fg_gc[GTK_WIDGET_STATE (bm->area)],
                   bm->image, 0, 0, 0, 0, bm->breadth, bm->depth);
   
@@ -964,6 +966,7 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
    * the bubblemon gets drawn.
    */
   bm->area = gtk_drawing_area_new ();
+  g_assert(bm->area != NULL);
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
   /* frame is the frame around the drawing area */
@@ -1209,6 +1212,7 @@ void bubblemon_set_size (BubbleMonData * bm)
   if (bm->breadth == 0)
     return;
   
+  g_assert(bm->area != NULL);
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
   /* Nuke all bubbles */
@@ -1248,7 +1252,16 @@ void bubblemon_set_size (BubbleMonData * bm)
                              gtk_widget_get_visual (bm->area),
                              bm->breadth,
                              bm->depth);
-
+  if (bm->image == NULL)
+    {
+      g_error("Call to gdk_image_new() failed while creating a %dx%d image in %s at %s:%d.\n",
+              bm->breadth,
+              bm->depth,
+              __FUNCTION__,
+              __FILE__,
+              __LINE__);
+    }
+  
   if (!bm->setup)
     {
       /* Nothing is drawn until this is set. */
