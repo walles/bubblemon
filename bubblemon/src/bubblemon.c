@@ -709,7 +709,7 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic, int cl
   } else {
     // Draw on top of the current pic
     colors[AIR].components.a = 0;
-    colors[WATER].components.a = (30 /* % */ * 255) / 100;
+    colors[WATER].components.a = ((100 - WATERALPHA) * 255) / 100;
     colors[ANTIALIAS].components.a = (colors[AIR].components.a + colors[WATER].components.a) / 2;
     for (i = 0; i < w * h; i++) {
       bubblemon_color_t myColor = colors[*airOrWater++];
@@ -745,7 +745,7 @@ static void bubblemon_bottleToPixmap(bubblemon_picture_t *bubblePic)
 
   // Center the bottle horizontally
   pictureX0 = (bubblePic->width - bottleW) / 2;
-  pictureY0 = 25; // FIXME: This should come from physics.bottle_y
+  pictureY0 = 20; // FIXME: This should come from physics.bottle_y
 
   // Clip the bottle vertically to fit it into the picture
   bottleYMin = 0;
