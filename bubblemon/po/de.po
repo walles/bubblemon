@@ -1,16 +1,16 @@
 # Deutsche Übersetzung von Bubblemon.
 # Copyright (C) 2000 Detlef Reichl.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Detlef Reichl <detlef.reichl@arcormail.de>, 2001.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bubblemon 0.9.11\n"
+"Project-Id-Version: bubblemon 1.0.2pre1\n"
 "POT-Creation-Date: 2001-01-06 21:30+0100\n"
-"PO-Revision-Date: 2000-09-04 21:46+0100\n"
+"PO-Revision-Date: 2001-01-09 21:39+0100\n"
 "Last-Translator: Detlef Reichl <detlef.reichl@arcormail.de>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/bubblemon.c:83
@@ -19,37 +19,37 @@ msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
 msgstr ""
-"Fehler: Die NUM_COLORS Konstante in bubblemon.h muss ein vielfaches von 3 "
-"sein.\n"
+"Fehler: Die NUM_COLORS Konstante in bubblemon.h muss ein vielfaches von 3 sein.\n"
 "\tDer aktuelle Wert ist %d ist es nicht.\n"
 
 #: src/bubblemon.c:287
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr ""
-"glibtop_get_mem() behauptet, Sie hätten keinen Speicher in Zeile %d in %s"
+msgstr "glibtop_get_mem() behauptet, Sie hätten keinen Speicher in Zeile %d in %s"
 
 #: src/bubblemon.c:397
-#, fuzzy, c-format
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s"
 msgstr ""
 "Speicher genutzt: %s\n"
-"Swap genutzt: %s\n"
-"CPU Belastung: %d%%"
+"Swap genutzt: %s"
 
 #: src/bubblemon.c:404
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
+"\n"
+"CPU Belastung: %d%%"
 
 #: src/bubblemon.c:415
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
+"\n"
+"CPU #%d Belastung: %d%%"
 
 #: src/bubblemon.c:638
 #, c-format
@@ -66,10 +66,12 @@ msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
+"Bubblemon beendet. Profilierungs Daten sollten in ~/gmon.out sein.\n"
+"In einer ruhigen Minute starten Sie 'gprof -l -p %s ~/gmon.out'\n"
 
 #: src/bubblemon.c:651
 msgid "<name of executable>"
-msgstr ""
+msgstr "<Name des Programs>"
 
 #: src/bubblemon.c:1023
 msgid "Can't create applet!\n"
@@ -80,7 +82,6 @@ msgid "Can't open glibtop!\n"
 msgstr "Kann glibtop nicht öffnen\n"
 
 #: src/bubblemon.c:1089
-#, fuzzy
 msgid "About"
 msgstr "Über"
 
@@ -97,11 +98,8 @@ msgid ""
 "conditions (GPL), see the LICENSE file for details."
 msgstr ""
 "Dieses Applet zeigt Ihre CPU Belastung als eine blubernde Flüssigkeit.\n"
-"Dieses Applet ist OHNE JEGLICHE GARANTIE, schauen Sie für Details in die "
-"LICENSE Datei.\n"
-"Dies ist freie Software, Sie sind berechtigt sie unter bestimmten "
-"Konditionen (GPL) weiter zu geben; schauen Sie für Details in die LICENSE "
-"Datei."
+"Dieses Applet ist OHNE JEGLICHE GARANTIE, schauen Sie für Details in die LICENSE Datei.\n"
+"Dies ist freie Software, Sie sind berechtigt sie unter bestimmten Konditionen (GPL) weiter zu geben; schauen Sie für Details in die LICENSE Datei."
 
 #~ msgid ""
 #~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
