@@ -1,13 +1,20 @@
 # -*-m4-*- Process this file with autoconf to produce a configure script.
 
 AC_INIT(src/bubblemon.h)
-AM_INIT_AUTOMAKE(bubblemon, 1.2.7-pre1)
+AM_INIT_AUTOMAKE(bubblemon, 1.2.7-pre2)
 AM_CONFIG_HEADER(config.h)
 
 # Pick up the Gnome macros.
-AM_ACLOCAL_INCLUDE(macros)
+#AM_ACLOCAL_INCLUDE(macros)
 
+# Find GLIB
+AM_PATH_GLIB()
+CFLAGS="$CFLAGS $GLIB_CFLAGS"
+LDFLAGS="$LDFLAGS $GLIB_CFLAGS"
+
+# Find GNOME
 GNOME_INIT(applets)
+
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC

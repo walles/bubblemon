@@ -167,6 +167,9 @@
 /* Define if you have the <string.h> header file.  */
 #undef HAVE_STRING_H
 
+/* Define if you have the <sys/bitypes.h> header file.  */
+#undef HAVE_SYS_BITYPES_H
+
 /* Define if you have the <sys/param.h> header file.  */
 #undef HAVE_SYS_PARAM_H
 
