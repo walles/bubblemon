@@ -1,3 +1,5 @@
+To Emacs: This is a -*-text-*- file.
+
 1. How do I start the applet from the command line?
 
 Change to the bubblemon directory and do the following:
@@ -9,17 +11,18 @@ $ src/bubblemon_applet --activate-goad-server=bubblemon_applet
 
 2. Can you add this feature to the applet?
 
-Possibly.  If you want to improve your odds, here are my suggestions
+Perhaps.  If you want to improve your odds, here are my suggestions
 though:
-* Do it yourself and send me a patch.  If you run into problems I'll
- gladly answer your questions.
+* Your best bet is to do it yourself and send me a patch.  If you run
+ into problems I'll gladly answer your questions.  Also, the TODO file
+ may very well contain some information to help you get started.
 * If you can't do it yourself (or get someone else to do it for you
- :-), see if it is in the TODO file.  If it is, it will probably be
- added sooner or later whether you suggest it to me again or not.
-* If you can't do it yourself and it's not on the TODO list, send me a
- mail and if I like the idea I'll put it on the TODO list.
+ :-), see if it is in the TODO file.  If it is, I will probably
+ implement it sooner or later anyway.
+* If you can't do it yourself and it's not in the TODO file, send me
+ (d92-jwa@nada.kth.se) a mail and I'll add it.
 
- 
+
 3. I'm running a background process on my system that should be using
   all of my CPU, but the Bubblemon shows very few or no bubbles at
   all.  Why is that?
@@ -114,6 +117,11 @@ The build process is broken.  It shouldn't be.  Send me
 try to fix it.
 
 
-9. I have another question/problem.  What should I do?
+9. How do I translate everything into my favourite language?
+
+Instructions for doing this is in the TRANSLATIONS file.
+
+
+10. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
