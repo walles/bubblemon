@@ -19,7 +19,8 @@ msgstr ""
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
-msgstr "Fastinn NUM_COLORS í bubblemon.h verður að vera deilanlegur með 3.\n"
+msgstr ""
+"Fastinn NUM_COLORS í bubblemon.h verður að vera deilanlegur með 3.\n"
 "       Núverandi gildið %d er það ekki.\n"
 
 #: src/bubblemon.c:289
@@ -52,7 +53,7 @@ msgid ""
 "CPU #%d load: %d%%"
 msgstr ""
 "\n"
-"CPU #%d álag: %d%%" 
+"CPU #%d álag: %d%%"
 
 #: src/bubblemon.c:652
 #, c-format
@@ -68,7 +69,8 @@ msgstr "Umhverfisbreytan $HOME finnst ekki\n"
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-msgstr "Bubblemon hættir. Prófílgögn liggja í ~/gmon.out\n"
+msgstr ""
+"Bubblemon hættir. Prófílgögn liggja í ~/gmon.out\n"
 "Keyrið 'gprof -l -p %s ~/gmon.out' til að sjá tölulegar upplýsingar.\n"
 
 #: src/bubblemon.c:665
