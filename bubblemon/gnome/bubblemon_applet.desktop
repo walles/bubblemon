@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Bubbling Load Monitoring Applet
+Name[no]=Boblende lastmeterapplett
 Name[sh]=Burni indikator compjuterskog opterecenja
 Name[da]=Boblende Load Moniterings Applet
 Name[de]=Blubbernde Lastanzeige
@@ -14,6 +15,7 @@ Name[nl]=Bubbelende belastingsmonitor
 Name[pl]=B±belkowy monitor obci±¿enia systemu
 Name[pt]=Monitor de carga borbulhento
 Comment=Visualize system load as a bubbling liquid
+Comment[no]=Viser belastninga på systemet som en boblende væske
 Comment[sh]=Opterecenje sistema vizualisano u burnost tecnosti
 Comment[da]=Visualiser system load som en boblende væske
 Comment[fi]=Esittää järjestelmän kuorman kuplivana nesteenä
