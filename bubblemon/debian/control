@@ -1,5 +1,5 @@
 Source: bubblemon
-Build-Depends: debhelper
+Build-Depends: debhelper,libgnome-dev
 Section: x11
 Priority: optional
 Maintainer: Bernd Eckenfels <ecki@debian.org>
