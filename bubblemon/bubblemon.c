@@ -78,12 +78,14 @@ bubblemon_update (gpointer data)
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n, bytesPerPixel, loadPercentage, *buf, *col, x, y;
   int aircolor, watercolor, waterlevel_goal, memoryPercentage, bias;
+  int swapPercentage;
   int *temp;
   
   glibtop_cpu cpu;
   glibtop_mem memory;
   glibtop_swap swap;
-  static int swap_delay = 0, swapPercentage = 0;
+  static int swap_delay = 0;
+  static uint64_t swap_used, swap_total;
   uint64_t load, total, oLoad, oTotal;
 
   // bm->setup is a status byte that is true if we are rolling
@@ -119,7 +121,6 @@ bubblemon_update (gpointer data)
 
   // Find out the memory load
   glibtop_get_mem (&memory);
-  memoryPercentage = (100 * (memory.used - memory.cached - memory.buffer)) / memory.total;
 
   // Find out the swap load, but update it only every 50 times we get
   // here, which should amount to once a second
@@ -127,13 +128,34 @@ bubblemon_update (gpointer data)
     {
       glibtop_get_swap (&swap);
 
-      swapPercentage = (100 * swap.used) / swap.total;
-
+      // FIXME: Why is this necessary
+      swap_used = swap.used;
+      swap_total = swap.total;
+      
       // FIXME: The following number should be based on a constant or
       // variable.
       swap_delay = 50;
     }
   swap_delay--;
+  
+  // Calculate the projected memory + swap load to show the user.  The
+  // waterlevel shown to the user is how much memory the system is
+  // using relative to the total amount of electronic RAM.  The swap
+  // color indicates how much memory above the amount of electronic
+  // RAM the system is using.
+  //
+  // This scheme does *not* show how the system has decided to
+  // allocate swap and electronic RAM to the users' processes.
+  memoryPercentage =
+    (100 * (swap_used + memory.used - memory.cached - memory.buffer)) / memory.total;
+  if (memoryPercentage > 100)
+    memoryPercentage = 100;
+  
+  swapPercentage =
+    (100 *
+     (swap_used + memory.used - memory.cached - memory.buffer - memory.total)) / swap_total;
+  if (swapPercentage < 0)
+    swapPercentage = 0;
   
   // The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
   // an entry in the color table.  A pixel in the buf is accessed
