@@ -3,7 +3,7 @@ bubblemon (1.0.2) stable; urgency=medium
   * Initial multi-processor support (currently tooltip only) added.
     Portuguese and Romanian translations added.  Code cleanups.
 
- --
+ -- Johan Walles <d92-jwa@nada.kth.se>  Mon, 15 Jan 2001 10:56:40 +0100
 
 bubblemon (1.0.1-1) stable; urgency=low
 
