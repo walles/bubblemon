@@ -17,7 +17,7 @@ know.
   should be obvious).  Use the language code from step one (above).
   Mail the result to me (d92-jwa@nada.kth.se).
 
-3. Create the template file (more on this later) by doing...
+3. Create the template file by doing...
 
   ./configure
   make
@@ -28,8 +28,9 @@ know.
 
   cd po
 
-5. Initialize your translation by copying bubblemon.pot into xx.po
-   (but remember to use *your* language code instead of xx):
+5. Initialize your translation by copying bubblemon.pot (the template
+  file created in step 3) into xx.po (but remember to use *your*
+  language code instead of xx):
 
   cp bubblemon.pot xx.po
 
