@@ -18,29 +18,3 @@ which gnome-autogen.sh || {
 	exit 1
 }
 USE_GNOME2_MACROS=1 . gnome-autogen.sh
-
-			         
-(automake --version) < /dev/null > /dev/null 2>&1 || {
-	echo
-	echo "You must have automake installed to compile bubblemon"
-	echo
-	exit
-}
-
-(autoconf --version) < /dev/null > /dev/null 2>&1 || {
-	echo
-	echo "You must have autoconf installed to compile bubblemon"
-	echo
-	exit
-}
-
-echo "Generating configuration files for bubblemon..."
-echo
-
-aclocal 
-autoheader
-automake --add-missing
-autoconf
-
-echo
-echo "Done generating configuration files for bubblemon, now do \"./configure ; make ; make install\""
