@@ -28,8 +28,8 @@
 
 #include <applet-widget.h>
 
-// Note: NUM_COLORS must be an even number
-#define NUM_COLORS 256
+// Note: NUM_COLORS must be divisible by 3
+#define NUM_COLORS 384
 #define MAX_BUBBLES 100
 #define GRAVITY 0.01
 

@@ -92,7 +92,7 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
   glibtop_get_cpu (&cpu);
   load = cpu.user + cpu.sys;
   total = cpu.total;
-  
+
   /* "i" is an index into a load history */
   i = bm->loadIndex;
   oLoad = bm->load[i];
@@ -113,6 +113,9 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
     loadPercentage = 0;
   else
     loadPercentage = (100 * (load - oLoad)) / (total - oTotal);
+
+/* fprintf(stderr, "(%Ld - %Ld) / (%Ld - %Ld) yielded %d\n", load, oLoad, total, oTotal, loadPercentage); */
+/* fflush(stderr); */
 
   return loadPercentage;
 }
@@ -337,7 +340,7 @@ gint bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *col, x, y;
-  int aircolor, watercolor, waterlevel_goal, memoryPercentage, bias;
+  int aircolor, watercolor, aliascolor, waterlevel_goal, memoryPercentage, bias;
   int swapPercentage;
   int *temp;
   
@@ -403,17 +406,19 @@ gint bubblemon_update (gpointer data)
     Vary the colors of air and water with how many
     percent of the available swap space that is in use.
   */
-  aircolor = ((((NUM_COLORS >> 1) - 1) * swapPercentage) / 100) << 1;
+  aircolor = ((((NUM_COLORS / 3) - 1) * swapPercentage) / 100) << 1;
   watercolor = aircolor + 1;
+  aliascolor = aircolor + 2;
 
   /* Sanity check the colors */
-  if ((aircolor < 0) || (watercolor >= NUM_COLORS))
+  if ((aircolor < 0) || (watercolor >= NUM_COLORS) || (aliascolor >= NUM_COLORS))
     {
       fprintf(stderr,
-	      "Error: aircolor (%d) or watercolor (%d) out of bounds (0-%d).\n"
+	      "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
 	      "       swapPercentage (%d) is probably out of range (0-100) too.\n",
 	      aircolor,
 	      watercolor,
+	      aliascolor,
 	      NUM_COLORS,
 	      swapPercentage);
       exit(EXIT_FAILURE);
@@ -466,7 +471,8 @@ gint bubblemon_update (gpointer data)
   /* Create a new bubble if the planets are correctly aligned... */
   if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
     {
-      bubbles[bm->n_bubbles].x = random() % w;
+      /* We don't allow bubbles on the edges 'cause we'd have to clip them */
+      bubbles[bm->n_bubbles].x = (random() % (w - 2)) + 1;
       bubbles[bm->n_bubbles].y = h - 1;
       bubbles[bm->n_bubbles].dy = 0.0;
       bm->n_bubbles++;
@@ -502,7 +508,58 @@ gint bubblemon_update (gpointer data)
       x = bubbles[i].x;
       y = bubbles[i].y;
       
+      /* Clipping is not necessary for x, but it *is* for y */
+      /* To prevent ugliness, we *don't* draw aliascolor on top of */
+      /* aircolor, and aliascolor on aliascolor yields aircolor */
+
+      /* Top row */
+      if (y > bm->waterlevels[x])
+        {
+          if (buf[(y - 1) * w + x - 1] == aliascolor)
+	    {
+	      buf[(y - 1) * w + x - 1] = aircolor;
+	    }
+          else if (buf[(y - 1) * w + x - 1] == watercolor)
+	    {
+	      buf[(y - 1) * w + x - 1] = aliascolor;
+	    }
+          buf[(y - 1) * w + x] = aircolor;
+          if (buf[(y - 1) * w + x + 1] == aliascolor)
+	    {
+	      buf[(y - 1) * w + x + 1] = aircolor;
+	    }
+          else if (buf[(y - 1) * w + x + 1] == watercolor)
+	    {
+	      buf[(y - 1) * w + x + 1] = aliascolor;
+	    }
+        }
+
+      /* Middle row - no clipping necessary */
+      buf[y * w + x - 1] = aircolor;
       buf[y * w + x] = aircolor;
+      buf[y * w + x + 1] = aircolor;
+
+      /* Bottom row */
+      if (y < (h - 1))
+        {
+          if (buf[(y + 1) * w + x - 1] == aliascolor)
+	    {
+	      buf[(y + 1) * w + x - 1] = aircolor;
+	    }
+          else if (buf[(y + 1) * w + x - 1] == watercolor)
+	    {
+	      buf[(y + 1) * w + x - 1] = aliascolor;
+	    }
+          buf[(y + 1) * w + x] = aircolor;
+          if (buf[(y + 1) * w + x + 1] == aliascolor)
+	    {
+	      buf[(y + 1) * w + x + 1] = aircolor;
+	    }
+          else if (buf[(y + 1) * w + x + 1] == watercolor)
+	    {
+	      buf[(y + 1) * w + x + 1] = aliascolor;
+	    }
+        }
     }
   
   /* Drawing magic resides below this point */
@@ -738,6 +795,7 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   int r_liquid_noswap, g_liquid_noswap, b_liquid_noswap;
   int r_air_maxswap, g_air_maxswap, b_air_maxswap;
   int r_liquid_maxswap, g_liquid_maxswap, b_liquid_maxswap;
+  int actual_colors = NUM_COLORS / 3;
 
   GdkColormap *golormap;
   Display *display;
@@ -767,37 +825,50 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   g_liquid_maxswap = (bm->liquid_maxswap >> 8) & 0xff;
   b_liquid_maxswap = (bm->liquid_maxswap) & 0xff;
   
-  for (i = 0; i < NUM_COLORS; ++ i)
-    {
-      int r, g, b;
-      char rgbStr[24];
-      XColor exact, screen;
-      
-      if (i & 1)
-	{
-	  /* Liquid */
-	  j = (i - 1) >> 1;
-	  
-	  r = (r_liquid_maxswap * j + r_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	  g = (g_liquid_maxswap * j + g_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	  b = (b_liquid_maxswap * j + b_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	}
-      else
-	{
-	  /* Air */
-	  j = i >> 1;
+  for (i = 0; i < actual_colors; ++ i) {
+    int r, g, b;
+    int r_composite, g_composite, b_composite;
+    char rgbStr[24];
+    XColor exact, screen;
 
-	  r = (r_air_maxswap * j + r_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	  g = (g_air_maxswap * j + g_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	  b = (b_air_maxswap * j + b_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	}
-      
-      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
-    
-      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
-    
-      col[i] = screen.pixel;
-    }
+    j = i >> 1;
+
+    /* Air */
+    r = (r_air_maxswap * j + r_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+    g = (g_air_maxswap * j + g_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+    b = (b_air_maxswap * j + b_air_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+
+    r_composite = r;
+    g_composite = g;
+    b_composite = b;
+
+    sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
+    XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
+    col[(i*3)] = screen.pixel;
+
+    /* Liquid */
+    r = (r_liquid_maxswap * j + r_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+    g = (g_liquid_maxswap * j + g_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+    b = (b_liquid_maxswap * j + b_liquid_noswap * ((actual_colors - 1) - j)) / (actual_colors - 1);
+
+    r_composite += r;
+    g_composite += g;
+    b_composite += b;
+
+    sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
+    XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
+    col[(i*3) + 1] = screen.pixel;
+
+    /* Anti-alias */
+    r = r_composite / 2;
+    g = g_composite / 2;
+    b = b_composite / 2;
+
+    sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
+    XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
+    col[(i*3) + 2] = screen.pixel;
+
+  }
 }
 
 void
