@@ -5,10 +5,6 @@ tend to be completed earlier than stuff towards the end.  If you want
 something on this list done quickly, I've provided some pointers to
 get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 
-. Add a pointer to where the FAQ is located to the About box.  Is this
- at all possible to do in some way that survives all different kinds
- of packaging formats?
-
 . Translate the applet into every single language in existance.  If
  the applet doesn't show up in your favourite language even though
  other parts of your GNOME desktop does, read the TRANSLATIONS file
@@ -30,6 +26,8 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  the make_new_bubblemon_applet() function in bubblemon.c and add some
  variable that is checked at the beginning of bubblemon_update() to
  see whether the applet should be updated or not.
+
+. Add a "Legend" to the right mouse button menu.
 
 . Make bubble movement independent of update frequency.  If you know
  about or wish to learn about how to make real time visualizations of
@@ -71,6 +69,10 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  The applet_widget_set_widget_tooltip() function erroneously hides the
  tooltip if it is visible when applet_widget_set_widget_tooltip() is
  called.
+
+. Add a pointer to where the FAQ is located to the About box.  Is this
+ at all possible to do in some way that survives all different kinds
+ of packaging formats?
 
 . Make the configure script check for if we are running on a Linux 2.2
  system.  If that's the case, check memory usage a lot more seldom.
