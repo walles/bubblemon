@@ -27,10 +27,19 @@ Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
 
 TODO:
 
-. Add a hint to the applet, showing the current system load in numbers
-. Make the bubbles more visible (how?)
+. Fix the applet tooltip.  The tooltip currently disappears for me
+ every time it is updated, and it is updated every time the mouse
+ pointer enters the applet.  This combination currently makes the
+ tooltip permanently invisible.  If you could tell me
+ (d92-jwa@nada.kth.se) why, I'd appreciate it a lot!  Something should
+ probably be added to the call to applet_widget_set_tooltip() within
+ the update_tooltip() function, but I have absolutely no idea what.
+ HELP!!
+
 . Make bubble movement independent of update frequency
+
 . Gettextify the applet and translate stuff into Swedish
+
 . Make a properties box using Glade?  In that case, make the
  properties box contain four color options, and have them saved /
  restored by the session handling code.
