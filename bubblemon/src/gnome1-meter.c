@@ -85,6 +85,7 @@ void meter_init(meter_sysload_t *load)
 static int getCpuLoad(int currentCpu, int nCpus)
 {
   static glibtop_cpu cpu;
+  static int previousLoadPercentage = 0;
   int loadPercentage;
   u_int64_t my_user, my_system, my_total;
   u_int64_t load, total, oLoad, oTotal;
@@ -122,6 +123,12 @@ static int getCpuLoad(int currentCpu, int nCpus)
   oLoad = cpuLoadHistory[currentCpu][i];
   oTotal = cpuTotalLoadHistory[currentCpu][i];
 
+  // Fix for Debian bug #220255
+  if (total - oTotal == 0)
+  {
+    return previousLoad;
+  }
+
   cpuLoadHistory[currentCpu][i] = load;
   cpuTotalLoadHistory[currentCpu][i] = total;
   cpuLoadIndex[currentCpu] = (i + 1) % LOADSAMPLES;
@@ -150,7 +157,8 @@ static int getCpuLoad(int currentCpu, int nCpus)
   
   // We should never get < 0% load
   g_assert(loadPercentage >= 0);
-  
+
+  previousLoad = loadPercentage;
   return loadPercentage;
 }
 
