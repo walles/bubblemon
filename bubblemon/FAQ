@@ -84,7 +84,8 @@ really want.
 
 A more precise explanation follows.  If it's wrong in some way, or if
 you know somewhere else where this is documented in some
-comprehensible way, I'd appreciate it if you send me a mail.
+comprehensible way, I'd appreciate it if you send me
+(d92-jwa@nada.kth.se) a mail.
 
 Anyway, if we forget about swap for a while, here are the different
 kinds of memory, and whether I treat them as "air" or "water":
@@ -109,6 +110,14 @@ If you want to know more than this, have a look at the
 get_censored_memory_and_swap() function in bubblemon.c.
 
 
-8. I have another question/problem.  What should I do?
+8. The configure script reports no problems, but I still get errors
+  (or warnings) when doing 'make'.  What's up?
+
+The build process is broken.  It shouldn't be.  Send me
+(d92-jwa@nada.kth.se) a mail with the output from both 'configure' and
+'make', and I'll try to fix it.
+
+
+9. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
