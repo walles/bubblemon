@@ -83,3 +83,10 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 
 . Make the configure script check for if we are running on a Linux 2.2
  system.  If that's the case, check memory usage a lot more seldom.
+
+. I want a rubber duck.  Timecop's Windowmaker fork
+ (http://www.ne.jp/asahi/linux/timecop/#bubblemon) has one that could
+ possibly be ported (if it works well, what happens with the duck if
+ the water level hits the roof?).  This point probably requires
+ rewriting the color handling code as outlined above (and in the
+ DRAWING_REWRITE file).
