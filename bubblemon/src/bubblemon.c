@@ -88,11 +88,11 @@ int main (int argc, char ** argv)
 
   goad_id = goad_server_activation_id ();
   if (!goad_id)
-    g_error(_("Couldn't activate GOAD server.  This usually means that you are trying\n"
+    g_error("Couldn't activate GOAD server.  This usually means that you are trying\n"
 	    "to run the applet from the command line and haven't specified the\n"
 	    "--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
 	    "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
-	    "and explain it, because I really have no idea what it does.\n"));
+	    "and explain it, because I really have no idea what it does.\n");
 
   /* Create the bubblemon applet widget */
   applet = make_new_bubblemon_applet (goad_id);

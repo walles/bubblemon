@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-10 16:05+0200\n"
+"POT-Creation-Date: 2000-09-16 17:10+0200\n"
 "PO-Revision-Date: nie 06 sie 2000 13:18:25 CEST\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -19,15 +19,6 @@ msgstr ""
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
-msgstr ""
-
-#: src/bubblemon.c:91
-msgid ""
-"Couldn't activate GOAD server.  This usually means that you are trying\n"
-"to run the applet from the command line and haven't specified the\n"
-"--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
-"switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
-"and explain it, because I really have no idea what it does.\n"
 msgstr ""
 
 #: src/bubblemon.c:222
