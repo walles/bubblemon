@@ -79,10 +79,12 @@ int main (int argc, char ** argv)
        *       -- Johan Walles
        */
 
-       execl(argv[0], argv[0], "--activate-goad-server=bubblemon_applet", NULL);
+       execlp(argv[0], argv[0], "--activate-goad-server=bubblemon_applet", NULL);
 
-       g_warning("Try using the --activate-goad-server=bubblemon_applet switch\n"
-                 "               when starting the applet from the command line.\n");
+       g_warning(               "Try using the --activate-goad-server=bubblemon_applet switch\n"
+                 "               when starting the applet from the command line.  That will\n"
+                 "               help against the GOAD problem which will surely show up\n"
+                 "               below.\n");
     }
 
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
