@@ -122,6 +122,13 @@ try to fix it.
 Instructions for doing this is in the TRANSLATIONS file.
 
 
-10. I have another question/problem.  What should I do?
+11. I'm running Mandrake Linux and the configure script fails.  What's
+    up?
+
+You haven't installed the `devel' RPMs from the second Mandrake CD.
+Install them and then run configure again.
+
+
+11. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
