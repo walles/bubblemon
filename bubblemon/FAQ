@@ -14,19 +14,22 @@ expect; on my 400MHz PII system I have never seen the bubblemon go
 over 1.5% CPU utilization (according to 'top').
 
 See the file PROFILING for instructions on finding out where your
-cycles go.  Then, either fix it yourself and send me
-(d92-jwa@nada.kth.se) a patch, or send me a bug report containing the
-output of the commands recommended in PROFILING.
+cycles go.
 
-Note also that several users have reported a CPU utilization of over
-30% for a system similar to mine.  In all of the cases, the profiling
-said that only 0-2% of the CPU was used by my code.  This means that
-cycles are disappearing outside of my code.
+Note that several users have reported a CPU utilization of over 30%
+for a system similar to mine.  In all of the cases, the profiling said
+that only 0-2% of the CPU was used by my code.  This means that cycles
+are disappearing outside of my code.
 
 As I don't have these problems on any of the (two) systems I've tried
 the applet on, this is very hard for me to track down.  So if you know
 some C and want to help me find the problem, I will greatly appreciate
 any help I can get!  I'm really stuck on this one, so please HELP!
+
+My only lead is that one person who did *not* have this problem added
+128 megs to his system, and was then hit by it.  This makes me guess
+that libgtop (http://www.home-of-linux.org/gnome/libgtop) is the
+perpetrator.  If you want to look into this, please do!
 
 
 3. The program doesn't do anything; it doesn't even crash!

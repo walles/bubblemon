@@ -179,13 +179,32 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 				  u_int64_t *swap_used,
 				  u_int64_t *swap_max)
 {
-  glibtop_mem memory;
+  static glibtop_mem memory;
+  u_int64_t my_mem_used, my_mem_max;
+  u_int64_t my_swap_used, my_swap_max;
+  
   static glibtop_swap swap;  /* Needs to be static 'cause we don't do it every time */
 
-  static int swap_delay = 0;
+  static int swap_delay = 0, mem_delay = 0;
 
-  glibtop_get_mem (&memory);
+  /*
+    Find out the memory load, but update it only every 10 times we get
+    here.  If we do it every time, it bogs down the program.
 
+    FIXME: I have absolutely no idea how often that is.
+  */
+  if (mem_delay <= 0)
+    {
+      glibtop_get_mem (&memory);
+      
+      /*
+	FIXME: The following number should be based on a constant or
+	variable.
+      */
+      mem_delay = 10;
+    }
+  mem_delay--;
+  
   if (memory.total == 0)
     {
       g_error("glibtop_get_mem() says you have no memory on line %d in %s",
@@ -210,7 +229,7 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
       swap_delay = 50;
     }
   swap_delay--;
-  
+
   /*
     Calculate the projected memory + swap load to show the user.  The
     values given to the user is how much memory the system is using
@@ -222,30 +241,30 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
     allocate swap and electronic RAM to the users' processes.
   */
 
-  *mem_max = memory.total;
-  *swap_max = swap.total;
+  my_mem_max = memory.total;
+  my_swap_max = swap.total;
   
-  *mem_used = swap.used + memory.used - memory.cached - memory.buffer;
+  my_mem_used = swap.used + memory.used - memory.cached - memory.buffer;
 
-  if (*mem_used > *mem_max)
+  if (my_mem_used > my_mem_max)
     {
-      *swap_used = *mem_used - *mem_max;
-      *mem_used = *mem_max;
+      my_swap_used = my_mem_used - my_mem_max;
+      my_mem_used = my_mem_max;
     }
   else
     {
-      *swap_used = 0;
+      my_swap_used = 0;
     }
 
   /* Sanity check that we don't use more swap/mem than what's available */
-  if ((*mem_used > *mem_max) ||
-      (*swap_used > *swap_max))
+  if ((my_mem_used > my_mem_max) ||
+      (my_swap_used > my_swap_max))
     {
       g_error("Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
 	      "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
 	      "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n",
-	      *mem_used, *mem_max,
-	      *swap_used, *swap_max,
+	      my_mem_used, my_mem_max,
+	      my_swap_used, my_swap_max,
 	      swap.used,
 	      memory.used,
 	      memory.cached,
@@ -253,6 +272,11 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
 	      __LINE__,
 	      __FILE__);
     }
+
+  *mem_used = my_mem_used;
+  *mem_max = my_mem_max;
+  *swap_used = my_swap_used;
+  *swap_max = my_swap_max;
 }
 
 void get_censored_memory_usage(BubbleMonData *bm,
@@ -281,6 +305,8 @@ void update_tooltip(BubbleMonData *bm)
 {
   char memstring[20], swapstring[20], tooltipstring[200];
 
+  int loadPercentage;
+
   u_int64_t swap_used;
   u_int64_t swap_max;
   u_int64_t mem_used;
@@ -299,16 +325,22 @@ void update_tooltip(BubbleMonData *bm)
   usage2string(memstring, mem_used, mem_max);
   usage2string(swapstring, swap_used, swap_max);
 
+  loadPercentage = get_cpu_load(bm);
+
   snprintf(tooltipstring, 190,
 	   "Memory used: %s\nSwap used: %s\nCPU load: %d%%",
 	   memstring,
 	   swapstring,
-	   42);
+	   loadPercentage);
 
   /* FIXME: How can I prevent the tooltip from being hidden when it's
      re-generated? */
-  applet_widget_set_tooltip(APPLET_WIDGET(bm->applet),
-			    tooltipstring);
+
+  /* FIXME: This is a workaround for the gtk+ tool tip problem
+     described in the README file. */
+  applet_widget_set_widget_tooltip(APPLET_WIDGET(bm->applet),
+				   GTK_WIDGET(bm->area),
+				   tooltipstring);
 }
 
 void get_memory_load_percentage(BubbleMonData *bm,
@@ -373,7 +405,7 @@ gint bubblemon_update (gpointer data)
   int swapPercentage, memoryPercentage;
   int *temp;
   static int last_waterlevel_min = 0;
-  
+
 #ifdef ENABLE_PROFILING
   static int profiling_countdown = 2500;  /* FIXME: Is 2500 calls to here == 50 seconds? */
   
@@ -790,9 +822,12 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
   gtk_signal_connect (GTK_OBJECT (bm->area), "expose_event",
 		      GTK_SIGNAL_FUNC(bubblemon_expose_handler),
 		      (gpointer) bm);
-  gtk_signal_connect (GTK_OBJECT (bm->area), "enter_notify_event",
-		      GTK_SIGNAL_FUNC(widget_enter_cb),
+
+  /* Add a signal to the applet for when the mouse exits to update the tooltip */
+  gtk_signal_connect (GTK_OBJECT (bm->applet), "leave_notify_event",
+		      GTK_SIGNAL_FUNC(widget_leave_cb),
 		      (gpointer) bm);
+
   gtk_widget_set_events (bm->area,
 			 GDK_EXPOSURE_MASK |
 			 GDK_ENTER_NOTIFY_MASK);
@@ -975,13 +1010,13 @@ void about_cb (AppletWidget *widget, gpointer data)
     gnome_about_new (_("Bubbling Load Monitor"), VERSION,
 		     _("Copyright (C) 1999 Johan Walles"),
 		     (const char **) authors,
-	     _("This applet displays your CPU load as a bubbling liquid.  "
-	       "GNOME code ripped from Merlin Hughes' Merlin's CPU Fire Applet.  "
-               "This applet comes with ABSOLUTELY NO WARRANTY.  "
-               "See the LICENSE file for details.\n"
-               "This is free software, and you are welcome to redistribute it "
-               "under certain conditions.  "
-               "See the LICENSE file for details.\n"),
+		     _("This applet displays your CPU load as a bubbling liquid.  "
+		       "GNOME code ripped from Merlin Hughes' Merlin's CPU Fire Applet.  "
+		       "This applet comes with ABSOLUTELY NO WARRANTY.  "
+		       "See the LICENSE file for details.\n"
+		       "This is free software, and you are welcome to redistribute it "
+		       "under certain conditions.  "
+		       "See the LICENSE file for details.\n"),
 		     NULL);
 
   gtk_signal_connect (GTK_OBJECT (bm->about_box), "destroy",
@@ -990,13 +1025,12 @@ void about_cb (AppletWidget *widget, gpointer data)
   gtk_widget_show (bm->about_box);
 } /* about_cb */
 
-void widget_enter_cb (GtkWidget *ignored1,
+void widget_leave_cb (GtkWidget *ignored1,
 		      GdkEventAny *ignored2,
 		      gpointer data)
 {
-  /* Update the info in the tooltip when the user moves the mouse into
-   the applet. */
-  
+  /* FIXME: This is a workaround for the gtk+ tool tip problem
+     described in the README file. */
   update_tooltip((BubbleMonData *) data);
 }
 
@@ -1027,7 +1061,7 @@ void bubblemon_set_size (BubbleMonData * bm)
   bm->waterlevels_inactive = malloc (bm->breadth * sizeof (int));
 
   /*
-   * If the image has already been allocated, then free them here
+   * If the image has already been allocated, then free it here
    * before creating a new one.  */
   if (bm->image)
     gdk_image_destroy (bm->image);

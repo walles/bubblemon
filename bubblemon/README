@@ -27,17 +27,9 @@ Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
 
 TODO:
 
-. Fix the applet tooltip.  The tooltip currently disappears for me
- every time it is updated, and it is updated every time the mouse
- pointer enters the applet.  This combination currently makes the
- tooltip permanently invisible.  If you could tell me
- (d92-jwa@nada.kth.se) why, I'd appreciate it a lot!  Something should
- probably be added to the call to applet_widget_set_tooltip() within
- the update_tooltip() function, but I have absolutely no idea what.
- HELP!!
+. Fix the performance problems some people are having.
 
-. Get the applet working on 24 bit displays (at least one person
- claims that it already does work there).
+. Follow resize hints from the GNOME 1.2 panel
 
 . Make bubble movement independent of update frequency
 
@@ -48,10 +40,14 @@ TODO:
  the update frequency.  Have everything saved / restored by the
  session handling code.
 
-. Follow resize hints from the GNOME 1.2 panel
-
 . Make the applet look more like a glass vial.  Perhaps by drawing a
  vial outline, and making the bubbles transparent instead of
  air-colored?
 
-. Fix the performance problems some people are having.
+. Get the applet working on 24 bit displays (at least one person
+ claims that it already does work there).
+
+. Fix the GTK+ bug 15891 (http://bugs.gnome.org/db/15/15891.html).
+ The applet_widget_set_widget_tooltip() function erroneously hides the
+ tooltip if it is visible when applet_widget_set_widget_tooltip() is
+ called.
