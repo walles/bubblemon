@@ -51,3 +51,5 @@ Thanks to Detlef Reichl for the icon support.
 
 Thanks a lot to Benjamin Smith for implementing 24bpp support, this
 has been a problem since way back.
+
+Thanks to Nils Nordman for getting the program working on OpenBSD.
