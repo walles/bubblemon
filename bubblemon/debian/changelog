@@ -2,6 +2,8 @@ bubblemon (1.0.5) stable; urgency=low
 
   * Added a man page.
 
+  * Bubblemon is now Lintian clean!
+
  -- Johan Walles <johan@localhost.localdomain>  Sun, 29 Jul 2001 22:32:18 +0200
 
 bubblemon (1.0.4) stable; urgency=low

@@ -1,8 +1,9 @@
 Source: bubblemon
+Build-Depends: debhelper
 Section: x11
 Priority: optional
 Maintainer: Bernd Eckenfels <ecki@debian.org>
-Standards-Version: 3.0.1
+Standards-Version: 3.1.0
 
 Package: bubblemon
 Architecture: any
