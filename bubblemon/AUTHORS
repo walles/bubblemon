@@ -41,3 +41,6 @@ that these problems should be fixed (or at least not as visible) by
 
 Thanks to Leandro Fanzone for fixing the applet so that it can be
 displayed on remote X displays.
+
+Thanks to Alex Badea for writing a workaround for the need for the
+--activate-goad-server switch.

@@ -33,7 +33,7 @@ else
 fi
 
 # For i18n and l10n
-ALL_LINGUAS="sv fr pl de ko fi da sh pt"
+ALL_LINGUAS="sv fr pl de ko fi da sh pt ro"
 
 # Check if the user wants all languages to be compiled
 AC_ARG_WITH(
