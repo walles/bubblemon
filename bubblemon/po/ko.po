@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-14 20:47+0100\n"
+"POT-Creation-Date: 2001-05-11 21:35+0200\n"
 "PO-Revision-Date: 2001-01-10 01:38+0900\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "%d 행(%s)에서 glibtop_get_mem 함수가 메모리 없음이라고 보고함"
 
-#: src/bubblemon.c:400
+#: src/bubblemon.c:401
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -35,7 +35,7 @@ msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: src/bubblemon.c:407
+#: src/bubblemon.c:408
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -43,7 +43,7 @@ msgstr ""
 "\n"
 "CPU 부하: %d%%"
 
-#: src/bubblemon.c:418
+#: src/bubblemon.c:419
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
@@ -51,16 +51,16 @@ msgstr ""
 "\n"
 "CPU #%d 부하: %d%%"
 
-#: src/bubblemon.c:652
+#: src/bubblemon.c:653
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "$HOME (%s)로 chdir()할 수 없음\n"
 
-#: src/bubblemon.c:658
+#: src/bubblemon.c:659
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME 환경변수가 설정되어 있지 않음\n"
 
-#: src/bubblemon.c:663
+#: src/bubblemon.c:664
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -69,27 +69,27 @@ msgstr ""
 "버블몬 종료. 프로파일링 자료는 ~/gmon.out에 남아있습니다.\n"
 "'gprof -l -p %s ~/gmon.out'을 실행하십시오.\n"
 
-#: src/bubblemon.c:665
+#: src/bubblemon.c:666
 msgid "<name of executable>"
 msgstr "<실행파일 이름>"
 
-#: src/bubblemon.c:1037
+#: src/bubblemon.c:1038
 msgid "Can't create applet!\n"
 msgstr "애플릿을 만들 수 없음\n"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1041
 msgid "Can't open glibtop!\n"
 msgstr "glibtop을 열 수 없음!\n"
 
-#: src/bubblemon.c:1103
+#: src/bubblemon.c:1104
 msgid "About"
 msgstr "프로그램 정보"
 
-#: src/bubblemon.c:1278
+#: src/bubblemon.c:1279
 msgid "Bubbling Load Monitor"
 msgstr "물거품 부하 모니터"
 
-#: src/bubblemon.c:1281
+#: src/bubblemon.c:1282
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -98,7 +98,5 @@ msgid ""
 "conditions (GPL), see the LICENSE file for details."
 msgstr ""
 "이 애플릿은 CPU 부하를 액체 물거품으로 나타내줍니다.\n"
-"이 애플릿은 어떠한 보증도 포함하지 않습니다.  자세한 사항은 LICENSE 파일을 "
-"참고하십시오.\n"
-"이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 "
-"좋습니다.  자세한 사항은 LICENSE 파일을 참고하십시오."
+"이 애플릿은 어떠한 보증도 포함하지 않습니다.  자세한 사항은 LICENSE 파일을 참고하십시오.\n"
+"이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 좋습니다.  자세한 사항은 LICENSE 파일을 참고하십시오."

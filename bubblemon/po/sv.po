@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-14 20:47+0100\n"
+"POT-Creation-Date: 2001-05-11 21:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johan Walles <d92-jwa@nada.kth.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() hävdar att du inte har något minne på rad %d i %s"
 
-#: src/bubblemon.c:400
+#: src/bubblemon.c:401
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Minne: %s\n"
 "Virtuellt minne: %s"
 
-#: src/bubblemon.c:407
+#: src/bubblemon.c:408
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -44,7 +44,7 @@ msgstr ""
 "\n"
 "Processorlast: %d%%"
 
-#: src/bubblemon.c:418
+#: src/bubblemon.c:419
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
@@ -52,16 +52,16 @@ msgstr ""
 "\n"
 "Processorlast (CPU %d): %d%%"
 
-#: src/bubblemon.c:652
+#: src/bubblemon.c:653
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunde inte byta katalog till $HOME (%s)\n"
 
-#: src/bubblemon.c:658
+#: src/bubblemon.c:659
 msgid "$HOME environment variable not set\n"
 msgstr "Miljövariabeln $HOME är inte satt\n"
 
-#: src/bubblemon.c:663
+#: src/bubblemon.c:664
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -70,27 +70,27 @@ msgstr ""
 "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
 "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
 
-#: src/bubblemon.c:665
+#: src/bubblemon.c:666
 msgid "<name of executable>"
 msgstr "<programmets namn>"
 
-#: src/bubblemon.c:1037
+#: src/bubblemon.c:1038
 msgid "Can't create applet!\n"
 msgstr "Kan inte skapa applet!\n"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1041
 msgid "Can't open glibtop!\n"
 msgstr "Kan inte öppna glibtop!\n"
 
-#: src/bubblemon.c:1103
+#: src/bubblemon.c:1104
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1278
+#: src/bubblemon.c:1279
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
-#: src/bubblemon.c:1281
+#: src/bubblemon.c:1282
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-14 20:47+0100\n"
+"POT-Creation-Date: 2001-05-11 21:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr ""
 "glibtop_get_mem() informise da nema slobodne memorije na liniji %d u %s"
 
-#: src/bubblemon.c:400
+#: src/bubblemon.c:401
 #, fuzzy, c-format
 msgid ""
 "Memory used: %s\n"
@@ -39,58 +39,58 @@ msgstr ""
 "Upotreba svop-a: %s\n"
 "Upotreba procesora: %d%%"
 
-#: src/bubblemon.c:407
+#: src/bubblemon.c:408
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:418
+#: src/bubblemon.c:419
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:652
+#: src/bubblemon.c:653
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Nije uspjela operacija chdir() na $HOME (%s)\n"
 
-#: src/bubblemon.c:658
+#: src/bubblemon.c:659
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME envajronment parametar nije postavljen\n"
 
-#: src/bubblemon.c:663
+#: src/bubblemon.c:664
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
-"Bubblemon je zavrsio operaciju.  Profilacijski podaci su stedeni u "
-"~/gmon.out.\n"
+"Bubblemon je zavrsio operaciju.  Profilacijski podaci su stedeni u ~/gmon."
+"out.\n"
 "Da provedete dobro vrijeme, zapocnite 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:665
+#: src/bubblemon.c:666
 msgid "<name of executable>"
 msgstr "<ime eksekjutabla>"
 
-#: src/bubblemon.c:1037
+#: src/bubblemon.c:1038
 msgid "Can't create applet!\n"
 msgstr "Nemoguce stvoriti aplet!\n"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1041
 msgid "Can't open glibtop!\n"
 msgstr "Nemoguce otvoriti glibtop!\n"
 
-#: src/bubblemon.c:1103
+#: src/bubblemon.c:1104
 msgid "About"
 msgstr "Opis"
 
-#: src/bubblemon.c:1278
+#: src/bubblemon.c:1279
 msgid "Bubbling Load Monitor"
 msgstr "Burni indikator opterecenja"
 
-#: src/bubblemon.c:1281
+#: src/bubblemon.c:1282
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -106,11 +106,13 @@ msgstr ""
 "za detaljan opis vidite LICENSE fajl."
 
 #~ msgid ""
-#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
 #~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
 #~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
 #~ msgstr ""
-#~ "Greska: mem_used (%Ld) > mem_max (%Ld) ili swap_used (%Ld) > swap_max (%Ld)\n"
+#~ "Greska: mem_used (%Ld) > mem_max (%Ld) ili swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
 #~ "       Izracunato sa swap.used (%Ld), memory.used (%Ld),\n"
 #~ "       memory.cached (%Ld) i memory.buffer (%Ld) na liniji %d od %s.\n"
 
@@ -120,12 +122,12 @@ msgstr ""
 #~ msgid ""
 #~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
 #~ msgstr ""
-#~ "get_censored_memory_and_swap() informise da nemate vise memorije na liniji "
-#~ "%d od %s"
+#~ "get_censored_memory_and_swap() informise da nemate vise memorije na "
+#~ "liniji %d od %s"
 
 #~ msgid ""
-#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
-#~ "(0-100)\n"
+#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-"
+#~ "100)\n"
 #~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
 #~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 #~ msgstr ""
@@ -137,10 +139,10 @@ msgstr ""
 #~ msgid ""
 #~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
 #~ "(0-%d).\n"
-#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
-#~ "of %s.\n"
+#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %"
+#~ "d of %s.\n"
 #~ msgstr ""
 #~ "Greska: aircolor (%d) ili watercolor (%d) ili aliascolor (%d) su van "
 #~ "definicije (0-%d).\n"
-#~ "       swapPercentage (%d) jeste najvjerovatnije isto van definicije (0-100) "
-#~ "na liniji %d od %s.\n"
+#~ "       swapPercentage (%d) jeste najvjerovatnije isto van definicije (0-"
+#~ "100) na liniji %d od %s.\n"

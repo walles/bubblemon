@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-14 20:47+0100\n"
+"POT-Creation-Date: 2001-05-11 21:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr ""
 "glibtop_get_mem() siger at du ikke har nogen hukommelse i linie %d i %s"
 
-#: src/bubblemon.c:400
+#: src/bubblemon.c:401
 #, fuzzy, c-format
 msgid ""
 "Memory used: %s\n"
@@ -39,28 +39,28 @@ msgstr ""
 "Swap brugt: %s\n"
 "CPU load: %d%%"
 
-#: src/bubblemon.c:407
+#: src/bubblemon.c:408
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:418
+#: src/bubblemon.c:419
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:652
+#: src/bubblemon.c:653
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunne ikke chdir() til $HOME (%s)\n"
 
-#: src/bubblemon.c:658
+#: src/bubblemon.c:659
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME environment variablen er ikke sat\n"
 
-#: src/bubblemon.c:663
+#: src/bubblemon.c:664
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -69,27 +69,27 @@ msgstr ""
 "Bubblemon stopper.  Profil data skulle være i ~/gmon.out.\n"
 "For lidt sjov, kør 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:665
+#: src/bubblemon.c:666
 msgid "<name of executable>"
 msgstr "<navnet på den binære fil>"
 
-#: src/bubblemon.c:1037
+#: src/bubblemon.c:1038
 msgid "Can't create applet!\n"
 msgstr "Kan ikke lave applet!\n"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1041
 msgid "Can't open glibtop!\n"
 msgstr "Kan ikke åbne glibtop!\n"
 
-#: src/bubblemon.c:1103
+#: src/bubblemon.c:1104
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1278
+#: src/bubblemon.c:1279
 msgid "Bubbling Load Monitor"
 msgstr "Boblende Load Monitering"
 
-#: src/bubblemon.c:1281
+#: src/bubblemon.c:1282
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -103,11 +103,13 @@ msgstr ""
 "en bestemt lisens (GPL), se LISENS filen for detaljer."
 
 #~ msgid ""
-#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
 #~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
 #~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
 #~ msgstr ""
-#~ "Fejl: mem_used (%Ld) > mem_max (%Ld) eller swap_used (%Ld) > swap_max (%Ld)\n"
+#~ "Fejl: mem_used (%Ld) > mem_max (%Ld) eller swap_used (%Ld) > swap_max (%"
+#~ "Ld)\n"
 #~ "      Disse var beregnet ud fra swap.used (%Ld), memory.used (%Ld),\n"
 #~ "      memory.cached (%Ld) og memory.buffer (%Ld) på linie %d af %s.\n"
 
@@ -116,28 +118,23 @@ msgstr ""
 
 #~ msgid ""
 #~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-#~ msgstr ""
-#~ "get_censored_memory_and_swap() siger at du ikke har noget hukommelse på "
-#~ "linie %d i %s"
+#~ msgstr "get_censored_memory_and_swap() siger at du ikke har noget hukommelse på linie %d i %s"
 
 #~ msgid ""
-#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
-#~ "(0-100)\n"
+#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-"
+#~ "100)\n"
 #~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
 #~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 #~ msgstr ""
-#~ "Error: memoryPercentage (%d%%) eller swapPercentage (%d%%) har forkert "
-#~ "størrelse (0-100)\n"
+#~ "Error: memoryPercentage (%d%%) eller swapPercentage (%d%%) har forkert størrelse (0-100)\n"
 #~ "       De var beregnet ud fra mem_used (%Ld), mem_max (%Ld),\n"
 #~ "       swap_used (%Ld) og swap_max (%Ld) på linie %d af %s.\n"
 
 #~ msgid ""
 #~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
 #~ "(0-%d).\n"
-#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
-#~ "of %s.\n"
+#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %"
+#~ "d of %s.\n"
 #~ msgstr ""
-#~ "Fejl: luft farve (%d) eller vand farve (%d) eller alias farve (%d) har "
-#~ "forkert værdi (0-%d).\n"
-#~ "       swapPercentage (%d) har sandsynligvis også forkert værdi (0-100) på "
-#~ "linie %d af %s.\n"
+#~ "Fejl: luft farve (%d) eller vand farve (%d) eller alias farve (%d) har forkert værdi (0-%d).\n"
+#~ "       swapPercentage (%d) har sandsynligvis også forkert værdi (0-100) på linie %d af %s.\n"

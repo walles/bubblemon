@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.3\n"
-"POT-Creation-Date: 2001-02-14 20:47+0100\n"
+"POT-Creation-Date: 2001-05-11 21:35+0200\n"
 "PO-Revision-Date: 2001-02-19 14:19-03:00\n"
 "Last-Translator: Javier Kohen <jkohen@tough.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() dice que no tenés memoria en la línea %d en %s"
 
-#: src/bubblemon.c:400
+#: src/bubblemon.c:401
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -36,28 +36,32 @@ msgstr ""
 "Memoria usada: %s\n"
 "Intercambio usado: %s"
 
-#: src/bubblemon.c:407
+#: src/bubblemon.c:408
 msgid ""
 "\n"
 "CPU load: %d%%"
-msgstr "\nCarga CPU: %d%%"
+msgstr ""
+"\n"
+"Carga CPU: %d%%"
 
-#: src/bubblemon.c:418
+#: src/bubblemon.c:419
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
-msgstr "\nCarga CPU #%d: %d%%"
+msgstr ""
+"\n"
+"Carga CPU #%d: %d%%"
 
-#: src/bubblemon.c:652
+#: src/bubblemon.c:653
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "No se pudo chdir() a $HOME (%s)\n"
 
-#: src/bubblemon.c:658
+#: src/bubblemon.c:659
 msgid "$HOME environment variable not set\n"
 msgstr "La variable de entorno $HOME no está configurada\n"
 
-#: src/bubblemon.c:663
+#: src/bubblemon.c:664
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -66,27 +70,27 @@ msgstr ""
 "Saliendo de Bubblemon. Deberían hallarse datos de perfil en ~/gmon.out.\n"
 "Para tener un buen rato, ejecutá 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:665
+#: src/bubblemon.c:666
 msgid "<name of executable>"
 msgstr "<nombre del ejecutable>"
 
-#: src/bubblemon.c:1037
+#: src/bubblemon.c:1038
 msgid "Can't create applet!\n"
 msgstr "¡No se puede crear el applet!\n"
 
-#: src/bubblemon.c:1040
+#: src/bubblemon.c:1041
 msgid "Can't open glibtop!\n"
 msgstr "¡No se puede abrir glibtop!\n"
 
-#: src/bubblemon.c:1103
+#: src/bubblemon.c:1104
 msgid "About"
 msgstr "Acerca"
 
-#: src/bubblemon.c:1278
+#: src/bubblemon.c:1279
 msgid "Bubbling Load Monitor"
 msgstr "Monitor Burbujeante de Carga"
 
-#: src/bubblemon.c:1281
+#: src/bubblemon.c:1282
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -95,5 +99,7 @@ msgid ""
 "conditions (GPL), see the LICENSE file for details."
 msgstr ""
 "Esta applet muestra la carga de tu CPU como un líquido burbujeante.\n"
-"Esta applet viene con ABSOLUTAMENTE NINGUNA GARANTÍA, vea el archivo LICENSE para más detalles.\n"
-"Esto es software gratis, y estás bienvenido a redistribuirlo bajo ciertas condiciones (GPL), vea el archivo LICENSE para más detalles."
+"Esta applet viene con ABSOLUTAMENTE NINGUNA GARANTÍA, vea el archivo LICENSE "
+"para más detalles.\n"
+"Esto es software gratis, y estás bienvenido a redistribuirlo bajo ciertas "
+"condiciones (GPL), vea el archivo LICENSE para más detalles."
