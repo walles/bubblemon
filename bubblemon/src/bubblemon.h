@@ -91,8 +91,6 @@ typedef struct {
  */
 
 /* Global configuration parameters */
-#define BUBBLEMON_DEFAULT_BREADTH         "32"
-#define BUBBLEMON_DEFAULT_DEPTH           "40"
 #define BUBBLEMON_DEFAULT_UPDATE_RATE     "20"
 #define BUBBLEMON_DEFAULT_LOAD_SAMPLES    "16"
 /*

@@ -988,8 +988,6 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 			 GDK_EXPOSURE_MASK |
 			 GDK_ENTER_NOTIFY_MASK);
 
-  applet_widget_add (APPLET_WIDGET (bm->applet), bm->frame);
-
   gtk_signal_connect (GTK_OBJECT (bm->applet), "change_pixel_size",
 		      GTK_SIGNAL_FUNC (bubblemon_size_change),
 		      (gpointer) bm);
@@ -1002,6 +1000,8 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
                       GTK_SIGNAL_FUNC (bubblemon_delete),
 		      (gpointer) bm);
 
+  applet_widget_add (APPLET_WIDGET (bm->applet), bm->frame);
+
   applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
 					 "about",
 					 GNOME_STOCK_MENU_ABOUT,
@@ -1009,20 +1009,21 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 					 about_cb,
 					 bm);
 
+  /* Add the applet to the panel.  When we add it, we are supposed to
+     receive both a signal informing us about the panel orientation,
+     and a signal informing us about the panel width.  Thus, those
+     values don't have to be initialized anywhere else.  Keep your
+     fingers crossed :-). */
   gtk_widget_show_all (bm->applet);
 
   /* Size things according to the saved settings. */
-  bubblemon_set_size (bm);
-
   bubblemon_setup_samples (bm);
 
   bubblemon_setup_colors (bm);
 
-  /* Nothing is drawn until this is set. */
-  bm->setup = TRUE;
-
-  /* Will schedule a timeout automatically */
-  bubblemon_update (bm);
+  /* This will prevent stuff from working until the breadth is
+     properly initialized. */
+  bm->breadth = 0;
 
   return bm->applet;
 } /* make_new_bubblemon_applet */
@@ -1199,6 +1200,9 @@ void bubblemon_set_size (BubbleMonData * bm)
 {
   int bpp, i;
 
+  if (bm->breadth == 0)
+    return;
+  
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
   // Nuke all bubbles
@@ -1232,7 +1236,19 @@ void bubblemon_set_size (BubbleMonData * bm)
   if (bm->image)
     gdk_image_destroy (bm->image);
 
-  bm->image = gdk_image_new (GDK_IMAGE_SHARED, gtk_widget_get_visual (bm->area), bm->breadth, bm->depth);
+  bm->image = gdk_image_new (GDK_IMAGE_SHARED,
+                             gtk_widget_get_visual (bm->area),
+                             bm->breadth,
+                             bm->depth);
 
-  bpp = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / bm->breadth;
+  bpp = ((GDK_IMAGE_XIMAGE (bm->image))->bytes_per_line) / bm->breadth;
+
+  if (!bm->setup)
+    {
+      /* Nothing is drawn until this is set. */
+      bm->setup = TRUE;
+
+      /* Schedule a timeout to get everything going */
+      bubblemon_update (bm);
+    }
 }
