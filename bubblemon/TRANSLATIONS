@@ -11,30 +11,24 @@ know.
   where ever you see xx, you should replace it with the code for your
   favourite language.
 
-2. To translate the GNOME panel menu entry, open the file
-  gnome/bubblemon-gnome1.desktop in your favourite editor, and just
-  add your translations to the others (if you look at the file, it
-  should be obvious).  Use the language code from step one (above).
-  Mail the result to me (d92-jwa@nada.kth.se).
-
-3. Create the template file by doing...
+2. Create the template file by doing...
 
   ./configure
   make
 
   ... from the bubblemon directory.
 
-4. Enter the 'po' directory:
+3. Enter the 'po' directory:
 
   cd po
 
-5. Initialize your translation by copying bubblemon.pot (the template
+4. Initialize your translation by copying bubblemon.pot (the template
   file created in step 3) into xx.po (but remember to use *your*
   language code instead of xx):
 
   cp bubblemon.pot xx.po
 
-6. Edit xx.po using your favourite text editor.  Leave the lines
+5. Edit xx.po using your favourite text editor.  Leave the lines
   containing English (marked "msgid") alone; your translations should
   be added under the "msgstr" heading.  If you are unsure, look at
   some other translation (sv.po for example) to see how it's done.
@@ -42,10 +36,10 @@ know.
 
   emacs xx.po
 
-7. When you have translated everything in that file, mail it to me
-   (d92-jwa@nada.kth.se) for inclusion in the next version.
+6. When you have translated everything in that file, mail it to me
+   (walles@mailblocks.com) for inclusion in the next version.
 
-8. If you want to see your newly created translation in action, use
+7. If you want to see your newly created translation in action, use
    your favourite text editor to edit configure.in in the bubblemon
    directory, and add your language to the ALL_LINGUAS variable.  This
    is what the ALL_LINGUAS line should look like if there are
@@ -53,7 +47,7 @@ know.
 
   ALL_LINGUAS="sv xx"
 
-9. Run autoconf, build and install the project:
+8. Run autoconf, build and install the project:
 
   autoconf
   ./configure
@@ -65,6 +59,6 @@ know.
 
 The applet should now appear in the language of your choice!  If you
 have any opinions on this short howto, do send me an e-mail at
-d92-jwa@nada.kth.se and voice your opinion.
+walles@mailblocks.com and voice your opinion.
 
   //Johan
