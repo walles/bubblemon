@@ -123,23 +123,68 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
   return loadPercentage;
 }
 
-void get_memory_load(BubbleMonData *bm,
-		     int *memoryPercentage,
-		     int *swapPercentage)
+void usage2string(char *string,
+		  uint64_t used,
+		  uint64_t max)
 {
-  glibtop_mem memory;
-  glibtop_swap swap;
+  /* Create a string of the form "35/64Mb" */
+  
+  uint64_t divisor = 1;
+  char divisor_char = '\0';
 
-  uint64_t add, substract;
+  if (max > 1000000000000)
+    {
+      divisor = 1000000000000;
+      divisor_char = 'T';
+    }
+  else if (max > 1000000000)
+    {
+      divisor = 1000000000;
+      divisor_char = 'G';
+    }
+  else if (max > 1000000)
+    {
+      divisor = 1000000;
+      divisor_char = 'M';
+    }
+  else if (max > 1000)
+    {
+      divisor = 1000;
+      divisor_char = 'k';
+    }
+
+  if (divisor_char)
+    {
+      sprintf(string, "%Ld/%Ld%cb",
+	      used / divisor,
+	      max / divisor,
+	      divisor_char);
+    }
+  else
+    {
+      sprintf(string, "%Ld/%Ld bytes",
+	      used / divisor,
+	      max / divisor);
+    }
+}
+
+void get_censored_memory_and_swap(BubbleMonData *bm,
+				  uint64_t *mem_used,
+				  uint64_t *mem_max,
+				  uint64_t *swap_used,
+				  uint64_t *swap_max)
+{
+  
+  glibtop_mem memory;
+  static glibtop_swap swap;  /* Needs to be static 'cause we don't do it every time */
 
   static int swap_delay = 0;
-  static uint64_t swap_used = 0, swap_total = 0;
 
   glibtop_get_mem (&memory);
 
   /*
     Find out the swap load, but update it only every 50 times we get
-    here.
+    here.  If we do it every time, it bogs down the program.
 
     FIXME: I have absolutely no idea how often that is.
   */
@@ -147,10 +192,6 @@ void get_memory_load(BubbleMonData *bm,
     {
       glibtop_get_swap (&swap);
 
-      /* FIXME: Why is this necessary? */
-      swap_used = swap.used;
-      swap_total = swap.total;
-      
       /*
 	FIXME: The following number should be based on a constant or
 	variable.
@@ -169,51 +210,90 @@ void get_memory_load(BubbleMonData *bm,
     This scheme does *not* show how the system has decided to
     allocate swap and electronic RAM to the users' processes.
   */
-  *memoryPercentage =
-    (100 *
-     (swap_used + memory.used - memory.cached - memory.buffer)) / memory.total;
-  if (*memoryPercentage > 100)
-    *memoryPercentage = 100;
+  *mem_max = memory.total;
+  *swap_max = swap.total;
+  
+  *mem_used = swap.used + memory.used - memory.cached - memory.buffer;
 
-  if (*memoryPercentage < 0)
+  if (*mem_used > *mem_max)
     {
-      fprintf(stderr,
-	      "memoryPercentage (%d) is out of range (0-100).  It has been calculated\n"
-	      "from swap_used (%Ld), memory.used (%Ld), memory.cached (%Ld),\n"
-	      "memory.buffer (%Ld), memory.total (%Ld) and swap_total (%Ld).\n",
-	      *memoryPercentage,
-	      swap_used,
-	      memory.used,
-	      memory.cached,
-	      memory.buffer,
-	      memory.total,
-	      swap_total);
-      exit (EXIT_FAILURE);
+      *swap_used = *mem_used - *mem_max;
+      *mem_used = *mem_max;
     }
-
-  add = swap_used + memory.used;
-  substract = memory.cached + memory.buffer + memory.total;
-
-  if (add > substract)
-    *swapPercentage = (100 * (add - substract)) / swap_total;
   else
-    *swapPercentage = 0;
-
-  if (*swapPercentage > 100)
     {
-      fprintf(stderr,
-	      "swapPercentage (%d) is out of range (0-100).  It has been calculated from\n"
-	      "swap_used (%Ld), memory.used (%Ld), memory.cached (%Ld),\n"
-	      "memory.buffer (%Ld), memory.total (%Ld) and swap_total (%Ld).\n",
-	      *swapPercentage,
-	      swap_used,
-	      memory.used,
-	      memory.cached,
-	      memory.buffer,
-	      memory.total,
-	      swap_total);
-      exit (EXIT_FAILURE);
+      *swap_used = 0;
     }
+
+  /* FIXME: Sanity check that we don't use more swap/mem than what's
+     available */
+}
+
+void get_censored_memory_usage(BubbleMonData *bm,
+			       uint64_t *mem_used,
+			       uint64_t *mem_max)
+{
+  uint64_t dummy;
+
+  get_censored_memory_and_swap(bm,
+			       mem_used, mem_max,
+			       &dummy, &dummy);
+}
+
+void get_censored_swap_usage(BubbleMonData *bm,
+			       uint64_t *swap_used,
+			       uint64_t *swap_max)
+{
+  uint64_t dummy;
+
+  get_censored_memory_and_swap(bm,
+			       &dummy, &dummy,
+			       swap_used, swap_max);
+}
+
+void update_tooltip(BubbleMonData *bm)
+{
+  char memstring[20], swapstring[20], tooltipstring[200];
+
+  uint64_t swap_used;
+  uint64_t swap_max;
+  uint64_t mem_used;
+  uint64_t mem_max;
+  
+  get_censored_memory_usage(bm, &mem_used, &mem_max);
+  get_censored_swap_usage(bm, &swap_used, &swap_max);
+  
+  usage2string(memstring, mem_used, mem_max);
+  usage2string(swapstring, swap_used, swap_max);
+
+  snprintf(tooltipstring, 190,
+	   "Memory used: %s\nSwap used: %s\nCPU load: %d%%",
+	   memstring,
+	   swapstring,
+	   get_cpu_load(bm));
+
+  /* FIXME: How can I prevent the tooltip from being hidden when it's
+     re-generated? */
+  applet_widget_set_tooltip(APPLET_WIDGET(bm->applet), tooltipstring);
+}
+
+void get_memory_load_percentage(BubbleMonData *bm,
+				int *memoryPercentage,
+				int *swapPercentage)
+{
+  uint64_t mem_used;
+  uint64_t mem_max;
+  uint64_t swap_used;
+  uint64_t swap_max;
+
+  get_censored_memory_and_swap(bm,
+			       &mem_used, &mem_max,
+			       &swap_used, &swap_max);
+
+  *memoryPercentage = (100 * mem_used) / mem_max;
+  *swapPercentage = (100 * swap_used) / swap_max;
+
+  /* FIXME: Sanity check that the percentages are both 0-100. */
 }
 
 /*
@@ -231,7 +311,7 @@ bubblemon_update (gpointer data)
   int *temp;
   
 #ifdef ENABLE_PROFILING
-  static int profiling_countdown = 2500;  /* FIXME: Is 250 calls to here == 5 seconds? */
+  static int profiling_countdown = 2500;  /* FIXME: Is 2500 calls to here == 50 seconds? */
   
   if (profiling_countdown-- < 0)
     {
@@ -275,7 +355,7 @@ bubblemon_update (gpointer data)
   loadPercentage = get_cpu_load(bm);
 
   /* Find out the memory load */
-  get_memory_load(bm, &memoryPercentage, &swapPercentage);
+  get_memory_load_percentage(bm, &memoryPercentage, &swapPercentage);
 
   /*
     The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
@@ -495,7 +575,6 @@ GtkWidget *
 make_new_bubblemon_applet (const gchar *goad_id)
 {
   BubbleMonData * bm;
-  GtkWidget *frame;
 
   bm = g_new0 (BubbleMonData, 1);
 
@@ -528,18 +607,18 @@ make_new_bubblemon_applet (const gchar *goad_id)
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
   /* frame is the frame around the drawing area */
-  frame = gtk_frame_new(NULL);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+  bm->frame = gtk_frame_new(NULL);
+  gtk_frame_set_shadow_type(GTK_FRAME(bm->frame), GTK_SHADOW_IN);
 
   /* frame the drawing area */
-  gtk_container_add(GTK_CONTAINER(frame), bm->area);
-  
+  gtk_container_add(GTK_CONTAINER(bm->frame), bm->area);
+
   /* Set up the event callbacks for the area. */
   gtk_signal_connect (GTK_OBJECT (bm->area), "expose_event",
 		      (GtkSignalFunc)bubblemon_expose_handler, bm);
   gtk_widget_set_events (bm->area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
 
-  applet_widget_add (APPLET_WIDGET (bm->applet), frame);
+  applet_widget_add (APPLET_WIDGET (bm->applet), bm->frame);
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
 		      GTK_SIGNAL_FUNC (bubblemon_session_save),
