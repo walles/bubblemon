@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-24 20:49+0200\n"
+"POT-Creation-Date: 2000-10-27 23:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:76
+#: src/bubblemon.c:75
 #, c-format
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
@@ -23,12 +23,12 @@ msgstr ""
 "Fel: Konstanten NUM_COLORS i bubblemon.h måste vara en multipel av\n"
 "    tre.  Nuvarande värde (%d) är inte det.\n"
 
-#: src/bubblemon.c:241
+#: src/bubblemon.c:242
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() hävdar att du inte har något minne på rad %d i %s"
 
-#: src/bubblemon.c:294
+#: src/bubblemon.c:295
 #, c-format
 msgid ""
 "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
@@ -36,12 +36,12 @@ msgid ""
 "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:349
+#: src/bubblemon.c:350
 #, c-format
 msgid "bm == NULL in update_tooltip() on line %d of %s\n"
 msgstr "bm == NULL i update_tooltip() på rad %d i %s\n"
 
-#: src/bubblemon.c:362
+#: src/bubblemon.c:363
 msgid ""
 "Memory used: %s\n"
 "Swap used: %s\n"
@@ -51,14 +51,14 @@ msgstr ""
 "Virtuellt minne: %s\n"
 "Processor: %d%%"
 
-#: src/bubblemon.c:392
+#: src/bubblemon.c:393
 #, c-format
 msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
 msgstr ""
 "get_censored_memory_and_swap() hävdar att du inte har något minne på\n"
 "rad %d i %s"
 
-#: src/bubblemon.c:413
+#: src/bubblemon.c:414
 msgid ""
 "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
 "(0-100)\n"
@@ -66,16 +66,16 @@ msgid ""
 "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:472
+#: src/bubblemon.c:539
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunde inte byta katalog till $HOME (%s)\n"
 
-#: src/bubblemon.c:478
+#: src/bubblemon.c:545
 msgid "$HOME environment variable not set\n"
 msgstr "Miljövariabeln $HOME är inte satt\n"
 
-#: src/bubblemon.c:483
+#: src/bubblemon.c:550
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -84,11 +84,11 @@ msgstr ""
 "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
 "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
 
-#: src/bubblemon.c:485
+#: src/bubblemon.c:552
 msgid "<name of executable>"
 msgstr "<programmets namn>"
 
-#: src/bubblemon.c:585
+#: src/bubblemon.c:664
 #, c-format
 msgid ""
 "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
@@ -97,23 +97,23 @@ msgid ""
 "of %s.\n"
 msgstr ""
 
-#: src/bubblemon.c:890
+#: src/bubblemon.c:965
 msgid "Can't create applet!\n"
 msgstr "Kan inte skapa applet!\n"
 
-#: src/bubblemon.c:893
+#: src/bubblemon.c:968
 msgid "Can't open glibtop!\n"
 msgstr "Kan inte öppna glibtop!\n"
 
-#: src/bubblemon.c:949
+#: src/bubblemon.c:1028
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1113
+#: src/bubblemon.c:1195
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
-#: src/bubblemon.c:1116
+#: src/bubblemon.c:1198
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
@@ -123,15 +123,3 @@ msgid ""
 msgstr ""
 "Denna applet visar datorns processorlast som en bubblande vätska.\n"
 "Detta är fri programvara som får spridas i enlighet med GNU GPL."
-
-#~ msgid ""
-#~ "Couldn't activate GOAD server.  This usually means that you are trying\n"
-#~ "to run the applet from the command line and haven't specified the\n"
-#~ "--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
-#~ "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
-#~ "and explain it, because I really have no idea what it does.\n"
-#~ msgstr ""
-#~ "Kan inte aktivera GOAD-servern.  Detta betyder förmodligen att du\n"
-#~ "försöker köra från kommandoraden utan att ange flaggan\n"
-#~ "--activate-goad-server=bubblemon_applet.  Testa att lägga till den och\n"
-#~ "försöka igen.\n"
