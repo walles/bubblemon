@@ -37,6 +37,7 @@ binary-indep: build install
 
 # Build architecture-dependent files here.
 binary-arch: build install
+	./check_version
 #	dh_testversion
 	dh_testdir
 	dh_testroot
