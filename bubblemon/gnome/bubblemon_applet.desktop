@@ -11,6 +11,7 @@ Name[fr]=Moniteur de charge à bulles
 Name[ko]=¹°°ÅÇ° ºÎÇÏ ¸ð´ÏÅÍ ¾ÖÇÃ¸´
 Name[nl]=Bubbelende belastingsmonitor
 Name[pl]=B±belkowy monitor obci±¿enia systemu
+Name[pt]=Monitor de carga borbulhento
 Comment=Visualize system load as a bubbling liquid
 Comment[sh]=Opterecenje sistema vizualisano u burnost tecnosti
 Comment[da]=Visualiser system load som en boblende væske
@@ -22,7 +23,8 @@ Comment[ca]=Representació de la càrrega del sistema mitjançant un líquid que bom
 Comment[fr]=Visualise la charge système comme un liquide à bulles
 Comment[ko]=½Ã½ºÅÛ ºÎÇÏ¸¦ ¹°°ÅÇ°À¸·Î º¸¿©ÁØ´Ù.
 Comment[nl]=Visualiseert de systeembelasting als een bubbelende vloeistof
-Comment[pl]=Wy¶wietla obci±¿enie systemu jako p³ywaj±ce pêcherzyki 
+Comment[pl]=Wy¶wietla obci±¿enie systemu jako p³ywaj±ce pêcherzyki
+Comment[pt]=Visualize a carga do sistema como um liquido borbulhento
 Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
 Icon=
 Terminal=0

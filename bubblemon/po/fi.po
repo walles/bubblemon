@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.12\n"
-"POT-Creation-Date: 2000-12-25 13:57+0100\n"
+"POT-Creation-Date: 2000-12-27 23:24+0100\n"
 "PO-Revision-Date: 2000-09-24 20:39+03:00\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -61,23 +61,23 @@ msgstr ""
 msgid "<name of executable>"
 msgstr "<ohjelmatiedoston nimi>"
 
-#: src/bubblemon.c:946
+#: src/bubblemon.c:948
 msgid "Can't create applet!\n"
 msgstr "Sovelmaa ei voitu luoda!\n"
 
-#: src/bubblemon.c:949
+#: src/bubblemon.c:951
 msgid "Can't open glibtop!\n"
 msgstr "glibtop:ia ei voitu avata!\n"
 
-#: src/bubblemon.c:1012
+#: src/bubblemon.c:1014
 msgid "About"
 msgstr "Tietoja"
 
-#: src/bubblemon.c:1182
+#: src/bubblemon.c:1184
 msgid "Bubbling Load Monitor"
 msgstr "Kupliva kuormamittari"
 
-#: src/bubblemon.c:1185
+#: src/bubblemon.c:1187
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
