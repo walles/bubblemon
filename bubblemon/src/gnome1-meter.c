@@ -137,6 +137,13 @@ static int getCpuLoad(int currentCpu, int nCpus)
     loadPercentage = (100 * (load - oLoad)) / (total - oTotal);
   }
 
+  // We sometimes get > 100% load
+  if (loadPercentage == 101)
+  {
+    loadPercentage = 100;
+  }
+  g_assert((loadPercentage >= 0) && (loadPercentage <= 100));
+  
   return loadPercentage;
 }
 
