@@ -64,6 +64,7 @@ if [ $? != 0 ] ; then
     rm -f bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
     exit 1
 fi
+echo Note that the following command may fail, but that is OK
 mv $RPMS/RPMS/*/bubblemon*rpm $RPMS/SRPMS/bubblemon*rpm ..
 rm bubblemon-*.tar.gz $RPM_SOURCES/bubblemon-*.tar.gz
 
