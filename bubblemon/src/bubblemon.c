@@ -59,6 +59,7 @@ int main (int argc, char ** argv)
 {
   const gchar *goad_id;
   GtkWidget *applet;
+  int no_loop = 0;
 
 #ifdef ENABLE_NLS
   setlocale (LC_ALL, "");
@@ -66,6 +67,12 @@ int main (int argc, char ** argv)
   textdomain (PACKAGE);
 #endif
 
+  if ((argc > 1) && (strcmp(argv[argc-1], "--no-endless-loop") == 0))
+    {
+      no_loop = 1;
+      argc--;
+    }
+  
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
   applet_factory_new ("bubblemon_applet", NULL,
 		     (AppletFactoryActivator) applet_start_new_applet);
@@ -88,11 +95,30 @@ int main (int argc, char ** argv)
   goad_id = goad_server_activation_id ();
   if (!goad_id)
     {
+      /* A quick-and-dirty hack to start the GOAD server pseudo-automatically.
+       * There is probably a better way to do this.
+       *       -- Alex Badea
+       */
+
+      if (!no_loop)
+        {
+          char *new_argv[];
+          int k;
+          
+          new_argv = g_malloc0(sizeof(char *) * (argc + 3));
+          for (k = 0; k < argc; k++)
+            new_argv[k] = argv[k];
+          new_argv[argc] = "--activate-goad-server=bubblemon_applet";
+          new_argv[argc+1] = "--no-endless-loop";
+          new_argv[argc+2] = NULL;
+          execv(argv[0], new_argv);
+        }
+
       /* FIXME: Try starting the bubblemon_applet GOAD server manually
          before failing.  Some hints on doing this can be found at
          "http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html"
       */
-      
+
       fprintf(stderr,
               "Couldn't activate GOAD server.  This usually means that you are trying\n"
               "to run the applet from the command line and haven't specified the\n"
