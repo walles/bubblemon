@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/sysinfo.h>
 #include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -124,12 +125,14 @@ int main (int argc, char ** argv)
               "want to RTFM first at\n"
               "`http://developer.gnome.org/doc/API/libgnorba/gnorba-goad.html'.\n"
               "\n"
-              "Then send me (d92-jwa@nada.kth.se) an e-mail (in English or Swedish)"
-              "with your solution.\n"
+              "Then send me (d92-jwa@nada.kth.se) an e-mail (in English or Swedish)\n"
+              "with your solution.  The GOAD server activation code is in the\n"
+              "%s() function at %s:%d.\n"
               "\n"
               "Thanks a bunch :-)  /Johan.\n",
-              __LINE__,
-              __FILE__);
+              __FUNCTION__,
+              __FILE__,
+              __LINE__);
 
       exit (EXIT_FAILURE);
     }
@@ -143,26 +146,46 @@ int main (int argc, char ** argv)
   return 0;
 } /* main */
 
-int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent */
+int get_cpu_load(BubbleMonData *bm, int cpu_number)  /* Returns the current CPU load in percent */
 {
   glibtop_cpu cpu;
   int loadPercentage;
+  u_int64_t my_user, my_system, my_total;
   u_int64_t load, total, oLoad, oTotal;
   int i;
 
+  g_assert((cpu_number >= 0) && (cpu_number < bm->number_of_cpus));
+  
   /* Find out the CPU load */
   glibtop_get_cpu (&cpu);
-  load = cpu.user + cpu.sys;
-  total = cpu.total;
+
+  /* FIXME: The following if() wouldn't be necessary if libgtop was
+     better designed. */
+  if (bm->number_of_cpus == 1)
+    {
+      my_user = cpu.user;
+      my_system = cpu.sys;
+      my_total = cpu.total;
+    }
+  else
+    {
+      my_user = cpu.xcpu_user[cpu_number];
+      my_system = cpu.xcpu_sys[cpu_number];
+      my_total = cpu.xcpu_total[cpu_number];
+    }
+
+  load = my_user + my_system;
+  total = my_total;
+  g_assert(total);
 
   /* "i" is an index into a load history */
-  i = bm->loadIndex;
-  oLoad = bm->load[i];
-  oTotal = bm->total[i];
+  i = bm->loadIndex[cpu_number];
+  oLoad = bm->load[cpu_number][i];
+  oTotal = bm->total[cpu_number][i];
 
-  bm->load[i] = load;
-  bm->total[i] = total;
-  bm->loadIndex = (i + 1) % bm->samples;
+  bm->load[cpu_number][i] = load;
+  bm->total[cpu_number][i] = total;
+  bm->loadIndex[cpu_number] = (i + 1) % bm->samples;
 
   /*
     Because the load returned from libgtop is a value accumulated
@@ -172,7 +195,9 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
   */
   if (oTotal == 0)  /* oTotal == 0 means that this is the first time
 		       we get here */
-    loadPercentage = 0;
+    {
+      loadPercentage = 0;
+    }
   else
     loadPercentage = (100 * (load - oLoad)) / (total - oTotal);
 
@@ -342,31 +367,57 @@ void get_censored_swap_usage(BubbleMonData *bm,
 
 void update_tooltip(BubbleMonData *bm)
 {
-  char memstring[20], swapstring[20], tooltipstring[200];
-
-  int loadPercentage;
+  char memstring[20], swapstring[20], loadstring[25];
+  static char *tooltipstring = 0;
+  int cpu_number;
 
   u_int64_t swap_used;
   u_int64_t swap_max;
   u_int64_t mem_used;
   u_int64_t mem_max;
 
+  if (!tooltipstring)
+    {
+      /* Prevent the tooltipstring buffer from overflowing on a system
+         with lots of CPUs */
+      tooltipstring =
+        malloc(sizeof(char) * (bm->number_of_cpus * 50 + 100));
+    }
+
   /* Sanity check */
   g_assert(bm != NULL);
 
   get_censored_memory_usage(bm, &mem_used, &mem_max);
   get_censored_swap_usage(bm, &swap_used, &swap_max);
-  
+
   usage2string(memstring, mem_used, mem_max);
   usage2string(swapstring, swap_used, swap_max);
 
-  loadPercentage = get_cpu_load(bm);
+  snprintf(tooltipstring, 90,
+           _("Memory used: %s\nSwap used: %s"),
+           memstring,
+           swapstring);
 
-  snprintf(tooltipstring, 190,
-	   _("Memory used: %s\nSwap used: %s\nCPU load: %d%%"),
-	   memstring,
-	   swapstring,
-	   loadPercentage);
+  if (bm->number_of_cpus == 1)
+    {
+      snprintf(loadstring, 45,
+               _("\nCPU load: %d%%"),
+               get_cpu_load(bm, 0));
+      strcat(tooltipstring, loadstring);
+    }
+  else
+    {
+      for (cpu_number = 0;
+           cpu_number < bm->number_of_cpus;
+           cpu_number++)
+        {
+          snprintf(loadstring, 45,
+                   _("\nCPU #%d load: %d%%"),
+                   cpu_number,
+                   get_cpu_load(bm, cpu_number));
+          strcat(tooltipstring, loadstring);
+        }
+    }
 
   /* FIXME: How can I prevent the tooltip from being hidden when it's
      re-generated? */
@@ -541,7 +592,7 @@ gint bubblemon_update (gpointer data)
 {
   BubbleMonData *bm = data;
   Bubble *bubbles = bm->bubbles;
-  int i, w, h, n_pixels, loadPercentage, *buf, *buf_ptr, *col, x, y;
+  int i, w, h, n_pixels, loadPercentage, *buf, *buf_ptr, *col, x, y, cpu_number;
 
   int aircolor, watercolor, aliascolor;
 
@@ -624,7 +675,10 @@ gint bubblemon_update (gpointer data)
     return FALSE;
 
   /* Find out the CPU load */
-  loadPercentage = get_cpu_load(bm);
+  loadPercentage=0;
+  for (cpu_number = 0; cpu_number < bm->number_of_cpus; cpu_number++)
+    loadPercentage += get_cpu_load(bm, cpu_number);
+  loadPercentage /= bm->number_of_cpus;
 
   /* Find out the memory load */
   get_memory_load_percentage(bm, &memoryPercentage, &swapPercentage);
@@ -959,6 +1013,7 @@ gint bubblemon_size_change_handler(GtkWidget * w,
 GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 {
   BubbleMonData * bm;
+  int cpu_number;
 
   bm = g_new0 (BubbleMonData, 1);
 
@@ -1035,8 +1090,13 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 					 about_cb,
 					 bm);
 
+  /* Determine number of CPUs we will monitor */
+  bm->number_of_cpus = get_nprocs();
+  g_assert(bm->number_of_cpus != 0);
+
   /* Initialize the CPU load metering... */
-  bubblemon_setup_samples (bm);
+  for (cpu_number = 0; cpu_number < bm->number_of_cpus; cpu_number++)
+    bubblemon_setup_samples (bm, cpu_number);
 
   /* ... and our color table. */
   bubblemon_setup_colors (bm);
@@ -1075,32 +1135,32 @@ void bubblemon_set_timeout (BubbleMonData *bm)
     }
 }
 
-void bubblemon_setup_samples (BubbleMonData *bm)
+void bubblemon_setup_samples (BubbleMonData *bm, int which_cpu)
 {
   /* Initialize the CPU load monitoring. */
 
   int i;
   u_int64_t load = 0, total = 0;
 
-  if (bm->load)
+  if (bm->load[which_cpu])
     {
-      load = bm->load[bm->loadIndex];
-      free (bm->load);
+      load = bm->load[which_cpu][bm->loadIndex[which_cpu]];
+      free (bm->load[which_cpu]);
     }
 
-  if (bm->total)
+  if (bm->total[which_cpu])
     {
-      total = bm->total[bm->loadIndex];
-      free (bm->total);
+      total = bm->total[which_cpu][bm->loadIndex[which_cpu]];
+      free (bm->total[which_cpu]);
     }
 
-  bm->loadIndex = 0;
-  bm->load = malloc (bm->samples * sizeof (u_int64_t));
-  bm->total = malloc (bm->samples * sizeof (u_int64_t));
+  bm->loadIndex[which_cpu] = 0;
+  bm->load[which_cpu] = malloc (bm->samples * sizeof (u_int64_t));
+  bm->total[which_cpu] = malloc (bm->samples * sizeof (u_int64_t));
   for (i = 0; i < bm->samples; i++)
     {
-      bm->load[i] = load;
-      bm->total[i] = total;
+      bm->load[which_cpu][i] = load;
+      bm->total[which_cpu][i] = total;
     }
 }
 

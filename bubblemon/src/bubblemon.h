@@ -53,8 +53,6 @@ typedef struct {
   int x;    /* Horizontal coordinate */
   float y;  /* Vertical coordinate   */
   float dy; /* Vertical velocity     */
-
-  /* FIXME: Should we give every bubble a radius? */
 } Bubble;
 
 typedef struct {
@@ -77,8 +75,13 @@ typedef struct {
   guint timeout;
   gint timeout_t;
 
-  int loadIndex;
-  u_int64_t *load, *total;
+  
+  /* GLIBTOP_NCPU is the maximum number of CPUs supported */
+  /* number_of_cpus is the actual # of CPUs operating */
+  
+  int number_of_cpus;
+  int loadIndex[GLIBTOP_NCPU];
+  u_int64_t *load[GLIBTOP_NCPU], *total[GLIBTOP_NCPU];
   
   /* Widgets n stuff... */
   GtkWidget *area;
@@ -117,7 +120,7 @@ void about_cb (AppletWidget *widget, gpointer data);
 void widget_leave_cb (GtkWidget *, GdkEventAny *, gpointer data);
 void destroy_about(GtkWidget *w, gpointer data);
 
-void bubblemon_setup_samples(BubbleMonData *mc);
+void bubblemon_setup_samples(BubbleMonData *mc, int num_cpu);
 void bubblemon_setup_colors(BubbleMonData *mc);
 void bubblemon_set_size(BubbleMonData *mc);
 void bubblemon_set_timeout(BubbleMonData *mc);
@@ -135,7 +138,7 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id);
 GtkWidget *applet_start_new_applet (const gchar *goad_id,
 				     const char **params, int nparams);
 
-int get_cpu_load(BubbleMonData *bm);
+int get_cpu_load(BubbleMonData *bm, int num_cpu);
 void usage2string(char *string, u_int64_t used, u_int64_t max);
 
 void get_censored_memory_and_swap(BubbleMonData *bm,

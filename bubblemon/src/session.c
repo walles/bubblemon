@@ -30,6 +30,7 @@
 #include <time.h>
 #include <gnome.h>
 #include <gdk/gdkx.h>
+#include <glibtop/cpu.h>
 
 #include <applet-widget.h>
 
