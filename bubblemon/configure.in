@@ -47,7 +47,7 @@ AC_MSG_CHECKING(what languages to include)
 AC_MSG_RESULT($LINGUAS)
 
 GETTEXT_PACKAGE=bubblemon
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext wants to know...])
 AC_SUBST(GETTEXT_PACKAGE)
 
 # For i18n and l10n (continued)
@@ -59,7 +59,7 @@ if test "x$prefix" = "xNONE"; then
 else
   LOCALEDIR=$prefix/share/locale
 fi
-AC_DEFINE_UNQUOTED(LOCALEDIR, "$LOCALEDIR")
+AC_DEFINE_UNQUOTED(LOCALEDIR, "$LOCALEDIR", [Where language files get installed])
 
 
 
@@ -84,7 +84,7 @@ if test "x$profiling" = "xyes"; then
 
   AC_MSG_RESULT($profilingFLAGS)
 
-  AC_DEFINE(ENABLE_PROFILING)
+  AC_DEFINE([ENABLE_PROFILING], [], [Build a bubblemon that bubbles a lot for a minute and then exits])
 
   AC_MSG_WARN()
   AC_MSG_WARN(You have enabled profiling by specifying the --enable-profiling switch.)
@@ -121,7 +121,7 @@ AC_SUBST(GTOP_APPLETS_LIBS)
 AM_CONDITIONAL(BUILD_GTOP_APPLETS, $build_gtop_applets)
 
 # The gnome2 panel is resizable
-AC_DEFINE(HAVE_CHANGE_PIXEL_SIZE)
+AC_DEFINE([HAVE_CHANGE_PIXEL_SIZE], [], [Whether the GNOME Panel can change size])
 
 
 ######################################################################
