@@ -34,14 +34,8 @@ one using the largest amount of CPU.
 . Fix the bubblemon.spec file (that describes what should go into the
  RPM) so that it makes 'root' own all files (instead of 'johan'...).
 
-. Make the applet look more like a glass vial.  Perhaps by drawing a
- vial outline, and making the bubbles transparent instead of
- air-colored?  Drawing takes place inside bubblemon.c below the
- comment saying "Draw the air-and-water background".
+. Make the applet look more like a glass vial.
 
 . Add a pointer to where the FAQ is located to the About box.  Is this
  at all possible to do in some way that survives all different kinds
  of packaging formats?
-
-. Make the configure script check for if we are running on a Linux 2.2
- system.  If that's the case, check memory usage a lot more seldom.

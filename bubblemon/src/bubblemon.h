@@ -27,7 +27,7 @@
 #define GRAVITY -0.01
 
 /* The drag coefficient of the bottle */
-#define BOTTLE_DRAG 0.2
+#define BOTTLE_DRAG 0.1
 
 /* How fast do the water levels accelerate? */
 #define VOLATILITY 1.0
@@ -47,6 +47,11 @@
  * bubbles. */
 #define BGBUBBLE_SPEED 0.4
 
+/* How fast the weed grows in pixels/sec */
+#define WEED_MAXSPEED 10
+#define WEED_MINSPEED 1
+#define WEED_SPEEDFACTOR 1
+
 /* Swap usage color scale */              /*    rrggbbaa */
 static const unsigned int NOSWAPAIRCOLOR    = 0x2299ff00;
 static const unsigned int NOSWAPWATERCOLOR  = 0x0055ff80;
@@ -54,8 +59,20 @@ static const unsigned int NOSWAPWATERCOLOR  = 0x0055ff80;
 static const unsigned int MAXSWAPAIRCOLOR   = 0xff000040;
 static const unsigned int MAXSWAPWATERCOLOR = 0xaa000080;
 
+/* Weeds have a random color between these two */
+static const unsigned int WEEDCOLOR0        = 0x00ff0080;
+static const unsigned int WEEDCOLOR1        = 0xffff40ff;
+
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
+
+/* How often is the network load meter updated?  The unit is
+ * milliseconds between updates. */
+#define NETLOAD_INTERVAL 500
+
+/* The maximum height of the weeds indicating the network load,
+ * expressed in percent of the full height */
+#define WEED_HEIGHT 40
 
 /* Color code constants */
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
@@ -103,6 +120,15 @@ typedef struct
   float dy;
 } bubblemon_WaterLevel;
 
+/* A weed */
+typedef struct
+{
+  float height;
+  float nourishment;
+
+  bubblemon_color_t color;
+} bubblemon_Weed;
+
 /* Physics stuff */
 typedef struct
 {
@@ -111,6 +137,7 @@ typedef struct
   int n_bubbles;
   int max_bubbles;
   bubblemon_Bubble *bubbles;
+  bubblemon_Weed *weeds;
 
   float bottle_y;
   float bottle_dy;

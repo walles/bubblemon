@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon-1.0.3\n"
-"POT-Creation-Date: 2002-06-23 18:35+0200\n"
+"POT-Creation-Date: 2002-06-29 18:49+0200\n"
 "PO-Revision-Date: 2001-05-08 16:00+1300\n"
 "Last-Translator: Vegard Bakke <Vegard.Bakke@bigfoot.com>\n"
 "Language-Team: Norsk-bokmål <Vegard.Bakke@bigfoot.com>\n"

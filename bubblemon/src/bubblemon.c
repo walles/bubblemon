@@ -28,6 +28,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 
 /* Natural language translation stuff */
 #ifdef ENABLE_NLS
@@ -49,6 +50,7 @@
 #include "meter.h"
 #include "mail.h"
 #include "config.h"
+#include "netload.h"
 
 // Bottle graphics
 #include "msgInBottle.c"
@@ -256,7 +258,7 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
     else if (physics.waterLevels[x].dy < -SPEED_LIMIT)
       physics.waterLevels[x].dy = -SPEED_LIMIT;
   }
-
+  
   for (x = 1; x < (w - 1); x++)
   {
     /* Move the current water level */
@@ -273,6 +275,96 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
       /* ... or the floor. */
       physics.waterLevels[x].y = 0.0;
       physics.waterLevels[x].dy = 0.0;
+    }
+  }
+}
+
+static void bubblemon_addNourishment(bubblemon_Weed *weed, int percentage)
+{
+  float heightLimit = (bubblePic.height * WEED_HEIGHT) / 100.0;
+  
+  weed->nourishment += (heightLimit * netload_getLoadPercentage()) / 100.0;
+  
+  if (weed->nourishment + weed->height > heightLimit)
+  {
+    weed->nourishment = heightLimit - weed->height;
+  }
+}
+
+static void bubblemon_updateWeeds(int msecsSinceLastCall)
+{
+  static int timeToNextUpdate = 0;
+  static int lastUpdatedWeed = 0;
+
+  int w = bubblePic.width;
+  int x;
+
+  // If enough time has elapsed...
+  timeToNextUpdate -= msecsSinceLastCall;
+  while (timeToNextUpdate <= 0)
+  {
+    // ... update the nourishment level of our next weed
+    if (lastUpdatedWeed > 0)
+    {
+      lastUpdatedWeed--;
+    }
+    else
+    {
+      lastUpdatedWeed = bubblePic.width - 1;
+    }
+    
+    // Distribute the nourishment over several weeds
+    if (lastUpdatedWeed > 0)
+    {
+      bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed - 1]), (netload_getLoadPercentage() * 8) / 10);
+    }
+    bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed]), netload_getLoadPercentage());
+    if (lastUpdatedWeed < (bubblePic.width - 1))
+    {
+      bubblemon_addNourishment(&(physics.weeds[lastUpdatedWeed + 1]), (netload_getLoadPercentage() * 8) / 10);
+    }
+    
+    timeToNextUpdate += NETLOAD_INTERVAL;
+  }
+  
+  // For all weeds...
+  for (x = 0; x < w; x++)
+  {
+    // ... grow / shrink them according to their nourishment level
+    float speed;
+    float delta;
+    
+    if (physics.weeds[x].nourishment <= 0.0)
+    {
+      speed = -WEED_MINSPEED;
+    }
+    else
+    {
+      speed = physics.weeds[x].nourishment * WEED_SPEEDFACTOR;
+      if (speed > WEED_MAXSPEED)
+      {
+	speed = WEED_MAXSPEED;
+      }
+      else if (speed < WEED_MINSPEED)
+      {
+	speed = WEED_MINSPEED;
+      }
+    }
+    
+    delta = (speed * msecsSinceLastCall) / 1000.0;
+    if (delta > physics.weeds[x].nourishment)
+    {
+      delta = physics.weeds[x].nourishment;
+    }
+    
+    if (delta > 0.0)
+    {
+      physics.weeds[x].nourishment -= delta;
+    }
+    physics.weeds[x].height += delta;
+    if (physics.weeds[x].height < 0.0)
+    {
+      physics.weeds[x].height = 0.0;
     }
   }
 }
@@ -443,6 +535,71 @@ static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
 }
 
 
+static const bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
+{
+  bubblemon_color_t returnMe;
+
+#if defined(WORDS_BIGENDIAN)
+  returnMe.components.a = (constant >> 24) & 0xff;
+  returnMe.components.b = (constant >> 16) & 0xff; 
+  returnMe.components.g = (constant >> 8)  & 0xff; 
+  returnMe.components.r = (constant >> 0)  & 0xff;
+#else
+  returnMe.components.r = (constant >> 24) & 0xff;
+  returnMe.components.g = (constant >> 16) & 0xff; 
+  returnMe.components.b = (constant >> 8)  & 0xff; 
+  returnMe.components.a = (constant >> 0)  & 0xff;
+#endif
+  
+  return returnMe;
+}
+
+/* The amount parameter is 0-255. */
+static bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
+						    const bubblemon_color_t c2,
+						    const int amount)
+{
+  int a, r, g, b;
+  bubblemon_color_t returnme;
+
+  assert(amount >= 0 && amount < 256);
+
+  r = ((((int)c1.components.r) * (255 - amount)) +
+       (((int)c2.components.r) * amount)) / 255;
+  g = ((((int)c1.components.g) * (255 - amount)) +
+       (((int)c2.components.g) * amount)) / 255;
+  b = ((((int)c1.components.b) * (255 - amount)) +
+       (((int)c2.components.b) * amount)) / 255;
+  a = ((((int)c1.components.a) * (255 - amount)) +
+       (((int)c2.components.a) * amount)) / 255;
+
+  /*
+  assert(a >= 0 && a <= 255);
+  assert(r >= 0 && r <= 255);
+  assert(g >= 0 && g <= 255);
+  assert(b >= 0 && b <= 255);
+
+  assert(((c1.components.a <= a) && (a <= c2.components.a)) ||
+	 ((c1.components.a >= a) && (a >= c2.components.a)));
+  assert(((c1.components.r <= r) && (r <= c2.components.r)) ||
+	 ((c1.components.r >= r) && (r >= c2.components.r)));
+  assert(((c1.components.g <= g) && (g <= c2.components.g)) ||
+	 ((c1.components.g >= g) && (g >= c2.components.g)));
+  assert(((c1.components.b <= b) && (b <= c2.components.b)) ||
+	 ((c1.components.b >= b) && (b >= c2.components.b)));
+  */
+  
+  returnme.components.r = r;
+  returnme.components.g = g;
+  returnme.components.b = b;
+  returnme.components.a = a;
+
+  assert((amount != 0)   || (returnme.value == c1.value));
+  assert((amount != 255) || (returnme.value == c2.value));
+
+  return returnme;
+}
+
 /* Update the bubble array from the system load */
 static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
 {
@@ -462,6 +619,27 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
       (bubblemon_WaterLevel *)malloc(bubblePic.width * sizeof(bubblemon_WaterLevel));
   }
   
+  /* Make sure the sea-weeds exist */
+  if (physics.weeds == NULL)
+  {
+    int i;
+    
+    physics.weeds =
+      (bubblemon_Weed *)calloc(bubblePic.width, sizeof(bubblemon_Weed));
+
+    // Colorize the weeds
+    for (i = 0; i < bubblePic.width; i++)
+    {
+      static int stripey = 0;
+      
+      physics.weeds[i].color =
+	bubblemon_interpolateColor(bubblemon_constant2color(WEEDCOLOR0),
+				   bubblemon_constant2color(WEEDCOLOR1),
+				   (random() % 156) + stripey);
+      stripey = 100 - stripey;
+    }
+  }
+  
   /* Make sure the bubbles exist */
   if (physics.bubbles == NULL)
   {
@@ -476,6 +654,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
   
   /* Update our universe */
   bubblemon_updateWaterlevels(msecsSinceLastCall);
+  bubblemon_updateWeeds(msecsSinceLastCall);
   bubblemon_updateBubbles(msecsSinceLastCall);
   bubblemon_updateBottle(msecsSinceLastCall, youveGotMail);
 }
@@ -657,8 +836,8 @@ static void bubblemon_draw_bubble(bubblemon_picture_t *bubblePic,
   }
 }
 
-static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic,
-					   bubblemon_layer_t layer)
+static void bubblemon_environmentToBubbleArray(bubblemon_picture_t *bubblePic,
+					       bubblemon_layer_t layer)
 {
   // Render bubbles, waterlevels and stuff into the bubblePic
   int w = bubblePic->width;
@@ -720,70 +899,6 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic,
     }
     bubble++;
   }
-}
-
-static bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
-						    const bubblemon_color_t c2,
-						    const int amount)
-{
-  int a, r, g, b;
-  bubblemon_color_t returnme;
-
-  assert(amount >= 0 && amount < 256);
-
-  r = ((((int)c1.components.r) * (255 - amount)) +
-       (((int)c2.components.r) * amount)) / 255;
-  g = ((((int)c1.components.g) * (255 - amount)) +
-       (((int)c2.components.g) * amount)) / 255;
-  b = ((((int)c1.components.b) * (255 - amount)) +
-       (((int)c2.components.b) * amount)) / 255;
-  a = ((((int)c1.components.a) * (255 - amount)) +
-       (((int)c2.components.a) * amount)) / 255;
-
-  /*
-  assert(a >= 0 && a <= 255);
-  assert(r >= 0 && r <= 255);
-  assert(g >= 0 && g <= 255);
-  assert(b >= 0 && b <= 255);
-
-  assert(((c1.components.a <= a) && (a <= c2.components.a)) ||
-	 ((c1.components.a >= a) && (a >= c2.components.a)));
-  assert(((c1.components.r <= r) && (r <= c2.components.r)) ||
-	 ((c1.components.r >= r) && (r >= c2.components.r)));
-  assert(((c1.components.g <= g) && (g <= c2.components.g)) ||
-	 ((c1.components.g >= g) && (g >= c2.components.g)));
-  assert(((c1.components.b <= b) && (b <= c2.components.b)) ||
-	 ((c1.components.b >= b) && (b >= c2.components.b)));
-  */
-  
-  returnme.components.r = r;
-  returnme.components.g = g;
-  returnme.components.b = b;
-  returnme.components.a = a;
-
-  assert((amount != 0)   || (returnme.value == c1.value));
-  assert((amount != 255) || (returnme.value == c2.value));
-
-  return returnme;
-}
-
-static const bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
-{
-  bubblemon_color_t returnMe;
-
-#if defined(WORDS_BIGENDIAN)
-  returnMe.components.a = (constant >> 24) & 0xff;
-  returnMe.components.b = (constant >> 16) & 0xff; 
-  returnMe.components.g = (constant >> 8)  & 0xff; 
-  returnMe.components.r = (constant >> 0)  & 0xff;
-#else
-  returnMe.components.r = (constant >> 24) & 0xff;
-  returnMe.components.g = (constant >> 16) & 0xff; 
-  returnMe.components.b = (constant >> 8)  & 0xff; 
-  returnMe.components.a = (constant >> 0)  & 0xff;
-#endif
-  
-  return returnMe;
 }
 
 static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic,
@@ -904,6 +1019,27 @@ static void bubblemon_bottleToPixmap(bubblemon_picture_t *bubblePic)
   }
 }
 
+static void bubblemon_weedsToPixmap(bubblemon_picture_t *bubblePic)
+{
+  int w = bubblePic->width;
+  int h = bubblePic->height;
+
+  int x;
+  
+  for (x = 0; x < w; x++)
+  {
+    int y;
+    int highestWeedPixel = h - physics.weeds[x].height;
+    
+    for (y = highestWeedPixel; y < h; y++)
+    {
+      bubblePic->pixels[y * w + x] = bubblemon_interpolateColor(bubblePic->pixels[y * w + x],
+								physics.weeds[x].color,
+								physics.weeds[x].color.components.a);
+    }
+  }
+}
+
 const bubblemon_picture_t *bubblemon_getPicture()
 {
   static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
@@ -911,16 +1047,25 @@ const bubblemon_picture_t *bubblemon_getPicture()
   
   int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
   int youveGotMail = mail_hasUnreadMail();
-
+  
   // Get the system load
   meter_getLoad(&sysload);
   bubblemon_censorLoad();
   
-  // Push the universe around
+  // Update the network load statistics.  Since they measure a real
+  // time phenomenon, they need to keep track of how much real time
+  // has actually passed since last time.  Thus, we provide the
+  // uncensored msecsSinceLastCall.
+  netload_updateLoadstats(msecsSinceLastCall);
+  
+  // If a "long" time has passed since the last frame, settle for
+  // updating the physics just a bit of the way.
   if (msecsSinceLastCall > 200)
   {
     msecsSinceLastCall = 200;
   }
+
+  // Push the universe around
   if (msecsSinceLastCall <= msecsPerPhysicsFrame)
   {
     bubblemon_updatePhysics(msecsSinceLastCall, youveGotMail);
@@ -936,12 +1081,13 @@ const bubblemon_picture_t *bubblemon_getPicture()
   }
   
   // Draw the pixels
-  bubblemon_physicsToBubbleArray(&bubblePic, BACKGROUND);
+  bubblemon_environmentToBubbleArray(&bubblePic, BACKGROUND);
   bubblemon_bubbleArrayToPixmap(&bubblePic, BACKGROUND);
   
+  bubblemon_weedsToPixmap(&bubblePic);
   bubblemon_bottleToPixmap(&bubblePic);
   
-  bubblemon_physicsToBubbleArray(&bubblePic, FOREGROUND);
+  bubblemon_environmentToBubbleArray(&bubblePic, FOREGROUND);
   bubblemon_bubbleArrayToPixmap(&bubblePic, FOREGROUND);
   
   return &bubblePic;
@@ -956,6 +1102,9 @@ int main(int argc, char *argv[])
 	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
 	  "load all the time.\n");
 #endif
+
+  // Initialize the random number generation
+  srandom(time(NULL));
   
   // Initialize the load metering
   meter_init(argc, argv, &sysload);

@@ -15,7 +15,8 @@ på vätskan talar om hur mycket växlingsutrymme ("swap") som används.
 Så länge som vätskan är vattenfärgad används inget växlingsutrymme,
 men ju mer växlingsutrymme som används desto rödare blir vätskan.  En
 flaskpost dyker upp när det finns oläst mail i filen som pekas ut av
-miljövariabeln $MAIL.
+miljövariabeln $MAIL.  Sjögräs växer upp vid nätverkslast; mycket
+sjögräs innebär hög nätverkslast.
 .LP
 Om du håller muspekaren ovanför lastmätaren någon sekund får du se
 exakta siffror på systemlasten.
