@@ -31,9 +31,6 @@ one using the largest amount of CPU.
 . Pause the applet if it ain't visible for some reason (for example if
  the GNOME panel is hidden).
 
-. Fix the bubblemon.spec file (that describes what should go into the
- RPM) so that it makes 'root' own all files (instead of 'johan'...).
-
 . Make the applet look more like a glass vial.
 
 . Add a pointer to where the FAQ is located to the About box.  Is this
