@@ -210,7 +210,7 @@ prop_apply (GtkWidget *w, int page, gpointer data)
   
   gnome_color_picker_get_i8 ( mc->background_sel, &r, &g, &b, NULL);
 
-  bubblemon_setup_colours (mc);
+  bubblemon_setup_colors (mc);
 
   mc->setup = TRUE;
 

@@ -10,7 +10,7 @@ etcdir = ${prefix}/etc
 
 ccFlags_release = -O3
 ccFlags_debug = -g
-ccFlags = ${ccFlags_${mode}} -c
+ccFlags = ${ccFlags_${mode}} -c -Wall -W -Wno-unused
 
 cppFlags = ${shell gnome-config --cflags glib gnome gnomeui gnorba}
 

@@ -43,6 +43,8 @@
 #include "session.h"
 #include "properties.h"
 
+gint bubblemon_expose_handler (GtkWidget *, GdkEventExpose *, gpointer);
+
 int
 main (int argc, char ** argv)
 {
@@ -78,7 +80,8 @@ gint
 bubblemon_update (gpointer data)
 {
   BubbleMonData * bm = data;
-  int i, w, h, n, bytesPerPixel, percent, *buf, *col, x, y;
+  Bubble *bubbles = bm->bubbles;
+  int i, w, h, n, bytesPerPixel, loadPercentage, *buf, *col, x, y;
   int aircolor, watercolor, waterlevel;
   glibtop_cpu cpu;
   uint64_t load, total, oLoad, oTotal;
@@ -110,15 +113,15 @@ bubblemon_update (gpointer data)
   // as on the next line?  Or does oTotal==0 simply imply that this is
   // the first time we execute the current function?
   if (oTotal == 0)
-    percent = 0;
+    loadPercentage = 0;
   else
-    percent = 100 * (load - oLoad) / (total - oTotal);
+    loadPercentage = 100 * (load - oLoad) / (total - oTotal);
 
-  // The buf is made up of ints (0-(NUM_COLOURS-1)), each pointing out
+  // The buf is made up of ints (0-(NUM_COLORS-1)), each pointing out
   // an entry in the color table.  A pixel in the buf is accessed
   // using the formula buf[row * w + column].
   buf = bm->bubblebuf;
-  col = bm->colours;
+  col = bm->colors;
   w = bm->breadth;
   h = bm->depth;
   n = w * h;
@@ -149,7 +152,44 @@ bubblemon_update (gpointer data)
 	  buf[y * w + x] = watercolor;
       }
 
+  // Create a new bubble if the planets are correctly aligned...
+  if ((bm->n_bubbles < MAX_BUBBLES) && ((random() % 101) <= loadPercentage))
+    {
+      bubbles[bm->n_bubbles].x = random() % w;
+      bubbles[bm->n_bubbles].y = h - 1;
+      bubbles[bm->n_bubbles].dy = 0.0;
+      bm->n_bubbles++;
+    }
+  
   // FIXME: Update and draw the bubbles
+  for (i = 0; i < bm->n_bubbles; i++)
+    {
+      // Accellerate the bubble
+      bubbles[i].dy -= GRAVITY;
+
+      // Move the bubble vertically
+      bubbles[i].y += bubbles[i].dy;
+
+      // Did we lose it?
+      if (bubbles[i].y < waterlevel)
+	{
+	  // Yes; nuke it
+	  bubbles[i].x  = bubbles[bm->n_bubbles - 1].x;
+	  bubbles[i].y  = bubbles[bm->n_bubbles - 1].y;
+	  bubbles[i].dy = bubbles[bm->n_bubbles - 1].dy;
+	  bm->n_bubbles--;
+
+	  i--;  // We must check the previously last bubble, which is
+  	        // now the current bubble, also.
+	  continue;
+	}
+
+      // Draw the bubble
+      x = bubbles[i].x;
+      y = bubbles[i].y;
+      
+      buf[y * w + x] = aircolor;
+    }
   
   // Drawing magic resides below this point
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
@@ -230,6 +270,8 @@ bubblemon_delete (gpointer data) {
   }
 
   applet_widget_gtk_main_quit();
+
+  return 0;  // Gets us rid of a warning
 }
 
 /* This is the function that actually creates the display widgets */
@@ -259,6 +301,9 @@ make_new_bubblemon_applet (const gchar *goad_id)
   else
     bubblemon_session_defaults (bm);
 
+  // We begin with zero bubbles
+  bm->n_bubbles = 0;
+  
   /*
    * area is the drawing area into which the little picture of
    * the bubblemon gets drawn.
@@ -302,7 +347,7 @@ make_new_bubblemon_applet (const gchar *goad_id)
 
   bubblemon_setup_samples (bm);
 
-  bubblemon_setup_colours (bm);
+  bubblemon_setup_colors (bm);
 
   /* Nothing is drawn until this is set. */
   bm->setup = TRUE;
@@ -349,7 +394,7 @@ void bubblemon_setup_samples (BubbleMonData *bm) {
   }
 }
 
-void bubblemon_setup_colours (BubbleMonData *bm) {
+void bubblemon_setup_colors (BubbleMonData *bm) {
   int i, *col;
   GdkColormap *golormap;
   Display *display;
@@ -359,11 +404,11 @@ void bubblemon_setup_colours (BubbleMonData *bm) {
   display = GDK_COLORMAP_XDISPLAY(golormap);
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
 
-  if (!bm->colours)
-    bm->colours = malloc (NUM_COLOURS * sizeof (int));
-  col = bm->colours;
+  if (!bm->colors)
+    bm->colors = malloc (NUM_COLORS * sizeof (int));
+  col = bm->colors;
   
-  for (i = 0; i < NUM_COLOURS; ++ i) {
+  for (i = 0; i < NUM_COLORS; ++ i) {
     int r, g, b;
     char rgbStr[24];
     XColor exact, screen;

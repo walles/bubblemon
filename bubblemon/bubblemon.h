@@ -31,8 +31,9 @@
 
 #include <applet-widget.h>
 
-#define NUM_COLOURS 2
+#define NUM_COLORS 2
 #define MAX_BUBBLES 100
+#define GRAVITY 0.01
 
 typedef struct {
   int x;    // Horizontal coordinate
@@ -46,7 +47,7 @@ typedef struct {
   GtkWidget *applet;
 
   gint breadth, depth, update, samples;
-  int *bubblebuf, *colours;
+  int *bubblebuf, *colors;
 
   Bubble bubbles[MAX_BUBBLES];
   int n_bubbles;
@@ -99,7 +100,7 @@ void about_cb (AppletWidget *widget, gpointer data);
 void destroy_about(GtkWidget *w, gpointer data);
 
 void bubblemon_setup_samples(BubbleMonData *mc);
-void bubblemon_setup_colours(BubbleMonData *mc);
+void bubblemon_setup_colors(BubbleMonData *mc);
 void bubblemon_set_size(BubbleMonData *mc);
 void bubblemon_set_timeout(BubbleMonData *mc);
 gint bubblemon_update(gpointer data);
