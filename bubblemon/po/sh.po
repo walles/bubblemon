@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-15 10:57+0100\n"
+"POT-Creation-Date: 2001-02-14 20:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:83
+#: src/bubblemon.c:84
 #, c-format
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
@@ -23,13 +23,13 @@ msgstr ""
 "Greska: Konstanta NUM_COLORS u bubblemon.h mora biti dijeljiva sa 3\n"
 "        Sadasnja vrednost od %d nije.\n"
 
-#: src/bubblemon.c:289
+#: src/bubblemon.c:290
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr ""
 "glibtop_get_mem() informise da nema slobodne memorije na liniji %d u %s"
 
-#: src/bubblemon.c:399
+#: src/bubblemon.c:400
 #, fuzzy, c-format
 msgid ""
 "Memory used: %s\n"
@@ -39,28 +39,28 @@ msgstr ""
 "Upotreba svop-a: %s\n"
 "Upotreba procesora: %d%%"
 
-#: src/bubblemon.c:406
+#: src/bubblemon.c:407
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:417
+#: src/bubblemon.c:418
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:640
+#: src/bubblemon.c:652
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Nije uspjela operacija chdir() na $HOME (%s)\n"
 
-#: src/bubblemon.c:646
+#: src/bubblemon.c:658
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME envajronment parametar nije postavljen\n"
 
-#: src/bubblemon.c:651
+#: src/bubblemon.c:663
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -70,27 +70,27 @@ msgstr ""
 "~/gmon.out.\n"
 "Da provedete dobro vrijeme, zapocnite 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:653
+#: src/bubblemon.c:665
 msgid "<name of executable>"
 msgstr "<ime eksekjutabla>"
 
-#: src/bubblemon.c:1025
+#: src/bubblemon.c:1037
 msgid "Can't create applet!\n"
 msgstr "Nemoguce stvoriti aplet!\n"
 
-#: src/bubblemon.c:1028
+#: src/bubblemon.c:1040
 msgid "Can't open glibtop!\n"
 msgstr "Nemoguce otvoriti glibtop!\n"
 
-#: src/bubblemon.c:1091
+#: src/bubblemon.c:1103
 msgid "About"
 msgstr "Opis"
 
-#: src/bubblemon.c:1266
+#: src/bubblemon.c:1278
 msgid "Bubbling Load Monitor"
 msgstr "Burni indikator opterecenja"
 
-#: src/bubblemon.c:1269
+#: src/bubblemon.c:1281
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-15 10:57+0100\n"
+"POT-Creation-Date: 2001-02-14 20:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johan Walles <d92-jwa@nada.kth.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:83
+#: src/bubblemon.c:84
 #, c-format
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
@@ -22,12 +22,12 @@ msgstr ""
 "Fel: Konstanten NUM_COLORS i bubblemon.h måste vara en multipel av\n"
 "    tre.  Nuvarande värde (%d) är inte det.\n"
 
-#: src/bubblemon.c:289
+#: src/bubblemon.c:290
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() hävdar att du inte har något minne på rad %d i %s"
 
-#: src/bubblemon.c:399
+#: src/bubblemon.c:400
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Minne: %s\n"
 "Virtuellt minne: %s"
 
-#: src/bubblemon.c:406
+#: src/bubblemon.c:407
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -44,7 +44,7 @@ msgstr ""
 "\n"
 "Processorlast: %d%%"
 
-#: src/bubblemon.c:417
+#: src/bubblemon.c:418
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
@@ -52,16 +52,16 @@ msgstr ""
 "\n"
 "Processorlast (CPU %d): %d%%"
 
-#: src/bubblemon.c:640
+#: src/bubblemon.c:652
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunde inte byta katalog till $HOME (%s)\n"
 
-#: src/bubblemon.c:646
+#: src/bubblemon.c:658
 msgid "$HOME environment variable not set\n"
 msgstr "Miljövariabeln $HOME är inte satt\n"
 
-#: src/bubblemon.c:651
+#: src/bubblemon.c:663
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -70,27 +70,27 @@ msgstr ""
 "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
 "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
 
-#: src/bubblemon.c:653
+#: src/bubblemon.c:665
 msgid "<name of executable>"
 msgstr "<programmets namn>"
 
-#: src/bubblemon.c:1025
+#: src/bubblemon.c:1037
 msgid "Can't create applet!\n"
 msgstr "Kan inte skapa applet!\n"
 
-#: src/bubblemon.c:1028
+#: src/bubblemon.c:1040
 msgid "Can't open glibtop!\n"
 msgstr "Kan inte öppna glibtop!\n"
 
-#: src/bubblemon.c:1091
+#: src/bubblemon.c:1103
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1266
+#: src/bubblemon.c:1278
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
-#: src/bubblemon.c:1269
+#: src/bubblemon.c:1281
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

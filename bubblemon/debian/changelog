@@ -1,3 +1,10 @@
+bubblemon (1.0.3) stable; urgency=low
+
+  * Added icon support for GNOME applets menu.  Updated French
+    translation.  Added support for 24bpp displays.
+
+ -- Johan Walles <johan@localhost.localdomain>  Wed, 14 Feb 2001 20:49:03 +0100
+
 bubblemon (1.0.2) stable; urgency=medium
 
   * Initial multi-processor support (currently tooltip only) added.

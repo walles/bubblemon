@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-15 10:57+0100\n"
+"POT-Creation-Date: 2001-02-14 20:47+0100\n"
 "PO-Revision-Date: 2001-01-09 18:49+0200\n"
 "Last-Translator: Alex Badea <vampire@go.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/bubblemon.c:83
+#: src/bubblemon.c:84
 #, c-format
 msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
@@ -24,12 +24,12 @@ msgstr ""
 "3.\n"
 "        Valoarea curentã de %d nu e validã.\n"
 
-#: src/bubblemon.c:289
+#: src/bubblemon.c:290
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr "glibtop_get_mem() zice cã nu e destulã memorie, linia %d din %s"
 
-#: src/bubblemon.c:399
+#: src/bubblemon.c:400
 #, c-format
 msgid ""
 "Memory used: %s\n"
@@ -38,7 +38,7 @@ msgstr ""
 "Memorie ocupatã: %s\n"
 "Swap ocupat: %s"
 
-#: src/bubblemon.c:406
+#: src/bubblemon.c:407
 msgid ""
 "\n"
 "CPU load: %d%%"
@@ -46,7 +46,7 @@ msgstr ""
 "\n"
 "Procesor: %d%%"
 
-#: src/bubblemon.c:417
+#: src/bubblemon.c:418
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
@@ -54,16 +54,16 @@ msgstr ""
 "\n"
 "Procesor nr. %d: %d%%"
 
-#: src/bubblemon.c:640
+#: src/bubblemon.c:652
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "N-am putut sã chdir() în $HOME (%s)\n"
 
-#: src/bubblemon.c:646
+#: src/bubblemon.c:658
 msgid "$HOME environment variable not set\n"
 msgstr "Variabila $HOME nu e setatã\n"
 
-#: src/bubblemon.c:651
+#: src/bubblemon.c:663
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -73,27 +73,27 @@ msgstr ""
 "~/gmon.out.\n"
 "Pentru distracþie, ruleazã 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:653
+#: src/bubblemon.c:665
 msgid "<name of executable>"
 msgstr "<numele executabilului>"
 
-#: src/bubblemon.c:1025
+#: src/bubblemon.c:1037
 msgid "Can't create applet!\n"
 msgstr "Nu pot sã creez applet-ul!\n"
 
-#: src/bubblemon.c:1028
+#: src/bubblemon.c:1040
 msgid "Can't open glibtop!\n"
 msgstr "Nu pot sã deschid glibtop!\n"
 
-#: src/bubblemon.c:1091
+#: src/bubblemon.c:1103
 msgid "About"
 msgstr "Despre"
 
-#: src/bubblemon.c:1266
+#: src/bubblemon.c:1278
 msgid "Bubbling Load Monitor"
 msgstr "Monitor de Încãrcare cu Bule"
 
-#: src/bubblemon.c:1269
+#: src/bubblemon.c:1281
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
