@@ -235,20 +235,20 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
   
   /* Move the water level with the current memory usage.  The water
    * level goes from 0.0 to h so that you can get an integer height by
-   * just chopping off the decimals.  The exact value h is a border
-   * case that will have to be handled separately. */
+   * just chopping off the decimals. */
   waterLevels_goal =
     ((float)sysload.memoryUsed / (float)sysload.memorySize) * waterLevels_max;
   
   physics.waterLevels[0].y = waterLevels_goal;
   physics.waterLevels[w - 1].y = waterLevels_goal;
-
+  
   for (x = 1; x < (w - 1); x++)
   {
     /* Accelerate the current waterlevel towards its correct value */
     float current_waterlevel_goal = (physics.waterLevels[x - 1].y +
                                      physics.waterLevels[x + 1].y) / 2.0;
-    physics.waterLevels[x].dy += (current_waterlevel_goal - physics.waterLevels[x].y) * VOLATILITY;
+    physics.waterLevels[x].dy +=
+      (current_waterlevel_goal - physics.waterLevels[x].y) * dt * VOLATILITY;
     physics.waterLevels[x].dy *= VISCOSITY;
     
     if (physics.waterLevels[x].dy > SPEED_LIMIT)
@@ -282,6 +282,7 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
 {
   int i;
   int createNNewBubbles;
+  static bubblemon_layer_t lastNewBubbleLayer = BACKGROUND;
 
   float dt = msecsSinceLastCall / 30.0;
 
@@ -298,10 +299,14 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
   {
     if (physics.n_bubbles < physics.max_bubbles)
     {
+      lastNewBubbleLayer = (lastNewBubbleLayer == BACKGROUND) ? FOREGROUND : BACKGROUND;
+      
       /* We don't allow bubbles on the edges 'cause we'd have to clip them */
       physics.bubbles[physics.n_bubbles].x = (random() % (w - 2)) + 1;
       physics.bubbles[physics.n_bubbles].y = 0.0;
       physics.bubbles[physics.n_bubbles].dy = 0.0;
+      /* Create alternately foreground and background bubbles */
+      physics.bubbles[physics.n_bubbles].layer = lastNewBubbleLayer;
       
       if (RIPPLES != 0.0)
       {
@@ -369,7 +374,6 @@ static void bubblemon_updateBottle(int msecsSinceLastCall, int youveGotMail)
   if (youveGotMail) {
     if (physics.bottle_state == GONE) {
       // Drop a new bottle
-      // -5.0 = arbitrary margin
       physics.bottle_y = bubblePic.height + msgInBottle.height;
       physics.bottle_dy = 0.0;
       physics.bottle_state = FALLING;
@@ -595,7 +599,7 @@ static void bubblemon_draw_bubble(bubblemon_picture_t *bubblePic,
   bubblemon_colorcode_t *buf_ptr;
   
   /*
-    Clipping is not necessary for x, but it *is* for y.
+    Clipping is not necessary for x, but it is for y.
     To prevent ugliness, we draw aliascolor only on top of
     watercolor, and aircolor on top of aliascolor.
   */
@@ -646,7 +650,8 @@ static void bubblemon_draw_bubble(bubblemon_picture_t *bubblePic,
   }
 }
 
-static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
+static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic,
+					   bubblemon_layer_t layer)
 {
   // Render bubbles, waterlevels and stuff into the bubblePic
   int w = bubblePic->width;
@@ -700,9 +705,12 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
   hf = h; // Move the int->float cast out of the loop
   for (i = 0; i < physics.n_bubbles; i++)
   {
-    bubblemon_draw_bubble(bubblePic,
-			  bubble->x,
-			  hf - bubble->y);
+    if (bubble->layer >= layer)
+    {
+      bubblemon_draw_bubble(bubblePic,
+			    bubble->x,
+			    hf - bubble->y);
+    }
     bubble++;
   }
 }
@@ -771,7 +779,8 @@ static const bubblemon_color_t bubblemon_constant2color(const unsigned int const
   return returnMe;
 }
 
-static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic, int clear)
+static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic,
+					  bubblemon_layer_t layer)
 {
   static bubblemon_color_t noSwapAirColor;
   static bubblemon_color_t noSwapWaterColor;
@@ -809,7 +818,7 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic, int cl
   
   pixel = bubblePic->pixels;
   airOrWater = bubblePic->airAndWater;
-  if (clear) {
+  if (layer == BACKGROUND) {
     // Erase the old pic as we draw
     for (i = 0; i < w * h; i++) {
       *pixel++ = colors[*airOrWater++];
@@ -919,17 +928,14 @@ const bubblemon_picture_t *bubblemon_getPicture()
     physicalTimeElapsed -= msecsSinceLastCall;
   }
   
-  // Convert the system load into a water-and-air array
-  bubblemon_physicsToBubbleArray(&bubblePic);
-
-  // Convert the water-and-air array into a colormap
-  bubblemon_bubbleArrayToPixmap(&bubblePic, 1);
-
-  // Add the bottle to the colormap
+  // Draw the pixels
+  bubblemon_physicsToBubbleArray(&bubblePic, BACKGROUND);
+  bubblemon_bubbleArrayToPixmap(&bubblePic, BACKGROUND);
+  
   bubblemon_bottleToPixmap(&bubblePic);
-
-  // Add a suitably transparent water-and-air array to the colormap
-  bubblemon_bubbleArrayToPixmap(&bubblePic, 0);
+  
+  bubblemon_physicsToBubbleArray(&bubblePic, FOREGROUND);
+  bubblemon_bubbleArrayToPixmap(&bubblePic, FOREGROUND);
   
   return &bubblePic;
 }
