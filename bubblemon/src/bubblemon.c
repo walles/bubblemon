@@ -252,7 +252,43 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
     else if (physics.waterLevels[x].dy < -SPEED_LIMIT)
       physics.waterLevels[x].dy = -SPEED_LIMIT;
   }
-  
+
+  // To prevent (visible) resonance, filter the speeds so that no two
+  // waterlevels will pass each other at a higher speed than 0.5
+  // pixels / frame
+  for (x = 1; x < (w - 1); x++)
+  {
+    float dy1 = physics.waterLevels[x].y - physics.waterLevels[x + 1].y;
+    float dy2 =
+      physics.waterLevels[x].y + physics.waterLevels[x].dy * dt -
+      (physics.waterLevels[x + 1].y + physics.waterLevels[x + 1].dy * dt);
+
+    if (((dy1 > 0.0 && dy2 < 0.0) || (dy1 < 0.0 && dy2 > 0.0)) &&
+	((physics.waterLevels[x].dy > 0.0 && physics.waterLevels[x + 1].dy < 0.0) ||
+	 (physics.waterLevels[x].dy < 0.0 && physics.waterLevels[x + 1].dy > 0.0)))
+    {
+      const float resonanceLimit = 0.5 / dt;
+
+      if (physics.waterLevels[x].dy > resonanceLimit)
+      {
+	physics.waterLevels[x].dy = resonanceLimit;
+      }
+      else if (physics.waterLevels[x].dy < -resonanceLimit)
+      {
+	physics.waterLevels[x].dy = -resonanceLimit;
+      }
+
+      if (physics.waterLevels[x + 1].dy > resonanceLimit)
+      {
+	physics.waterLevels[x + 1].dy = resonanceLimit;
+      }
+      else if (physics.waterLevels[x + 1].dy < -resonanceLimit)
+      {
+	physics.waterLevels[x + 1].dy = -resonanceLimit;
+      }
+    }
+  }
+
   for (x = 1; x < (w - 1); x++)
   {
     /* Move the current water level */
