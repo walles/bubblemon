@@ -70,8 +70,8 @@ int main (int argc, char ** argv)
 
   if (NUM_COLORS % 3)
     {
-      g_error("Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-	      "       The current value of %d is not.\n",
+      g_error(_("Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+	      "       The current value of %d is not.\n"),
 	      NUM_COLORS);
     }
   
@@ -85,11 +85,11 @@ int main (int argc, char ** argv)
 
   goad_id = goad_server_activation_id ();
   if (!goad_id)
-    g_error("Couldn't activate GOAD server.  This usually means that you are trying\n"
+    g_error(_("Couldn't activate GOAD server.  This usually means that you are trying\n"
 	    "to run the applet from the command line and haven't specified the\n"
 	    "--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
 	    "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
-	    "and explain it, because I really have no idea what it does.\n");
+	    "and explain it, because I really have no idea what it does.\n"));
 
   /* Create the bubblemon applet widget */
   applet = make_new_bubblemon_applet (goad_id);
@@ -216,7 +216,7 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   
   if (memory.total == 0)
     {
-      g_error("glibtop_get_mem() says you have no memory on line %d in %s",
+      g_error(_("glibtop_get_mem() says you have no memory on line %d in %s"),
 			 __LINE__,
 			 __FILE__);
     }
@@ -269,9 +269,9 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   if ((my_mem_used > my_mem_max) ||
       (my_swap_used > my_swap_max))
     {
-      g_error("Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+      g_error(_("Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
 	      "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-	      "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n",
+	      "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"),
 	      my_mem_used, my_mem_max,
 	      my_swap_used, my_swap_max,
 	      swap.used,
@@ -324,7 +324,7 @@ void update_tooltip(BubbleMonData *bm)
   /* Sanity check */
   if (!bm)
     {
-      g_error("bm == NULL in update_tooltip() on line %d of %s\n",
+      g_error(_("bm == NULL in update_tooltip() on line %d of %s\n"),
 	      __LINE__,
 	      __FILE__);
     }
@@ -367,7 +367,7 @@ void get_memory_load_percentage(BubbleMonData *bm,
 
   if (mem_max == 0)
     {
-      g_error("get_censored_memory_and_swap() says you have no memory on line %d in %s",
+      g_error(_("get_censored_memory_and_swap() says you have no memory on line %d in %s"),
 	      __LINE__,
 	      __FILE__);
     }
@@ -388,9 +388,9 @@ void get_memory_load_percentage(BubbleMonData *bm,
   if ((*memoryPercentage < 0) || (*memoryPercentage > 100) ||
       (*swapPercentage < 0) || (*swapPercentage > 100))
     {
-      g_error("Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
+      g_error(_("Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
 	      "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-	      "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n",
+	      "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"),
 	      *memoryPercentage,
 	      *swapPercentage,
 	      mem_used, mem_max,
@@ -434,20 +434,20 @@ gint bubblemon_update (gpointer data)
 	    {
 	      char *errormsg = (char *)malloc(sizeof(char) *
 					      (strlen(home) + 100));
-	      sprintf(errormsg, "Couldn't chdir() to $HOME (%s)\n", home);
+	      sprintf(errormsg, _("Couldn't chdir() to $HOME (%s)\n"), home);
 	      perror(errormsg);
 	    }
 	}
       else
 	{
-	  g_warning("$HOME environment variable not set\n");
+	  g_warning(_("$HOME environment variable not set\n"));
 	}
       
       /* Terminate nicely so that the profiling data gets written */
       fprintf(stderr,
-	      "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-	      "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n",
-	      (program_name?program_name:"<name of executable>"));
+	      _("Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+	      "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"),
+	      (program_name?program_name:_("<name of executable>")));
       exit(EXIT_SUCCESS);
     }
 #endif  /* ENABLE_PROFILING */
@@ -486,8 +486,8 @@ gint bubblemon_update (gpointer data)
       (watercolor < 0) || (watercolor >= NUM_COLORS) ||
       (aliascolor < 0) || (aliascolor >= NUM_COLORS))
     {
-      g_error("Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
-	      "       swapPercentage (%d) is probably out of range (0-100) too on line %d of %s.\n",
+      g_error(_("Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
+	      "       swapPercentage (%d) is probably out of range (0-100) too on line %d of %s.\n"),
 	      aircolor,
 	      watercolor,
 	      aliascolor,
@@ -696,7 +696,9 @@ gint bubblemon_update (gpointer data)
   /* Drawing magic resides below this point */
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
-  /* Copy the bubbling image data to the gdk image */
+  /* Copy the bubbling image data to the gdk image.  A regular
+     memcpy() won't do, because all pixels will have to be looked up
+     using col[buf[i]] before being copied to the image buffer. */
   switch (bytesPerPixel)
     {
     case 4:
@@ -706,7 +708,7 @@ gint bubblemon_update (gpointer data)
 	  ptr[i] = col[buf[i]];
 	break;
       }
-      
+
     case 2:
       {
 	u_int16_t *ptr = (u_int16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
@@ -715,10 +717,19 @@ gint bubblemon_update (gpointer data)
 	break;
       }
 
+    case 1:
+      {
+	u_int8_t *ptr = (u_int8_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	for (i = 0; i < n_pixels; i++)
+	  ptr[i] = col[buf[i]];
+	break;
+      }
+
     default:
-      g_error("Error: Bubblemon works only on displays with 2 or 4 bytes/pixel :-(.\n"
-	      "      If you know how to fix this, please let me (d92-jwa@nada.kth.se\n"
-	      "      know).  The fix should probably go into %s, just above line %d.\n",
+      g_error("Error: Bubblemon works only on displays with 1 (untested), 2 or 4\n"
+	      "      bytes/pixel :-(.  If you know how to fix this, please let me\n"
+	      "      (d92-jwa@nada.kth.se know).  The fix should probably go into %s,\n"
+              "      just above line %d.\n",
 	      __FILE__,
 	      __LINE__);
   }
@@ -937,6 +948,8 @@ void bubblemon_setup_colors (BubbleMonData *bm)
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
 
   if (!bm->colors)
+    // FIXME: Shouldn't the sizeof() on the next line be replaced with
+    // some bytes-per-pixel value?
     bm->colors = malloc (NUM_COLORS * sizeof (int));
   col = bm->colors;
 

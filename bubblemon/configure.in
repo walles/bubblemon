@@ -39,6 +39,7 @@ AM_GNU_GETTEXT
 # Find some more or less non-standard data types
 AC_CHECK_TYPE(u_int32_t, unsigned int)
 AC_CHECK_TYPE(u_int16_t, unsigned short int)
+AC_CHECK_TYPE(u_int8_t, unsigned char)
 
 # Find GNOME's sysconf dir
 AC_MSG_CHECKING(for GNOME's sysconf dir)
