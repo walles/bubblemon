@@ -555,9 +555,9 @@ static const bubblemon_color_t bubblemon_constant2color(const unsigned int const
 }
 
 /* The amount parameter is 0-255. */
-static bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
-						    const bubblemon_color_t c2,
-						    const int amount)
+static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
+							   const bubblemon_color_t c2,
+							   const int amount)
 {
   int a, r, g, b;
   bubblemon_color_t returnme;
