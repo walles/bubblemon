@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-09 11:05+0100\n"
+"POT-Creation-Date: 2005-03-08 16:27+0100\n"
 "PO-Revision-Date: 2004-01-11 20:52+0100\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -14,23 +14,23 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
 msgid "A CPU load meter monitor"
 msgstr ""
 
-#: gnome/GNOME_BubblemonApplet.xml.h:1
+#: ../gnome/GNOME_BubblemonApplet.xml.h:1
 #, fuzzy
 msgid "_About..."
 msgstr "프로그램 정보"
 
-#: src/bubblemon.c:152
+#: ../src/bubblemon.c:152
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: src/bubblemon.c:158
+#: ../src/bubblemon.c:158
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -39,7 +39,7 @@ msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: src/bubblemon.c:166
+#: ../src/bubblemon.c:166
 #, c-format
 msgid ""
 "\n"
@@ -48,7 +48,7 @@ msgstr ""
 "\n"
 "CPU 부하: %d%%"
 
-#: src/bubblemon.c:177
+#: ../src/bubblemon.c:177
 #, c-format
 msgid ""
 "\n"
@@ -57,11 +57,11 @@ msgstr ""
 "\n"
 "CPU #%d 부하: %d%%"
 
-#: src/gnome2-ui.c:72
+#: ../src/gnome2-ui.c:72
 msgid "Bubbling Load Monitor"
 msgstr "물거품 부하 모니터"
 
-#: src/gnome2-ui.c:74
+#: ../src/gnome2-ui.c:74
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "

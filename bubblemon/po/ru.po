@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-09 11:05+0100\n"
+"POT-Creation-Date: 2005-03-08 16:27+0100\n"
 "PO-Revision-Date: 2002-09-23 19:01+3hour\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -12,20 +12,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
 msgid "A CPU load meter monitor"
 msgstr ""
 
-#: gnome/GNOME_BubblemonApplet.xml.h:1
+#: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "_Об апплете"
 
-#: src/bubblemon.c:152
+#: ../src/bubblemon.c:152
 #, c-format
 msgid "Memory used: %s"
 msgstr "Занято памяти: %s"
 
-#: src/bubblemon.c:158
+#: ../src/bubblemon.c:158
 #, c-format
 msgid ""
 "\n"
@@ -34,7 +34,7 @@ msgstr ""
 "\n"
 "Виртуальной памяти: %s"
 
-#: src/bubblemon.c:166
+#: ../src/bubblemon.c:166
 #, c-format
 msgid ""
 "\n"
@@ -43,7 +43,7 @@ msgstr ""
 "\n"
 "Загрузка процессора: %d%%"
 
-#: src/bubblemon.c:177
+#: ../src/bubblemon.c:177
 #, c-format
 msgid ""
 "\n"
@@ -52,11 +52,11 @@ msgstr ""
 "\n"
 "Загрузка процессора №%d: %d%%"
 
-#: src/gnome2-ui.c:72
+#: ../src/gnome2-ui.c:72
 msgid "Bubbling Load Monitor"
 msgstr "Пузырьки"
 
-#: src/gnome2-ui.c:74
+#: ../src/gnome2-ui.c:74
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
