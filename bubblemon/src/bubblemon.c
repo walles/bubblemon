@@ -324,7 +324,8 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   my_mem_max = memory.total;
   my_swap_max = swap.total;
   
-  my_mem_used = swap.used + memory.used - memory.cached - memory.buffer;
+  my_mem_used = swap.used +
+    (memory.total - (memory.free + memory.cached + memory.buffer));
 
   if (my_mem_used > my_mem_max)
     {
