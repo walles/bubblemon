@@ -65,6 +65,7 @@ typedef struct {
 
   /* Widgets n stuff... */
   GtkWidget *area;
+  GtkWidget *frame;
   GdkImage *image;
   GtkWidget *about_box;
 
@@ -105,6 +106,7 @@ typedef struct {
  *
  */
 void about_cb (AppletWidget *widget, gpointer data);
+void widget_enter_cb (GtkWidget *, GdkEventAny *, gpointer data);
 void destroy_about(GtkWidget *w, gpointer data);
 
 void bubblemon_setup_samples(BubbleMonData *mc);

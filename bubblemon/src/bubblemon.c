@@ -50,8 +50,7 @@
 char *program_name = NULL;
 #endif
 
-int
-main (int argc, char ** argv)
+int main (int argc, char ** argv)
 {
   const gchar *goad_id;
   GtkWidget *applet;
@@ -103,22 +102,17 @@ int get_cpu_load(BubbleMonData *bm)  /* Returns the current CPU load in percent 
   bm->total[i] = total;
   bm->loadIndex = (i + 1) % bm->samples;
 
-  /* FIXME: Is the next comment correct? */
   /*
     Because the load returned from libgtop is a value accumulated
     over time, and not the current load, the current load percentage
     is calculated as the extra amount of work that has been performed
     since the last sample.
   */
-  /*
-    FIXME: Shouldn't (total - oTotal) be != 0 instead of just oTotal
-    as on the next line?  Or does oTotal==0 simply imply that this is
-    the first time we execute the current function?
-  */
-  if (oTotal == 0)
+  if (oTotal == 0)  /* oTotal == 0 means that this is the first time
+		       we get here */
     loadPercentage = 0;
   else
-    loadPercentage = 100 * (load - oLoad) / (total - oTotal);
+    loadPercentage = (100 * (load - oLoad)) / (total - oTotal);
 
   return loadPercentage;
 }
@@ -202,11 +196,11 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   
   /*
     Calculate the projected memory + swap load to show the user.  The
-    waterlevel shown to the user is how much memory the system is
-    using relative to the total amount of electronic RAM.  The swap
-    color indicates how much memory above the amount of electronic
-    RAM the system is using.
-     
+    values given to the user is how much memory the system is using
+    relative to the total amount of electronic RAM.  The swap color
+    indicates how much memory above the amount of electronic RAM the
+    system is using.
+    
     This scheme does *not* show how the system has decided to
     allocate swap and electronic RAM to the users' processes.
   */
@@ -274,7 +268,14 @@ void update_tooltip(BubbleMonData *bm)
   uint64_t swap_max;
   uint64_t mem_used;
   uint64_t mem_max;
-  
+
+  /* Sanity check */
+  if (!bm)
+    {
+      fprintf(stderr, "Error: bm == NULL in update_tooltip()\n");
+
+      exit (EXIT_FAILURE);
+    }
   get_censored_memory_usage(bm, &mem_used, &mem_max);
   get_censored_swap_usage(bm, &swap_used, &swap_max);
   
@@ -285,11 +286,12 @@ void update_tooltip(BubbleMonData *bm)
 	   "Memory used: %s\nSwap used: %s\nCPU load: %d%%",
 	   memstring,
 	   swapstring,
-	   get_cpu_load(bm));
+	   42);
 
   /* FIXME: How can I prevent the tooltip from being hidden when it's
      re-generated? */
-  applet_widget_set_tooltip(APPLET_WIDGET(bm->applet), tooltipstring);
+  applet_widget_set_tooltip(APPLET_WIDGET(bm->applet),
+			    tooltipstring);
 }
 
 void get_memory_load_percentage(BubbleMonData *bm,
@@ -317,8 +319,8 @@ void get_memory_load_percentage(BubbleMonData *bm,
 	      "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
 	      "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
 	      "       swap_used (%Ld) and swap_max (%Ld).\n",
-	      memoryPercentage,
-	      swapPercentage,
+	      *memoryPercentage,
+	      *swapPercentage,
 	      mem_used, mem_max,
 	      swap_used, swap_max);
 
@@ -330,8 +332,7 @@ void get_memory_load_percentage(BubbleMonData *bm,
  * This function, bubblemon_update, gets the CPU usage and updates
  * the bubble array and pixmap.
  */
-gint
-bubblemon_update (gpointer data)
+gint bubblemon_update (gpointer data)
 {
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
@@ -551,9 +552,8 @@ bubblemon_update (gpointer data)
  * function, we just blit the appropriate portion of the pixmap onto the window.
  *
  */
-gint
-bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
-			  gpointer data)
+gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
+			       gpointer data)
 {
   BubbleMonData * bm = data;
 
@@ -566,9 +566,8 @@ bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
   return FALSE; 
 } /* bubblemon_expose_handler */
 
-gint
-bubblemon_configure_handler (GtkWidget *widget, GdkEventConfigure *event,
-			   gpointer data)
+gint bubblemon_configure_handler (GtkWidget *widget, GdkEventConfigure *event,
+				  gpointer data)
 {
   BubbleMonData * bm = data;
   
@@ -577,23 +576,24 @@ bubblemon_configure_handler (GtkWidget *widget, GdkEventConfigure *event,
   return TRUE;
 }  /* bubblemon_configure_handler */
 
-GtkWidget *
-applet_start_new_applet (const gchar *goad_id, const char **params,
-			 int nparams)
+GtkWidget *applet_start_new_applet (const gchar *goad_id,
+				    const char *params[],
+				    int nparams)
 {
   return make_new_bubblemon_applet (goad_id);
 } /* applet_start_new_applet */
 
-gint
-bubblemon_delete (gpointer data) {
+gint bubblemon_delete (gpointer data)
+{
   BubbleMonData * bm = data;
 
   bm->setup = FALSE;
 
-  if (bm->timeout) {
-    gtk_timeout_remove (bm->timeout);
-    bm->timeout = 0;
-  }
+  if (bm->timeout)
+    {
+      gtk_timeout_remove (bm->timeout);
+      bm->timeout = 0;
+    }
 
   applet_widget_gtk_main_quit();
 
@@ -601,8 +601,7 @@ bubblemon_delete (gpointer data) {
 }
 
 /* This is the function that actually creates the display widgets */
-GtkWidget *
-make_new_bubblemon_applet (const gchar *goad_id)
+GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 {
   BubbleMonData * bm;
 
@@ -645,18 +644,24 @@ make_new_bubblemon_applet (const gchar *goad_id)
 
   /* Set up the event callbacks for the area. */
   gtk_signal_connect (GTK_OBJECT (bm->area), "expose_event",
-		      (GtkSignalFunc)bubblemon_expose_handler, bm);
-  gtk_widget_set_events (bm->area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
+		      GTK_SIGNAL_FUNC(bubblemon_expose_handler),
+		      GTK_OBJECT(bm));
+  gtk_signal_connect (GTK_OBJECT (bm->area), "enter_notify_event",
+		      GTK_SIGNAL_FUNC(widget_enter_cb),
+		      GTK_OBJECT(bm));
+  gtk_widget_set_events (bm->area,
+			 GDK_EXPOSURE_MASK |
+			 GDK_ENTER_NOTIFY_MASK);
 
   applet_widget_add (APPLET_WIDGET (bm->applet), bm->frame);
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
 		      GTK_SIGNAL_FUNC (bubblemon_session_save),
-		      bm);
+		      GTK_OBJECT(bm));
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "delete_event",
                       GTK_SIGNAL_FUNC (bubblemon_delete),
-                      bm);
+                      GTK_OBJECT(bm));
 
   applet_widget_register_stock_callback (APPLET_WIDGET (bm->applet),
 					 "about",
@@ -683,43 +688,51 @@ make_new_bubblemon_applet (const gchar *goad_id)
   return bm->applet;
 } /* make_new_bubblemon_applet */
 
-void bubblemon_set_timeout (BubbleMonData *bm) { 
+void bubblemon_set_timeout (BubbleMonData *bm)
+{ 
   gint when = bm->update;
   
-  if (when != bm->timeout_t) {
-    if (bm->timeout) {
-      gtk_timeout_remove (bm->timeout);
-      bm->timeout = 0;
+  if (when != bm->timeout_t)
+    {
+      if (bm->timeout)
+	{
+	  gtk_timeout_remove (bm->timeout);
+	  bm->timeout = 0;
+	}
+      bm->timeout_t = when;
+      bm->timeout = gtk_timeout_add (when, (GtkFunction) bubblemon_update, bm);
     }
-    bm->timeout_t = when;
-    bm->timeout = gtk_timeout_add (when, (GtkFunction) bubblemon_update, bm);
-  }
 }
 
-void bubblemon_setup_samples (BubbleMonData *bm) {
+void bubblemon_setup_samples (BubbleMonData *bm)
+{
   int i;
   uint64_t load = 0, total = 0;
 
-  if (bm->load) {
-    load = bm->load[bm->loadIndex];
-    free (bm->load);
-  }
+  if (bm->load)
+    {
+      load = bm->load[bm->loadIndex];
+      free (bm->load);
+    }
 
-  if (bm->total) {
-    total = bm->total[bm->loadIndex];
-    free (bm->total);
-  }
+  if (bm->total)
+    {
+      total = bm->total[bm->loadIndex];
+      free (bm->total);
+    }
 
   bm->loadIndex = 0;
   bm->load = malloc (bm->samples * sizeof (uint64_t));
   bm->total = malloc (bm->samples * sizeof (uint64_t));
-  for (i = 0; i < bm->samples; ++ i) {
-    bm->load[i] = load;
-    bm->total[i] = total;
-  }
+  for (i = 0; i < bm->samples; ++ i)
+    {
+      bm->load[i] = load;
+      bm->total[i] = total;
+    }
 }
 
-void bubblemon_setup_colors (BubbleMonData *bm) {
+void bubblemon_setup_colors (BubbleMonData *bm)
+{
   int i, j, *col;
   int r_air_noswap, g_air_noswap, b_air_noswap;
   int r_liquid_noswap, g_liquid_noswap, b_liquid_noswap;
@@ -754,36 +767,37 @@ void bubblemon_setup_colors (BubbleMonData *bm) {
   g_liquid_maxswap = (bm->liquid_maxswap >> 8) & 0xff;
   b_liquid_maxswap = (bm->liquid_maxswap) & 0xff;
   
-  for (i = 0; i < NUM_COLORS; ++ i) {
-    int r, g, b;
-    char rgbStr[24];
-    XColor exact, screen;
+  for (i = 0; i < NUM_COLORS; ++ i)
+    {
+      int r, g, b;
+      char rgbStr[24];
+      XColor exact, screen;
+      
+      if (i & 1)
+	{
+	  /* Liquid */
+	  j = (i - 1) >> 1;
+	  
+	  r = (r_liquid_maxswap * j + r_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	  g = (g_liquid_maxswap * j + g_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	  b = (b_liquid_maxswap * j + b_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	}
+      else
+	{
+	  /* Air */
+	  j = i >> 1;
 
-    if (i & 1)
-      {
-	/* Liquid */
-	j = (i - 1) >> 1;
-	
-	r = (r_liquid_maxswap * j + r_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	g = (g_liquid_maxswap * j + g_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	b = (b_liquid_maxswap * j + b_liquid_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-      }
-    else
-      {
-	/* Air */
-	j = i >> 1;
-
-	r = (r_air_maxswap * j + r_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	g = (g_air_maxswap * j + g_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-	b = (b_air_maxswap * j + b_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
-      }
-
-    sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
+	  r = (r_air_maxswap * j + r_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	  g = (g_air_maxswap * j + g_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	  b = (b_air_maxswap * j + b_air_noswap * (((NUM_COLORS >> 1) - 1) - j)) / ((NUM_COLORS >> 1) - 1);
+	}
+      
+      sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
     
-    XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
+      XAllocNamedColor (display, colormap, rgbStr, &exact, &screen);
     
-    col[i] = screen.pixel;
-  }
+      col[i] = screen.pixel;
+    }
 }
 
 void
@@ -791,8 +805,7 @@ destroy_about (GtkWidget *w, gpointer data)
 {
 } /* destroy_about */
 
-void
-about_cb (AppletWidget *widget, gpointer data)
+void about_cb (AppletWidget *widget, gpointer data)
 {
   BubbleMonData *bm = data;
   char *authors[2];
@@ -819,8 +832,17 @@ about_cb (AppletWidget *widget, gpointer data)
   gtk_widget_show (bm->about_box);
 } /* about_cb */
 
-void
-bubblemon_set_size (BubbleMonData * bm)
+void widget_enter_cb (GtkWidget *ignored1,
+		      GdkEventAny *ignored2,
+		      gpointer data)
+{
+  /* Update the info in the tooltip when the user moves the mouse into
+   the applet. */
+  
+  update_tooltip((BubbleMonData *) data);
+}
+
+void bubblemon_set_size (BubbleMonData * bm)
 {
   int bpp, i;
 
