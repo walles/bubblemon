@@ -1251,7 +1251,7 @@ void bubblemon_set_size (BubbleMonData * bm)
     gdk_image_destroy (bm->image);
 
   assert(gtk_widget_get_visual(bm->area) != NULL);
-  bm->image = gdk_image_new (GDK_IMAGE_SHARED, /* FIXME: Why not GDK_IMAGE_FASTEST? */
+  bm->image = gdk_image_new (GDK_IMAGE_FASTEST,
                              gtk_widget_get_visual (bm->area),
                              bm->breadth,
                              bm->depth);
