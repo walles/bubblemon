@@ -67,25 +67,31 @@ void bubblemon_setSize(int width, int height)
   {
     bubblePic.width = width;
     bubblePic.height = height;
-
+    
     if (bubblePic.airAndWater != NULL)
     {
       free(bubblePic.airAndWater);
       bubblePic.airAndWater = NULL;
     }
-
+    
     if (bubblePic.pixels != NULL)
     {
       free(bubblePic.pixels);
       bubblePic.pixels = NULL;
     }
-
+    
     if (physics.waterLevels != NULL)
     {
       free(physics.waterLevels);
       physics.waterLevels = NULL;
     }
-
+    
+    if (physics.weeds != NULL)
+    {
+      free(physics.weeds);
+      physics.weeds = NULL;
+    }
+    
     physics.n_bubbles = 0;
     physics.max_bubbles = 0;
     if (physics.bubbles != NULL)
@@ -248,11 +254,13 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
   {
     /* Accelerate the current waterlevel towards its correct value */
     float current_waterlevel_goal = (physics.waterLevels[x - 1].y +
-                                     physics.waterLevels[x + 1].y) / 2.0;
+				     physics.waterLevels[x + 1].y) / 2.0;
+    
     physics.waterLevels[x].dy +=
       (current_waterlevel_goal - physics.waterLevels[x].y) * dt * VOLATILITY;
+
     physics.waterLevels[x].dy *= VISCOSITY;
-    
+
     if (physics.waterLevels[x].dy > SPEED_LIMIT)
       physics.waterLevels[x].dy = SPEED_LIMIT;
     else if (physics.waterLevels[x].dy < -SPEED_LIMIT)
@@ -304,11 +312,9 @@ static void bubblemon_updateWeeds(int msecsSinceLastCall)
   while (timeToNextUpdate <= 0)
   {
     // ... update the nourishment level of our next weed
-    if (lastUpdatedWeed > 0)
-    {
-      lastUpdatedWeed--;
-    }
-    else
+    lastUpdatedWeed--;
+    if ((lastUpdatedWeed <= 0) ||
+	(lastUpdatedWeed >= bubblePic.width))
     {
       lastUpdatedWeed = bubblePic.width - 1;
     }
@@ -616,7 +622,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
   if (physics.waterLevels == NULL)
   {
     physics.waterLevels =
-      (bubblemon_WaterLevel *)malloc(bubblePic.width * sizeof(bubblemon_WaterLevel));
+      (bubblemon_WaterLevel *)calloc(bubblePic.width, sizeof(bubblemon_WaterLevel));
   }
   
   /* Make sure the sea-weeds exist */
@@ -649,7 +655,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
     physics.max_bubbles = (bubblePic.width * bubblePic.height) / 5;
     
     physics.bubbles =
-      (bubblemon_Bubble *)malloc(physics.max_bubbles * sizeof(bubblemon_Bubble));
+      (bubblemon_Bubble *)calloc(physics.max_bubbles, sizeof(bubblemon_Bubble));
   }
   
   /* Update our universe */
@@ -722,7 +728,7 @@ int bubblemon_getAverageLoadPercentage()
     totalLoad += bubblemon_getCpuLoadPercentage(cpuNo);
   }
   totalLoad = totalLoad / sysload.nCpus;
-  
+
   assert(totalLoad >= 0);
   assert(totalLoad <= 100);
 
@@ -1108,7 +1114,7 @@ int main(int argc, char *argv[])
   
   // Initialize the load metering
   meter_init(argc, argv, &sysload);
-  sysload.cpuLoad = (int *)malloc(sizeof(int) * sysload.nCpus);
+  sysload.cpuLoad = (int *)calloc(sysload.nCpus, sizeof(int));
 
   // Initialize the bottle
   physics.bottle_state = GONE;
