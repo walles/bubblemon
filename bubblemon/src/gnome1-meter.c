@@ -4,8 +4,6 @@
  *    bubbling liquid.
  *  Copyright (C) 1999-2000 Johan Walles
  *  - d92-jwa@nada.kth.se
- *  Copyright (C) 1999 Merlin Hughes
- *  - http://nitric.com/freeware/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

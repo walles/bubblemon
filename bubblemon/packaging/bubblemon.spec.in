@@ -11,11 +11,10 @@ Group: User Interface/GNOME Applets
 Requires: gnome-libs >= 1.2
 
 %description
-This is a panel applet that displays the CPU and memory load as a
-bubbling liquid.  The latest version is available off
-http://www.nada.kth.se/~d92-jwa/code.  It is based on code from
-Merlin's CPU Fire Applet available at http://nitric.com/freeware.
-Choose Add Applet->Monitors->Bubbling Load Monitor in your GNOME Panel.
+This is a panel applet that displays the CPU and memory
+load as a bubbling liquid.  The latest version is available
+off http://www.nada.kth.se/~d92-jwa/code.  Choose
+Add Applet->Monitors->Bubbling Load Monitor in your GNOME Panel.
 
 %changelog
 
