@@ -1,0 +1,147 @@
+# Deutsche Übersetzung von Bubblemon.
+# Copyright (C) 2000 Detlef Reichl.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 0.9.11\n"
+"POT-Creation-Date: 2000-08-15 13:44+0200\n"
+"PO-Revision-Date: 2000-09-04 21:46+0100\n"
+"Last-Translator: Detlef Reichl <detlef.reichl@arcormail.de>\n"
+"Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/bubblemon.c:73
+#, c-format
+msgid ""
+"Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
+"       The current value of %d is not.\n"
+msgstr ""
+"Fehler: Die NUM_COLORS Konstante in bubblemon.h muss ein vielfaches von 3 sein.\n"
+"\tDer aktuelle Wert ist %d ist es nicht.\n"
+
+#: src/bubblemon.c:88
+msgid ""
+"Couldn't activate GOAD server.  This usually means that you are trying\n"
+"to run the applet from the command line and haven't specified the\n"
+"--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
+"switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
+"and explain it, because I really have no idea what it does.\n"
+msgstr ""
+"Kann den GOAD Server nicht aktivieren. Dies heißt normaler weise,\n"
+"daß Sie versuchen das Applet von der Komandozeile aus zu starten,\n"
+"aber nicht des --activate-goad-server=bubblemon_applet Argument\n"
+"gesetzt haben. Fals Sie wissen, wiso dieses Argument nötig ist, schicken\n"
+"Sie mir bitte eine Mail (d92-jwa@nada.kth.se) und erklären es mir, weil\n"
+"ich weiß es wirklich nicht.\n"
+
+#: src/bubblemon.c:219
+#, c-format
+msgid "glibtop_get_mem() says you have no memory on line %d in %s"
+msgstr "glibtop_get_mem() behauptet, Sie hätten keinen Speicher in Zeile %d in %s"
+
+#: src/bubblemon.c:272
+#, c-format
+msgid ""
+"Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
+"       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
+"       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
+msgstr ""
+"Fehler: mem_used (%Ld) > mem_max (%Ld) oder swap_used (%Ld) > swap_max (%Ld)\n"
+"\tSie wurden berechnet von swap.used (%Ld), memory.used (%Ld),\n"
+"\tmemory.cached (%Ld) und memory.buffer (%Ld) in Zeile %d in %s.\n"
+
+#: src/bubblemon.c:327
+#, c-format
+msgid "bm == NULL in update_tooltip() on line %d of %s\n"
+msgstr "bm == NULL in update_tooltip() in Zeile %d in %s\n"
+
+#: src/bubblemon.c:340
+#, c-format
+msgid ""
+"Memory used: %s\n"
+"Swap used: %s\n"
+"CPU load: %d%%"
+msgstr ""
+"Speicher genutzt: %s\n"
+"Swap genutzt: %s\n"
+"CPU Belastung: %d%%"
+
+#: src/bubblemon.c:370
+#, c-format
+msgid "get_censored_memory_and_swap() says you have no memory on line %d in %s"
+msgstr "get_censored_memory_and_swap() meint, Sie haben keinen Speicher in Zeie %d in %s"
+
+#: src/bubblemon.c:391
+msgid ""
+"Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
+"(0-100)\n"
+"       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
+"       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
+msgstr ""
+"Fehler: SpeicherWert (%d%%) oder SwapWert (%d%%) auserhalb des gültigen Bereichs (0-100)\n"
+"       Sie wurden berechnet von mem_used (%Ld), mem_max (%Ld),\n"
+"       swap_used (%Ld) und swap_max (%Ld) in Zeile %d in %s.\n"
+
+#, cformat
+#: src/bubblemon.c:450
+#, c-format
+msgid "Couldn't chdir() to $HOME (%s)\n"
+msgstr "Kann nicht chdir() in $HOME (%s)\n"
+
+#: src/bubblemon.c:456
+msgid "$HOME environment variable not set\n"
+msgstr "$HOME Umgebungs-Variable ist nicht gesetzt\n"
+
+#: src/bubblemon.c:461
+#, c-format
+msgid ""
+"Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
+"For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
+msgstr ""
+
+#: src/bubblemon.c:463
+msgid "<name of executable>"
+msgstr ""
+
+#: src/bubblemon.c:563
+#, c-format
+msgid ""
+"Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
+"(0-%d).\n"
+"       swapPercentage (%d) is probably out of range (0-100) too on line %d "
+"of %s.\n"
+msgstr ""
+"Fehler: Luftfarbe (%d) oder Wasserfarbe (%d) oder Aliasfarbe (%d) auserhalb der Grenzen (0-%d).\n"
+"\tSwapWert(%d) ist wahrscheinlich auserhalb des Bereichs (0-100) in Zeile %d in %s.\n"
+
+#: src/bubblemon.c:868
+msgid "Can't create applet!\n"
+msgstr "Kann Applet nicht erstellen\n"
+
+#: src/bubblemon.c:871
+msgid "Can't open glibtop!\n"
+msgstr "Kann glibtop nicht öffnen\n"
+
+#: src/bubblemon.c:927
+msgid "About..."
+msgstr "Über"
+
+#: src/bubblemon.c:1091
+msgid "Bubbling Load Monitor"
+msgstr "Blubber Auslastungs Anzeige"
+
+#: src/bubblemon.c:1094
+msgid ""
+"This applet displays your CPU load as a bubbling liquid.\n"
+"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+"details.\n"
+"This is free software, and you are welcome to redistribute it under certain "
+"conditions (GPL), see the LICENSE file for details."
+msgstr ""
+"Dieses Applet zeigt Ihre CPU Belastung als eine blubernde Flüssigkeit.\n"
+"Dieses Applet ist OHNE JEGLICHE GARANTIE, schauen Sie für Details in die LICENSE Datei.\n"
+"Dies ist freie Software, Sie sind berechtigt sie unter bestimmten Konditionen (GPL) weiter zu geben; schauen Sie für Details in die LICENSE Datei."
+
