@@ -167,15 +167,48 @@ void get_memory_load(BubbleMonData *bm,
     allocate swap and electronic RAM to the users' processes.
   */
   *memoryPercentage =
-    (100 * (swap_used + memory.used - memory.cached - memory.buffer)) / memory.total;
+    (100 *
+     (swap_used + memory.used - memory.cached - memory.buffer)) / memory.total;
   if (*memoryPercentage > 100)
     *memoryPercentage = 100;
+
+  if (*memoryPercentage < 0)
+    {
+      fprintf(stderr,
+	      "memoryPercentage (%d) is out of range (0-100).  It has been calculated\n"
+	      "from swap_used (%Ld), memory.used (%Ld), memory.cached (%Ld),\n"
+	      "memory.buffer (%Ld), memory.total (%Ld) and swap_total (%Ld).\n",
+	      *memoryPercentage,
+	      swap_used,
+	      memory.used,
+	      memory.cached,
+	      memory.buffer,
+	      memory.total,
+	      swap_total);
+      exit (EXIT_FAILURE);
+    }
   
   *swapPercentage =
     (100 *
      (swap_used + memory.used - memory.cached - memory.buffer - memory.total)) / swap_total;
   if (*swapPercentage < 0)
     *swapPercentage = 0;
+
+  if (*swapPercentage > 100)
+    {
+      fprintf(stderr,
+	      "swapPercentage (%d) is out of range (0-100).  It has been calculated from\n"
+	      "swap_used (%Ld), memory.used (%Ld), memory.cached (%Ld),\n"
+	      "memory.buffer (%Ld), memory.total (%Ld) and swap_total (%Ld).\n",
+	      *swapPercentage,
+	      swap_used,
+	      memory.used,
+	      memory.cached,
+	      memory.buffer,
+	      memory.total,
+	      swap_total);
+      exit (EXIT_FAILURE);
+    }
 }
 
 /*
@@ -187,7 +220,7 @@ bubblemon_update (gpointer data)
 {
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
-  int i, w, h, n, bytesPerPixel, loadPercentage, *buf, *col, x, y;
+  int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *col, x, y;
   int aircolor, watercolor, waterlevel_goal, memoryPercentage, bias;
   int swapPercentage;
   int *temp;
@@ -248,7 +281,7 @@ bubblemon_update (gpointer data)
   col = bm->colors;
   w = bm->breadth;
   h = bm->depth;
-  n = w * h;
+  n_pixels = w * h;
 
   /*
     Vary the colors of air and water with how many
@@ -256,6 +289,19 @@ bubblemon_update (gpointer data)
   */
   aircolor = ((((NUM_COLORS >> 1) - 1) * swapPercentage) / 100) << 1;
   watercolor = aircolor + 1;
+
+  /* Sanity check the colors */
+  if ((aircolor < 0) || (watercolor >= NUM_COLORS))
+    {
+      fprintf(stderr,
+	      "Error: aircolor (%d) or watercolor (%d) out of bounds (0-%d).\n"
+	      "       swapPercentage (%d) is probably out of range (0-100) too.\n",
+	      aircolor,
+	      watercolor,
+	      NUM_COLORS,
+	      swapPercentage);
+      exit(EXIT_FAILURE);
+    }
 
   /* Move the water level with the current memory usage. */
   waterlevel_goal = h - ((memoryPercentage * h) / 100);
@@ -347,19 +393,32 @@ bubblemon_update (gpointer data)
   bytesPerPixel = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / w;
 
   /* Copy the bubbling image data to the gdk image */
-  switch (bytesPerPixel) {
-    case 4: {
-      uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-      for (i = 0; i < n; ++ i)
-        ptr[i] = col[buf[i]];
-      break;
-    }
-    case 2: {
-      uint16_t *ptr = (uint16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
-      for (i = 0; i < n; ++ i)
-        ptr[i] = col[buf[i]];
-      break;
-    }
+  switch (bytesPerPixel)
+    {
+    case 4:
+      {
+	uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	for (i = 0; i < n_pixels; ++ i)
+	  ptr[i] = col[buf[i]];
+	break;
+      }
+      
+    case 2:
+      {
+	uint16_t *ptr = (uint16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	for (i = 0; i < n_pixels; ++ i)
+	  ptr[i] = col[buf[i]];
+	break;
+      }
+
+    default:
+      fprintf(stderr,
+	      "Error: Bubblemon works only on displays with 2 or 4 bytes/pixel :-(.\n"
+	      "      If you know how to fix this, please let me (d92-jwa@nada.kth.se\n"
+	      "      know).  The fix should probably go into %s, just above line %d.\n",
+	      __FILE__,
+	      __LINE__);
+      exit(EXIT_FAILURE);
   }
 
   /* Update the display. */
