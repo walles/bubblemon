@@ -78,7 +78,7 @@ static struct netload_interface *netload_forcedFindInterface(const char *name)
   return interface;
 }
 
-void netload_reportBack(const char *name, long bytesSent, long bytesReceived)
+void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long bytesReceived)
 {
   struct netload_interface *interface;
   
@@ -172,7 +172,7 @@ static int netload_calculateLoad(int lastIntervalLength)
   // For all interfaces
   for (iter = interfaces; iter != NULL; iter = iter->next)
   {
-    long bytesPerSec;
+    unsigned long bytesPerSec;
     int load;
     
     // Calculate incoming load

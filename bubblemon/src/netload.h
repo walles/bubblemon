@@ -29,13 +29,13 @@ struct netload_interface
 {
   char *name;
   
-  long currentBytesIn;
-  long previousBytesIn;
-  long maxBytesInPerSecond;
+  unsigned long currentBytesIn;
+  unsigned long previousBytesIn;
+  unsigned long maxBytesInPerSecond;
   
-  long currentBytesOut;
-  long previousBytesOut;
-  long maxBytesOutPerSecond;
+  unsigned long currentBytesOut;
+  unsigned long previousBytesOut;
+  unsigned long maxBytesOutPerSecond;
   
   int isAlive;
 
@@ -45,7 +45,7 @@ struct netload_interface
 void netload_updateLoadstats(int msecsSinceLastCall);
 int netload_getLoadPercentage(void);
 
-void netload_reportBack(const char *name, long bytesSent, long bytesReceived);
+void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long bytesReceived);
 
 /* This platform dependent function must be implemented when porting
  * to a new platform.  For each network interface, it must call
