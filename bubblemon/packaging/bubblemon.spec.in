@@ -47,6 +47,7 @@ make install-strip DESTDIR=/tmp/@PACKAGE@-@VERSION@ gnulocaledir=/tmp/@PACKAGE@-
 make clean
 
 %files 
+%defattr(-,root,root)
 
 /usr/bin/bubblemon-gnome1
 /etc/CORBA/servers/bubblemon-gnome1.gnorba
