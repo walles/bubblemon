@@ -41,8 +41,8 @@
 #define MEMUPDATEDELAY 25
 
 static int *cpuLoadIndex;
-static int **cpuLoadHistory;
-static int **cpuTotalLoadHistory;
+static u_int64_t **cpuLoadHistory;
+static u_int64_t **cpuTotalLoadHistory;
 
 /* Initialize the load metering */
 void meter_init(int argc, char *argv[], meter_sysload_t *load)
@@ -60,13 +60,13 @@ void meter_init(int argc, char *argv[], meter_sysload_t *load)
 
   // Initialize the load histories and indices
   cpuLoadIndex = (int *)calloc(load->nCpus, sizeof(int));
-  cpuLoadHistory = (int **)calloc(load->nCpus, sizeof(int *));
-  cpuTotalLoadHistory = (int **)calloc(load->nCpus, sizeof(int *));
+  cpuLoadHistory = (u_int64_t **)calloc(load->nCpus, sizeof(u_int64_t *));
+  cpuTotalLoadHistory = (u_int64_t **)calloc(load->nCpus, sizeof(u_int64_t *));
 
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++)
   {
-    cpuLoadHistory[cpuNo] = (int *)calloc(LOADSAMPLES, sizeof(int));
-    cpuTotalLoadHistory[cpuNo] = (int *)calloc(LOADSAMPLES, sizeof(int));
+    cpuLoadHistory[cpuNo] = (u_int64_t *)calloc(LOADSAMPLES, sizeof(u_int64_t));
+    cpuTotalLoadHistory[cpuNo] = (u_int64_t *)calloc(LOADSAMPLES, sizeof(u_int64_t));
   }
   
   // Initialize memory and swap sizes
