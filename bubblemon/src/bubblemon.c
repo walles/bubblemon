@@ -497,6 +497,17 @@ void update_screen(BubbleMonData *bm,
 	break;
       }
 
+    case 3:
+      {
+        u_int8_t *ptr = (u_int8_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+        for (i = start_drawing; i < stop_drawing; i++) {
+          ptr[(i * 3) + 0] = col[buf[i]] & 0xff;
+          ptr[(i * 3) + 1] = (col[buf[i]] >> 8) & 0xff;
+          ptr[(i * 3) + 2] = (col[buf[i]] >> 16) & 0xff;
+        }
+        break;
+      }
+
     case 2:
       {
 	u_int16_t *ptr = (u_int16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
@@ -514,7 +525,7 @@ void update_screen(BubbleMonData *bm,
       }
 
     default:
-      g_error("Error: Bubblemon works only on displays with 1 (untested), 2 or 4\n"
+      g_error("Error: Bubblemon works only on displays with 1 (untested), 2, 3 or 4\n"
 	      "      bytes/pixel :-(.  If you know how to fix this, please let me\n"
 	      "      (d92-jwa@nada.kth.se) know.  The fix should probably go into %s,\n"
               "      just above line %d.\n",

@@ -48,3 +48,6 @@ Thanks to Alex Badea for writing a workaround for the need for the
 Thanks a lot to Charles Gales for adding initial SMP support.
 
 Thanks to Detlef Reichl for the icon support.
+
+Thanks a lot to Benjamin Smith for implementing 24bpp support, this
+has been a problem since way back.
