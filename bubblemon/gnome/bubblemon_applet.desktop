@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Bubbling Load Monitoring Applet
-Comment=Measures system load as a bubbling liquid
+Name[sv]=Bubblande lastmätare
+Comment=Visualize system load as a bubbling liquid
+Comment[sv]=Visar systemets last som en bubblande vätska
 Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
 Icon=
 Terminal=0
