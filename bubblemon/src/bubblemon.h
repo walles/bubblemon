@@ -41,7 +41,7 @@
 
 // 0.0 means the liquid never moves.  1.0 means the liquid will continue
 // to oscillate forever.
-#define VISCOSITY 0.92
+#define VISCOSITY 0.98
 
 // How fast are the water levels allowed to move?
 #define SPEED_LIMIT 1.0

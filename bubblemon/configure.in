@@ -62,9 +62,9 @@ AC_ARG_ENABLE(
   ripples,
   [  --enable-ripples[=amount]  Makes surface ripple whith bubbles.  Amount defaults to 0.2])
 
-# No ripples unless specifically asked for
+# Set rippling to 0.2 if no value is given
 if test -z "$enableval"; then
-  enableval="0.0"
+  enableval="0.2"
 fi
 
 # Set rippling to 0.2 if no value is given
