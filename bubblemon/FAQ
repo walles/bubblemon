@@ -18,15 +18,15 @@ cycles go.  Then, either fix it yourself and send me
 (d92-jwa@nada.kth.se) a patch, or send me a bug report containing the
 output of the commands recommended in PROFILING.
 
-Note also that two users have reported a CPU utilization of over 30%
-for a system similar to mine.  In both of the cases, the profiling
+Note also that several users have reported a CPU utilization of over
+30% for a system similar to mine.  In both of the cases, the profiling
 said that only 0-2% of the CPU was used by my code.  This means that
-cycles are disappearing outside of my code.  I know for a fact that
-at least one of these people was running an old GNOME version, and
-that *might* be the problem.  If you are experiencing very high CPU
-usage caused by my applet, please e-mail me (d92-jwa@nada.kth.se)
-which GNOME version you are running.  If you're unsure, tell me
-instead what Linux distribution you are using.
+cycles are disappearing outside of my code.
+
+As I don't have these problems on any of the (two) systems I've tried
+the applet on, this is very hard for me to track down.  So if you know
+some C and want to help me find the problem, I will greatly appreciate
+any help I can get!  I'm really stuck on this one, so please HELP!
 
 
 3. The program doesn't do anything; it doesn't even crash!
@@ -61,6 +61,54 @@ $ gdb bubblemon_applet
 (gdb) info stack
 
 
-6. I have another question/problem.  What should I do?
+6. I'm running a background process on my system that should be using
+  all of my CPU, but the Bubblemon shows very few or no bubbles at
+  all.  Why is that?
+
+Because the applet ignores nice (do 'man nice') processes.  The
+reasoning behind this is that I use the applet for keeping track of
+how much processing power I have at my disposal.  As 'nice' processes
+will yield as soon as another process starts, I have all of my CPU
+power at my disposal, even with a 'nice' background job running.
+Therefore: 'nice' processes don't bubble.
+
+
+7. The amount of memory used reported by the applet is different from
+  what [other program] says.  How come?
+
+Free memory measuring on Linux (at least) is somewhat complicated.
+What my applet shows is what most people would think of as free
+memory.  Therefore, what my applet reports may not correspond to what
+other programs say, but the numbers you get from my applet is what you
+really want.
+
+A more precise explanation follows.  If it's wrong in some way, or if
+you know somewhere else where this is documented in some
+comprehensible way, I'd appreciate it if you send me a mail.
+
+Anyway, if we forget about swap for a while, here are the different
+kinds of memory, and whether I treat them as "air" or "water":
+
+* Free memory.  Just what you'd expect.  This adds to the "air".
+* Used memory.  Just what you'd expect.  This adds to the "water".
+* Shared memory.  Memory shared between two or more processes.  This
+ adds to the "water".
+* Buffers and cache.  Free memory that Linux uses for disk cache.
+ When someone allocates more memory, buffers and cache are nuked, so
+ this adds to the "air".
+
+If we add swap space into the picture, what I show as the water level
+is how much memory is "air" (as defined above) relative to the total
+amount of electronic memory.  What I show as color changes is how much
+"air" memory above the amount of electronic memory is being used.
+Thus, when Linux starts swapping stuff out even though there's
+electronic memory left, people watching my meter won't be confused by
+this (I know I was before I changed it :-).
+
+If you want to know more than this, have a look at the
+get_censored_memory_and_swap() function in bubblemon.c.
+
+
+8. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.

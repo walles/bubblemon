@@ -242,13 +242,15 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
     {
       g_error("Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
 	      "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-	      "       memory.cached (%Ld) and memory.buffer (%Ld).\n",
+	      "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n",
 	      *mem_used, *mem_max,
 	      *swap_used, *swap_max,
 	      swap.used,
 	      memory.used,
 	      memory.cached,
-	      memory.buffer);
+	      memory.buffer,
+	      __LINE__,
+	      __FILE__);
     }
 }
 
@@ -286,7 +288,9 @@ void update_tooltip(BubbleMonData *bm)
   /* Sanity check */
   if (!bm)
     {
-      g_error("Error: bm == NULL in update_tooltip()\n");
+      g_error("bm == NULL in update_tooltip() on line %d of %s\n",
+	      __LINE__,
+	      __FILE__);
     }
   get_censored_memory_usage(bm, &mem_used, &mem_max);
   get_censored_swap_usage(bm, &swap_used, &swap_max);
@@ -344,11 +348,13 @@ void get_memory_load_percentage(BubbleMonData *bm,
     {
       g_error("Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range (0-100)\n"
 	      "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-	      "       swap_used (%Ld) and swap_max (%Ld).\n",
+	      "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n",
 	      *memoryPercentage,
 	      *swapPercentage,
 	      mem_used, mem_max,
-	      swap_used, swap_max);
+	      swap_used, swap_max,
+	      __LINE__,
+	      __FILE__);
     }
 }
 
@@ -439,12 +445,14 @@ gint bubblemon_update (gpointer data)
       (aliascolor < 0) || (aliascolor >= NUM_COLORS))
     {
       g_error("Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds (0-%d).\n"
-	      "       swapPercentage (%d) is probably out of range (0-100) too.\n",
+	      "       swapPercentage (%d) is probably out of range (0-100) too on line %d of %s.\n",
 	      aircolor,
 	      watercolor,
 	      aliascolor,
 	      NUM_COLORS,
-	      swapPercentage);
+	      swapPercentage,
+	      __LINE__,
+	      __FILE__);
     }
 
   /* Move the water level with the current memory usage. */
