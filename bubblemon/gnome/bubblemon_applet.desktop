@@ -5,12 +5,14 @@ Name[sv]=Bubblande lastmätare
 Name[es]=Monitor burbujeante de la carga
 Name[ca]=Monitor bombollejant de la càrrega
 Name[fr]=Moniteur de charge à bulles
+Name[nl]=Bubbelende belastingsmonitor
 Comment=Visualize system load as a bubbling liquid
 Comment[sv]=Visar systemets last som en bubblande vätska
 Comment[de]=Visualisiert die Systembelastung durch eine kochende Flüssigkeit
 Comment[es]=Representación de la carga del sistema mediante un líquido burbujeante
 Comment[ca]=Representació de la càrrega del sistema mitjançant un líquid que bombolleja
 Comment[fr]=Visualise la charge système comme un liquide à bulles
+Comment[nl]=Visualiseert de systeembelasting als een bubbelende vloeistof
 Exec=bubblemon_applet --activate-goad-server=bubblemon_applet
 Icon=
 Terminal=0
