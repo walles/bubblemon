@@ -1,27 +1,37 @@
+To Emacs: This is a -*-text-*- file.
+
 This list is not really sorted, but stuff higher up on the list will
 tend to be completed earlier than stuff towards the end.  If you want
 something on this list done quickly, I've provided some pointers to
 get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 
-. Gettextify the applet and translate stuff into Swedish.  This
- requires reading the GNU gettext manual (available in all sorts of
- formats at http://www.gnu.org/manual/gettext/), integrating it with
- automake and autoconf (edit configure.in and Makefile.am), and
- marking all translatable strings in bubblemon.c with _().  If you
- want to learn how to write programs that can be used by people
- speaking different languages than yourself, this one is for you.
+. Translate the applet into every single language in existance.  If
+ the applet doesn't show up in your favourite language even though
+ other parts of your GNOME desktop does, read the TRANSLATIONS file
+ for instructions on how to translate it.  This does not require any
+ programming skills, and should be a both easy and useful way to
+ improve the applet.
 
 . Follow resize hints from the GNOME 1.2 panel.  If you know about or
  want to learn how to make nice GNOME 1.2 compliant panel applets,
- this one is for you.
+ this one is for you.  You should probably connect some additional
+ signals to the applet in the make_new_bubblemon_applet() function in
+ bubblemon.c, put the new size in bm->breadth and bm->depth, and call
+ the bubblemon_set_size() function to resize the applet.
 
 . Stop the applet if it ain't visible for some reason (for example if
  the GNOME panel is hidden).  If you know about or want to learn how
  to make nice GNOME 1.2 compliant panel applets, this one is for you.
-
+ You should probably connect some additional signals to the applet in
+ the make_new_bubblemon_applet() function in bubblemon.c and add some
+ variable that is checked at the beginning of bubblemon_update() to
+ see whether the applet should be updated or not.
+ 
 . Make bubble movement independent of update frequency.  If you know
  about or wish to learn about how to make real time visualizations of
- physical phenomenon, this one is for you.
+ physical phenomenon, this one is for you.  You should probably modify
+ the code around the "Move the bubble vertically" comment in
+ bubblemon.c for doing this.
 
 . Make a properties box using Glade/libGlade?  In that case, make the
  properties box contain four color options and options for changing
@@ -50,7 +60,8 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
 
 . Make the applet look more like a glass vial.  Perhaps by drawing a
  vial outline, and making the bubbles transparent instead of
- air-colored?
+ air-colored?  Drawing takes place inside bubblemon.c below the
+ comment saying "Draw the air-and-water background".
 
 . Fix the GTK+ bug 15891 (http://bugs.gnome.org/db/15/15891.html).
  The applet_widget_set_widget_tooltip() function erroneously hides the
@@ -58,5 +69,5 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  called.
 
 . Fix the performance problems that glibtop are having with swap space
- measurement and with memory measurement on systems with >= 128Mb
- memory.
+ measurement and with memory measurement on (some?) systems with >=
+ 128Mb memory.  Useful if you have this much memory.

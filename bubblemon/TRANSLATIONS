@@ -1,0 +1,56 @@
+To Emacs: This is a -*-text-*- file.
+
+This file will tell you how to translate the applet into your
+favourite language.
+
+1. Find out your language code from
+  "http://www.unicode.org/unicode/onlinedat/languages.html".  In the
+  following examples, we will be using "xx" for the language code, so
+  where ever you see xx, you should replace it with the code for your
+  favourite language.
+
+2. Create the template file (more on this later) by doing...
+
+  ./configure
+  make
+
+  ... from the bubblemon directory.
+
+3. Enter the 'po' directory:
+
+  cd po
+
+4. Initialize your translation by copying bubblemon.pot into xx.po
+   (but use *your* language code instead of xx):
+
+  cp bubblemon.pot xx.po
+
+5. Edit xx.po using your favourite text editor:
+
+  emacs xx.po
+
+6. When you have translated everything in that file, mail it to me
+   (d92-jwa@nada.kth.se) for inclusion in the next version.
+
+7. If you want to see your newly created translation in action, edit
+   configure.in in the bubblemon directory, and add your language to
+   the ALL_LINGUAS variable.  This is what the ALL_LINGUAS line should
+   look like if there are translations for Swedish and xx:
+
+  ALL_LINGUAS="sv xx"
+
+8. Run autoconf, build and install the project:
+
+  autoconf
+  ./configure
+  make
+  su
+  [enter the root password]
+  make install
+  exit
+
+The applet should now appear in the language of your choice!  If you
+have any opinions on this short howto, do send me an e-mail at
+d92-jwa@nada.kth.se and voice your opinion.
+
+  //Johan
