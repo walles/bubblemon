@@ -2,7 +2,7 @@
  *  Bubbling Load Monitoring Applet
  *  - A GNOME panel applet that displays the CPU + memory load as a
  *    bubbling liquid.
- *  Copyright (C) 1999 Johan Walles
+ *  Copyright (C) 1999-2000 Johan Walles
  *  - d92-jwa@nada.kth.se
  *  Copyright (C) 1999 Merlin Hughes
  *  - merlin@merlin.org
@@ -47,6 +47,10 @@
 #include "bubblemon.h"
 #include "session.h"
 
+#ifdef ENABLE_NLS
+#include <libintl.h>
+#endif
+
 #ifdef ENABLE_PROFILING
 char *program_name = NULL;
 #endif
@@ -55,6 +59,10 @@ int main (int argc, char ** argv)
 {
   const gchar *goad_id;
   GtkWidget *applet;
+
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  textdomain (PACKAGE);
 
   applet_widget_init ("bubblemon_applet", VERSION, argc, argv, NULL, 0, NULL);
   applet_factory_new ("bubblemon_applet", NULL,
@@ -329,7 +337,7 @@ void update_tooltip(BubbleMonData *bm)
   loadPercentage = get_cpu_load(bm);
 
   snprintf(tooltipstring, 190,
-	   "Memory used: %s\nSwap used: %s\nCPU load: %d%%",
+	   _("Memory used: %s\nSwap used: %s\nCPU load: %d%%"),
 	   memstring,
 	   swapstring,
 	   loadPercentage);
@@ -1009,15 +1017,14 @@ void about_cb (AppletWidget *widget, gpointer data)
 
   bm->about_box =
     gnome_about_new (_("Bubbling Load Monitor"), VERSION,
-		     _("Copyright (C) 1999 Johan Walles"),
+		     "Copyright (C) 1999-2000 Johan Walles",
 		     (const char **) authors,
-		     _("This applet displays your CPU load as a bubbling liquid.  "
-		       "GNOME code ripped from Merlin Hughes' Merlin's CPU Fire Applet.  "
-		       "This applet comes with ABSOLUTELY NO WARRANTY.  "
-		       "See the LICENSE file for details.\n"
+		     _("This applet displays your CPU load as a bubbling liquid.\n"
+		       "This applet comes with ABSOLUTELY NO WARRANTY, "
+		       "see the LICENSE file for details.\n"
 		       "This is free software, and you are welcome to redistribute it "
-		       "under certain conditions.  "
-		       "See the LICENSE file for details.\n"),
+		       "under certain conditions (GPL), "
+		       "see the LICENSE file for details."),
 		     NULL);
 
   gtk_signal_connect (GTK_OBJECT (bm->about_box), "destroy",

@@ -17,6 +17,10 @@ GNOME_INIT_LIBGTOP(1.0.0, fail)
 GNOME_COMPILE_WARNINGS
 GNOME_X_CHECKS
 
+# For i18n and l10n
+ALL_LINGUAS="sv"
+AM_GNU_GETTEXT
+
 # Find some more or less non-standard data types
 AC_CHECK_TYPE(u_int32_t, unsigned int)
 AC_CHECK_TYPE(u_int16_t, unsigned short int)
@@ -69,4 +73,6 @@ gnome/Makefile
 packaging/Makefile
 packaging/bubblemon.spec
 debian/Makefile
+intl/Makefile
+po/Makefile.in
 ])
