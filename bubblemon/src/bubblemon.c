@@ -409,12 +409,18 @@ gint bubblemon_update (gpointer data)
   BubbleMonData * bm = data;
   Bubble *bubbles = bm->bubbles;
   int i, w, h, n_pixels, bytesPerPixel, loadPercentage, *buf, *buf_ptr, *col, x, y;
+
   int aircolor, watercolor, aliascolor;
+
   int swapPercentage, memoryPercentage;
-  float waterlevels_goal, waterlevel_min, waterlevel_max;
+
+  float waterlevels_goal;
   float current_waterlevel_goal;
+
   float *temp;
-  static float last_waterlevel_min = 0;
+
+  int waterlevel_min, waterlevel_max;
+  static int last_waterlevel_min = 0;
 
 #ifdef ENABLE_PROFILING
   static int profiling_countdown = 2500;  /* FIXME: Is 2500 calls to here == 50 seconds? */
@@ -474,11 +480,14 @@ gint bubblemon_update (gpointer data)
   h = bm->depth;
   n_pixels = w * h;
 
-  waterlevel_max = 0.0;
+  waterlevel_max = 0;
   waterlevel_min = h;
 
   /* Move the water level with the current memory usage. */
   waterlevels_goal = h - ((memoryPercentage * h) / 100);
+
+  // Guard against boundary errors
+  waterlevels_goal -= 0.5;
 
   bm->waterlevels[0] = waterlevels_goal;
   bm->waterlevels[w - 1] = waterlevels_goal;
@@ -574,8 +583,8 @@ gint bubblemon_update (gpointer data)
   */
 
   /* Air only */
-  for (buf_ptr = buf + (((int)(last_waterlevel_min)) * w);
-       buf_ptr < (buf + (((int)(waterlevel_min)) * w));
+  for (buf_ptr = (buf + (last_waterlevel_min * w));
+       buf_ptr < (buf + (waterlevel_min * w));
        buf_ptr++)
     *buf_ptr = aircolor;
   last_waterlevel_min = waterlevel_min;
@@ -584,7 +593,7 @@ gint bubblemon_update (gpointer data)
   for (x = 0; x < w; x++)
     {
       /* Air... */
-      for (y = waterlevel_min; y < bm->waterlevels[x]; y++)
+      for (y = waterlevel_min; y < ((int)(bm->waterlevels[x])); y++)
 	buf[y * w + x] = aircolor;
 
       /* ... and water */
@@ -593,7 +602,7 @@ gint bubblemon_update (gpointer data)
     }
 
   /* Water only */
-  for (buf_ptr = (buf + (((int)(waterlevel_max)) * w));
+  for (buf_ptr = (buf + (waterlevel_max * w));
        buf_ptr < (buf + (h * w));
        buf_ptr++)
     *buf_ptr = watercolor;
