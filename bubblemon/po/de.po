@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.2pre1\n"
 "POT-Creation-Date: 2001-02-14 20:47+0100\n"
-"PO-Revision-Date: 2001-01-09 21:39+0100\n"
-"Last-Translator: Detlef Reichl <detlef.reichl@arcormail.de>\n"
+"PO-Revision-Date: 2001-03-29 15:40+02:00\n"
+"Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -19,15 +19,13 @@ msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
 msgstr ""
-"Fehler: Die NUM_COLORS Konstante in bubblemon.h muss ein vielfaches von 3 "
-"sein.\n"
-"\tDer aktuelle Wert ist %d ist es nicht.\n"
+"Fehler: Die Konstante NUM_COLORS in bubblemon.h muss ein Vielfaches von 3 sein.\n"
+"        Der aktuelle Wert %d ist es nicht.\n"
 
 #: src/bubblemon.c:290
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr ""
-"glibtop_get_mem() behauptet, Sie hätten keinen Speicher in Zeile %d in %s"
+msgstr "glibtop_get_mem() behauptet in Zeile %d in %s, Sie hätten keinen Speicher"
 
 #: src/bubblemon.c:400
 #, c-format
@@ -35,33 +33,29 @@ msgid ""
 "Memory used: %s\n"
 "Swap used: %s"
 msgstr ""
-"Speicher genutzt: %s\n"
-"Swap genutzt: %s"
+"Belegter Speicher: %s\n"
+"Belegter Swapraum: %s"
 
 #: src/bubblemon.c:407
 msgid ""
 "\n"
 "CPU load: %d%%"
-msgstr ""
-"\n"
-"CPU Belastung: %d%%"
+msgstr "\nCPU-Last: %d%%"
 
 #: src/bubblemon.c:418
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
-msgstr ""
-"\n"
-"CPU #%d Belastung: %d%%"
+msgstr "\nLast auf CPU Nr. %d: %d%%"
 
 #: src/bubblemon.c:652
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr "Kann nicht chdir() in $HOME (%s)\n"
+msgstr "chdir() nach $HOME konnte nicht ausgeführt werden(%s)\n"
 
 #: src/bubblemon.c:658
 msgid "$HOME environment variable not set\n"
-msgstr "$HOME Umgebungs-Variable ist nicht gesetzt\n"
+msgstr "Umgebungs-Variable $HOME ist nicht gesetzt\n"
 
 #: src/bubblemon.c:663
 #, c-format
@@ -69,28 +63,28 @@ msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
-"Bubblemon beendet. Profilierungs Daten sollten in ~/gmon.out sein.\n"
-"In einer ruhigen Minute starten Sie 'gprof -l -p %s ~/gmon.out'\n"
+"Bubblemon wird beendet. Profiling-Daten sollten in ~/gmon.out sein.\n"
+"In einer ruhigen Minute starten Sie 'gprof -l -p %s ~/gmon.out'.\n"
 
 #: src/bubblemon.c:665
 msgid "<name of executable>"
-msgstr "<Name des Programs>"
+msgstr "<Name der ausführbaren Datei>"
 
 #: src/bubblemon.c:1037
 msgid "Can't create applet!\n"
-msgstr "Kann Applet nicht erstellen\n"
+msgstr "Applet kann nicht angelegt werden!\n"
 
 #: src/bubblemon.c:1040
 msgid "Can't open glibtop!\n"
-msgstr "Kann glibtop nicht öffnen\n"
+msgstr "glibtop kann nicht geöffnet werden!\n"
 
 #: src/bubblemon.c:1103
 msgid "About"
-msgstr "Über"
+msgstr "Info"
 
 #: src/bubblemon.c:1278
 msgid "Bubbling Load Monitor"
-msgstr "Blubber Auslastungs Anzeige"
+msgstr "Blubbernde Lastanzeige"
 
 #: src/bubblemon.c:1281
 msgid ""
@@ -100,64 +94,6 @@ msgid ""
 "This is free software, and you are welcome to redistribute it under certain "
 "conditions (GPL), see the LICENSE file for details."
 msgstr ""
-"Dieses Applet zeigt Ihre CPU Belastung als eine blubernde Flüssigkeit.\n"
-"Dieses Applet ist OHNE JEGLICHE GARANTIE, schauen Sie für Details in die "
-"LICENSE Datei.\n"
-"Dies ist freie Software, Sie sind berechtigt sie unter bestimmten "
-"Konditionen (GPL) weiter zu geben; schauen Sie für Details in die LICENSE "
-"Datei."
-
-#~ msgid ""
-#~ "Error: mem_used (%Ld) > mem_max (%Ld) or swap_used (%Ld) > swap_max (%Ld)\n"
-#~ "       They were calculated from swap.used (%Ld), memory.used (%Ld),\n"
-#~ "       memory.cached (%Ld) and memory.buffer (%Ld) on line %d of %s.\n"
-#~ msgstr ""
-#~ "Fehler: mem_used (%Ld) > mem_max (%Ld) oder swap_used (%Ld) > swap_max "
-#~ "(%Ld)\n"
-#~ "\tSie wurden berechnet von swap.used (%Ld), memory.used (%Ld),\n"
-#~ "\tmemory.cached (%Ld) und memory.buffer (%Ld) in Zeile %d in %s.\n"
-
-#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
-#~ msgstr "bm == NULL in update_tooltip() in Zeile %d in %s\n"
-
-#~ msgid ""
-#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-#~ msgstr ""
-#~ "get_censored_memory_and_swap() meint, Sie haben keinen Speicher in Zeie %d "
-#~ "in %s"
-
-#~ msgid ""
-#~ "Error: memoryPercentage (%d%%) or swapPercentage (%d%%) out of range "
-#~ "(0-100)\n"
-#~ "       They were calculated from mem_used (%Ld), mem_max (%Ld),\n"
-#~ "       swap_used (%Ld) and swap_max (%Ld) on line %d of %s.\n"
-#~ msgstr ""
-#~ "Fehler: SpeicherWert (%d%%) oder SwapWert (%d%%) auserhalb des gültigen "
-#~ "Bereichs (0-100)\n"
-#~ "       Sie wurden berechnet von mem_used (%Ld), mem_max (%Ld),\n"
-#~ "       swap_used (%Ld) und swap_max (%Ld) in Zeile %d in %s.\n"
-
-#~ msgid ""
-#~ "Error: aircolor (%d) or watercolor (%d) or aliascolor (%d) out of bounds "
-#~ "(0-%d).\n"
-#~ "       swapPercentage (%d) is probably out of range (0-100) too on line %d "
-#~ "of %s.\n"
-#~ msgstr ""
-#~ "Fehler: Luftfarbe (%d) oder Wasserfarbe (%d) oder Aliasfarbe (%d) auserhalb "
-#~ "der Grenzen (0-%d).\n"
-#~ "\tSwapWert(%d) ist wahrscheinlich auserhalb des Bereichs (0-100) in Zeile %d "
-#~ "in %s.\n"
-
-#~ msgid ""
-#~ "Couldn't activate GOAD server.  This usually means that you are trying\n"
-#~ "to run the applet from the command line and haven't specified the\n"
-#~ "--activate-goad-server=bubblemon_applet switch.  If you know why this\n"
-#~ "switch is necessary, please send an e-mail to me (d92-jwa@nada.kth.se)\n"
-#~ "and explain it, because I really have no idea what it does.\n"
-#~ msgstr ""
-#~ "Kann den GOAD Server nicht aktivieren. Dies heißt normaler weise,\n"
-#~ "daß Sie versuchen das Applet von der Komandozeile aus zu starten,\n"
-#~ "aber nicht des --activate-goad-server=bubblemon_applet Argument\n"
-#~ "gesetzt haben. Fals Sie wissen, wiso dieses Argument nötig ist, schicken\n"
-#~ "Sie mir bitte eine Mail (d92-jwa@nada.kth.se) und erklären es mir, weil\n"
-#~ "ich weiß es wirklich nicht.\n"
+"Dieses Applet stellt Ihre CPU-Last als eine blubbernde Flüssigkeit dar.\n"
+"Auf dieses Applet gibt es KEINERLEI GARANTIE; schauen Sie für Details in die Datei LICENSE.\n"
+"Dies ist freie Software, und Sie sind ausdrücklich dazu eingeladen, sie unter bestimmten Bedingungen (GPL) weiter zu geben; schauen Sie für Details in die Datei LICENSE."

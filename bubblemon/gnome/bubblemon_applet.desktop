@@ -2,7 +2,7 @@
 Name=Bubbling Load Monitoring Applet
 Name[sh]=Burni indikator compjuterskog opterecenja
 Name[da]=Boblende Load Moniterings Applet
-Name[de]=Blubbernder Last Monitor
+Name[de]=Blubbernde Lastanzeige
 Name[fi]=Kupliva järjestelmän kuorman mittari
 Name[sv]=Bubblande lastmätare
 Name[es]=Monitor burbujeante de la carga
@@ -18,7 +18,7 @@ Comment[sh]=Opterecenje sistema vizualisano u burnost tecnosti
 Comment[da]=Visualiser system load som en boblende væske
 Comment[fi]=Esittää järjestelmän kuorman kuplivana nesteenä
 Comment[sv]=Visar systemets last som en bubblande vätska
-Comment[de]=Visualisiert die Systembelastung durch eine kochende Flüssigkeit
+Comment[de]=Stellt die Systemlast als eine blubbernde Flüssigkeit dar
 Comment[es]=Representación de la carga del sistema mediante un líquido burbujeante
 Comment[ca]=Representació de la càrrega del sistema mitjançant un líquid que bombolleja
 Comment[fr]=Visualise la charge système comme un liquide à bulles
