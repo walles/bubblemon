@@ -18,7 +18,7 @@ GNOME_COMPILE_WARNINGS
 GNOME_X_CHECKS
 
 # For i18n and l10n
-ALL_LINGUAS="sv fr pl de ko"
+ALL_LINGUAS="sv fr pl de ko fi"
 
 # Check if the user wants all languages to be compiled
 AC_ARG_WITH(
