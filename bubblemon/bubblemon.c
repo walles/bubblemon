@@ -81,6 +81,7 @@ bubblemon_update (gpointer data)
 {
   BubbleMonData * mc = data;
   int i, w, h, n, bytesPerPixel, percent, *buf, *col, x, y;
+  int aircolor, watercolor, waterlevel;
   glibtop_cpu cpu;
   uint64_t load, total, oLoad, oTotal;
 
@@ -124,15 +125,26 @@ bubblemon_update (gpointer data)
   h = mc->depth;
   n = w * h;
 
+  // FIXME: The colors of air and water should vary with how many
+  // percent of the available swap space that is in use.
+  aircolor = 0;
+  watercolor = 1;
+
+  // Set the water level depending on the system load
+  waterlevel = h - ((h * percent) / 100);
+
   // Here comes the fire magic.  Pixels are drawn by setting values in
   // buf to 0-NUM_COLORS.  We should possibly make some macros or
   // inline functions to {g|s}et pixels.
   for (x = 0; x < w; x++)
     for (y = 0; y < h; y++)
       {
-	buf[y * w + x] = random() % 2;
+	if (y < waterlevel)
+	  buf[y * w + x] = aircolor;
+	else
+	  buf[y * w + x] = watercolor;
       }
-
+  
 /*    for (i = 0; i < (percent >> 3) + 2; ++ i) */
 /*      buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] = random () % NUM_COLOURS; */
 /*    for (i = 0; i < (100 - percent) >> 4; ++ i) */
