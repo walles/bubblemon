@@ -41,6 +41,7 @@
 #include <glibtop/cpu.h>
 #include <glibtop/mem.h>
 #include <glibtop/swap.h>
+#include <glibtop/sysinfo.h>
 
 #include <applet-widget.h>
 
@@ -1093,7 +1094,7 @@ GtkWidget *make_new_bubblemon_applet (const gchar *goad_id)
 					 bm);
 
   /* Determine number of CPUs we will monitor */
-  bm->number_of_cpus = get_nprocs();
+  bm->number_of_cpus = glibtop_get_sysinfo()->ncpu;
   g_assert(bm->number_of_cpus != 0);
 
   /* Initialize the CPU load metering... */
