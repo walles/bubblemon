@@ -1,3 +1,10 @@
+bubblemon (1.0.2) stable; urgency=medium
+
+  * Initial multi-processor support (currently tooltip only) added.
+    Portuguese and Romanian translations added.  Code cleanups.
+
+ --
+
 bubblemon (1.0.1-1) stable; urgency=low
 
   * Documentation updates.  Changes to allow this release to be compiled
