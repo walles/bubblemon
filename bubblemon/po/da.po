@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-06 21:30+0100\n"
+"POT-Creation-Date: 2001-01-15 10:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,13 +23,13 @@ msgstr ""
 "Fejl: NUM_COLORS konstanten i bubblmon.h skal være et multiplum af 3.\n"
 "      Det er den nuværende værdi %d ikke.\n"
 
-#: src/bubblemon.c:287
+#: src/bubblemon.c:289
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
 msgstr ""
 "glibtop_get_mem() siger at du ikke har nogen hukommelse i linie %d i %s"
 
-#: src/bubblemon.c:397
+#: src/bubblemon.c:399
 #, fuzzy, c-format
 msgid ""
 "Memory used: %s\n"
@@ -39,28 +39,28 @@ msgstr ""
 "Swap brugt: %s\n"
 "CPU load: %d%%"
 
-#: src/bubblemon.c:404
+#: src/bubblemon.c:406
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:415
+#: src/bubblemon.c:417
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 
-#: src/bubblemon.c:638
+#: src/bubblemon.c:640
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
 msgstr "Kunne ikke chdir() til $HOME (%s)\n"
 
-#: src/bubblemon.c:644
+#: src/bubblemon.c:646
 msgid "$HOME environment variable not set\n"
 msgstr "$HOME environment variablen er ikke sat\n"
 
-#: src/bubblemon.c:649
+#: src/bubblemon.c:651
 #, c-format
 msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
@@ -69,27 +69,27 @@ msgstr ""
 "Bubblemon stopper.  Profil data skulle være i ~/gmon.out.\n"
 "For lidt sjov, kør 'gprof -l -p %s ~/gmon.out'.\n"
 
-#: src/bubblemon.c:651
+#: src/bubblemon.c:653
 msgid "<name of executable>"
 msgstr "<navnet på den binære fil>"
 
-#: src/bubblemon.c:1023
+#: src/bubblemon.c:1025
 msgid "Can't create applet!\n"
 msgstr "Kan ikke lave applet!\n"
 
-#: src/bubblemon.c:1026
+#: src/bubblemon.c:1028
 msgid "Can't open glibtop!\n"
 msgstr "Kan ikke åbne glibtop!\n"
 
-#: src/bubblemon.c:1089
+#: src/bubblemon.c:1091
 msgid "About"
 msgstr "Om"
 
-#: src/bubblemon.c:1264
+#: src/bubblemon.c:1266
 msgid "Bubbling Load Monitor"
 msgstr "Boblende Load Monitering"
 
-#: src/bubblemon.c:1267
+#: src/bubblemon.c:1269
 msgid ""
 "This applet displays your CPU load as a bubbling liquid.\n"
 "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
