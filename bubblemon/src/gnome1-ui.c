@@ -49,11 +49,14 @@ static void ui_update(void)
   guchar *p;
   
   GdkGC *gc;
-  
-  if((drawingArea == NULL) ||
-     !GTK_WIDGET_REALIZED(drawingArea) ||
-     !GTK_WIDGET_DRAWABLE(drawingArea) ||
-     width <= 0)
+
+  // FIXME: During shutdown, the drawingArea will have been free()d
+  // without the variable having been set to NULL.  We should check
+  // for this (how?) and return as if drawingArea had been NULL.
+  if ((drawingArea == NULL) ||
+      !GTK_WIDGET_REALIZED(drawingArea) ||
+      !GTK_WIDGET_DRAWABLE(drawingArea) ||
+      width <= 0)
   {
     return;
   }
