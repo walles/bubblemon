@@ -16,5 +16,6 @@ Thanks to Harri Haataja for fixing the RPM spec.
 Thanks to Pete Rijks and Florian Hinzmann, who helped me find the very
 annoying segfault.
 Thanks a lot to Nathan "Nato" Uno for reviewing my code, finding lots
-of errors, writing the larger-bubbles patch and probably at least one
-more thing that I have forgotten.
+of errors, writing the larger-bubbles patch, making a bunch of
+performance enhancements, and for probably doing at least one more
+thing that I have currently forgotten about.

@@ -13,6 +13,7 @@ $ gdb bubblemon_applet
 <SEGFAULT>
 (gdb) info stack
 
+
 2. Performance sucks.  What should I do?
 
 To give you some frame of reference of what kind of performance to
@@ -24,6 +25,7 @@ cycles go.  Then, either fix it yourself and send me
 (d92-jwa@nada.kth.se) a patch, or send me a bug report containing the
 output of the commands recommended in PROFILING.
 
+
 3. The program doesn't do anything; it doesn't even crash!
 
 Try running it from the command line, and see if you get an error
@@ -33,6 +35,13 @@ $ ./configure
 $ make
 $ src/bubblemon_applet --activate-goad-server=bubblemon_applet
 
-4. I have another question/problem.  What should I do?
+
+4. Isn't the applet supposed to have a tooltip?  Where is it?
+
+Yes it is and the code is there for it.  See the README file under the
+TODO section for more info.
+
+
+5. I have another question/problem.  What should I do?
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
