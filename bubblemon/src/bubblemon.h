@@ -50,6 +50,9 @@
 /* Color code constants */
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
 
+/* Bottle behaviour */
+typedef enum { GONE, FLOATING, SINKING, FALLING } bubblemon_bottlestate_t;
+
 /* An (a)rgb color value */
 typedef union {
   int value;
@@ -102,6 +105,9 @@ typedef struct
   int n_bubbles;
   int max_bubbles;
   bubblemon_Bubble *bubbles;
+
+  float bottle_y;
+  bubblemon_bottlestate_t bottle_state;
 } bubblemon_Physics;
 
 /* The 'pixels' field of the returned struct contains the pixels to
