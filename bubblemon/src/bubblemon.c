@@ -189,8 +189,8 @@ void get_censored_memory_and_swap(BubbleMonData *bm,
   if (memory.total == 0)
     {
       g_error("glibtop_get_mem() says you have no memory on line %d in %s",
-	      __LINE__,
-	      __FILE__);
+			 __LINE__,
+			 __FILE__);
     }
   
   /*
@@ -660,7 +660,7 @@ gint bubblemon_update (gpointer data)
     {
     case 4:
       {
-	uint32_t *ptr = (uint32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	u_int32_t *ptr = (u_int32_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
 	for (i = 0; i < n_pixels; i++)
 	  ptr[i] = col[buf[i]];
 	break;
@@ -668,7 +668,7 @@ gint bubblemon_update (gpointer data)
       
     case 2:
       {
-	uint16_t *ptr = (uint16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
+	u_int16_t *ptr = (u_int16_t *) GDK_IMAGE_XIMAGE (bm->image)->data;
 	for (i = 0; i < n_pixels; i++)
 	  ptr[i] = col[buf[i]];
 	break;
@@ -1035,7 +1035,4 @@ void bubblemon_set_size (BubbleMonData * bm)
   bm->image = gdk_image_new (GDK_IMAGE_SHARED, gtk_widget_get_visual (bm->area), bm->breadth, bm->depth);
 
   bpp = GDK_IMAGE_XIMAGE (bm->image)->bytes_per_line / bm->breadth;
-
-  if ((bpp != 2) && (bpp != 4))
-    gnome_error_dialog (_("Bubbling Load Monitor:\nOnly 16bpp and 32bpp modes are supported!\n"));
 } /* bubblemon_set_size */
