@@ -26,17 +26,31 @@
 #include <sys/types.h>
 
 #define FRAMERATE 25
+#define GC_PATH 		"/apps/bubblemon"
+#define GC_KEY_NETLOAD 		"/apps/bubblemon/enable_network_load"
+#define GC_KEY_MAILCHECK 	"/apps/bubblemon/enable_mail_checking"
+
+typedef struct
+{
+  GtkWidget         *preferences_dialog;
+  gboolean	    gnetload;
+  gboolean	    gmailcheck;
+  GtkWidget         *w_netload;
+  GtkWidget         *w_mailcheck;
+
+} BubblePreferences;
 
 typedef struct
 {
   GtkWidget         *applet;
   GtkWidget         *frame;
   GdkPixmap         *pix;
-
   int size;
 	
   GtkWidget         *aboutbox;
   GtkTooltips       *tooltips;
+
+  BubblePreferences pref;
 
 } BubblemonApplet;
 

@@ -39,10 +39,18 @@
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
 
+#include <glib.h>
+#include <gtk/gtk.h>
+#include <gconf/gconf-client.h>
+
+#include <libgnome/gnome-help.h>
+
 #include "gnome2-ui.h"
 #include "meter.h"
 #include "mail.h"
 #include "bubblemon.h"
+#include "bubblemon-about-dialog.h"
+#include "bubblemon-prefs-dialog.h"
 
 // Bottle graphics
 #include "msgInBottle.c"
@@ -54,43 +62,6 @@ static GtkWidget *applet;
 
 static guchar *rgb_buffer;
 
-static void
-display_about_dialog (BonoboUIComponent *uic,
-		      BubblemonApplet *bubble,
-		      const gchar       *verbname)
-{
-  static const gchar *authors[] = { "Johan Walles <d92-jwa@nada.kth.se>",
-				    "Juan Salaverria <rael@vectorstar.net>",
-				    NULL };
-  static const gchar *documenters[] = { NULL };
-
-  if (bubble->aboutbox != NULL) {
-    gtk_window_present (GTK_WINDOW (bubble->aboutbox));
-    return;
-  }
-
-  bubble->aboutbox= gnome_about_new(_("Bubbling Load Monitor"), VERSION,
-				    "Copyright (C) 1999-2003 Johan Walles\n"
-				    "Juan Salaverria",
-				    _("This applet displays your CPU load as a bubbling liquid.\n"
-				      "This applet comes with ABSOLUTELY NO WARRANTY, "
-				      "see the LICENSE file for details.\n"
-				      "This is free software, and you are welcome to redistribute it "
-				      "under certain conditions (GPL), "
-				      "see the LICENSE file for details."),
-				    authors,
-				    documenters,
-				    NULL,
-				    NULL);
- 
-  gtk_window_set_wmclass (GTK_WINDOW (bubble->aboutbox), "bubblemon", "Bubblemon");
-
-  g_signal_connect ( bubble->aboutbox, "destroy", G_CALLBACK (gtk_widget_destroyed), &bubble->aboutbox);
-							    
-  gtk_widget_show(bubble->aboutbox);
-
-  return;
-}
 
 static void ui_setSize(int newPanelSize)
 {
@@ -124,7 +95,7 @@ static void ui_setSize(int newPanelSize)
 
 
 static void
-ui_update (void)
+ui_update (BubblemonApplet *bubble)
 {
   int w, h, i;
   const bubblemon_picture_t *bubblePic;
@@ -141,7 +112,7 @@ ui_update (void)
     return;
   }
 
-  bubblePic = bubblemon_getPicture();
+  bubblePic = bubblemon_getPicture(bubble);
   if ((bubblePic == NULL) ||
       (bubblePic->width == 0) ||
       (bubblePic->pixels == 0))
@@ -172,17 +143,18 @@ ui_update (void)
 }
 
 static int
-ui_expose (void)
+ui_expose (BubblemonApplet *bubble)
 {
-  ui_update();
+  ui_update(bubble);
   return FALSE;
 }
 
 static int
-ui_timeoutHandler(gpointer ignored)
+ui_timeoutHandler(gpointer bubbles)
 {
-	
-  ui_update();
+BubblemonApplet *bubble = bubbles;
+
+  ui_update(bubble);
   return TRUE;
 }
 
@@ -253,13 +225,77 @@ applet_change_size (PanelApplet *applet, gint  size, gpointer data)
     return;
 
   ui_setSize(size);
-  ui_update();
+  ui_update(bubble);
+}
+
+static void pref_cb (BonoboUIComponent *uic,
+                      	BubblemonApplet *bubble,
+			const gchar       *verbname)
+{
+  bubblemon_prefs_run (bubble);
+}
+
+static void about_cb (BonoboUIComponent *uic,
+                      	BubblemonApplet *bubble,
+			const gchar       *verbname)
+{
+  bubblemon_about_run (bubble);
+}
+
+static void help_cb (BonoboUIComponent *uic,
+                      	BubblemonApplet *bubble,
+			const gchar       *verbname)
+{
+
+  GError *error = NULL;
+
+  egg_screen_help_display (gtk_widget_get_screen (GTK_WIDGET (bubble->applet)),
+				"bubblemon", NULL, &error);
+
+  if (error) { /* FIXME: the user needs to see this error */
+	g_print ("%s \n", error->message);
+	g_error_free (error);
+	error = NULL;
+  }
+
+}
+
+
+static void
+gconf_notify_func_netload (GConfClient *client,
+			guint        cnxn_id,
+			GConfEntry  *entry,
+			gpointer     user_data)
+{
+BubblemonApplet *bubble_applet = user_data;
+GConfValue  *value;
+
+  value = gconf_entry_get_value (entry);
+  bubble_applet->pref.gnetload = gconf_value_get_bool (value);
+
+  update_bubblemon_pref_windows(bubble_applet);
+}
+
+static void
+gconf_notify_func_mailcheck (GConfClient *client,
+			guint        cnxn_id,
+			GConfEntry  *entry,
+			gpointer     user_data)
+{
+BubblemonApplet *bubble_applet = user_data;
+GConfValue  *value;
+
+  value = gconf_entry_get_value (entry);
+  bubble_applet->pref.gmailcheck = gconf_value_get_bool (value);
+
+  update_bubblemon_pref_windows(bubble_applet);
 }
 
 static const BonoboUIVerb bubblemon_menu_verbs [] = {
-  BONOBO_UI_UNSAFE_VERB ("About",       display_about_dialog),
-
-  BONOBO_UI_VERB_END
+	BONOBO_UI_UNSAFE_VERB ("Properties", pref_cb),
+	BONOBO_UI_UNSAFE_VERB ("Help", help_cb),
+	BONOBO_UI_UNSAFE_VERB ("About", about_cb),
+  	BONOBO_UI_VERB_END
 };
 
 static gboolean
@@ -267,11 +303,36 @@ bubblemon_applet_fill (PanelApplet *applet)
 {
 	
   BubblemonApplet *bubblemon_applet;
+  GConfClient *client;
 	
   bubblemon_applet = g_new0 (BubblemonApplet, 1);
 
   bubblemon_applet->applet = GTK_WIDGET (applet);
   bubblemon_applet->size   = panel_applet_get_size (applet);
+
+  panel_applet_add_preferences (PANEL_APPLET(bubblemon_applet->applet), "/schemas/apps/bubblemon", NULL);
+  client = gconf_client_get_default ();
+  bubblemon_applet->pref.gnetload = gconf_client_get_bool (client, GC_KEY_NETLOAD, NULL);
+  bubblemon_applet->pref.gmailcheck = gconf_client_get_bool (client, GC_KEY_MAILCHECK, NULL);
+
+  gconf_client_add_dir (client,
+			GC_PATH,
+			GCONF_CLIENT_PRELOAD_NONE,
+			NULL);
+
+  gconf_client_notify_add (client,
+			GC_KEY_NETLOAD,
+			gconf_notify_func_netload,
+			bubblemon_applet,
+			NULL,
+			NULL);
+
+  gconf_client_notify_add (client,
+			GC_KEY_MAILCHECK,
+			gconf_notify_func_mailcheck,
+			bubblemon_applet,
+			NULL,
+			NULL);
 
   g_signal_connect (G_OBJECT (bubblemon_applet->applet),
 		    "destroy",
@@ -328,7 +389,7 @@ bubblemon_applet_fill (PanelApplet *applet)
 				     bubblemon_menu_verbs,
 				     bubblemon_applet);
 	
-  gtk_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, NULL);
+  gtk_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, bubblemon_applet);
   gtk_timeout_add(2000, update_tooltip, bubblemon_applet);
 	
   return TRUE;

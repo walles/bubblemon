@@ -586,7 +586,7 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
 }
 
 /* Update the bubble array from the system load */
-static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
+static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail, BubblemonApplet *bubble)
 {
   /* No size -- no go */
   if ((bubblePic.width == 0) ||
@@ -642,9 +642,13 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall, int youveGotMail)
   
   /* Update our universe */
   bubblemon_updateWaterlevels(msecsSinceLastCall);
-  bubblemon_updateWeeds(msecsSinceLastCall);
+  if(bubble->pref.gnetload) {
+  	bubblemon_updateWeeds(msecsSinceLastCall);
+  }
   bubblemon_updateBubbles(msecsSinceLastCall);
-  bubblemon_updateBottle(msecsSinceLastCall, youveGotMail);
+  if(bubble->pref.gmailcheck) {
+  	bubblemon_updateBottle(msecsSinceLastCall, youveGotMail);
+  }
 }
 
 int bubblemon_getMemoryPercentage()
@@ -660,11 +664,7 @@ int bubblemon_getMemoryPercentage()
     returnme = (int)((200L * sysload.memoryUsed + 1) / (2 * sysload.memorySize));
   }
 
-#ifdef ENABLE_PROFILING
-  return 100;
-#else
   return returnme;
-#endif
 }
 
 int bubblemon_getSwapPercentage()
@@ -680,11 +680,7 @@ int bubblemon_getSwapPercentage()
     returnme = (int)((200L * sysload.swapUsed + 1) / (2 * sysload.swapSize));
   }
 
-#ifdef ENABLE_PROFILING
-  return 100;
-#else
   return returnme;
-#endif
 }
 
 /* The cpu parameter is the cpu number, 1 - #CPUs.  0 means average load */
@@ -692,11 +688,7 @@ int bubblemon_getCpuLoadPercentage(int cpuNo)
 {
   assert(cpuNo >= 0 && cpuNo < sysload.nCpus);
   
-#ifdef ENABLE_PROFILING
-  return 100;
-#else
   return sysload.cpuLoad[cpuNo];
-#endif
 }
 
 int bubblemon_getAverageLoadPercentage()
@@ -714,11 +706,7 @@ int bubblemon_getAverageLoadPercentage()
   assert(totalLoad >= 0);
   assert(totalLoad <= 100);
 
-#ifdef ENABLE_PROFILING
-  return 100;
-#else
   return totalLoad;
-#endif
 }
 
 static void bubblemon_censorLoad()
@@ -757,10 +745,6 @@ static void bubblemon_censorLoad()
   sysload.memoryUsed = censoredMemUsed;
   sysload.swapUsed = censoredSwapUsed;
 
-#ifdef ENABLE_PROFILING
-  sysload.memoryUsed = sysload.memorySize;
-  sysload.swapUsed = sysload.swapSize;
-#endif
 }
 
 static void bubblemon_draw_bubble(/*@out@*/ bubblemon_picture_t *bubblePic,
@@ -1030,23 +1014,26 @@ static void bubblemon_weedsToPixmap(bubblemon_picture_t *bubblePic)
   }
 }
 
-const bubblemon_picture_t *bubblemon_getPicture()
+const bubblemon_picture_t *bubblemon_getPicture(BubblemonApplet *bubble)
 {
   static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
   static int physicalTimeElapsed = 0;
   
   int msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
-  int youveGotMail = mail_hasUnreadMail();
+  int youveGotMail;
   
   // Get the system load
   meter_getLoad(&sysload);
   bubblemon_censorLoad();
   
-  // Update the network load statistics.  Since they measure a real
-  // time phenomenon, they need to keep track of how much real time
-  // has actually passed since last time.  Thus, we provide the
-  // uncensored msecsSinceLastCall.
-  netload_updateLoadstats(msecsSinceLastCall);
+  // 
+  if(bubble->pref.gnetload) {
+  	// Update the network load statistics.  Since they measure a real
+  	// time phenomenon, they need to keep track of how much real time
+  	// has actually passed since last time.  Thus, we provide the
+  	// uncensored msecsSinceLastCall.
+  	netload_updateLoadstats(msecsSinceLastCall);
+  }
   
   // If a "long" time has passed since the last frame, settle for
   // updating the physics just a bit of the way.
@@ -1058,13 +1045,13 @@ const bubblemon_picture_t *bubblemon_getPicture()
   // Push the universe around
   if (msecsSinceLastCall <= msecsPerPhysicsFrame)
   {
-    bubblemon_updatePhysics(msecsSinceLastCall, youveGotMail);
+    bubblemon_updatePhysics(msecsSinceLastCall, youveGotMail, bubble);
   }
   else
   {
     while (physicalTimeElapsed < msecsSinceLastCall)
     {
-      bubblemon_updatePhysics(msecsPerPhysicsFrame, youveGotMail);
+      bubblemon_updatePhysics(msecsPerPhysicsFrame, youveGotMail, bubble);
       physicalTimeElapsed += msecsPerPhysicsFrame;
     }
     physicalTimeElapsed -= msecsSinceLastCall;
@@ -1073,9 +1060,15 @@ const bubblemon_picture_t *bubblemon_getPicture()
   // Draw the pixels
   bubblemon_environmentToBubbleArray(&bubblePic, BACKGROUND);
   bubblemon_bubbleArrayToPixmap(&bubblePic, BACKGROUND);
-  
-  bubblemon_weedsToPixmap(&bubblePic);
-  bubblemon_bottleToPixmap(&bubblePic);
+ 
+  if(bubble->pref.gnetload) {
+  	bubblemon_weedsToPixmap(&bubblePic);
+  }
+
+  if(bubble->pref.gmailcheck) {
+  	youveGotMail = mail_hasUnreadMail();
+  	bubblemon_bottleToPixmap(&bubblePic);
+  }
   
   bubblemon_environmentToBubbleArray(&bubblePic, FOREGROUND);
   bubblemon_bubbleArrayToPixmap(&bubblePic, FOREGROUND);
@@ -1085,11 +1078,6 @@ const bubblemon_picture_t *bubblemon_getPicture()
 
 void bubblemon_init(void)
 {
-#ifdef ENABLE_PROFILING
-  fprintf(stderr,
-	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
-	  "load all the time.\n");
-#endif
   
   // Initialize the random number generation
   srandom(time(NULL));

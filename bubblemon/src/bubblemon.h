@@ -26,6 +26,7 @@
 #include <gnome.h>
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
+#include "gnome2-ui.h"
 
 /* How fast do the bubbles rise? */
 #define GRAVITY -0.01
@@ -153,7 +154,7 @@ typedef struct
 
 /* The 'pixels' field of the returned struct contains the pixels to
  * draw on screen. */
-const bubblemon_picture_t *bubblemon_getPicture(void);
+const bubblemon_picture_t *bubblemon_getPicture(BubblemonApplet *bubble);
 
 /* Set the dimensions of the bubble array */
 extern void bubblemon_setSize(int width, int height);

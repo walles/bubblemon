@@ -1,0 +1,26 @@
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/apps/bubblemon/enable_network_load</key>
+      <applyto>/apps/bubblemon/enable_network_load</applyto>
+      <owner>bubblemon</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+	<short>Network load support</short>
+	<long>Network load support</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/bubblemon/enable_mail_checking</key>
+      <applyto>/apps/bubblemon/enable_mail_checking</applyto>
+      <owner>bubblemon</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+	<short>Mail checking support</short>
+	<long>Mail checking support</long>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>

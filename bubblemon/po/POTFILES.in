@@ -1,4 +1,5 @@
 # Files containing translatable strings
+gnome/bubblemon.schemas.in
 gnome/GNOME_BubblemonApplet.server.in.in
 gnome/GNOME_BubblemonApplet.xml
 src/bubblemon.c

@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appletversion "2.1.0">
+  <!ENTITY manrevision "1.0">
+  <!ENTITY date "September 2003">
+  <!ENTITY applet "Bubbling Load Monitor">
+  <!ENTITY applet_short "Bubblemon">
+
+]>
+<!-- =============Document Header ============================= -->
+<article id="index" lang="en">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>&applet; Applet Manual V&manrevision;</title>       
+
+    <copyright> 
+      <year>2003</year> 
+      <holder>Johan Walles</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2003</year> 
+      <holder>Juan Salaverria</holder> 
+    </copyright> 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (LANGUAGE translation)</holder>
+  </copyright>
+
+   -->
+   &legal;
+
+    <authorgroup> 
+      <author> 
+	<firstname>Johan</firstname> 
+	<surname>Walles</surname> 
+	<affiliation> 
+	  <address> <email>d92-jwa@nada.kth.se</email> </address> 
+	</affiliation> 
+      </author> 
+      <author> 
+	<firstname>Juan</firstname> 
+	<surname>Salaverria</surname> 
+	<affiliation> 
+	  <address> <email>rael@vectorstar.net</email> </address> 
+	</affiliation> 
+      </author> 
+
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+
+<!-- According to GNU FDL, revision history is mandatory if you are -->
+<!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+<!-- Remember to remove the &manrevision; entity from the revision entries other-->
+<!-- than the current revision. -->
+    <revhistory>
+      <revision>
+      	<revnumber>&applet; Applet Manual V&manrevision;</revnumber>
+	<date>&date;</date> 
+	<revdescription> 
+	  <para role="author">Juan Salaverria
+	    <email>rael@vectorstar.net</email>
+	  </para>
+	  <para role="publisher">Juan Salaverria
+	    <email>rael@vectorstar.net</email>
+	  </para>
+	</revdescription> 
+      </revision> 
+    </revhistory> 
+
+    <releaseinfo>This manual describes version &appletversion; of &applet;.
+    </releaseinfo>
+
+  </articleinfo> 
+
+  <indexterm> 
+    <primary>Bubblemon</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+<sect1 id="bubblemon-introduction">
+<title>Introduction</title>
+<!-- ==== Figure ============================================= -->
+	 <figure id="bubblemon-fig1"> 
+		<title>&applet; Applet</title> 
+		<screenshot> 
+		  <mediaobject> 
+			 <imageobject><imagedata fileref="figures/bubblemon_applet.png" format="PNG"/> 
+			 </imageobject>
+			 <textobject> 
+				<phrase>Shows Bubblemon applet.</phrase> 
+			 </textobject> 
+		  </mediaobject> 
+		</screenshot> 
+	 </figure> 
+    <!-- ==== End of Figure ======================================= -->
+<para>The <application>&applet;</application> applet (or "Bubblemon" for short) is a system CPU and memory load monitor. It displays something that looks like a vial containing water with bubbles to represent the load.</para>
+<para>To add <application>&applet_short;</application> to a panel, right-click on the panel, then choose 
+<menuchoice>
+<guimenu>Add to Panel</guimenu>
+<guisubmenu>Utility</guisubmenu>
+<guimenuitem>Bubblemon</guimenuitem>
+</menuchoice>.</para>
+</sect1>
+<!-- ============= Usage ============================== -->
+<sect1 id="bubblemon-usage">
+<title>Usage</title>
+<para>The <application>&applet_short;</application> applet shows at a glance the resources being used in the system.</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>The water</guilabel></term>
+<listitem>
+<para>The water level indicates how much memory is in use. The color of the liquid indicates how much swap space is used (watery blue means none and angry red means all).
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>The bubbles</guilabel></term>
+<listitem>
+<para>The system CPU load is indicated by bubbles floating up through the liquid; lots of bubbles means high CPU load.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>The weeds</guilabel></term>
+<listitem>
+<para>The network load is represented by weeds that grow from the bottom. The more network activity, the longer the weeds grow.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>The bootle</guilabel></term>
+<listitem>
+<para>If you have unread mail, a message in a bottle falls into the water.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>The tooltip</guilabel></term>
+<listitem>
+<para>The tooltip provides more accurate information about the CPU load, swap and memory used. To activate the tooltip, place the mouse pointer a few seconds over the applet.
+</para>
+<!-- ==== Figure ============================================= -->
+	 <figure id="bubblemon-fig2"> 
+		<title>The tooltip</title> 
+		<screenshot> 
+		  <mediaobject> 
+			 <imageobject><imagedata fileref="figures/bubblemon_tooltip.png" format="PNG"/> 
+			 </imageobject>
+			 <textobject> 
+				<phrase>Shows <application>&applet_short;</application> tooltip.</phrase> 
+			 </textobject> 
+		  </mediaobject> 
+		</screenshot> 
+	 </figure> 
+    <!-- ==== End of Figure ======================================= -->
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+<!-- ============= Preferences  ================================ -->
+<sect1 id="bubblemon-settings">
+<title>Preferences</title>
+<para>To configure <application>&applet_short;</application>, right-click on the <application>
+&applet_short;</application> applet, then choose <guimenu>Preferences</guimenu>. </para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Enable network monitor load</guilabel> </term>
+<listitem>
+<para>This checkbox instructs Bubblemon to monitor the load of the network interface.
+</para>
+<para>Default: <guilabel>Checked</guilabel>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Enable mail checking</guilabel> </term>
+<listitem>
+<para>Click on this checkbox to monitor the user's mailbox for incoming mail.
+</para>
+<para>Default: <guilabel>Checked</guilabel>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+</article>

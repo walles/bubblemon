@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<omf>
+  <resource>
+    <creator>
+      rael@vectorstar.net (Juan Salaverria)
+    </creator>
+    <maintainer>
+      rael@vectorstar.net (Juan Salaverria)
+    </maintainer>
+    <title>
+      Bubblemon Load Monitor Applet
+    </title>
+    <date>
+      2003-09-08
+    </date>
+    <version identifier="1.0" date="2003-09-08" description="Created for GNOME 2.0, program version 1.0"/>
+    <subject category="GNOME|Applets|Utility"/>
+    <description>
+      User manual for the Bubblemon Load Monitor Applet
+    </description>
+    <type>
+      user's guide
+    </type>
+    <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
+    <identifier url="bubblemon.xml"/>
+    <language code="C"/>
+    <relation seriesid="e6025954-40e7-11d6-8bb9-bb3814b40667"/>
+    <rights type="GNU GPL"/>
+  </resource>
+</omf>

@@ -1,13 +1,30 @@
 ## Process this file with automake to produce Makefile.in
 
+gladedir = $(datadir)/bubblemon
+glade_DATA = bubblemon_pref_dialog.glade
+
 localedir=$(datadir)/locale
 defaultincludes = -I. -I$(srcdir) -I..
 
+EGGFILES = \
+	egg-screen-exec.h \
+	egg-screen-exec.c \
+	egg-screen-help.h \
+	egg-screen-help.c \
+	egg-screen-url.h  \
+	egg-screen-url.c  \
+	$(NULL)
+
 INCLUDES = \
 	-I $(defaultincludes) \
-	-DGTK_ENABLE_BROKEN \
 	-DGNOMELOCALEDIR=\"$(prefix)/$(DATADIRNAME)/locale\" \
+	-DGLADE_DIR=\"$(gladedir)\" \
+        -DPREFIX=\""$(prefix)"\" \
+	-DDATADIR=\""$(datadir)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	$(GNOME_APPLETS_CFLAGS) \
+	$(LIBGLADE_CFLAGS) \
 	$(GTOP_APPLETS_CFLAGS)
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -20,11 +37,17 @@ bubblemon_gnome2_SOURCES = \
 	meter.h ui.h \
 	gnome1-meter.c \
 	unix-mail.c mail.h \
-	gnome1-netload.c netload.c netload.h
+	bubblemon-prefs-dialog.c bubblemon-prefs-dialog.h \
+	bubblemon-about-dialog.c bubblemon-about-dialog.h \
+	gnome1-netload.c netload.c netload.h \
+	$(EGGFILES)
 
 bubblemon_gnome2_LDADD = \
 	$(GNOME_APPLETS_LIBS)   \
+	$(LIBGLADE_LIBS) \
 	$(GTOP_APPLETS_LIBS)
 
-EXTRA_DIST = msgInBottle.c 
+EXTRA_DIST = \
+        $(glade_DATA)  \
+	msgInBottle.c 
 
