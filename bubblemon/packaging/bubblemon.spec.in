@@ -22,7 +22,7 @@ Choose Add Applet->Monitors->Bubbling Load Monitor in your GNOME Panel.
 
 %setup
 
-CFLAGS="" ./configure --prefix=usr
+./configure --prefix=usr
 
 ./configure
 
