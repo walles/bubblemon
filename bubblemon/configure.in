@@ -18,7 +18,22 @@ GNOME_COMPILE_WARNINGS
 GNOME_X_CHECKS
 
 # For i18n and l10n
-ALL_LINGUAS="sv fr"
+ALL_LINGUAS="sv fr pl"
+
+# Check if the user wants all languages to be compiled
+AC_ARG_WITH(
+  all-linguas,
+  [  --with-all-linguas      Compile support for all avaliable languages],
+  all_linguas=yes)
+
+if test "x$all_linguas" = "xyes"; then
+  LINGUAS=$ALL_LINGUAS
+fi
+
+AC_MSG_CHECKING(what languages to include)
+AC_MSG_RESULT($LINGUAS)
+
+# For i18n and l10n (continued)
 AM_GNU_GETTEXT
 
 # Find some more or less non-standard data types
