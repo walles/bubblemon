@@ -5,7 +5,6 @@
  *  Copyright (C) 1999-2000 Johan Walles
  *  - d92-jwa@nada.kth.se
  *  Copyright (C) 1999 Merlin Hughes
- *  - merlin@merlin.org
  *  - http://nitric.com/freeware/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -164,42 +163,42 @@ void usage2string(char *string,
 {
   /* Create a string of the form "35/64Mb" */
   
-  u_int64_t divisor = 1;
+  int shiftme = 0;
   char divisor_char = '\0';
 
-  if (max > 1000000000000)
+  if ((max >> 40) > 0)
     {
-      divisor = 1000000000000;
+      shiftme = 40;
       divisor_char = 'T';
     }
-  else if (max > 1000000000)
+  else if ((max >> 30) > 0)
     {
-      divisor = 1000000000;
+      shiftme = 30;
       divisor_char = 'G';
     }
-  else if (max > 1000000)
+  else if ((max >> 20) > 0)
     {
-      divisor = 1000000;
+      shiftme = 20;
       divisor_char = 'M';
     }
-  else if (max > 1000)
+  else if ((max >> 10) > 0)
     {
-      divisor = 1000;
+      shiftme = 10;
       divisor_char = 'k';
     }
 
   if (divisor_char)
     {
       sprintf(string, "%Ld/%Ld%cb",
-	      used / divisor,
-	      max / divisor,
+	      used >> shiftme,
+	      max >> shiftme,
 	      divisor_char);
     }
   else
     {
       sprintf(string, "%Ld/%Ld bytes",
-	      used / divisor,
-	      max / divisor);
+	      used >> shiftme,
+	      max >> shiftme);
     }
 }
 
