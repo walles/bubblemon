@@ -115,7 +115,8 @@ get_censored_memory_and_swap() function in bubblemon.c.
 
 The build process is broken.  It shouldn't be.  Send me
 (d92-jwa@nada.kth.se) a mail with the output from both 'configure' and
-'make', and I'll try to fix it.
+'make', and also tell me what Linux distribution you are using and I'll
+try to fix it.
 
 
 9. I have another question/problem.  What should I do?
