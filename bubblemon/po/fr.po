@@ -20,11 +20,13 @@ msgid ""
 "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 "       The current value of %d is not.\n"
 msgstr ""
+"Erreur: La constante NUM_COLORS dans bubblemon.h doit etre un multiple de 3.\n"
+"        Ce n'est pas le cas de %d , la valeur actuelle.\n"
 
 #: src/bubblemon.c:289
 #, c-format
 msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-msgstr ""
+msgstr "D'après glibtop_get_mem() vous n'avez pas de mémoire, ligne %d dans %s"
 
 #: src/bubblemon.c:399
 #, fuzzy, c-format
@@ -41,21 +43,25 @@ msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
+"\n"
+"Charge du CPU: %d%%"
 
 #: src/bubblemon.c:417
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
+"\n"
+"Charge du CPU #%d : %d%%"
 
 #: src/bubblemon.c:640
 #, c-format
 msgid "Couldn't chdir() to $HOME (%s)\n"
-msgstr ""
+msgstr "Impossible d'exécuter chdir() vers $HOME (%s)\n"
 
 #: src/bubblemon.c:646
 msgid "$HOME environment variable not set\n"
-msgstr ""
+msgstr "La variable d'environnement $HOME est absente\n"
 
 #: src/bubblemon.c:651
 #, c-format
@@ -63,10 +69,12 @@ msgid ""
 "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 msgstr ""
+"Bubblemon se termine.  Les mesures de performance se trouvent dans ~/gmon.out.\n"
+"Pour un résultat correct, lancez 'gprof -l -p %s ~/gmon.out'.\n"
 
 #: src/bubblemon.c:653
 msgid "<name of executable>"
-msgstr ""
+msgstr "<nom de l'exécutable>"
 
 #: src/bubblemon.c:1025
 msgid "Can't create applet!\n"
