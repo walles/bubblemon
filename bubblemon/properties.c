@@ -118,7 +118,10 @@ bubblemon_properties_window (AppletWidget * applet, gpointer data)
   gtk_signal_connect (GTK_OBJECT (mc->background_sel), "color_set",
 		     GTK_SIGNAL_FUNC (col_value_changed_cb), mc);
 
-  sscanf (mc->background_s, "#%02x%02x%02x", &r, &g, &b);
+  // FIXME: This is a remnant from when the fire applet cared about a
+  // background color.  It should be removed.
+  r = g = b = 42;
+  
   gnome_color_picker_set_i8 (mc->background_sel, r, g, b, 255);
 
   l = gtk_label_new (_("Background:"));
@@ -206,7 +209,6 @@ prop_apply (GtkWidget *w, int page, gpointer data)
   }
   
   gnome_color_picker_get_i8 ( mc->background_sel, &r, &g, &b, NULL);
-  snprintf (mc->background_s, sizeof (mc->background_s), "#%02x%02x%02x", r, g, b);
 
   bubblemon_setup_colours (mc);
 

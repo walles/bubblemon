@@ -57,11 +57,6 @@ bubblemon_session_load(gchar * cfgpath, BubbleMonData * mc)
   mc->samples = gnome_config_get_int_with_default
     ("bubblemon/samples=" BUBBLEMON_DEFAULT_LOAD_SAMPLES, NULL);
 
-  strncpy(mc->background_s,
-	  gnome_config_get_string_with_default
-	  ("bubblemon/background=" BUBBLEMON_DEFAULT_BACKGROUND, NULL),
-	  24 /* sizeof(mc->background_s) */);
-
   gnome_config_pop_prefix ();
 } /* bubblemon_session_load */
 
@@ -80,7 +75,6 @@ bubblemon_session_save(GtkWidget * w,
   gnome_config_set_int ("bubblemon/height", mc->depth);
   gnome_config_set_int ("bubblemon/update", mc->update);
   gnome_config_set_int ("bubblemon/samples", mc->samples);
-  gnome_config_set_string ("bubblemon/background", mc->background_s);
 
   gnome_config_pop_prefix ();
 
@@ -98,5 +92,4 @@ bubblemon_session_defaults(BubbleMonData * mc)
   mc->depth = atoi (BUBBLEMON_DEFAULT_DEPTH);
   mc->update = atoi (BUBBLEMON_DEFAULT_UPDATE_RATE);
   mc->samples = atoi (BUBBLEMON_DEFAULT_LOAD_SAMPLES);
-  strncpy(mc->background_s, BUBBLEMON_DEFAULT_BACKGROUND, 24 /* sizeof(mc->background_s) */);
 } /* bubblemon_session_defaults */

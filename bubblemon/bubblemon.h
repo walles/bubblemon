@@ -31,7 +31,7 @@
 
 #include <applet-widget.h>
 
-#define NUM_COLOURS 256
+#define NUM_COLOURS 2
 
 typedef struct BubbleMonData {
   GtkWidget *applet;
@@ -47,7 +47,6 @@ typedef struct BubbleMonData {
   int loadIndex;
   uint64_t *load, *total;
   
-  gchar background_s[24];
   GdkColor background;
 
   /* Widgets n stuff... */

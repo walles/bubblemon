@@ -80,7 +80,7 @@ gint
 bubblemon_update (gpointer data)
 {
   BubbleMonData * mc = data;
-  int i, w, h, n, bytesPerPixel, percent, *buf, *col;
+  int i, w, h, n, bytesPerPixel, percent, *buf, *col, x, y;
   glibtop_cpu cpu;
   uint64_t load, total, oLoad, oTotal;
 
@@ -127,12 +127,18 @@ bubblemon_update (gpointer data)
   // Here comes the fire magic.  Pixels are drawn by setting values in
   // buf to 0-NUM_COLORS.  We should possibly make some macros or
   // inline functions to {g|s}et pixels.
-  for (i = 0; i < (percent >> 3) + 2; ++ i)
-    buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] = random () % NUM_COLOURS;
-  for (i = 0; i < (100 - percent) >> 4; ++ i)
-    buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] >>= 1;
-  for (i = n - 1; i >= 0; -- i)
-    buf[i] = (buf[i + w - 1] + buf[i + w] + buf[i + w + 1] + buf[i]) >> 2;
+  for (x = 0; x < w; x++)
+    for (y = 0; y < h; y++)
+      {
+	buf[y * w + x] = random() % 2;
+      }
+
+/*    for (i = 0; i < (percent >> 3) + 2; ++ i) */
+/*      buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] = random () % NUM_COLOURS; */
+/*    for (i = 0; i < (100 - percent) >> 4; ++ i) */
+/*      buf[SPARK_EDGE + (random () % (w - 2 * SPARK_EDGE)) + n] >>= 1; */
+/*    for (i = n - 1; i >= 0; -- i) */
+/*      buf[i] = (buf[i + w - 1] + buf[i + w] + buf[i + w + 1] + buf[i]) >> 2; */
 
   bytesPerPixel = GDK_IMAGE_XIMAGE (mc->image)->bytes_per_line / w;
 
@@ -331,11 +337,8 @@ void bubblemon_setup_samples (BubbleMonData *mc) {
   }
 }
 
-#define BG_RAMP 96
-
 void bubblemon_setup_colours (BubbleMonData *mc) {
   int i, *col;
-  int br, bg, bb;
   GdkColormap *golormap;
   Display *display;
   Colormap colormap;
@@ -343,8 +346,6 @@ void bubblemon_setup_colours (BubbleMonData *mc) {
   golormap = gdk_colormap_get_system ();
   display = GDK_COLORMAP_XDISPLAY(golormap);
   colormap = GDK_COLORMAP_XCOLORMAP(golormap);
-
-  sscanf (mc->background_s, "#%02x%02x%02x", &br, &bg, &bb);
 
   if (!mc->colours)
     mc->colours = malloc (NUM_COLOURS * sizeof (int));
@@ -358,12 +359,6 @@ void bubblemon_setup_colours (BubbleMonData *mc) {
     r = (bubblemon_flame[i] >> 16) & 0xff;
     g = (bubblemon_flame[i] >> 8) & 0xff;
     b = bubblemon_flame[i] & 0xff;
-
-    if (i < BG_RAMP) {
-      r = (r * i + br * (BG_RAMP - i)) / BG_RAMP;
-      g = (g * i + bg * (BG_RAMP - i)) / BG_RAMP;
-      b = (b * i + bb * (BG_RAMP - i)) / BG_RAMP;
-    }
 
     sprintf (rgbStr, "rgb:%.2x/%.2x/%.2x", r, g, b);
     
