@@ -12,13 +12,6 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  programming skills, and should be a both easy and useful way to
  improve the applet.
 
-. Follow resize hints from the GNOME 1.2 panel.  If you know about or
- want to learn how to make nice GNOME 1.2 compliant panel applets,
- this one is for you.  You should probably connect some additional
- signals to the applet in the make_new_bubblemon_applet() function in
- bubblemon.c, put the new size in bm->breadth and bm->depth, and call
- the bubblemon_set_size() function to resize the applet.
-
 . Stop the applet if it ain't visible for some reason (for example if
  the GNOME panel is hidden).  If you know about or want to learn how
  to make nice GNOME 1.2 compliant panel applets, this one is for you.
@@ -26,6 +19,11 @@ get you started.  Questions?  Send 'em to me (d92-jwa@nada.kth.se).
  the make_new_bubblemon_applet() function in bubblemon.c and add some
  variable that is checked at the beginning of bubblemon_update() to
  see whether the applet should be updated or not.
+
+. Split the currently *enormous* bubblemon_update() function in
+ bubblemon.c into several smaller functions.
+
+. Split bubblemon.c into several files.
 
 . Add a "Legend" to the right mouse button menu.
 
