@@ -1,11 +1,11 @@
-Summary: GNOME Panel Bubbling Load Monitor
+Summary: Bubbling Load Monitoring Applet for the GNOME Panel
 Name: @PACKAGE@
 Version: @VERSION@
 Release: 1
 Source: @PACKAGE@-@VERSION@.tar.gz
 Buildroot: /tmp/@PACKAGE@-@VERSION@
 Packager: Johan Walles (d92-jwa@nada.kth.se)
-URL: -
+URL: http://www.nada.kth.se/~d92-jwa/code/
 Copyright: GPL
 Group: User Interface/GNOME Applets
 Requires: gnome-libs >= 1.0
@@ -22,6 +22,8 @@ Choose Add Applet->Monitors->Bubbling Load Monitor in your GNOME Panel.
 
 %setup
 
+CFLAGS="" ./configure --prefix=usr
+
 ./configure
 
 %build
@@ -30,7 +32,7 @@ make
 
 %install
 
-make install
+DESTDIR=/tmp/@PACKAGE@-@VERSION@ make -e install
 
 %clean
 
@@ -42,4 +44,4 @@ make clean
 /etc/CORBA/servers/bubblemon_applet.gnorba
 /usr/share/applets/Monitors/bubblemon_applet.desktop
 
-%doc AUTHORS CHANGES INSTALL LICENSE README URL VERSION
+%doc AUTHORS COPYING FAQ INSTALL LICENSE README FAQ PROFILING
