@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-16 22:19+0200\n"
+"POT-Creation-Date: 2004-08-16 22:30+0200\n"
 "PO-Revision-Date: 2004-01-11 20:57+0100\n"
 "Last-Translator: Edson Medina <edson@mrnet.pt>\n"
 "Language-Team: Unknown\n"
@@ -61,10 +61,6 @@ msgstr ""
 #: src/gnome2-ui.c:72
 msgid "Bubbling Load Monitor"
 msgstr "Monitor de carga borbulhento"
-
-#: src/gnome2-ui.c:73
-msgid "Copyright (C) 1999-2002 Johan Walles"
-msgstr ""
 
 #: src/gnome2-ui.c:74
 msgid ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-16 22:19+0200\n"
+"POT-Creation-Date: 2004-08-16 22:30+0200\n"
 "PO-Revision-Date: 2001-01-10 22:24+02:00\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -62,10 +62,6 @@ msgstr ""
 #: src/gnome2-ui.c:72
 msgid "Bubbling Load Monitor"
 msgstr "Kupliva kuormamittari"
-
-#: src/gnome2-ui.c:73
-msgid "Copyright (C) 1999-2002 Johan Walles"
-msgstr ""
 
 #: src/gnome2-ui.c:74
 msgid ""
