@@ -572,6 +572,7 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
   int w = bubblePic->width;
   int h = bubblePic->height;
   int x, y, i;
+  float hf;
 
   bubblemon_Bubble *bubble;
 
@@ -616,11 +617,12 @@ static void bubblemon_physicsToBubbleArray(bubblemon_picture_t *bubblePic)
   
   // Draw the bubbles
   bubble = physics.bubbles;
+  hf = h; // Move the int->float cast out of the loop
   for (i = 0; i < physics.n_bubbles; i++)
   {
     bubblemon_draw_bubble(bubblePic,
 			  bubble->x,
-			  h - bubble->y);
+			  hf - bubble->y);
     bubble++;
   }
 }
