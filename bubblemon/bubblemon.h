@@ -89,8 +89,8 @@ typedef struct {
  */
 
 /* Global configuration parameters */
-#define BUBBLEMON_DEFAULT_BREADTH         "40"
-#define BUBBLEMON_DEFAULT_DEPTH           "48"
+#define BUBBLEMON_DEFAULT_BREADTH         "32"
+#define BUBBLEMON_DEFAULT_DEPTH           "40"
 #define BUBBLEMON_DEFAULT_UPDATE_RATE     "20"
 #define BUBBLEMON_DEFAULT_LOAD_SAMPLES    "16"
 // FIXME: There should be three constants for how often the cpu, swap
@@ -124,7 +124,5 @@ gint bubblemon_expose_handler (GtkWidget * ignored, GdkEventExpose * expose,
 GtkWidget *make_new_bubblemon_applet (const gchar *goad_id);
 GtkWidget *applet_start_new_applet (const gchar *goad_id,
 				     const char **params, int nparams);
-
-extern int bubblemon_flame[];
 
 #endif /* _BUBBLEMON_H */

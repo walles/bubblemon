@@ -293,6 +293,7 @@ GtkWidget *
 make_new_bubblemon_applet (const gchar *goad_id)
 {
   BubbleMonData * bm;
+  GtkWidget *frame;
   gchar * param = "bubblemon_applet";
 
   bm = g_new0 (BubbleMonData, 1);
@@ -325,12 +326,19 @@ make_new_bubblemon_applet (const gchar *goad_id)
   bm->area = gtk_drawing_area_new ();
   gtk_widget_set_usize (bm->area, bm->breadth, bm->depth);
 
+  /* frame is the frame around the drawing area */
+  frame = gtk_frame_new(NULL);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+
+  /* frame the drawing area */
+  gtk_container_add(GTK_CONTAINER(frame), bm->area);
+  
   /* Set up the event callbacks for the area. */
   gtk_signal_connect (GTK_OBJECT (bm->area), "expose_event",
 		      (GtkSignalFunc)bubblemon_expose_handler, bm);
   gtk_widget_set_events (bm->area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
 
-  applet_widget_add (APPLET_WIDGET (bm->applet), bm->area);
+  applet_widget_add (APPLET_WIDGET (bm->applet), frame);
 
   gtk_signal_connect (GTK_OBJECT (bm->applet), "save_session",
 		      GTK_SIGNAL_FUNC (bubblemon_session_save),

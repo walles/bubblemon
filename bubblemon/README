@@ -37,6 +37,5 @@ TODO:
 . Glade-ify the properties box?
 . Make the properties box contain four color options, and have them
  saved / restored by the session handling code.
-. I like borders.  Put a border 'round the applet.
 . Make bubble movement independent of update frequency
 . automake/autoconf-ify the sources.
