@@ -129,6 +129,14 @@ You haven't installed the `devel' RPMs from the second Mandrake CD.
 Install them and then run configure again.
 
 
-11. I have another question/problem.  What should I do?
+11. I'm running SuSE Linux and the configure script fails.  What's up?
+
+You haven't installed the GNOME development RPMs.  Make sure you have
+installed all RPMs that have names ending in 'd' (for 'development')
+from the GNOME category.  Then try running configure again.
+
+
+12. I have another question/problem or there's an error in this FAQ.
+    What should I do? 
 
 E-mail me at d92-jwa@nada.kth.se and ask ahead.
