@@ -45,7 +45,3 @@ one using the largest amount of CPU.
 
 . Make the configure script check for if we are running on a Linux 2.2
  system.  If that's the case, check memory usage a lot more seldom.
-
-. Add a message in a bottle that drops from the sky when new mail
- arrives.  After mail has been read, the bottle should sink out of the
- vial.  The bottle should only appear if the applet is big enough.
