@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:27+0100\n"
+"POT-Creation-Date: 2005-11-06 15:21+0100\n"
 "PO-Revision-Date: 2004-01-11 20:53+0100\n"
 "Last-Translator: Unknown\n"
 "Language-Team: Unknown\n"
@@ -22,6 +22,16 @@ msgstr ""
 #, fuzzy
 msgid "_About..."
 msgstr "Om..."
+
+#: ../src/bubblemon.c:122
+#, c-format
+msgid "%llu/%llu bytes"
+msgstr ""
+
+#: ../src/bubblemon.c:128
+#, c-format
+msgid "%llu/%llu%cb"
+msgstr ""
 
 #: ../src/bubblemon.c:152
 #, c-format

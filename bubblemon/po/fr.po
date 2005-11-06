@@ -2,45 +2,49 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # Jedi/Sector One (Frank DENIS) <j@4u.net>, 2000.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:27+0100\n"
-"PO-Revision-Date: 2004-01-11 20:50+0100\n"
-"Last-Translator: Frank DENIS <j@4u.net>\n"
-"Language-Team: French <fr@li.org>\n"
+"POT-Creation-Date: 2005-11-06 15:21+0100\n"
+"PO-Revision-Date: 2005-11-06 15:19+0100\n"
+"Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
 msgid "A CPU load meter monitor"
-msgstr ""
+msgstr "Moniteur de charge CPU"
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
-#, fuzzy
 msgid "_About..."
-msgstr "À propos..."
+msgstr "_À propos..."
+
+#: ../src/bubblemon.c:122
+#, c-format
+msgid "%llu/%llu bytes"
+msgstr "%llu/%llu octets"
+
+#: ../src/bubblemon.c:128
+#, c-format
+msgid "%llu/%llu%cb"
+msgstr "%llu/%llu%co"
 
 #: ../src/bubblemon.c:152
-#, fuzzy, c-format
+#, c-format
 msgid "Memory used: %s"
-msgstr ""
-"Mémoire utilisée: %s\n"
-"Swap utilisé: %s\n"
-"Charge du CPU: %d%%"
+msgstr "Mémoire utilisée : %s"
 
 #: ../src/bubblemon.c:158
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Swap used: %s"
 msgstr ""
-"Mémoire utilisée: %s\n"
-"Swap utilisé: %s\n"
-"Charge du CPU: %d%%"
+"\n"
+"Espace d'échange utilisé : %s"
 
 #: ../src/bubblemon.c:166
 #, c-format
@@ -49,7 +53,7 @@ msgid ""
 "CPU load: %d%%"
 msgstr ""
 "\n"
-"Charge du CPU: %d%%"
+"Charge processeur : %d%%"
 
 #: ../src/bubblemon.c:177
 #, c-format
@@ -58,7 +62,7 @@ msgid ""
 "CPU #%d load: %d%%"
 msgstr ""
 "\n"
-"Charge du CPU #%d : %d%%"
+"Charge du processeur #%d : %d%%"
 
 #: ../src/gnome2-ui.c:72
 msgid "Bubbling Load Monitor"
@@ -72,44 +76,8 @@ msgid ""
 "This is free software, and you are welcome to redistribute it under certain "
 "conditions (GPL), see the LICENSE file for details."
 msgstr ""
-"Cette appliquette affiche votre charge CPU comme un liquide à bulle.\n"
-"Cette appliquette est livrée SANS AUCUNE GARANTIE, lire le fichier LICENSE "
-"pour les détails.\n"
+"Cette appliquette affiche votre charge CPU comme un liquide à bulles.\n"
+"Cette appliquette est livrée SANS AUCUNE GARANTIE, lire le fichier "
+"« LICENSE » pour les détails.\n"
 "Ceci est un logiciel libre, et vous êtes conviés à le redistribuer sous "
-"certaines conditions (GPL), lire le fichier LICENSE pour les détails."
-
-#, fuzzy
-#~ msgid "Can't create bubblemon applet!"
-#~ msgstr "Impossible de créer l'appliquette !\n"
-
-#~ msgid ""
-#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-#~ "       The current value of %d is not.\n"
-#~ msgstr ""
-#~ "Erreur: La constante NUM_COLORS dans bubblemon.h doit etre un multiple de "
-#~ "3.\n"
-#~ "        Ce n'est pas le cas de %d , la valeur actuelle.\n"
-
-#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-#~ msgstr ""
-#~ "D'après glibtop_get_mem() vous n'avez pas de mémoire, ligne %d dans %s"
-
-#~ msgid "Couldn't chdir() to $HOME (%s)\n"
-#~ msgstr "Impossible d'exécuter chdir() vers $HOME (%s)\n"
-
-#~ msgid "$HOME environment variable not set\n"
-#~ msgstr "La variable d'environnement $HOME est absente\n"
-
-#~ msgid ""
-#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-#~ msgstr ""
-#~ "Bubblemon se termine.  Les mesures de performance se trouvent dans ~/gmon."
-#~ "out.\n"
-#~ "Pour un résultat correct, lancez 'gprof -l -p %s ~/gmon.out'.\n"
-
-#~ msgid "<name of executable>"
-#~ msgstr "<nom de l'exécutable>"
-
-#~ msgid "Can't open glibtop!\n"
-#~ msgstr "Impossible d'employer glibtop\n"
+"certaines conditions (GPL), lire le fichier « LICENSE » pour les détails."

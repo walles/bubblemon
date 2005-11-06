@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:27+0100\n"
-"PO-Revision-Date: 2005-11-06 15:08+0100\n"
+"POT-Creation-Date: 2005-11-06 15:21+0100\n"
+"PO-Revision-Date: 2005-11-06 15:25+0100\n"
 "Last-Translator: Johan Walles <johan.walles@gmail.com>\n"
 "Language-Team: Swedish <johan.walles@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,16 @@ msgstr "En bubblande lastmätare"
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "_Om..."
+
+#: ../src/bubblemon.c:122
+#, c-format
+msgid "%llu/%llu bytes"
+msgstr "%llu/%llu bytes"
+
+#: ../src/bubblemon.c:128
+#, c-format
+msgid "%llu/%llu%cb"
+msgstr "%llu/%llu%cb"
 
 #: ../src/bubblemon.c:152
 #, c-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:27+0100\n"
+"POT-Creation-Date: 2005-11-06 15:21+0100\n"
 "PO-Revision-Date: 2005-03-08 16:26+0100\n"
 "Last-Translator: Marco Colombo <m.colombo@ed.ac.uk>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -23,6 +23,16 @@ msgstr "Un monitor di carico della CPU"
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "I_nformazioni"
+
+#: ../src/bubblemon.c:122
+#, c-format
+msgid "%llu/%llu bytes"
+msgstr ""
+
+#: ../src/bubblemon.c:128
+#, c-format
+msgid "%llu/%llu%cb"
+msgstr ""
 
 #: ../src/bubblemon.c:152
 #, c-format

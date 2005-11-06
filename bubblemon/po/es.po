@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:27+0100\n"
+"POT-Creation-Date: 2005-11-06 15:21+0100\n"
 "PO-Revision-Date: 2001-02-19 14:19-03:00\n"
 "Last-Translator: Edgardo Garcia Hoeffler <edybsd@yahoo.com.ar>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -21,6 +21,16 @@ msgstr "Un monitor de carga burbujeante"
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "Acerca"
+
+#: ../src/bubblemon.c:122
+#, c-format
+msgid "%llu/%llu bytes"
+msgstr ""
+
+#: ../src/bubblemon.c:128
+#, c-format
+msgid "%llu/%llu%cb"
+msgstr ""
 
 #: ../src/bubblemon.c:152
 #, c-format

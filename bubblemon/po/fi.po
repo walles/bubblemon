@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:27+0100\n"
+"POT-Creation-Date: 2005-11-06 15:21+0100\n"
 "PO-Revision-Date: 2001-01-10 22:24+02:00\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -24,6 +24,16 @@ msgstr ""
 #, fuzzy
 msgid "_About..."
 msgstr "Tietoja"
+
+#: ../src/bubblemon.c:122
+#, c-format
+msgid "%llu/%llu bytes"
+msgstr ""
+
+#: ../src/bubblemon.c:128
+#, c-format
+msgid "%llu/%llu%cb"
+msgstr ""
 
 #: ../src/bubblemon.c:152
 #, fuzzy, c-format

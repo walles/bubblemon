@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 2.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 16:27+0100\n"
+"POT-Creation-Date: 2005-11-06 15:21+0100\n"
 "PO-Revision-Date: 2004-08-08 01:00+0200\n"
 "Last-Translator: enric <coco@gabarro.org>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -20,6 +20,16 @@ msgstr "Un monitor de la càrrega del sistema"
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "_Quant a..."
+
+#: ../src/bubblemon.c:122
+#, c-format
+msgid "%llu/%llu bytes"
+msgstr ""
+
+#: ../src/bubblemon.c:128
+#, c-format
+msgid "%llu/%llu%cb"
+msgstr ""
 
 #: ../src/bubblemon.c:152
 #, c-format
