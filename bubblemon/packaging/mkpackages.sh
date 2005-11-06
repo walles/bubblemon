@@ -5,7 +5,7 @@
 
 # FIXME: This script is extremely non-portable and is only guaranteed
 # to work at Johan's place.  Portability enhancements are greatly
-# appreciated, send them to walles@mailblocks.com.
+# appreciated, send them to johan.walles@gmail.com.
 
 # FIXME: This script will erase files in your RPM_SOURCES directory,
 # in your BUBBLEMON_ROOT directory and in your RPMS directory.  For

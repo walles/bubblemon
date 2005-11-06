@@ -3,7 +3,7 @@
  *  - A GNOME panel applet that displays the CPU + memory load as a
  *    bubbling liquid.
  *  Copyright (C) 1999-2004 Johan Walles
- *  - walles@mailblocks.com
+ *  - johan.walles@gmail.com
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

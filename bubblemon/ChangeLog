@@ -1,4 +1,4 @@
-2005-03-08  Johan Walles  <walles@mailblocks.com>
+2005-03-08  Johan Walles  <johan.walles@gmail.com>
 
 	* Released 2.0.4
 
@@ -10,7 +10,7 @@
 	the spool file contains read mail.  The bottle goes away if the
 	log file is empty.
 
-2004-08-17  Johan Walles <walles@mailblocks.com>
+2004-08-17  Johan Walles <johan.walles@gmail.com>
 
 	* Released 2.0.2-pre2
 

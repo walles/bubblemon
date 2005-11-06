@@ -2,7 +2,7 @@ To Emacs: This is a -*-text-*- file.
 
 This file will tell you how to translate the applet into your
 favourite language.  No programming skills are required for this, and
-if you need any help with this, please let me (walles@mailblocks.com)
+if you need any help with this, please let me (johan.walles@gmail.com)
 know.
 
 1. Find out your language code from
@@ -37,7 +37,7 @@ know.
   emacs xx.po
 
 6. When you have translated everything in that file, mail it to me
-   (walles@mailblocks.com) for inclusion in the next version.
+   (johan.walles@gmail.com) for inclusion in the next version.
 
 7. If you want to see your newly created translation in action, use
    your favourite text editor to edit configure.in in the bubblemon
@@ -59,6 +59,6 @@ know.
 
 The applet should now appear in the language of your choice!  If you
 have any opinions on this short howto, do send me an e-mail at
-walles@mailblocks.com and voice your opinion.
+johan.walles@gmail.com and voice your opinion.
 
   //Johan

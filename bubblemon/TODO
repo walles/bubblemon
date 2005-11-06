@@ -2,7 +2,7 @@ To Emacs: This is a -*-text-*- file.
 
 This list is not really sorted, but stuff higher up on the list will
 tend to be completed earlier than stuff towards the end.  Additions?
-Opinions?  Send 'em to me (walles@mailblocks.com).
+Opinions?  Send 'em to me (johan.walles@gmail.com).
 
 . Clean up configure.in:
   x Prefix all GNOME specific test results with GNOME_.

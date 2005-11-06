@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - walles@mailblocks.com
+ *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
  *  This file (C) 2002-2004 Juan Salaverria - rael@vectorstar.net
  *  http://www.nongnu.org/bubblemon/
  *
@@ -59,7 +59,7 @@ display_about_dialog (BonoboUIComponent *uic,
 		      BubblemonApplet *bubble,
 		      const gchar       *verbname)
 {
-  static const gchar *authors[] = { "Johan Walles <walles@mailblocks.com>",
+  static const gchar *authors[] = { "Johan Walles <johan.walles@gmail.com>",
 				    "Juan Salaverria <rael@vectorstar.net>",
 				    NULL };
   static const gchar *documenters[] = { NULL };
