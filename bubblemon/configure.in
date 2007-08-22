@@ -31,7 +31,7 @@ AC_CHECK_TYPE(u_int8_t, unsigned char)
 AC_C_BIGENDIAN
 
 # For i18n and l10n
-ALL_LINGUAS="sv fr pl de ko fi da sh pt ro es no hu it is ru ca"
+ALL_LINGUAS="sv fr pl de ko fi da sh pt ro es no hu it is ru ca pt_BR"
 
 # Check if the user wants all languages to be compiled
 AC_ARG_WITH(
