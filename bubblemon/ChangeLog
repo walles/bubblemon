@@ -1,3 +1,14 @@
+2007-08-22  Johan Walles  <johan.walles@gmail.com>
+
+	* Released 2.0.6
+	
+	* Update the Polish translation, courtesy of Tomasz Dominikowski.
+
+	* Add a Brazilian Portuguese traslation, courtesy of Jose Carlos
+	Medeiros.
+
+	* Fix grammar problem (what's a "load meter monitor"?).
+
 2007-08-22  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* m4/gettext.m4: Upgrade to gettext-0.16.1.
