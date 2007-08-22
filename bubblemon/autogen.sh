@@ -17,4 +17,4 @@ intltoolize --force || exit $?
 set +x
 
 echo
-echo "Done generating configuration files for bubblemon, now do \"./configure \&\& make \&\& make install\""
+echo "Done generating configuration files for bubblemon, now do \"./configure && make && make install\""
