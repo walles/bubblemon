@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-06 15:40+0100\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2007-08-22 19:07+0200\n"
 "PO-Revision-Date: 2002-09-23 19:01+3hour\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
+msgid "A system load monitor"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1

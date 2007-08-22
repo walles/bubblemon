@@ -1,13 +1,11 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Johan Walles <johan.walles@gmail.com>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-06 15:40+0100\n"
-"PO-Revision-Date: 2005-11-06 15:25+0100\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2007-08-22 19:07+0200\n"
+"PO-Revision-Date: 2007-08-22 19:16+0200\n"
 "Last-Translator: Johan Walles <johan.walles@gmail.com>\n"
 "Language-Team: Swedish <johan.walles@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
+msgid "A system load monitor"
 msgstr "En bubblande lastmätare"
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
@@ -76,46 +74,6 @@ msgid ""
 "This is free software, and you are welcome to redistribute it under certain "
 "conditions (GPL), see the LICENSE file for details."
 msgstr ""
-"Denna applet visar datorns processorlast som en bubblande vätska.\n"
+"Detta panelprogram visar systemlasten som en bubblande vätska.\n"
+"Panelprogrammet kommer helt utan garanti, se LICENSE för info.\n"
 "Detta är fri programvara som får spridas i enlighet med GNU GPL."
-
-#~ msgid "Can't create bubblemon applet!"
-#~ msgstr "Kan inte skapa appleten!"
-
-#~ msgid ""
-#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-#~ "       The current value of %d is not.\n"
-#~ msgstr ""
-#~ "Fel: Konstanten NUM_COLORS i bubblemon.h måste vara en multipel av\n"
-#~ "    tre.  Nuvarande värde (%d) är inte det.\n"
-
-#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-#~ msgstr "glibtop_get_mem() hävdar att du inte har något minne på rad %d i %s"
-
-#~ msgid "Couldn't chdir() to $HOME (%s)\n"
-#~ msgstr "Kunde inte byta katalog till $HOME (%s)\n"
-
-#~ msgid "$HOME environment variable not set\n"
-#~ msgstr "Miljövariabeln $HOME är inte satt\n"
-
-#~ msgid ""
-#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-#~ msgstr ""
-#~ "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
-#~ "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
-
-#~ msgid "<name of executable>"
-#~ msgstr "<programmets namn>"
-
-#~ msgid "Can't open glibtop!\n"
-#~ msgstr "Kan inte öppna glibtop!\n"
-
-#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
-#~ msgstr "bm == NULL i update_tooltip() på rad %d i %s\n"
-
-#~ msgid ""
-#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-#~ msgstr ""
-#~ "get_censored_memory_and_swap() hävdar att du inte har något minne på\n"
-#~ "rad %d i %s"

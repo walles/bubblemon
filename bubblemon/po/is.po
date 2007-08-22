@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-06 15:40+0100\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2007-08-22 19:07+0200\n"
 "PO-Revision-Date: 2004-01-11 21:00+0100\n"
 "Last-Translator: Johann Helgi Agnarsson <johann@firmanet.is>\n"
 "Language-Team: Ísland <johann@firmanet.is>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
+msgid "A system load monitor"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
