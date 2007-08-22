@@ -1,0 +1,4 @@
+GNOME_BubblemonApplet.server
+GNOME_BubblemonApplet.server.in
+Makefile
+Makefile.in

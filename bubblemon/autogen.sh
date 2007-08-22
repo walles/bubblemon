@@ -6,11 +6,15 @@ cd $(dirname $0)
 echo "Generating configuration files for bubblemon..."
 echo
 
-aclocal-1.7 &&\
-autoheader2.50 &&\
-automake-1.7 --add-missing &&\
-autoconf2.50 &&\
-intltoolize ||\ exit $?
+set -x
+
+aclocal-1.8 -I m4 &&\
+autoheader &&\
+automake-1.8 --add-missing &&\
+autoconf &&\
+intltoolize --force || exit $?
+
+set +x
 
 echo
-echo "Done generating configuration files for bubblemon, now do \"./configure ; make ; make install\""
+echo "Done generating configuration files for bubblemon, now do \"./configure \&\& make \&\& make install\""

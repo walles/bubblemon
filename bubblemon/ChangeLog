@@ -1,3 +1,38 @@
+2007-08-22  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* m4/gettext.m4: Upgrade to gettext-0.16.1.
+	* m4/iconv.m4: Upgrade to gettext-0.16.1.
+	* m4/lib-ld.m4: Upgrade to gettext-0.16.1.
+	* m4/lib-link.m4: Upgrade to gettext-0.16.1.
+	* m4/lib-prefix.m4: Upgrade to gettext-0.16.1.
+	* m4/nls.m4: Upgrade to gettext-0.16.1.
+	* m4/po.m4: Upgrade to gettext-0.16.1.
+	* m4/progtest.m4: Upgrade to gettext-0.16.1.
+	* m4/codeset.m4: Upgrade to gettext-0.16.1.
+	* m4/glibc2.m4: New file, from gettext-0.16.1.
+	* m4/glibc21.m4: Upgrade to gettext-0.16.1.
+	* m4/intdiv0.m4: Upgrade to gettext-0.16.1.
+	* m4/intl.m4: New file, from gettext-0.16.1.
+	* m4/intldir.m4: New file, from gettext-0.16.1.
+	* m4/intmax.m4: New file, from gettext-0.16.1.
+	* m4/inttypes_h.m4: Upgrade to gettext-0.16.1.
+	* m4/inttypes-pri.m4: Upgrade to gettext-0.16.1.
+	* m4/lcmessage.m4: Upgrade to gettext-0.16.1.
+	* m4/lock.m4: New file, from gettext-0.16.1.
+	* m4/longdouble.m4: New file, from gettext-0.16.1.
+	* m4/longlong.m4: New file, from gettext-0.16.1.
+	* m4/printf-posix.m4: New file, from gettext-0.16.1.
+	* m4/size_max.m4: New file, from gettext-0.16.1.
+	* m4/stdint_h.m4: Upgrade to gettext-0.16.1.
+	* m4/uintmax_t.m4: Upgrade to gettext-0.16.1.
+	* m4/ulonglong.m4: Upgrade to gettext-0.16.1.
+	* m4/visibility.m4: New file, from gettext-0.16.1.
+	* m4/wchar_t.m4: New file, from gettext-0.16.1.
+	* m4/wint_t.m4: New file, from gettext-0.16.1.
+	* m4/xsize.m4: New file, from gettext-0.16.1.
+	* m4/Makefile.am (EXTRA_DIST): Add the new files.
+	* Makefile.am (SUBDIRS): Remove intl.
+
 2005-11-06  Johan Walles  <johan.walles@gmail.com>
 
 	* Released 2.0.5

@@ -11,11 +11,11 @@ AC_INIT(bubblemon, 2.0.5)
 AC_CONFIG_SRCDIR(src/bubblemon.h)
 
 AM_INIT_AUTOMAKE([1.5])
-AC_PREREQ(2.50)
+AC_PREREQ(2.61)
 
 AM_CONFIG_HEADER(config.h)
 
-AC_PROG_INTLTOOL([0.21])
+AC_PROG_INTLTOOL([0.35])
 
 AC_PROG_CC
 AM_PROG_CC_STDC
@@ -51,7 +51,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext wants to know..
 AC_SUBST(GETTEXT_PACKAGE)
 
 # For i18n and l10n (continued)
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
 
 # Where do we put locale information?
 if test "x$prefix" = "xNONE"; then
@@ -106,7 +106,7 @@ build_gpanel=false;
 PKG_CHECK_MODULES(GNOME_APPLETS, 
 	[libpanelapplet-2.0 >= $LIBPANEL_REQUIRED],
 	build_gpanel=true,
-	AC_MSG_WARN([GNOME2 panel not found.]))
+	AC_MSG_ERROR([GNOME2 panel not found.]))
 AC_SUBST(GNOME_APPLETS_CFLAGS)
 AC_SUBST(GNOME_APPLETS_LIBS)
 
@@ -115,7 +115,7 @@ build_gtop_applets=false
 PKG_CHECK_MODULES(GTOP_APPLETS,
 	[libgtop-2.0 >= $LIBGTOP_REQUIRED],
 	build_gtop_applets=true,
-	AC_MSG_WARN([libgtop not found.]))
+	AC_MSG_ERROR([libgtop not found.]))
 AC_SUBST(GTOP_APPLETS_CFLAGS)
 AC_SUBST(GTOP_APPLETS_LIBS)
 AM_CONDITIONAL(BUILD_GTOP_APPLETS, $build_gtop_applets)
@@ -130,7 +130,6 @@ AC_DEFINE([HAVE_CHANGE_PIXEL_SIZE], [], [Whether the GNOME Panel can change size
 #
 #
 AC_OUTPUT([
-intl/Makefile 
 Makefile
 m4/Makefile
 po/Makefile.in
