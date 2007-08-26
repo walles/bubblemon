@@ -361,23 +361,19 @@ static void bubblemon_updateWeeds(int msecsSinceLastCall)
  * 0 or bubblePic.width - 1 is that then we'd have to do clipping.
  * Clipping is boring.
  */
-static void bubblemon_createBubble(int x)
+static void bubblemon_createBubble(int x, bubblemon_layer_t layer)
 {
-  static bubblemon_layer_t lastNewBubbleLayer = BACKGROUND;
-
-    /* We don't allow bubbles on the edges 'cause we'd have to clip them */
+  /* We don't allow bubbles on the edges 'cause we'd have to clip them */
   assert(x >= 1);
   assert(x <= bubblePic.width - 2);
   
   if (physics.n_bubbles < physics.max_bubbles)
   {
-    lastNewBubbleLayer = (lastNewBubbleLayer == BACKGROUND) ? FOREGROUND : BACKGROUND;
-    
     physics.bubbles[physics.n_bubbles].x = x;
     physics.bubbles[physics.n_bubbles].y = 0.0;
     physics.bubbles[physics.n_bubbles].dy = 0.0;
     /* Create alternately foreground and background bubbles */
-    physics.bubbles[physics.n_bubbles].layer = lastNewBubbleLayer;
+    physics.bubbles[physics.n_bubbles].layer = layer;
     
     if (RIPPLES != 0.0)
     {
@@ -469,7 +465,9 @@ static void bubblemon_createBubbles(int msecsSinceLastCall)
       }
 
       // Add one pixel to avoid having to clip at the left edge
-      bubblemon_createBubble(x + 1.0);
+      bubblemon_layer_t layer =
+	random() % 100 < sortedCpuLoads[cpu] ? FOREGROUND : BACKGROUND;
+      bubblemon_createBubble(x + 1.0, layer);
       
       // Count the new bubble
       createNNewBubbles[cpu]--;
