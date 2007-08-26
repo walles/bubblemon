@@ -351,7 +351,7 @@ bubble_applet_factory (PanelApplet *applet,
 
 PANEL_APPLET_BONOBO_FACTORY ("OAFIID:GNOME_BubblemonApplet_Factory",
 			     PANEL_TYPE_APPLET,
-			     "bubblemon",
-			     "0",
+			     PACKAGE_NAME,
+			     VERSION,
 			     bubble_applet_factory,
 			     NULL)
