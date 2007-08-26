@@ -466,7 +466,7 @@ static void bubblemon_createBubbles(int msecsSinceLastCall)
 
       // Add one pixel to avoid having to clip at the left edge
       bubblemon_layer_t layer =
-	random() % 100 < sortedCpuLoads[cpu] ? FOREGROUND : BACKGROUND;
+	random() % 120 < sortedCpuLoads[cpu] ? FOREGROUND : BACKGROUND;
       bubblemon_createBubble(x + 1.0, layer);
       
       // Count the new bubble
