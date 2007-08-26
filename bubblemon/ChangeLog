@@ -1,3 +1,13 @@
+2007-08-26  Johan Walles  <johan@localhost.localdomain>
+
+	* Fix SMP detection code.  Has been broken since dackefejden.
+
+	* Give each CPU some space of its own on the bubble display.  The
+	CPU with the heaviest load gets to bubble in the middle.  CPUs
+	with lower load bubbles nearer to the edges.  The idea is to make
+	it possible to see not only how loaded the system is, but also how
+	the load is distributed between different CPUs.
+
 2007-08-22  Johan Walles  <johan.walles@gmail.com>
 
 	* Released 2.0.6
