@@ -396,31 +396,95 @@ static void bubblemon_createBubble(int x)
   }
 }
 
+/* Compare two ints.  Used by bubblemon_createBubbles().  See the
+ * qsort(3) man page for info. */
+static int intCompare(const void *ap, const void *bp) {
+  int a = *(int*)ap;
+  int b = *(int*)bp;
+
+  if (a < b) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+/* Create new bubbles as needed. */
+static void bubblemon_createBubbles(int msecsSinceLastCall)
+{
+  static float *createNNewBubbles;
+  if (createNNewBubbles == NULL) {
+    createNNewBubbles = calloc(sysload.nCpus, sizeof(float));
+    assert(createNNewBubbles != NULL);
+  }
+  
+  static int *sortedCpuLoads;
+  if (sortedCpuLoads == NULL) {
+    sortedCpuLoads = calloc(sysload.nCpus, sizeof(int));
+    assert(sortedCpuLoads != NULL);
+  }
+
+  // Sort the CPU loads.  The point is to reflect the highest loaded
+  // CPU in the middle and the less loaded ones further out towards
+  // the edges.
+  int cpu;
+  for (cpu = 0; cpu < sysload.nCpus; cpu++) {
+    sortedCpuLoads[cpu] = bubblemon_getCpuLoadPercentage(cpu);
+  }
+  qsort(sortedCpuLoads, sysload.nCpus, sizeof(*sortedCpuLoads), intCompare);
+  
+  float dt = msecsSinceLastCall / 30.0;
+
+  // We have this many pixels for bubble rendering.  Don't allow
+  // bubbles on the edges because clipping is boring.
+  float allCandidatePixels = bubblePic.width - 2;
+  float perCpuCandidatePixels = allCandidatePixels / (float)sysload.nCpus;
+  
+  // For each CPU...
+  for (cpu = 0; cpu < sysload.nCpus; cpu++) {
+    // ... should we create any bubbles?
+    float width = bubblePic.width;
+    createNNewBubbles[cpu] += ((float)sortedCpuLoads[cpu] *
+			       perCpuCandidatePixels *
+			       dt) / 2000.0;
+    
+    while (createNNewBubbles[cpu] >= 1.0) {
+      // Yes!  Bubbles needed.
+
+      float x = (random() % (long int)(perCpuCandidatePixels * 1000.0)) / 1000.0;
+      if (x < perCpuCandidatePixels / 2) {
+	// Put the new bubble on the left half of the display
+	x += (perCpuCandidatePixels / 2.0) * (float)cpu;
+      } else {
+	// Put the new bubble on the right half of the display
+	x -= perCpuCandidatePixels / 2.0;
+
+	// Assume we have 100 pixels to draw on.  In that case, pixel
+	// number 99 is the highest we can draw on.
+	float globalHighestOkPixel = allCandidatePixels - 1.0;
+	float thisHighestOkPixel = globalHighestOkPixel - (perCpuCandidatePixels / 2.0) * (float)cpu;
+	x = thisHighestOkPixel - x;
+      }
+
+      // Add one pixel to avoid having to clip at the left edge
+      bubblemon_createBubble(x + 1.0);
+      
+      // Count the new bubble
+      createNNewBubbles[cpu]--;
+    }
+  }
+}
+
 /* Update the bubbles (and possibly create new ones) */
 static void bubblemon_updateBubbles(int msecsSinceLastCall)
 {
-  int i;
-  static float createNNewBubbles;
-
-  float dt = msecsSinceLastCall / 30.0;
-
-  /* Create new bubble(s) if the planets are correctly aligned... */
-  createNNewBubbles += ((float)bubblemon_getAverageLoadPercentage() *
-			(float)bubblePic.width *
-			dt) / 2000.0;
-  
-  for (i = 0; i < createNNewBubbles; i++)
-  {
-    /* Don't create any bubbles on the edges 'cause then we'd have to
-     * clip them */
-    int x = (random() % (bubblePic.width - 2)) + 1;
-    bubblemon_createBubble(x);
-    
-    /* Count the new bubble */
-    createNNewBubbles--;
-  }
+  bubblemon_createBubbles(msecsSinceLastCall);
   
   /* Move the bubbles */
+  int i;
+  float dt = msecsSinceLastCall / 30.0;
   for (i = 0; i < physics.n_bubbles; i++)
   {
     /* Accelerate the bubble upwards */
@@ -711,7 +775,7 @@ int bubblemon_getSwapPercentage()
 #endif
 }
 
-/* The cpu parameter is the cpu number, 1 - #CPUs.  0 means average load */
+/* The cpu parameter is the cpu number, 0 - #CPUs-1. */
 int bubblemon_getCpuLoadPercentage(int cpuNo)
 {
   assert(cpuNo >= 0 && cpuNo < sysload.nCpus);
@@ -1119,7 +1183,7 @@ void bubblemon_init(void)
 	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
 	  "load all the time.\n");
 #endif
-  
+
   // Initialize the random number generation
   srandom(time(NULL));
   
