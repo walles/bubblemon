@@ -355,18 +355,55 @@ static void bubblemon_updateWeeds(int msecsSinceLastCall)
   }
 }
 
+/* Create a new bubble at the given X coordinate.
+ *
+ * X must be > 0 and < bubblePic.width - 2.  The reason we don't allow
+ * 0 or bubblePic.width - 1 is that then we'd have to do clipping.
+ * Clipping is boring.
+ */
+static void bubblemon_createBubble(int x)
+{
+  static bubblemon_layer_t lastNewBubbleLayer = BACKGROUND;
+
+    /* We don't allow bubbles on the edges 'cause we'd have to clip them */
+  assert(x >= 1);
+  assert(x <= bubblePic.width - 2);
+  
+  if (physics.n_bubbles < physics.max_bubbles)
+  {
+    lastNewBubbleLayer = (lastNewBubbleLayer == BACKGROUND) ? FOREGROUND : BACKGROUND;
+    
+    physics.bubbles[physics.n_bubbles].x = x;
+    physics.bubbles[physics.n_bubbles].y = 0.0;
+    physics.bubbles[physics.n_bubbles].dy = 0.0;
+    /* Create alternately foreground and background bubbles */
+    physics.bubbles[physics.n_bubbles].layer = lastNewBubbleLayer;
+    
+    if (RIPPLES != 0.0)
+    {
+      /* Raise the water level above where the bubble is created */
+      if ((physics.bubbles[physics.n_bubbles].x - 2) >= 0)
+	physics.waterLevels[physics.bubbles[physics.n_bubbles].x - 2].y += RIPPLES;
+      physics.waterLevels[physics.bubbles[physics.n_bubbles].x - 1].y   += RIPPLES;
+      physics.waterLevels[physics.bubbles[physics.n_bubbles].x].y       += RIPPLES;
+      physics.waterLevels[physics.bubbles[physics.n_bubbles].x + 1].y   += RIPPLES;
+      if ((physics.bubbles[physics.n_bubbles].x + 2) < bubblePic.width)
+	physics.waterLevels[physics.bubbles[physics.n_bubbles].x + 2].y += RIPPLES;
+    }
+    
+    /* Count the new bubble */
+    physics.n_bubbles++;
+  }
+}
+
 /* Update the bubbles (and possibly create new ones) */
 static void bubblemon_updateBubbles(int msecsSinceLastCall)
 {
   int i;
   static float createNNewBubbles;
-  static bubblemon_layer_t lastNewBubbleLayer = BACKGROUND;
 
   float dt = msecsSinceLastCall / 30.0;
 
-  /* Typing fingers saver */
-  int w = bubblePic.width;
-  
   /* Create new bubble(s) if the planets are correctly aligned... */
   createNNewBubbles += ((float)bubblemon_getAverageLoadPercentage() *
 			(float)bubblePic.width *
@@ -374,33 +411,13 @@ static void bubblemon_updateBubbles(int msecsSinceLastCall)
   
   for (i = 0; i < createNNewBubbles; i++)
   {
-    if (physics.n_bubbles < physics.max_bubbles)
-    {
-      lastNewBubbleLayer = (lastNewBubbleLayer == BACKGROUND) ? FOREGROUND : BACKGROUND;
-      
-      /* We don't allow bubbles on the edges 'cause we'd have to clip them */
-      physics.bubbles[physics.n_bubbles].x = (random() % (w - 2)) + 1;
-      physics.bubbles[physics.n_bubbles].y = 0.0;
-      physics.bubbles[physics.n_bubbles].dy = 0.0;
-      /* Create alternately foreground and background bubbles */
-      physics.bubbles[physics.n_bubbles].layer = lastNewBubbleLayer;
-      
-      if (RIPPLES != 0.0)
-      {
-	/* Raise the water level above where the bubble is created */
-	if ((physics.bubbles[physics.n_bubbles].x - 2) >= 0)
-	  physics.waterLevels[physics.bubbles[physics.n_bubbles].x - 2].y += RIPPLES;
-	physics.waterLevels[physics.bubbles[physics.n_bubbles].x - 1].y   += RIPPLES;
-	physics.waterLevels[physics.bubbles[physics.n_bubbles].x].y       += RIPPLES;
-	physics.waterLevels[physics.bubbles[physics.n_bubbles].x + 1].y   += RIPPLES;
-	if ((physics.bubbles[physics.n_bubbles].x + 2) < w)
-	  physics.waterLevels[physics.bubbles[physics.n_bubbles].x + 2].y += RIPPLES;
-      }
+    /* Don't create any bubbles on the edges 'cause then we'd have to
+     * clip them */
+    int x = (random() % (bubblePic.width - 2)) + 1;
+    bubblemon_createBubble(x);
     
-      /* Count the new bubble */
-      physics.n_bubbles++;
-      createNNewBubbles--;
-    }
+    /* Count the new bubble */
+    createNNewBubbles--;
   }
   
   /* Move the bubbles */
