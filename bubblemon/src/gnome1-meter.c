@@ -51,7 +51,7 @@ void meter_init(meter_sysload_t *load)
   glibtop_mem memory;
   glibtop_swap swap;
   
-#if LIBGTOP_VERSION_CODE >= 1001005
+#if LIBGTOP_VERSION_CODE >= 1001005 || LIBGTOP_MAJOR_VERSION >= 2
   load->nCpus = glibtop_get_sysinfo()->ncpu;
 #else
   load->nCpus = 1;
