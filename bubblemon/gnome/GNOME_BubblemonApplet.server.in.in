@@ -24,7 +24,7 @@
 	</oaf_attribute>
 	<oaf_attribute name="name" type="string" value="Bubblemon"/>
 	<oaf_attribute name="description" type="string" _value="A system load monitor"/>
-	<oaf_attribute name="panel:category" type="string" value="Utility"/>
+	<oaf_attribute name="panel:category" type="string" value="System &amp; Hardware"/>
 	<oaf_attribute name="panel:icon" type="string" value="bubblemon.png"/>
 
 </oaf_server>
