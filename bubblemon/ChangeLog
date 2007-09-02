@@ -1,5 +1,8 @@
 2007-09-02  Johan Walles  <johan@localhost.localdomain>
 
+	* Change default installation prefix to /usr since many GNOME
+	installs aren't aware of the existence of /usr/local.
+
 	* Change GNOME category to System & Hardware since the Utility
 	category used previously seems deprecated.
 

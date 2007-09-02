@@ -10,6 +10,10 @@
 AC_INIT([Bubbling Load Monitor], 2.0.7, bubblemon-list@nongnu.org, bubblemon)
 AC_CONFIG_SRCDIR(src/bubblemon.h)
 
+# Install in /usr by default since many GNOME installations aren't
+# aware of the existence of /usr/local.
+AC_PREFIX_DEFAULT(/usr)
+
 AM_INIT_AUTOMAKE([1.5])
 AC_PREREQ(2.61)
 
