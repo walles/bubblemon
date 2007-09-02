@@ -1,3 +1,8 @@
+2007-09-02  Johan Walles  <johan@localhost.localdomain>
+
+	* Change GNOME category to System & Hardware since the Utility
+	category used previously seems deprecated.
+
 2007-08-26  Johan Walles  <johan@localhost.localdomain>
 
 	* Fix SMP detection code.  Has been broken since dackefejden.
