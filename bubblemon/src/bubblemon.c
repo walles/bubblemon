@@ -866,7 +866,7 @@ static void bubblemon_draw_bubble(/*@out@*/ bubblemon_picture_t *bubblePic,
   
   /* Top row */
   buf_ptr = &(bubbleBuf[(y - 1) * w + x - 1]);
-  if (y > physics.waterLevels[x].y)
+  if (y > 0)
   {
     if (*buf_ptr != AIR)
     {
