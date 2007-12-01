@@ -20,6 +20,7 @@ bubblemon_gnome2_SOURCES = \
 	meter.h ui.h \
 	gnome1-meter.c \
 	unix-mail.c mail.h \
+	unix-interfaces.c interfaces.h \
 	gnome1-netload.c netload.c netload.h
 
 bubblemon_gnome2_LDADD = \

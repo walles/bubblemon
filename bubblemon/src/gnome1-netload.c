@@ -27,28 +27,12 @@
 #include <glibtop/netload.h>
 
 #include "netload.h"
-
-// This is a workaround for my inability to get libgtop to tell me
-// what interfaces exist.  All of these interfaces will be queried for
-// their current load.
-static const char *interface_candidates[] =
-{
-  "eth0",
-  "eth1",
-  "eth2",
-  "le0",
-  "le1",
-  "le2",
-  "lo",
-  "ppp0",
-  "ppp1",
-  "ppp2",
-  NULL
-};
+#include "interfaces.h"
 
 void netload_reportNetworkLoad(void)
 {
   int i;
+  char **interface_candidates = interfaces_getcandidates();
 
   for (i = 0; interface_candidates[i] != NULL; i++)
   {
@@ -73,6 +57,8 @@ void netload_reportNetworkLoad(void)
       netload_reportBack(interface_candidates[i], load.bytes_total, 0);
     }
   }
+  
+  interfaces_freecandidates(interface_candidates);
   
   return;
 }
