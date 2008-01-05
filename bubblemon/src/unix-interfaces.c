@@ -23,6 +23,9 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#include <sys/types.h>
+#include <sys/socket.h>
+
 #include <sys/ioctl.h>
 #include <net/if.h>
 
@@ -49,7 +52,7 @@ static int interfacesSize = 0;
  */
 static int getSocket(void) {
   if (querySocket == 0) {
-    querySocket = socket(PF_INET, SOCK_DGRAM, 0);
+    querySocket = socket(AF_INET, SOCK_DGRAM, 0);
   }
   if (querySocket > 0) {
     return querySocket;
