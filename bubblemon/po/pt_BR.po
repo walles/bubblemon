@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-06 15:40+0100\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2008-01-05 13:38+0100\n"
 "PO-Revision-Date: 2007-08-10 21:19-0300\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: Brazilian Portuguese <pt@li.org>\n"
@@ -17,9 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
-msgstr "Um monitorador de carga de CPU"
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "Monitorador de Carga Borbulhento"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Monitor CPU, memory and network load"
+msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
@@ -67,21 +71,24 @@ msgstr ""
 "\n"
 "Carga da CPU #%d: %d%%"
 
-#: ../src/gnome2-ui.c:72
-msgid "Bubbling Load Monitor"
-msgstr "Monitorador de Carga Borbulhento"
-
 #: ../src/gnome2-ui.c:74
-msgid ""
-"This applet displays your CPU load as a bubbling liquid.\n"
-"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-"details.\n"
-"This is free software, and you are welcome to redistribute it under certain "
-"conditions (GPL), see the LICENSE file for details."
+msgid "Displays system load as a bubbling liquid."
 msgstr ""
-"Este mini aplicativo mostra a carga de sua CPU como um líquido borbulhento.\n"
-"Este mini aplicativo não dá ABSOLUTAMENTE NENHUMA GARANTIA, veja o "
-"arquivo LICENSE para mais detalhes.\n"
-"Este programa é livre, e você pode redistribuí-lo sobre certas condições "
-"(GPL), veja o arquivo LICENSE para mais detalhes."
 
+#, fuzzy
+#~ msgid ""
+#~ "Displays system load as a bubbling liquid.\n"
+#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+#~ "details.\n"
+#~ "This is free software, and you are welcome to redistribute it under "
+#~ "certain conditions (GPL), see the LICENSE file for details."
+#~ msgstr ""
+#~ "Este mini aplicativo mostra a carga de sua CPU como um líquido "
+#~ "borbulhento.\n"
+#~ "Este mini aplicativo não dá ABSOLUTAMENTE NENHUMA GARANTIA, veja o "
+#~ "arquivo LICENSE para mais detalhes.\n"
+#~ "Este programa é livre, e você pode redistribuí-lo sobre certas condições "
+#~ "(GPL), veja o arquivo LICENSE para mais detalhes."
+
+#~ msgid "A CPU load meter monitor"
+#~ msgstr "Um monitorador de carga de CPU"

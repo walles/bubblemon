@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2007-08-22 19:07+0200\n"
+"POT-Creation-Date: 2008-01-05 13:38+0100\n"
 "PO-Revision-Date: 2002-09-23 19:01+3hour\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -12,8 +12,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A system load monitor"
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "Пузырьки"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Monitor CPU, memory and network load"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
@@ -62,20 +66,20 @@ msgstr ""
 "\n"
 "Загрузка процессора №%d: %d%%"
 
-#: ../src/gnome2-ui.c:72
-msgid "Bubbling Load Monitor"
-msgstr "Пузырьки"
-
 #: ../src/gnome2-ui.c:74
-msgid ""
-"This applet displays your CPU load as a bubbling liquid.\n"
-"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-"details.\n"
-"This is free software, and you are welcome to redistribute it under certain "
-"conditions (GPL), see the LICENSE file for details."
+msgid "Displays system load as a bubbling liquid."
 msgstr ""
-"Программа показывает степень загрузки процессора в виде потока пузырьков в "
-"бурлящей жидкости."
+
+#, fuzzy
+#~ msgid ""
+#~ "Displays system load as a bubbling liquid.\n"
+#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+#~ "details.\n"
+#~ "This is free software, and you are welcome to redistribute it under "
+#~ "certain conditions (GPL), see the LICENSE file for details."
+#~ msgstr ""
+#~ "Программа показывает степень загрузки процессора в виде потока пузырьков "
+#~ "в бурлящей жидкости."
 
 #~ msgid "Copyright (C) 1999-2002 Johan Walles"
 #~ msgstr "Copyright (C) 1999-2002 Johan Walles"

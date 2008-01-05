@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2007-08-22 19:07+0200\n"
+"POT-Creation-Date: 2008-01-05 13:38+0100\n"
 "PO-Revision-Date: 2004-01-11 20:57+0100\n"
 "Last-Translator: Edson Medina <edson@mrnet.pt>\n"
 "Language-Team: Unknown\n"
@@ -15,8 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A system load monitor"
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "Monitor de carga borbulhento"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Monitor CPU, memory and network load"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
@@ -68,23 +72,23 @@ msgstr ""
 "\n"
 "Carga do CPU %d: #%d%%"
 
-#: ../src/gnome2-ui.c:72
-msgid "Bubbling Load Monitor"
-msgstr "Monitor de carga borbulhento"
-
 #: ../src/gnome2-ui.c:74
-msgid ""
-"This applet displays your CPU load as a bubbling liquid.\n"
-"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-"details.\n"
-"This is free software, and you are welcome to redistribute it under certain "
-"conditions (GPL), see the LICENSE file for details."
+msgid "Displays system load as a bubbling liquid."
 msgstr ""
-"Esta applet mostra a carga do CPU como um liquido borbulhento.\n"
-"Esta applet não dá ABSOLUTAMENTE NENHUMA GARANTIA, veja o ficheiro LICENSE "
-"para mais informação.\n"
-"Este software é livre, e pode redistribuido sobre certas condições (GPL), "
-"veja o ficheiro LICENSE para mais informações."
+
+#, fuzzy
+#~ msgid ""
+#~ "Displays system load as a bubbling liquid.\n"
+#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+#~ "details.\n"
+#~ "This is free software, and you are welcome to redistribute it under "
+#~ "certain conditions (GPL), see the LICENSE file for details."
+#~ msgstr ""
+#~ "Esta applet mostra a carga do CPU como um liquido borbulhento.\n"
+#~ "Esta applet não dá ABSOLUTAMENTE NENHUMA GARANTIA, veja o ficheiro "
+#~ "LICENSE para mais informação.\n"
+#~ "Este software é livre, e pode redistribuido sobre certas condições (GPL), "
+#~ "veja o ficheiro LICENSE para mais informações."
 
 #, fuzzy
 #~ msgid "Can't create bubblemon applet!"

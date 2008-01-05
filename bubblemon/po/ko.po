@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2007-08-22 19:07+0200\n"
+"POT-Creation-Date: 2008-01-05 13:38+0100\n"
 "PO-Revision-Date: 2004-01-11 20:52+0100\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -14,8 +14,12 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A system load monitor"
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:72
+msgid "Bubbling Load Monitor"
+msgstr "물거품 부하 모니터"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Monitor CPU, memory and network load"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
@@ -67,23 +71,23 @@ msgstr ""
 "\n"
 "CPU #%d 부하: %d%%"
 
-#: ../src/gnome2-ui.c:72
-msgid "Bubbling Load Monitor"
-msgstr "물거품 부하 모니터"
-
 #: ../src/gnome2-ui.c:74
-msgid ""
-"This applet displays your CPU load as a bubbling liquid.\n"
-"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-"details.\n"
-"This is free software, and you are welcome to redistribute it under certain "
-"conditions (GPL), see the LICENSE file for details."
+msgid "Displays system load as a bubbling liquid."
 msgstr ""
-"이 애플릿은 CPU 부하를 액체 물거품으로 나타내줍니다.\n"
-"이 애플릿은 어떠한 보증도 포함하지 않습니다.  자세한 사항은 LICENSE 파일을 참"
-"고하십시오.\n"
-"이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 좋습"
-"니다.  자세한 사항은 LICENSE 파일을 참고하십시오."
+
+#, fuzzy
+#~ msgid ""
+#~ "Displays system load as a bubbling liquid.\n"
+#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
+#~ "details.\n"
+#~ "This is free software, and you are welcome to redistribute it under "
+#~ "certain conditions (GPL), see the LICENSE file for details."
+#~ msgstr ""
+#~ "이 애플릿은 CPU 부하를 액체 물거품으로 나타내줍니다.\n"
+#~ "이 애플릿은 어떠한 보증도 포함하지 않습니다.  자세한 사항은 LICENSE 파일"
+#~ "을 참고하십시오.\n"
+#~ "이 소프트웨어는 프리 소프트웨어이므로 특정 조건(GPL) 하에서 재배포하셔도 "
+#~ "좋습니다.  자세한 사항은 LICENSE 파일을 참고하십시오."
 
 #, fuzzy
 #~ msgid "Can't create bubblemon applet!"
