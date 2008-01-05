@@ -71,7 +71,7 @@ display_about_dialog (BonoboUIComponent *uic,
 
   bubble->aboutbox= gnome_about_new(_("Bubbling Load Monitor"), VERSION,
 				    "Copyright (C) 1999-2007 Johan Walles",
-				    _("This applet displays your CPU load as a bubbling liquid.\n"
+				    _("Displays system load as a bubbling liquid.\n"
 				      "This applet comes with ABSOLUTELY NO WARRANTY, "
 				      "see the LICENSE file for details.\n"
 				      "This is free software, and you are welcome to redistribute it "
