@@ -1,9 +1,12 @@
-2008-01-05  Johan Walles  <johan@localhost.localdomain>
+2008-01-05  Johan Walles  <johan.walles@gmail.com>
 
 	* Use ioctls for listing interfaces rather than polling for a list
 	of known interface names.  Should close Debian bug 158667.
 
-2007-09-02  Johan Walles  <johan@localhost.localdomain>
+	* Change phrasing in some places to match that of other GNOME
+	applets.
+
+2007-09-02  Johan Walles  <johan.walles@gmail.com>
 
 	* Change default installation prefix to /usr since many GNOME
 	installs aren't aware of the existence of /usr/local.
@@ -11,7 +14,7 @@
 	* Change GNOME category to System & Hardware since the Utility
 	category used previously seems deprecated.
 
-2007-08-26  Johan Walles  <johan@localhost.localdomain>
+2007-08-26  Johan Walles  <johan.walles@gmail.com>
 
 	* Fix SMP detection code.  Has been broken since dackefejden.
 
