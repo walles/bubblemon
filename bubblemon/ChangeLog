@@ -1,3 +1,8 @@
+2008-01-05  Johan Walles  <johan@localhost.localdomain>
+
+	* Use ioctls for listing interfaces rather than polling for a list
+	of known interface names.  Should close Debian bug 158667.
+
 2007-09-02  Johan Walles  <johan@localhost.localdomain>
 
 	* Change default installation prefix to /usr since many GNOME
