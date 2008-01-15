@@ -1,3 +1,10 @@
+2008-01-15  Johan Walles  <johan.walles@gmail.com>
+
+	* Sync Brazilian Portuguese translation with latest source
+	changes, courtesy of Jose Carlos Medeiros.
+
+	* Release 2.0.9 with the updated translation.
+
 2008-01-05  Johan Walles  <johan.walles@gmail.com>
 
 	* Use ioctls for listing interfaces rather than polling for a list
