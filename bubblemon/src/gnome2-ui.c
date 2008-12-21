@@ -214,6 +214,35 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpoin
   width = event->width;
   height = event->height;
 
+  PanelAppletOrient orientation =
+    panel_applet_get_orient(PANEL_APPLET(bubble->applet));
+
+  if (orientation == PANEL_APPLET_ORIENT_LEFT
+    || orientation == PANEL_APPLET_ORIENT_RIGHT)
+  {
+    // We're on a vertical panel, height is decided based on the width
+    if (width <= RELATIVE_WIDTH) {
+      height = RELATIVE_HEIGHT;
+    } else {
+      height = (width * RELATIVE_HEIGHT) / RELATIVE_WIDTH;
+    }
+  } else {
+    // We're on a horizontal panel, width is decided based on the height
+    if (height <= RELATIVE_HEIGHT) {
+      width = RELATIVE_WIDTH;
+    } else {
+      width = (height * RELATIVE_WIDTH) / RELATIVE_HEIGHT;
+    }
+  }
+
+  if (bubble->width == width
+      && bubble->height == height)
+  {
+    return;
+  }
+
+  gtk_widget_set_size_request(GTK_WIDGET(drawingArea), width, height);
+
   bubble->width = width;
   bubble->height = height;
 
@@ -266,9 +295,9 @@ bubblemon_applet_fill (PanelApplet *applet)
 		    bubblemon_applet);
 
   gtk_widget_set_events(drawingArea,
-			GDK_EXPOSURE_MASK |
-			GDK_ENTER_NOTIFY_MASK |
-			GDK_STRUCTURE_MASK);
+			GDK_EXPOSURE_MASK
+			| GDK_ENTER_NOTIFY_MASK
+			| GDK_STRUCTURE_MASK);
 
   gtk_container_add(GTK_CONTAINER (bubblemon_applet->frame), drawingArea);
   gtk_widget_show(drawingArea);
