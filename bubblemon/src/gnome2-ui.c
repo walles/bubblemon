@@ -86,37 +86,6 @@ display_about_dialog (BonoboUIComponent *uic,
   return;
 }
 
-static void ui_setSize(int newPanelSize)
-{
-  // Leave room for the border
-  int newSize = newPanelSize - 4;
-
-  height = newSize;
-  width  = (newSize * RELATIVE_WIDTH) / RELATIVE_HEIGHT;
-
-  /*
-    FIXME: For some unknown reason, at 16bpp, the width cannot be odd,
-    or the drawing doesn't work.  I have not been able to determine
-    why.  Until someone convinces me otherwise, I'll assume this is a
-    bug in gdk / gtk+.  Anyway, the workaround on the next line kills
-    the lowermost bit of the new width so that this bug never (?) gets
-    triggered.  This is not a solution, and I hate it, but it's the
-    best I'll do for the moment.
-  */
-  width &= ~1;
-
-  if (drawingArea != NULL)
-  {
-    gtk_drawing_area_size(GTK_DRAWING_AREA(drawingArea), width, height);
-    gtk_widget_set_usize(GTK_WIDGET(drawingArea), width, height);
-  }
-
-  rgb_buffer = realloc(rgb_buffer, width * height * 3);
-
-  bubblemon_setSize(width, height);
-}
-
-
 static void
 ui_update (void)
 {
@@ -231,23 +200,33 @@ applet_destroy (GtkWidget *applet, BubblemonApplet *bubble)
   bubblemon_done();
 }
 
-
-static void
-applet_change_size (PanelApplet *applet, gint  size, gpointer data)
+static gboolean
+applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpointer data)
 {
   BubblemonApplet *bubble = (BubblemonApplet *)data;
 
-  if (bubble->size == size)
+  if (bubble->width == event->width
+    && bubble->height == event->height)
+  {
     return;
+  }
 
-  bubble->size = size;
+  width = event->width;
+  height = event->height;
+
+  bubble->width = width;
+  bubble->height = height;
 
   /* not yet all loaded up */
   if (bubble->frame == NULL)
     return;
 
-  ui_setSize(size);
+  rgb_buffer = realloc(rgb_buffer, width * height * 3);
+  bubblemon_setSize(width, height);
+
   ui_update();
+
+  return TRUE;
 }
 
 static const BonoboUIVerb bubblemon_menu_verbs [] = {
@@ -259,37 +238,37 @@ static const BonoboUIVerb bubblemon_menu_verbs [] = {
 static gboolean
 bubblemon_applet_fill (PanelApplet *applet)
 {
-
   BubblemonApplet *bubblemon_applet;
+
+  panel_applet_set_flags(applet, PANEL_APPLET_EXPAND_MINOR);
 
   bubblemon_applet = g_new0 (BubblemonApplet, 1);
 
   bubblemon_applet->applet = GTK_WIDGET (applet);
-  bubblemon_applet->size   = panel_applet_get_size (applet);
+  bubblemon_applet->width   = 0;
+  bubblemon_applet->height= 0;
 
   g_signal_connect (G_OBJECT (bubblemon_applet->applet),
 		    "destroy",
 		    G_CALLBACK (applet_destroy),
 		    bubblemon_applet);
 
-  g_signal_connect (G_OBJECT (bubblemon_applet->applet),
-		    "change_size",
-		    G_CALLBACK (applet_change_size),
-		    bubblemon_applet);
-
-  ui_setSize(panel_applet_get_size(PANEL_APPLET(bubblemon_applet->applet)));
-
   bubblemon_applet->frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (bubblemon_applet->frame), GTK_SHADOW_IN);
 
   drawingArea = gtk_drawing_area_new();
   g_assert(drawingArea != NULL);
+  gtk_widget_set_size_request(GTK_WIDGET(drawingArea), RELATIVE_WIDTH, RELATIVE_HEIGHT);
+
+  g_signal_connect (G_OBJECT (drawingArea),
+		    "configure_event",
+		    G_CALLBACK (applet_reconfigure),
+		    bubblemon_applet);
 
   gtk_widget_set_events(drawingArea,
 			GDK_EXPOSURE_MASK |
-			GDK_ENTER_NOTIFY_MASK);
-
-  gtk_drawing_area_size(GTK_DRAWING_AREA(drawingArea), width, height);
+			GDK_ENTER_NOTIFY_MASK |
+			GDK_STRUCTURE_MASK);
 
   gtk_container_add(GTK_CONTAINER (bubblemon_applet->frame), drawingArea);
   gtk_widget_show(drawingArea);

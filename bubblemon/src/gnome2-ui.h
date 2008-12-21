@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2008 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -33,8 +33,9 @@ typedef struct
   GtkWidget         *frame;
   GdkPixmap         *pix;
 
-  int size;
-	
+  int width;
+  int height;
+
   GtkWidget         *aboutbox;
   GtkTooltips       *tooltips;
 
