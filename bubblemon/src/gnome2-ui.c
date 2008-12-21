@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
- *  This file (C) 2002-2004 Juan Salaverria - rael@vectorstar.net
+ *  Copyright (C) 1999-2008 Johan Walles - johan.walles@gmail.com
+ *  This file (C) 2002-2008 Juan Salaverria - rael@vectorstar.net
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
  * This file contains the GNOME 2 ui for bubblemon. It has been
  * adapted from many GNOME 2 core applets already ported, and based in
  * the original gnome1-ui.c code, of course.
- * 
+ *
  */
 
 #include <stdio.h>
@@ -76,11 +76,11 @@ display_about_dialog (BonoboUIComponent *uic,
 				    documenters,
 				    NULL,
 				    NULL);
- 
+
   gtk_window_set_wmclass (GTK_WINDOW (bubble->aboutbox), "bubblemon", "Bubblemon");
 
   g_signal_connect ( bubble->aboutbox, "destroy", G_CALLBACK (gtk_widget_destroyed), &bubble->aboutbox);
-							    
+
   gtk_widget_show(bubble->aboutbox);
 
   return;
@@ -175,17 +175,17 @@ ui_expose (void)
 static int
 ui_timeoutHandler(gpointer ignored)
 {
-	
+
   ui_update();
   return TRUE;
 }
 
 static void
-set_tooltip (gpointer bubbles) 
+set_tooltip (gpointer bubbles)
 {
   GtkTooltips *tooltips;
   BubblemonApplet *bubble = bubbles;
-	
+
   tooltips = gtk_tooltips_new ();
   g_object_ref (tooltips);
   gtk_object_sink (GTK_OBJECT (tooltips));
@@ -194,11 +194,11 @@ set_tooltip (gpointer bubbles)
   bubble->tooltips = tooltips;
 }
 
-static int 
-update_tooltip (gpointer bubbles) 
+static int
+update_tooltip (gpointer bubbles)
 {
   BubblemonApplet *bubble = bubbles;
-	
+
   gtk_tooltips_set_tip (bubble->tooltips, bubble->applet, bubblemon_getTooltip(), NULL);
   return TRUE;
 }
@@ -259,9 +259,9 @@ static const BonoboUIVerb bubblemon_menu_verbs [] = {
 static gboolean
 bubblemon_applet_fill (PanelApplet *applet)
 {
-	
+
   BubblemonApplet *bubblemon_applet;
-	
+
   bubblemon_applet = g_new0 (BubblemonApplet, 1);
 
   bubblemon_applet->applet = GTK_WIDGET (applet);
@@ -279,34 +279,28 @@ bubblemon_applet_fill (PanelApplet *applet)
 
   ui_setSize(panel_applet_get_size(PANEL_APPLET(bubblemon_applet->applet)));
 
-  bubblemon_applet->frame = gtk_frame_new (NULL);	
+  bubblemon_applet->frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (bubblemon_applet->frame), GTK_SHADOW_IN);
 
-  gtk_widget_push_visual(gdk_rgb_get_visual());
-  gtk_widget_push_colormap(gdk_rgb_get_cmap());
-  
   drawingArea = gtk_drawing_area_new();
   g_assert(drawingArea != NULL);
 
-  gtk_widget_pop_colormap();
-  gtk_widget_pop_visual();
-  
   gtk_widget_set_events(drawingArea,
 			GDK_EXPOSURE_MASK |
 			GDK_ENTER_NOTIFY_MASK);
-        
+
   gtk_drawing_area_size(GTK_DRAWING_AREA(drawingArea), width, height);
- 
+
   gtk_container_add(GTK_CONTAINER (bubblemon_applet->frame), drawingArea);
   gtk_widget_show(drawingArea);
   gtk_widget_show(bubblemon_applet->frame);
-        
+
   gtk_signal_connect_after(GTK_OBJECT(drawingArea), "realize",
 			   GTK_SIGNAL_FUNC(ui_update), bubblemon_applet);
-        
+
   gtk_signal_connect(GTK_OBJECT(drawingArea), "expose_event",
 		     GTK_SIGNAL_FUNC(ui_expose), bubblemon_applet);
-        
+
   set_tooltip (bubblemon_applet);
 
   gtk_container_add (GTK_CONTAINER (bubblemon_applet->applet), bubblemon_applet->frame);
@@ -321,10 +315,10 @@ bubblemon_applet_fill (PanelApplet *applet)
 				     NULL,
 				     bubblemon_menu_verbs,
 				     bubblemon_applet);
-	
+
   gtk_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, NULL);
   gtk_timeout_add(2000, update_tooltip, bubblemon_applet);
-	
+
   return TRUE;
 }
 
@@ -334,13 +328,13 @@ bubble_applet_factory (PanelApplet *applet,
 		       gpointer     data)
 {
   gboolean retval = FALSE;
-  
+
   // Initialize the load metering
   bubblemon_init();
-  
+
   if (strcmp(iid, "OAFIID:GNOME_BubblemonApplet") == 0)
-    retval = bubblemon_applet_fill (applet); 
-  
+    retval = bubblemon_applet_fill (applet);
+
   return retval;
 }
 
