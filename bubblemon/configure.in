@@ -65,6 +65,8 @@ else
 fi
 AC_DEFINE_UNQUOTED(LOCALEDIR, "$LOCALEDIR", [Where language files get installed])
 
+# We need the exp2() function for generating the tool tip
+AC_SEARCH_LIBS(exp2, m)
 
 
 ######################################################################
@@ -107,7 +109,7 @@ LIBGTOP_REQUIRED=2.0.0
 
 # We need the panel for the applets
 build_gpanel=false;
-PKG_CHECK_MODULES(GNOME_APPLETS, 
+PKG_CHECK_MODULES(GNOME_APPLETS,
 	[libpanelapplet-2.0 >= $LIBPANEL_REQUIRED],
 	build_gpanel=true,
 	AC_MSG_ERROR([GNOME2 panel not found.]))
