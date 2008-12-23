@@ -458,7 +458,6 @@ static void bubblemon_createBubbles(int msecsSinceLastCall)
   // For each CPU...
   for (cpu = 0; cpu < sysload.nCpus; cpu++) {
     // ... should we create any bubbles?
-    float width = bubblePic.width;
     createNNewBubbles[cpu] += ((float)sortedCpuLoads[cpu] *
 			       perCpuCandidatePixels *
 			       dt) / 2000.0;
@@ -629,7 +628,7 @@ static void bubblemon_updateBottle(int msecsSinceLastCall,
 }
 
 
-static const bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
+static bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
 {
   bubblemon_color_t returnMe;
 

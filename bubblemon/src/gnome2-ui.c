@@ -50,7 +50,6 @@
 static int width;
 static int height;
 static GtkWidget *drawingArea = NULL;
-static GtkWidget *applet;
 
 static guchar *rgb_buffer;
 
@@ -208,7 +207,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpoin
   if (bubble->width == event->width
     && bubble->height == event->height)
   {
-    return;
+    return TRUE;
   }
 
   width = event->width;
@@ -238,7 +237,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpoin
   if (bubble->width == width
       && bubble->height == height)
   {
-    return;
+    return TRUE;
   }
 
   gtk_widget_set_size_request(GTK_WIDGET(drawingArea), width, height);
@@ -247,8 +246,9 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpoin
   bubble->height = height;
 
   /* not yet all loaded up */
-  if (bubble->frame == NULL)
-    return;
+  if (bubble->frame == NULL) {
+    return TRUE;
+  }
 
   rgb_buffer = realloc(rgb_buffer, width * height * 3);
   bubblemon_setSize(width, height);

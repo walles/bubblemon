@@ -1,7 +1,7 @@
 /*
- * 
+ *
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2007 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2008 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -65,13 +65,13 @@ char **interfaces_getcandidates(void) {
   int error;
   int nInterfaces;
   char **interfaceNames;
-  
+
   if (interfacesSize == 0) {
     interfacesSize = 1;
     interfaces =
       malloc(interfacesSize * sizeof(struct ifreq));
   }
-  
+
   error = 0;
   while (1)
   {
@@ -80,7 +80,7 @@ char **interfaces_getcandidates(void) {
     ifc.ifc_len = interfacesSize * sizeof(struct ifreq);
     // ... and put them in interfaces.
     ifc.ifc_req = interfaces;
-    
+
     if (getSocket() == 0) {
       // Unable to get any info, give up.
       nInterfaces = 0;
@@ -88,15 +88,16 @@ char **interfaces_getcandidates(void) {
     }
     if (ioctl(getSocket(), SIOCGIFCONF, &ifc) < 0) {
       error = errno;
+      nInterfaces = 0;
       break;
     }
-    
+
     nInterfaces = ifc.ifc_len / sizeof(*interfaces);
     if (nInterfaces < interfacesSize) {
       // Done, our array wasn't filled
       break;
     }
-    
+
     interfacesSize *= 2;
     interfaces =
       realloc(interfaces, interfacesSize * sizeof(struct ifreq));
@@ -106,7 +107,7 @@ char **interfaces_getcandidates(void) {
     // Trouble, give up
     nInterfaces = 0;
   }
-  
+
   interfaceNames = (char**)malloc((nInterfaces + 1) * sizeof(char*));
   assert(interfaceNames != NULL);
   int i;
@@ -114,7 +115,7 @@ char **interfaces_getcandidates(void) {
     interfaceNames[i] = interfaces[i].ifr_name;
   }
   interfaceNames[nInterfaces] = NULL;
-  
+
   return interfaceNames;
 }
 

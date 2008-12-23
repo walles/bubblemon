@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2008 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -37,8 +37,8 @@ static int isUserMailSpoolFile(const char *fileName)
 {
   struct stat fileInfo;
   uid_t currentUser = getuid();
-  int userReadWrite = S_IRUSR | S_IWUSR;
-  
+  unsigned int userReadWrite = S_IRUSR | S_IWUSR;
+
   // Does this directory entry exist?
   if (stat(fileName, &fileInfo) != 0)
   {
@@ -72,7 +72,7 @@ static int isUserMailSpoolFile(const char *fileName)
     // using /dev/null.  //Johan, 2005jan16
     return 1;
   }
-  
+
   return 0;
 }
 
@@ -83,19 +83,19 @@ static char *getMailFileName(void)
   static char *mailFileName = NULL;
   const char *varSpoolMail = "/var/spool/mail/";
   struct passwd *userinfo;
-  
+
   if (mailFileName != NULL)
   {
     goto done;
   }
-  
+
   mailFileName = getenv("MAIL");
   if (mailFileName != NULL && isUserMailSpoolFile(mailFileName))
   {
     mailFileName = strdup(mailFileName);
     goto done;
   }
-  
+
   userinfo = getpwuid(getuid());
   if (userinfo == NULL)
   {
@@ -104,7 +104,7 @@ static char *getMailFileName(void)
     mailFileName = "";
     goto done;
   }
-  
+
   mailFileName = (char*)malloc(sizeof(char)
 			       * (strlen(varSpoolMail)
 				  + strlen(userinfo->pw_name)
@@ -114,16 +114,16 @@ static char *getMailFileName(void)
   if (isUserMailSpoolFile(mailFileName)) {
     goto done;
   }
-  
+
   strcpy(mailFileName, "/var/mail/");
   strcat(mailFileName, userinfo->pw_name);
   if (isUserMailSpoolFile(mailFileName)) {
     goto done;
   }
-  
+
   free(mailFileName);
   mailFileName = "";
-  
+
  done:
   return mailFileName[0] == '\0' ? NULL : mailFileName;
 }
@@ -149,14 +149,14 @@ mail_status_t mail_getMailStatus(void)
     cachedMailState = NO_MAIL;
     return cachedMailState;
   }
-  
+
   if (stat(mailFileName, &mailStat) != 0)
   {
     // Checking the file dates on the spool file failed
     cachedMailState = NO_MAIL;
     return cachedMailState;
   }
-  
+
   if (mailStat.st_size == 0) {
     /* No mail */
     cachedMailState = NO_MAIL;

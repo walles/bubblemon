@@ -21,7 +21,12 @@ AM_CONFIG_HEADER(config.h)
 
 AC_PROG_INTLTOOL([0.35])
 
+# Compiler setup
 AC_PROG_CC
+if test "x$GCC" = "xyes"; then
+  CFLAGS="-g -O2 -Wall -Werror -Wextra -Wno-unused-parameter -Wno-missing-field-initializers"
+  AC_SUBST(CFLAGS)
+fi
 AM_PROG_CC_STDC
 AC_ISC_POSIX
 AC_HEADER_STDC
