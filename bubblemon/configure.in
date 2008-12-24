@@ -24,6 +24,12 @@ AC_PROG_INTLTOOL([0.35])
 # Compiler setup
 AC_PROG_CC
 if test "x$GCC" = "xyes"; then
+  # -Wno-missing-field-initializers is because of
+  # http://bugs.debian.org/509663
+  #
+  # -Wno-unused-parameter is because in gnome2-ui.c our function
+  # prototypes are decided by the GNOME API, and we have to accept
+  # some parameters we never use.
   CFLAGS="-g -O2 -Wall -Werror -Wextra -Wno-unused-parameter -Wno-missing-field-initializers"
   AC_SUBST(CFLAGS)
 fi
