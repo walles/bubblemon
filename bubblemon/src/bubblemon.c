@@ -89,64 +89,72 @@ void bubblemon_setSize(int width, int height)
   }
 }
 
-static void usage2string(/*@out@*/ char *string,
+static void usage2string(char *string,
 			 u_int64_t used,
 			 u_int64_t max)
 {
   /* Create a string of the form "35/64Mb" */
 
-  unsigned int shiftme = 0;
-  char divisor_char = '\0';
-  const char *formatstring;
+  unsigned int shiftme;
+  char usageString[10];
+  char maxString[10];
+
+  // We have this to be able to store either a constant string or a
+  // dynamically created one in the same variable (unit).
+  char *unit;
+  char unitString[10];
+  unit = unitString;
 
   if ((max >> 30) > 7000)
     {
       shiftme = 40;
-      divisor_char = 'T';
+      unit = "Tb";
     }
   else if ((max >> 20) > 7000)
     {
       shiftme = 30;
-      divisor_char = 'G';
+      unit = "Gb";
     }
   else if ((max >> 10) > 7000)
     {
       shiftme = 20;
-      divisor_char = 'M';
+      unit = "Mb";
     }
   else if ((max >> 0) > 7000)
     {
       shiftme = 10;
-      divisor_char = 'k';
+      unit = "kb";
+    }
+  else
+    {
+      shiftme = 0;
+      sprintf(unit, " %s", _("bytes"));
     }
 
   if ((used >> shiftme) < 10) {
     // Print usage number with one decimal digit
     double doubleUsage = used / exp2((double)shiftme);
 
-    if (divisor_char == '\0') {
-      formatstring = _("%.1f/%llu bytes");
-    } else {
-      formatstring = _("%.1f/%llu%cb");
-    }
-
-    sprintf(string, formatstring,
-	    doubleUsage,
-	    max >> shiftme,
-	    divisor_char);
+    sprintf(usageString, "%'.1f", doubleUsage);
   } else {
     // Print integer usage
-    if (divisor_char == '\0') {
-      formatstring = _("%llu/%llu bytes");
-    } else {
-      formatstring = _("%llu/%llu%cb");
-    }
-
-    sprintf(string, formatstring,
-	    used >> shiftme,
-	    max >> shiftme,
-	    divisor_char);
+    sprintf(usageString, "%llu", used >> shiftme);
   }
+
+  if ((max >> shiftme) < 10) {
+    // Print total memory number with one decimal digit
+    double doubleMax = max / exp2((double)shiftme);
+
+    sprintf(maxString, "%'.1f", doubleMax);
+  } else {
+    // Print total memory as an integer
+    sprintf(maxString, "%llu", max >> shiftme);
+  }
+
+  sprintf(string, "%s/%s%s",
+	  usageString,
+	  maxString,
+	  unit);
 }
 
 const char *bubblemon_getTooltip(void)
