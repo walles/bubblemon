@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2008-01-05 13:38+0100\n"
+"POT-Creation-Date: 2008-12-26 10:56+0100\n"
 "PO-Revision-Date: 2004-01-11 20:57+0100\n"
 "Last-Translator: Edson Medina <edson@mrnet.pt>\n"
 "Language-Team: Unknown\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:72
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:71
 msgid "Bubbling Load Monitor"
 msgstr "Monitor de carga borbulhento"
 
@@ -28,24 +28,18 @@ msgstr ""
 msgid "_About..."
 msgstr "Sobre"
 
-#: ../src/bubblemon.c:122
-#, c-format
-msgid "%llu/%llu bytes"
+#: ../src/bubblemon.c:131
+msgid "bytes"
 msgstr ""
 
-#: ../src/bubblemon.c:128
-#, c-format
-msgid "%llu/%llu%cb"
-msgstr ""
-
-#: ../src/bubblemon.c:152
+#: ../src/bubblemon.c:177
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Memória usada: %s\n"
 "Memória swap usada: %s"
 
-#: ../src/bubblemon.c:158
+#: ../src/bubblemon.c:183
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -54,7 +48,7 @@ msgstr ""
 "Memória usada: %s\n"
 "Memória swap usada: %s"
 
-#: ../src/bubblemon.c:166
+#: ../src/bubblemon.c:191
 #, c-format
 msgid ""
 "\n"
@@ -63,7 +57,7 @@ msgstr ""
 "\n"
 "Carga do CPU: %d%%"
 
-#: ../src/bubblemon.c:177
+#: ../src/bubblemon.c:202
 #, c-format
 msgid ""
 "\n"
@@ -72,7 +66,7 @@ msgstr ""
 "\n"
 "Carga do CPU %d: #%d%%"
 
-#: ../src/gnome2-ui.c:74
+#: ../src/gnome2-ui.c:73
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
 

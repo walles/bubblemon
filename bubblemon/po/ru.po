@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2008-01-05 13:38+0100\n"
+"POT-Creation-Date: 2008-12-26 10:56+0100\n"
 "PO-Revision-Date: 2002-09-23 19:01+3hour\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:72
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:71
 msgid "Bubbling Load Monitor"
 msgstr "Пузырьки"
 
@@ -24,22 +24,16 @@ msgstr ""
 msgid "_About..."
 msgstr "_Об апплете"
 
-#: ../src/bubblemon.c:122
-#, c-format
-msgid "%llu/%llu bytes"
+#: ../src/bubblemon.c:131
+msgid "bytes"
 msgstr ""
 
-#: ../src/bubblemon.c:128
-#, c-format
-msgid "%llu/%llu%cb"
-msgstr ""
-
-#: ../src/bubblemon.c:152
+#: ../src/bubblemon.c:177
 #, c-format
 msgid "Memory used: %s"
 msgstr "Занято памяти: %s"
 
-#: ../src/bubblemon.c:158
+#: ../src/bubblemon.c:183
 #, c-format
 msgid ""
 "\n"
@@ -48,7 +42,7 @@ msgstr ""
 "\n"
 "Виртуальной памяти: %s"
 
-#: ../src/bubblemon.c:166
+#: ../src/bubblemon.c:191
 #, c-format
 msgid ""
 "\n"
@@ -57,7 +51,7 @@ msgstr ""
 "\n"
 "Загрузка процессора: %d%%"
 
-#: ../src/bubblemon.c:177
+#: ../src/bubblemon.c:202
 #, c-format
 msgid ""
 "\n"
@@ -66,7 +60,7 @@ msgstr ""
 "\n"
 "Загрузка процессора №%d: %d%%"
 
-#: ../src/gnome2-ui.c:74
+#: ../src/gnome2-ui.c:73
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
 

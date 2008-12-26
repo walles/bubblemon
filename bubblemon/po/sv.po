@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2008-01-05 13:38+0100\n"
+"POT-Creation-Date: 2008-12-26 10:56+0100\n"
 "PO-Revision-Date: 2008-01-05 13:35+0100\n"
 "Last-Translator: Johan Walles <johan.walles@gmail.com>\n"
 "Language-Team: Swedish <johan.walles@gmail.com>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:72
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:71
 msgid "Bubbling Load Monitor"
 msgstr "Bubblande lastmätare"
 
@@ -24,22 +24,16 @@ msgstr "Övervaka CPU-, minnes- och nätverkslast"
 msgid "_About..."
 msgstr "_Om..."
 
-#: ../src/bubblemon.c:122
-#, c-format
-msgid "%llu/%llu bytes"
-msgstr "%llu/%llu bytes"
+#: ../src/bubblemon.c:131
+msgid "bytes"
+msgstr ""
 
-#: ../src/bubblemon.c:128
-#, c-format
-msgid "%llu/%llu%cb"
-msgstr "%llu/%llu%cb"
-
-#: ../src/bubblemon.c:152
+#: ../src/bubblemon.c:177
 #, c-format
 msgid "Memory used: %s"
 msgstr "Använt minne: %s"
 
-#: ../src/bubblemon.c:158
+#: ../src/bubblemon.c:183
 #, c-format
 msgid ""
 "\n"
@@ -48,7 +42,7 @@ msgstr ""
 "\n"
 "Virtuellt minne: %s"
 
-#: ../src/bubblemon.c:166
+#: ../src/bubblemon.c:191
 #, c-format
 msgid ""
 "\n"
@@ -57,7 +51,7 @@ msgstr ""
 "\n"
 "Processorlast: %d%%"
 
-#: ../src/bubblemon.c:177
+#: ../src/bubblemon.c:202
 #, c-format
 msgid ""
 "\n"
@@ -66,6 +60,12 @@ msgstr ""
 "\n"
 "Processorlast (CPU %d): %d%%"
 
-#: ../src/gnome2-ui.c:74
+#: ../src/gnome2-ui.c:73
 msgid "Displays system load as a bubbling liquid."
 msgstr "Visar systemlasten som en bubblande vätska."
+
+#~ msgid "%llu/%llu bytes"
+#~ msgstr "%llu/%llu bytes"
+
+#~ msgid "%llu/%llu%cb"
+#~ msgstr "%llu/%llu%cb"
