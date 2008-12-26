@@ -1,3 +1,13 @@
+2008-12-26  Johan Walles  <johan.walles@gmail.com>
+
+	* Update tooltip to always display at least two digits for both
+	max and used.
+
+	* Fix resizing code so that we actually use all pixels that are
+	available to us.
+
+	* Enable compiler warnings and fix a bunch of them.
+
 2008-01-15  Johan Walles  <johan.walles@gmail.com>
 
 	* Sync Brazilian Portuguese translation with latest source
@@ -34,7 +44,7 @@
 2007-08-22  Johan Walles  <johan.walles@gmail.com>
 
 	* Released 2.0.6
-	
+
 	* Update the Polish translation, courtesy of Tomasz Dominikowski.
 
 	* Add a Brazilian Portuguese traslation, courtesy of Jose Carlos
@@ -120,9 +130,9 @@
 
 2002-11-28  Juan Salaverria <rael@vectorstar.net>
 
-	* 2.0.1 : Added internationalization support and minor bugfixes. 
+	* 2.0.1 : Added internationalization support and minor bugfixes.
 
 2002-11-12  Juan Salaverria <rael@vectorstar.net>
 
 	* Initial release of the GNOME 2 branch
-	
+
