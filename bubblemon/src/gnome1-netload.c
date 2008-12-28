@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2008 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -39,6 +39,8 @@ void netload_reportNetworkLoad(void)
     glibtop_netload load;
 
     load.bytes_total = 0;
+    load.bytes_out = 0;
+    load.bytes_in = 0;
     glibtop_get_netload(&load, interface_candidates[i]);
     if (load.bytes_total == 0)
     {
@@ -57,8 +59,8 @@ void netload_reportNetworkLoad(void)
       netload_reportBack(interface_candidates[i], load.bytes_total, 0);
     }
   }
-  
+
   interfaces_freecandidates(interface_candidates);
-  
+
   return;
 }
