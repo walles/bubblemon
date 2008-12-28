@@ -1,6 +1,6 @@
 .TH "Bubblande lastmätare" "1" "@VERSION@" "Johan Walles" "GNOME panelprogram"
 .SH "NAMN"
-Bubblande lastmätare \- Visar systemlasten som en bubblande vätska
+bubblemon-gnome2 \- Visar systemlasten som en bubblande vätska
 .SH "SYNTAX"
 bubblemon-gnome2
 .SH "BESKRIVNING"

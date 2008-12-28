@@ -1,6 +1,6 @@
 .TH "Bubbling Load Monitor" "1" "@VERSION@" "Johan Walles" "GNOME Applets"
 .SH "NAME"
-Bubbling Load Monitor \- Displays the system load as a bubbling liquid
+bubblemon-gnome2 \- Displays the system load as a bubbling liquid
 .SH "SYNTAX"
 bubblemon-gnome2
 .SH "DESCRIPTION"
