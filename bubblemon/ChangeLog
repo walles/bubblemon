@@ -1,5 +1,10 @@
 2008-12-28  Johan Walles  <johan.walles@gmail.com>
 
+	* Fix man page syntax as requested in
+	https://savannah.nongnu.org/bugs/?23611
+
+2008-12-28  Johan Walles  <johan.walles@gmail.com>
+
 	* Add instrumentation for http://bugs.debian.org/470299.
 
 	* Enforce a minimum water level to make CPU load bubbles visible
