@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2008 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -33,12 +33,57 @@ static int netload_percentage = 0;
 static int receivingUpdates = 0;
 static struct netload_interface *interfaces;
 
+static FILE *openLogfile(void) {
+  FILE *logfile;
+  char *home;
+  char path[PATH_MAX];
+  struct stat status;
+  time_t now;
+
+  // Find the user's home directory using getenv()
+  home = getenv("HOME");
+  if (home == NULL) {
+    return NULL;
+  }
+
+  // Open the file in append mode
+  sprintf(path, "%s/bubblemon-crash-log.txt", home);
+  logfile = fopen(path, "a");
+  if (logfile == NULL) {
+    return NULL;
+  }
+
+  // Write the file header if the file is empty
+  if (stat(path, &status) != 0) {
+    // Unable to stat log file, it's not likely to work well
+    fclose(logfile);
+    return NULL;
+  }
+  if (status.st_size == 0) {
+    fprintf(logfile,
+	    "This file contains debugging information for Bubblemon.  Please\n"
+	    "e-mail its contents to 470299@bugs.debian.org.\n"
+	    "\n"
+	    "More info available at: http://bugs.debian.org/470299\n"
+	    "\n"
+	    "This log file is a workaround for:\n"
+	    "  http://bugzilla.gnome.org/show_bug.cgi?id=565761\n");
+  }
+
+  now = time(NULL);
+  fprintf(logfile,
+	  "--- %s",
+	  ctime(&now));
+
+  return logfile;
+}
+
 static struct netload_interface *netload_findInterface(const char *name)
 {
   struct netload_interface *iter;
 
   assert(name != NULL);
-  
+
   for (iter = interfaces; iter != NULL; iter = iter->next)
   {
     if (strcmp(iter->name, name) == 0)
@@ -57,7 +102,8 @@ static struct netload_interface *netload_forcedFindInterface(const char *name)
   interface = netload_findInterface(name);
   if (interface == NULL)
   {
-    interface = (struct netload_interface *)malloc(sizeof(struct netload_interface));
+    interface =
+      (struct netload_interface *)calloc(1, sizeof(struct netload_interface));
     assert(interface != NULL);
 
     interface->name = strdup(name);
@@ -82,19 +128,24 @@ static struct netload_interface *netload_forcedFindInterface(const char *name)
 void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long bytesReceived)
 {
   struct netload_interface *interface;
-  
+  int interfaceCreated = 0;
+
   assert(receivingUpdates &&
 	 "netload_reportBack() called from outside netload_reportNetworkLoad()");
-  
+
   // Grab a pointer to the struct holding this interface's data.  If
   // there is no such struct, construct and initialize a new one.
-  interface = netload_forcedFindInterface(name);
-  
+  interface = netload_findInterface(name);
+  if (interface == NULL) {
+    interface = netload_forcedFindInterface(name);
+    interfaceCreated = 1;
+  }
+
   // Verify that the interface isn't marked live.  If it is, it means
   // we have received two reports about the same interface.
   assert(!interface->isAlive &&
 	 "netload_reportBack() called twice on the same interface");
-  
+
   // Store the incoming values.
   interface->previousBytesIn = interface->currentBytesIn;
   interface->currentBytesIn = bytesReceived;
@@ -122,8 +173,27 @@ void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long
   else
   {
     // Verify that the counter isn't moving backwards
-    assert(((interface->currentBytesOut - interface->previousBytesOut) < (1 << 30)) &&
-	   "Output byte counter is moving backwards");
+    if ((interface->currentBytesOut - interface->previousBytesOut) >= (1 << 30)) {
+      FILE *logfile = openLogfile();
+
+      if (logfile != NULL) {
+	fprintf(logfile, "Interface: %s, Bytes sent: %ld, Bytes received: %ld\n",
+		name,
+		bytesSent,
+		bytesReceived);
+	fprintf(logfile, "interface->previousBytesOut: %ld\n",
+		interface->previousBytesOut);
+	fprintf(logfile, "interface->currentBytesOut: %ld\n",
+		interface->currentBytesOut);
+	fprintf(logfile, "interface->maxBytesOutPerSecond: %ld\n",
+		interface->maxBytesOutPerSecond);
+	fprintf(logfile, "interfaceCreated: %d\n",
+		interfaceCreated);
+	fclose(logfile);
+      }
+
+      assert(0 && "Output byte counter is moving backwards");
+    }
   }
 
   // Mark the interface live
@@ -133,7 +203,7 @@ void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long
 static void netload_receiveUpdates()
 {
   struct netload_interface *iter;
-  
+
   // Mark all known interfaces as shut down
   for (iter = interfaces;
        iter != NULL;
@@ -160,7 +230,7 @@ static void netload_receiveUpdates()
   if (interfaces != NULL)
   {
     struct netload_interface *prev;
-    
+
     for (prev = interfaces, iter = interfaces->next;
 	 iter != NULL;
 	 prev = iter, iter = iter->next)
@@ -172,7 +242,7 @@ static void netload_receiveUpdates()
 	free(iter);
 	iter = prev->next;
       }
-      
+
       if (iter == NULL)
       {
 	break;
@@ -185,13 +255,13 @@ static int netload_calculateLoad(int lastIntervalLength)
 {
   struct netload_interface *iter;
   int maxLoad = 0;
-  
+
   // For all interfaces
   for (iter = interfaces; iter != NULL; iter = iter->next)
   {
     unsigned long bytesPerSec;
     int load;
-    
+
     // Calculate incoming load
     bytesPerSec = ((iter->currentBytesIn - iter->previousBytesIn) * 1000) / lastIntervalLength;
     if (bytesPerSec > iter->maxBytesInPerSecond)
@@ -210,7 +280,7 @@ static int netload_calculateLoad(int lastIntervalLength)
     {
       maxLoad = load;
     }
-    
+
     // Calculate outgoing load
     bytesPerSec = ((iter->currentBytesOut - iter->previousBytesOut) * 1000) / lastIntervalLength;
     if (bytesPerSec > iter->maxBytesOutPerSecond)
@@ -230,7 +300,7 @@ static int netload_calculateLoad(int lastIntervalLength)
       maxLoad = load;
     }
   }
-  
+
   // Return the largest percentage
   return maxLoad;
 }
@@ -238,7 +308,7 @@ static int netload_calculateLoad(int lastIntervalLength)
 void netload_updateLoadstats(int msecsSinceLastCall)
 {
   static int timeToNextMeasurement = 0;
-  
+
   // If enough time has elapsed since the last measurement...
   timeToNextMeasurement -= msecsSinceLastCall;
   if (timeToNextMeasurement <= 0)
@@ -246,9 +316,9 @@ void netload_updateLoadstats(int msecsSinceLastCall)
     int intervalLength = NETLOAD_INTERVAL - timeToNextMeasurement;
 
     netload_receiveUpdates();
-    
+
     netload_percentage = netload_calculateLoad(intervalLength);
-    
+
     timeToNextMeasurement += NETLOAD_INTERVAL;
   }
 }
