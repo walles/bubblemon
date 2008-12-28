@@ -257,6 +257,11 @@ static void bubblemon_updateWaterlevels(int msecsSinceLastCall)
    * just chopping off the decimals. */
   waterLevels_goal =
     ((float)sysload.memoryUsed / (float)sysload.memorySize) * waterLevels_max;
+  if (waterLevels_goal < 3.4) {
+    // If the water level is too low, the CPU load bubbles won't be
+    // visible.  Enforce a minimum water level. /JW-2008dec28
+    waterLevels_goal = 3.4;
+  }
 
   physics.waterLevels[0].y = waterLevels_goal;
   physics.waterLevels[w - 1].y = waterLevels_goal;
