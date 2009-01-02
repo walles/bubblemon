@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2008 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2009 Johan Walles - johan.walles@gmail.com
  *  This file (C) 2002-2008 Juan Salaverria - rael@vectorstar.net
  *  http://www.nongnu.org/bubblemon/
  *
@@ -69,7 +69,7 @@ display_about_dialog (BonoboUIComponent *uic,
   }
 
   bubble->aboutbox= gnome_about_new(_("Bubbling Load Monitor"), VERSION,
-				    "Copyright (C) 1999-2007 Johan Walles",
+				    "Copyright (C) 1999-2009 Johan Walles",
 				    _("Displays system load as a bubbling liquid."),
 				    authors,
 				    documenters,
