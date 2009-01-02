@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004, 2008 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2008, 2009 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include <time.h>
+#include <inttypes.h>
 
 #include <math.h>
 double exp2(double x);
@@ -138,7 +139,7 @@ static void usage2string(char *string,
     sprintf(usageString, "%'.1f", doubleUsage);
   } else {
     // Print integer usage
-    sprintf(usageString, "%llu", used >> shiftme);
+    sprintf(usageString, "%" PRIu64, used >> shiftme);
   }
 
   if ((max >> shiftme) < 10) {
@@ -148,7 +149,7 @@ static void usage2string(char *string,
     sprintf(maxString, "%'.1f", doubleMax);
   } else {
     // Print total memory as an integer
-    sprintf(maxString, "%llu", max >> shiftme);
+    sprintf(maxString, "%" PRIu64, max >> shiftme);
   }
 
   sprintf(string, "%s/%s%s",
