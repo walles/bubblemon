@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004, 2008 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2008, 2009 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -181,12 +181,18 @@ void netload_reportBack(const char *name, unsigned long bytesSent, unsigned long
 		name,
 		bytesSent,
 		bytesReceived);
-	fprintf(logfile, "interface->previousBytesOut: %ld\n",
+	fprintf(logfile, "interface->previousBytesOut: %lu\n",
 		interface->previousBytesOut);
-	fprintf(logfile, "interface->currentBytesOut: %ld\n",
+	fprintf(logfile, "interface->currentBytesOut: %lu\n",
 		interface->currentBytesOut);
-	fprintf(logfile, "interface->maxBytesOutPerSecond: %ld\n",
+	fprintf(logfile, "interface->maxBytesOutPerSecond: %lu\n",
 		interface->maxBytesOutPerSecond);
+	fprintf(logfile, "interface->previousBytesIn: %lu\n",
+		interface->previousBytesIn);
+	fprintf(logfile, "interface->currentBytesIn: %lu\n",
+		interface->currentBytesIn);
+	fprintf(logfile, "interface->maxBytesInPerSecond: %lu\n",
+		interface->maxBytesInPerSecond);
 	fprintf(logfile, "interfaceCreated: %d\n",
 		interfaceCreated);
 	fclose(logfile);
