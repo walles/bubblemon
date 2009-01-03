@@ -2,6 +2,8 @@
 
 	* Fix printf() format strings to work on 64 bit systems.
 
+	* Build 2.0.11.
+
 2008-12-28  Johan Walles  <johan.walles@gmail.com>
 
 	* Fix man page syntax as requested in
