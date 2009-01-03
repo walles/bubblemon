@@ -1,6 +1,6 @@
 .TH "Bubblemon" "1" "@VERSION@" "Johan Walles" "GNOME Applets"
 .SH "NÉV"
-Buborékoló terheltég figyelõ \- A rendszer terheltségét folyadék formájában jelzi ki
+bubblemon-gnome2 \- A rendszer terheltségét folyadék formájában jelzi ki
 .SH "ÁTTEKINTÉS"
 bubblemon-gnome2
 .SH "LEÍRÁS"
