@@ -1,3 +1,7 @@
+2009-01-05  Johan Walles  <johan.walles@gmail.com>
+
+	* Gain some pixels by ditching the frame around the applet.
+
 2009-01-03  Johan Walles  <johan.walles@gmail.com>
 
 	* Fix printf() format strings to work on 64 bit systems.
