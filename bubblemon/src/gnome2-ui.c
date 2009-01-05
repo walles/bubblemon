@@ -246,7 +246,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpoin
   bubble->height = height;
 
   /* not yet all loaded up */
-  if (bubble->frame == NULL) {
+  if (bubble->applet == NULL) {
     return TRUE;
   }
 
@@ -282,9 +282,6 @@ bubblemon_applet_fill (PanelApplet *applet)
 		    G_CALLBACK (applet_destroy),
 		    bubblemon_applet);
 
-  bubblemon_applet->frame = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (bubblemon_applet->frame), GTK_SHADOW_IN);
-
   drawingArea = gtk_drawing_area_new();
   g_assert(drawingArea != NULL);
   gtk_widget_set_size_request(GTK_WIDGET(drawingArea), RELATIVE_WIDTH, RELATIVE_HEIGHT);
@@ -299,9 +296,7 @@ bubblemon_applet_fill (PanelApplet *applet)
 			| GDK_ENTER_NOTIFY_MASK
 			| GDK_STRUCTURE_MASK);
 
-  gtk_container_add(GTK_CONTAINER (bubblemon_applet->frame), drawingArea);
-  gtk_widget_show(drawingArea);
-  gtk_widget_show(bubblemon_applet->frame);
+  gtk_container_add(GTK_CONTAINER (bubblemon_applet->applet), drawingArea);
 
   gtk_signal_connect_after(GTK_OBJECT(drawingArea), "realize",
 			   GTK_SIGNAL_FUNC(ui_update), bubblemon_applet);
@@ -311,11 +306,7 @@ bubblemon_applet_fill (PanelApplet *applet)
 
   set_tooltip (bubblemon_applet);
 
-  gtk_container_add (GTK_CONTAINER (bubblemon_applet->applet), bubblemon_applet->frame);
-
-  gtk_widget_show_all (GTK_WIDGET (bubblemon_applet->frame));
-
-  gtk_widget_show (GTK_WIDGET (bubblemon_applet->applet));
+  gtk_widget_show_all (GTK_WIDGET (bubblemon_applet->applet));
 
   panel_applet_setup_menu_from_file (PANEL_APPLET (bubblemon_applet->applet),
 				     NULL,
