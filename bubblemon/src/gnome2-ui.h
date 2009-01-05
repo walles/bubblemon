@@ -36,7 +36,6 @@ typedef struct
   int height;
 
   GtkWidget         *aboutbox;
-  GtkTooltips       *tooltips;
 
 } BubblemonApplet;
 

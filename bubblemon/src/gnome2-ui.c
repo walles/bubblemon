@@ -148,29 +148,14 @@ ui_timeoutHandler(gpointer ignored)
   return TRUE;
 }
 
-static void
-set_tooltip (gpointer bubbles)
-{
-  GtkTooltips *tooltips;
-  BubblemonApplet *bubble = bubbles;
-
-  tooltips = gtk_tooltips_new ();
-  g_object_ref (tooltips);
-  gtk_object_sink (GTK_OBJECT (tooltips));
-  g_object_set_data (G_OBJECT (bubble->applet), "tooltips", tooltips);
-  gtk_tooltips_set_tip (tooltips, bubble->applet, bubblemon_getTooltip(), NULL);
-  bubble->tooltips = tooltips;
-}
-
 static int
 update_tooltip (gpointer bubbles)
 {
   BubblemonApplet *bubble = bubbles;
 
-  gtk_tooltips_set_tip (bubble->tooltips, bubble->applet, bubblemon_getTooltip(), NULL);
+  gtk_widget_set_tooltip_text (bubble->applet, bubblemon_getTooltip());
   return TRUE;
 }
-
 
 void
 destroy_tooltip (GtkWidget *object)
@@ -303,8 +288,6 @@ bubblemon_applet_fill (PanelApplet *applet)
 
   gtk_signal_connect(GTK_OBJECT(drawingArea), "expose_event",
 		     GTK_SIGNAL_FUNC(ui_expose), bubblemon_applet);
-
-  set_tooltip (bubblemon_applet);
 
   gtk_widget_show_all (GTK_WIDGET (bubblemon_applet->applet));
 
