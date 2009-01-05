@@ -153,7 +153,16 @@ update_tooltip (gpointer bubbles)
 {
   BubblemonApplet *bubble = bubbles;
 
-  gtk_widget_set_tooltip_text (bubble->applet, bubblemon_getTooltip());
+  gtk_widget_set_tooltip_text(bubble->applet, bubblemon_getTooltip());
+
+  // FIXME: We want to call
+  // gtk_widget_trigger_tooltip_query(bubble->applet) here, but we can't
+  // due to http://bugs.debian.org/510873.
+  //
+  // There may be other problems as well, try running the applet in
+  // valgrind after 510873 is fixed and see if we can show the tooltip
+  // without any complaints from valgrind then.
+
   return TRUE;
 }
 
