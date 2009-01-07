@@ -33,6 +33,8 @@ typedef struct
   GtkWidget *drawingArea;
   GdkPixmap *pix;
 
+  guchar *rgb_buffer;
+
   int width;
   int height;
 

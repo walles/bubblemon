@@ -50,8 +50,6 @@
 static int width;
 static int height;
 
-static guchar *rgb_buffer;
-
 static void
 display_about_dialog (BonoboUIComponent *uic,
 		      gpointer data,
@@ -118,7 +116,7 @@ ui_update (BubblemonApplet *applet)
 
   gc = gdk_gc_new(drawingArea->window);
 
-  p = rgb_buffer;
+  p = applet->rgb_buffer;
   pixel = bubblePic->pixels;
   for(i = 0; i < w * h; i++) {
     *(p++) = pixel->components.r;
@@ -130,7 +128,7 @@ ui_update (BubblemonApplet *applet)
   gdk_draw_rgb_image(drawingArea->window, gc,
                      0, 0, width, height,
                      GDK_RGB_DITHER_NORMAL,
-                     rgb_buffer, w * 3);
+                     applet->rgb_buffer, w * 3);
 
   gdk_gc_destroy(gc);
 
@@ -242,7 +240,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, Bubbl
     return TRUE;
   }
 
-  rgb_buffer = realloc(rgb_buffer, width * height * 3);
+  bubble->rgb_buffer = realloc(bubble->rgb_buffer, width * height * 3);
   bubblemon_setSize(width, height);
 
   ui_update(bubble);
