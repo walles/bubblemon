@@ -135,7 +135,7 @@ ui_update (BubblemonApplet *applet)
 }
 
 static int
-ui_expose(GtkWidget *exposed, gpointer data)
+ui_expose(GtkWidget *exposed, GdkEventExpose *event, gpointer data)
 {
   BubblemonApplet *applet = (BubblemonApplet*)data;
 
