@@ -1009,11 +1009,11 @@ static void bubblemon_environmentToBubbleArray(bubblemon_picture_t *bubblePic,
 static void bubblemon_bubbleArrayToPixmap(bubblemon_picture_t *bubblePic,
 					  bubblemon_layer_t layer)
 {
-  static bubblemon_color_t noSwapAirColor;
-  static bubblemon_color_t noSwapWaterColor;
+  bubblemon_color_t noSwapAirColor;
+  bubblemon_color_t noSwapWaterColor;
 
-  static bubblemon_color_t maxSwapAirColor;
-  static bubblemon_color_t maxSwapWaterColor;
+  bubblemon_color_t maxSwapAirColor;
+  bubblemon_color_t maxSwapWaterColor;
 
   bubblemon_color_t colors[3];
 
