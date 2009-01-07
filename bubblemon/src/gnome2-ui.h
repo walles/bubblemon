@@ -40,6 +40,9 @@ typedef struct
 
   GtkWidget *aboutbox;
 
+  guint refresh_timeout_id;
+  guint tooltip_timeout_id;
+
 } BubblemonApplet;
 
 #endif

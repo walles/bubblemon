@@ -178,13 +178,19 @@ update_tooltip (gpointer bubbles)
 }
 
 static void
-applet_destroy (GtkWidget *applet, BubblemonApplet *bubble)
+applet_destroy (GtkWidget *panelApplet, BubblemonApplet *applet)
 {
-  if (bubble->aboutbox != NULL)
-    gtk_widget_destroy(bubble->aboutbox);
-  bubble->aboutbox = NULL;
+  g_source_remove(applet->refresh_timeout_id);
+  applet->refresh_timeout_id = 0;
+  g_source_remove(applet->tooltip_timeout_id);
+  applet->tooltip_timeout_id = 0;
 
-  g_free(bubble);
+  if (applet->aboutbox != NULL) {
+    gtk_widget_destroy(applet->aboutbox);
+  }
+  applet->aboutbox = NULL;
+
+  g_free(applet);
 
   bubblemon_done();
 }
@@ -297,8 +303,10 @@ bubblemon_applet_fill (PanelApplet *applet)
 				     bubblemon_menu_verbs,
 				     bubblemon_applet);
 
-  g_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, bubblemon_applet);
-  g_timeout_add(2000, update_tooltip, bubblemon_applet);
+  bubblemon_applet->refresh_timeout_id =
+    g_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, bubblemon_applet);
+  bubblemon_applet->tooltip_timeout_id =
+    g_timeout_add(2000, update_tooltip, bubblemon_applet);
 
   return TRUE;
 }
