@@ -179,24 +179,9 @@ update_tooltip (gpointer bubbles)
   return TRUE;
 }
 
-void
-destroy_tooltip (GtkWidget *object)
-{
-  GtkTooltips *tooltips;
-
-  tooltips = g_object_get_data (G_OBJECT (object), "tooltips");
-  if (tooltips) {
-    g_object_unref (tooltips);
-    g_object_set_data (G_OBJECT (object), "tooltips", NULL);
-  }
-}
-
-
 static void
 applet_destroy (GtkWidget *applet, BubblemonApplet *bubble)
 {
-  destroy_tooltip (GTK_WIDGET (bubble->applet));
-
   if (bubble->aboutbox != NULL)
     gtk_widget_destroy(bubble->aboutbox);
   bubble->aboutbox = NULL;
