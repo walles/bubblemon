@@ -54,9 +54,11 @@ static guchar *rgb_buffer;
 
 static void
 display_about_dialog (BonoboUIComponent *uic,
-		      BubblemonApplet *bubble,
-		      const gchar       *verbname)
+		      gpointer data,
+		      const gchar *verbname)
 {
+  BubblemonApplet *bubble = (BubblemonApplet*)data;
+
   static const gchar *authors[] = { "Johan Walles <johan.walles@gmail.com>",
 				    "Juan Salaverria <rael@vectorstar.net>",
 				    NULL };
@@ -249,8 +251,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, Bubbl
 }
 
 static const BonoboUIVerb bubblemon_menu_verbs [] = {
-  BONOBO_UI_UNSAFE_VERB ("About",       display_about_dialog),
-
+  BONOBO_UI_VERB ("About", display_about_dialog),
   BONOBO_UI_VERB_END
 };
 
