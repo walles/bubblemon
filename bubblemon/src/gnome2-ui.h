@@ -29,13 +29,14 @@
 
 typedef struct
 {
-  GtkWidget         *applet;
-  GdkPixmap         *pix;
+  GtkWidget *applet;
+  GtkWidget *drawingArea;
+  GdkPixmap *pix;
 
   int width;
   int height;
 
-  GtkWidget         *aboutbox;
+  GtkWidget *aboutbox;
 
 } BubblemonApplet;
 

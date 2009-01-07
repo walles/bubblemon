@@ -49,7 +49,6 @@
 
 static int width;
 static int height;
-static GtkWidget *drawingArea = NULL;
 
 static guchar *rgb_buffer;
 
@@ -86,7 +85,7 @@ display_about_dialog (BonoboUIComponent *uic,
 }
 
 static void
-ui_update (void)
+ui_update (BubblemonApplet *applet)
 {
   int w, h, i;
   const bubblemon_picture_t *bubblePic;
@@ -94,6 +93,8 @@ ui_update (void)
   guchar *p;
 
   GdkGC *gc;
+
+  GtkWidget *drawingArea = applet->drawingArea;
 
   if((drawingArea == NULL) ||
      !GTK_WIDGET_REALIZED(drawingArea) ||
@@ -134,17 +135,29 @@ ui_update (void)
 }
 
 static int
-ui_expose (void)
+ui_expose(GtkWidget *exposed, gpointer data)
 {
-  ui_update();
+  BubblemonApplet *applet = (BubblemonApplet*)data;
+
+  ui_update(applet);
   return FALSE;
 }
 
 static int
-ui_timeoutHandler(gpointer ignored)
+ui_realize(GtkWidget *realized, gpointer data)
 {
+  BubblemonApplet *applet = (BubblemonApplet*)data;
 
-  ui_update();
+  ui_update(applet);
+  return FALSE;
+}
+
+static int
+ui_timeoutHandler(gpointer data)
+{
+  BubblemonApplet *applet = (BubblemonApplet*)data;
+
+  ui_update(applet);
   return TRUE;
 }
 
@@ -194,10 +207,8 @@ applet_destroy (GtkWidget *applet, BubblemonApplet *bubble)
 }
 
 static gboolean
-applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpointer data)
+applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, BubblemonApplet *bubble)
 {
-  BubblemonApplet *bubble = (BubblemonApplet *)data;
-
   if (bubble->width == event->width
     && bubble->height == event->height)
   {
@@ -247,7 +258,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, gpoin
   rgb_buffer = realloc(rgb_buffer, width * height * 3);
   bubblemon_setSize(width, height);
 
-  ui_update();
+  ui_update(bubble);
 
   return TRUE;
 }
@@ -262,6 +273,7 @@ static gboolean
 bubblemon_applet_fill (PanelApplet *applet)
 {
   BubblemonApplet *bubblemon_applet;
+  GtkWidget *drawingArea;
 
   panel_applet_set_flags(applet, PANEL_APPLET_EXPAND_MINOR);
 
@@ -278,6 +290,7 @@ bubblemon_applet_fill (PanelApplet *applet)
 
   drawingArea = gtk_drawing_area_new();
   g_assert(drawingArea != NULL);
+  bubblemon_applet->drawingArea = drawingArea;
   gtk_widget_set_size_request(GTK_WIDGET(drawingArea), RELATIVE_WIDTH, RELATIVE_HEIGHT);
 
   g_signal_connect (G_OBJECT (drawingArea),
@@ -293,7 +306,7 @@ bubblemon_applet_fill (PanelApplet *applet)
   gtk_container_add(GTK_CONTAINER (bubblemon_applet->applet), drawingArea);
 
   gtk_signal_connect_after(GTK_OBJECT(drawingArea), "realize",
-			   GTK_SIGNAL_FUNC(ui_update), bubblemon_applet);
+			   GTK_SIGNAL_FUNC(ui_realize), bubblemon_applet);
 
   gtk_signal_connect(GTK_OBJECT(drawingArea), "expose_event",
 		     GTK_SIGNAL_FUNC(ui_expose), bubblemon_applet);
@@ -307,8 +320,8 @@ bubblemon_applet_fill (PanelApplet *applet)
 				     bubblemon_menu_verbs,
 				     bubblemon_applet);
 
-  gtk_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, NULL);
-  gtk_timeout_add(2000, update_tooltip, bubblemon_applet);
+  g_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, bubblemon_applet);
+  g_timeout_add(2000, update_tooltip, bubblemon_applet);
 
   return TRUE;
 }
