@@ -47,9 +47,6 @@
 // Bottle graphics
 #include "msgInBottle.c"
 
-static int width;
-static int height;
-
 static void
 display_about_dialog (BonoboUIComponent *uic,
 		      gpointer data,
@@ -99,7 +96,7 @@ ui_update (BubblemonApplet *applet)
   if((drawingArea == NULL) ||
      !GTK_WIDGET_REALIZED(drawingArea) ||
      !GTK_WIDGET_DRAWABLE(drawingArea) ||
-     width <= 0)
+     applet->width <= 0)
   {
     return;
   }
@@ -126,7 +123,8 @@ ui_update (BubblemonApplet *applet)
   }
 
   gdk_draw_rgb_image(drawingArea->window, gc,
-                     0, 0, width, height,
+                     0, 0,
+		     applet->width, applet->height,
                      GDK_RGB_DITHER_NORMAL,
                      applet->rgb_buffer, w * 3);
 
@@ -194,14 +192,8 @@ applet_destroy (GtkWidget *applet, BubblemonApplet *bubble)
 static gboolean
 applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, BubblemonApplet *bubble)
 {
-  if (bubble->width == event->width
-    && bubble->height == event->height)
-  {
-    return TRUE;
-  }
-
-  width = event->width;
-  height = event->height;
+  int width = event->width;
+  int height = event->height;
 
   PanelAppletOrient orientation =
     panel_applet_get_orient(PANEL_APPLET(bubble->applet));
@@ -227,6 +219,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, Bubbl
   if (bubble->width == width
       && bubble->height == height)
   {
+    // Already at the correct size, done!
     return TRUE;
   }
 
@@ -235,8 +228,8 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, Bubbl
   bubble->width = width;
   bubble->height = height;
 
-  /* not yet all loaded up */
   if (bubble->applet == NULL) {
+    // Not yet all loaded up
     return TRUE;
   }
 
