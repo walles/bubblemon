@@ -190,6 +190,11 @@ applet_destroy (GtkWidget *panelApplet, BubblemonApplet *applet)
   }
   applet->aboutbox = NULL;
 
+  if (applet->rgb_buffer != NULL) {
+    g_free(applet->rgb_buffer);
+  }
+  applet->rgb_buffer = NULL;
+
   g_free(applet);
 
   bubblemon_done();
@@ -239,7 +244,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, Bubbl
     return TRUE;
   }
 
-  bubble->rgb_buffer = realloc(bubble->rgb_buffer, width * height * 3);
+  bubble->rgb_buffer = g_realloc(bubble->rgb_buffer, width * height * 3);
   bubblemon_setSize(width, height);
 
   ui_update(bubble);
