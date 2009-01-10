@@ -103,6 +103,12 @@ typedef struct
 
   // Milliseconds left until the weeds should be updated
   int timeToNextWeedsUpdate;
+
+  // How many bubbles to create per CPU
+  float *createNNewBubbles;
+
+  // The CPU loads, sorted
+  int *sortedCpuLoads;
 } bubblemon_t;
 
 /* An (a)rgb color value */

@@ -433,18 +433,16 @@ static int intCompare(const void *ap, const void *bp) {
 }
 
 /* Create new bubbles as needed. */
-static void bubblemon_createBubbles(int msecsSinceLastCall)
+static void bubblemon_createBubbles(bubblemon_t *bubblemon, int msecsSinceLastCall)
 {
-  static float *createNNewBubbles;
-  if (createNNewBubbles == NULL) {
-    createNNewBubbles = calloc(sysload.nCpus, sizeof(float));
-    assert(createNNewBubbles != NULL);
+  if (bubblemon->createNNewBubbles == NULL) {
+    bubblemon->createNNewBubbles = calloc(sysload.nCpus, sizeof(float));
+    assert(bubblemon->createNNewBubbles != NULL);
   }
 
-  static int *sortedCpuLoads;
-  if (sortedCpuLoads == NULL) {
-    sortedCpuLoads = calloc(sysload.nCpus, sizeof(int));
-    assert(sortedCpuLoads != NULL);
+  if (bubblemon->sortedCpuLoads == NULL) {
+    bubblemon->sortedCpuLoads = calloc(sysload.nCpus, sizeof(int));
+    assert(bubblemon->sortedCpuLoads != NULL);
   }
 
   // Sort the CPU loads.  The point is to reflect the highest loaded
@@ -452,9 +450,9 @@ static void bubblemon_createBubbles(int msecsSinceLastCall)
   // the edges.
   int cpu;
   for (cpu = 0; cpu < sysload.nCpus; cpu++) {
-    sortedCpuLoads[cpu] = bubblemon_getCpuLoadPercentage(cpu);
+    bubblemon->sortedCpuLoads[cpu] = bubblemon_getCpuLoadPercentage(cpu);
   }
-  qsort(sortedCpuLoads, sysload.nCpus, sizeof(*sortedCpuLoads), intCompare);
+  qsort(bubblemon->sortedCpuLoads, sysload.nCpus, sizeof(*bubblemon->sortedCpuLoads), intCompare);
 
   float dt = msecsSinceLastCall / 30.0;
 
@@ -466,11 +464,11 @@ static void bubblemon_createBubbles(int msecsSinceLastCall)
   // For each CPU...
   for (cpu = 0; cpu < sysload.nCpus; cpu++) {
     // ... should we create any bubbles?
-    createNNewBubbles[cpu] += ((float)sortedCpuLoads[cpu] *
+    bubblemon->createNNewBubbles[cpu] += ((float)bubblemon->sortedCpuLoads[cpu] *
 			       perCpuCandidatePixels *
 			       dt) / 2000.0;
 
-    while (createNNewBubbles[cpu] >= 1.0) {
+    while (bubblemon->createNNewBubbles[cpu] >= 1.0) {
       // Yes!  Bubbles needed.
 
       float x = (random() % (long int)(perCpuCandidatePixels * 1000.0)) / 1000.0;
@@ -488,21 +486,21 @@ static void bubblemon_createBubbles(int msecsSinceLastCall)
 	x = thisHighestOkPixel - x;
       }
 
-      // Add one pixel to avoid having to clip at the left edge
       bubblemon_layer_t layer =
-	random() % 120 < sortedCpuLoads[cpu] ? FOREGROUND : BACKGROUND;
+	random() % 120 < bubblemon->sortedCpuLoads[cpu] ? FOREGROUND : BACKGROUND;
+      // Add one pixel to avoid having to clip at the left edge
       bubblemon_createBubble(x + 1.0, layer);
 
       // Count the new bubble
-      createNNewBubbles[cpu]--;
+      bubblemon->createNNewBubbles[cpu]--;
     }
   }
 }
 
 /* Update the bubbles (and possibly create new ones) */
-static void bubblemon_updateBubbles(int msecsSinceLastCall)
+static void bubblemon_updateBubbles(bubblemon_t *bubblemon, int msecsSinceLastCall)
 {
-  bubblemon_createBubbles(msecsSinceLastCall);
+  bubblemon_createBubbles(bubblemon, msecsSinceLastCall);
 
   /* Move the bubbles */
   int i;
@@ -754,7 +752,7 @@ static void bubblemon_updatePhysics(bubblemon_t *bubblemon,
   /* Update our universe */
   bubblemon_updateWaterlevels(msecsSinceLastCall);
   bubblemon_updateWeeds(bubblemon, msecsSinceLastCall);
-  bubblemon_updateBubbles(msecsSinceLastCall);
+  bubblemon_updateBubbles(bubblemon, msecsSinceLastCall);
   bubblemon_updateBottle(msecsSinceLastCall, mailStatus);
 }
 
