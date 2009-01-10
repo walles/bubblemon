@@ -1145,10 +1145,9 @@ static void bubblemon_weedsToPixmap(bubblemon_picture_t *bubblePic)
   }
 }
 
-const bubblemon_picture_t *bubblemon_getPicture()
+const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon)
 {
   static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
-  static int physicalTimeElapsed = 0;
 
   int msecsSinceLastCall;
   mail_status_t mailStatus = mail_getMailStatus();
@@ -1182,12 +1181,12 @@ const bubblemon_picture_t *bubblemon_getPicture()
   }
   else
   {
-    while (physicalTimeElapsed < msecsSinceLastCall)
+    while (bubblemon->physicalTimeElapsed < msecsSinceLastCall)
     {
       bubblemon_updatePhysics(msecsPerPhysicsFrame, mailStatus);
-      physicalTimeElapsed += msecsPerPhysicsFrame;
+      bubblemon->physicalTimeElapsed += msecsPerPhysicsFrame;
     }
-    physicalTimeElapsed -= msecsSinceLastCall;
+    bubblemon->physicalTimeElapsed -= msecsSinceLastCall;
   }
 
   // Draw the pixels

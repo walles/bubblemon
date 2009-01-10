@@ -101,7 +101,7 @@ ui_update (BubblemonApplet *applet)
     return;
   }
 
-  bubblePic = bubblemon_getPicture();
+  bubblePic = bubblemon_getPicture(applet->bubblemon);
   if ((bubblePic == NULL) ||
       (bubblePic->width == 0) ||
       (bubblePic->pixels == 0))

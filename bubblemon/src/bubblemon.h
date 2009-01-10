@@ -94,6 +94,8 @@ typedef enum { BACKGROUND, FOREGROUND } bubblemon_layer_t;
 typedef struct
 {
   char *tooltipstring;
+
+  int physicalTimeElapsed;
 } bubblemon_t;
 
 /* An (a)rgb color value */
@@ -160,7 +162,7 @@ typedef struct
 
 /* The 'pixels' field of the returned struct contains the pixels to
  * draw on screen. */
-const bubblemon_picture_t *bubblemon_getPicture(void);
+const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon);
 
 /* Set the dimensions of the bubble array */
 extern void bubblemon_setSize(int width, int height);
