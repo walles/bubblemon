@@ -158,23 +158,22 @@ static void usage2string(char *string,
 	  unit);
 }
 
-const char *bubblemon_getTooltip(void)
+const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 {
   char memstring[20], swapstring[20], loadstring[50];
-  static char *tooltipstring = 0;
   int cpu_number;
 
-  if (!tooltipstring)
+  if (!bubblemon->tooltipstring)
   {
     /* Prevent the tooltipstring buffer from overflowing on a system
        with lots of CPUs */
-    tooltipstring =
+    bubblemon->tooltipstring =
       malloc(sizeof(char) * (sysload.nCpus * 50 + 100));
-    assert(tooltipstring != NULL);
+    assert(bubblemon->tooltipstring != NULL);
   }
 
   usage2string(memstring, sysload.memoryUsed, sysload.memorySize);
-  snprintf(tooltipstring, 90,
+  snprintf(bubblemon->tooltipstring, 90,
            _("Memory used: %s"),
            memstring);
   if (sysload.swapSize > 0)
@@ -183,7 +182,7 @@ const char *bubblemon_getTooltip(void)
     snprintf(loadstring, 90,
 	     _("\nSwap used: %s"),
 	     swapstring);
-    strcat(tooltipstring, loadstring);
+    strcat(bubblemon->tooltipstring, loadstring);
   }
 
   if (sysload.nCpus == 1)
@@ -191,7 +190,7 @@ const char *bubblemon_getTooltip(void)
       snprintf(loadstring, 45,
                _("\nCPU load: %d%%"),
                bubblemon_getCpuLoadPercentage(0));
-      strcat(tooltipstring, loadstring);
+      strcat(bubblemon->tooltipstring, loadstring);
     }
   else
     {
@@ -203,11 +202,11 @@ const char *bubblemon_getTooltip(void)
                    _("\nCPU #%d load: %d%%"),
                    cpu_number,
                    bubblemon_getCpuLoadPercentage(cpu_number));
-          strcat(tooltipstring, loadstring);
+          strcat(bubblemon->tooltipstring, loadstring);
         }
     }
 
-  return tooltipstring;
+  return bubblemon->tooltipstring;
 }
 
 static int bubblemon_getMsecsSinceLastCall()
@@ -1204,13 +1203,18 @@ const bubblemon_picture_t *bubblemon_getPicture()
   return &bubblePic;
 }
 
-void bubblemon_init(void)
+bubblemon_t *bubblemon_init(void)
 {
+  bubblemon_t *bubblemon;
+
 #ifdef ENABLE_PROFILING
   fprintf(stderr,
 	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
 	  "load all the time.\n");
 #endif
+
+  bubblemon = calloc(1, sizeof(bubblemon_t));
+  assert(bubblemon != NULL);
 
   // Initialize the random number generation
   srandom(time(NULL));
@@ -1222,10 +1226,15 @@ void bubblemon_init(void)
 
   // Initialize the bottle
   physics.bottle_state = GONE;
+
+  return bubblemon;
 }
 
-void bubblemon_done(void)
+void bubblemon_done(bubblemon_t *bubblemon)
 {
   // Terminate the load metering
   meter_done();
+
+  // Free our data holding structure
+  free(bubblemon);
 }

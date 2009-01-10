@@ -164,7 +164,8 @@ update_tooltip (gpointer bubbles)
 {
   BubblemonApplet *bubble = bubbles;
 
-  gtk_widget_set_tooltip_text(bubble->applet, bubblemon_getTooltip());
+  gtk_widget_set_tooltip_text(bubble->applet,
+			      bubblemon_getTooltip(bubble->bubblemon));
 
   // FIXME: We want to call
   // gtk_widget_trigger_tooltip_query(bubble->applet) here, but we can't
@@ -195,9 +196,9 @@ applet_destroy (GtkWidget *panelApplet, BubblemonApplet *applet)
   }
   applet->rgb_buffer = NULL;
 
-  g_free(applet);
+  bubblemon_done(applet->bubblemon);
 
-  bubblemon_done();
+  g_free(applet);
 }
 
 static gboolean
@@ -258,14 +259,11 @@ static const BonoboUIVerb bubblemon_menu_verbs [] = {
 };
 
 static gboolean
-bubblemon_applet_fill (PanelApplet *applet)
+bubblemon_applet_fill(BubblemonApplet *bubblemon_applet, PanelApplet *applet)
 {
-  BubblemonApplet *bubblemon_applet;
   GtkWidget *drawingArea;
 
   panel_applet_set_flags(applet, PANEL_APPLET_EXPAND_MINOR);
-
-  bubblemon_applet = g_new0 (BubblemonApplet, 1);
 
   bubblemon_applet->applet = GTK_WIDGET (applet);
   bubblemon_applet->width   = 0;
@@ -317,17 +315,20 @@ bubblemon_applet_fill (PanelApplet *applet)
 }
 
 static gboolean
-bubble_applet_factory (PanelApplet *applet,
+bubble_applet_factory (PanelApplet *panel_applet,
 		       const gchar *iid,
 		       gpointer     data)
 {
+  BubblemonApplet *bubblemon_applet;
+
   gboolean retval = FALSE;
 
-  // Initialize the load metering
-  bubblemon_init();
+  bubblemon_applet = g_new0(BubblemonApplet, 1);
+  bubblemon_applet->bubblemon = bubblemon_init();
 
-  if (strcmp(iid, "OAFIID:GNOME_BubblemonApplet") == 0)
-    retval = bubblemon_applet_fill (applet);
+  if (strcmp(iid, "OAFIID:GNOME_BubblemonApplet") == 0) {
+    retval = bubblemon_applet_fill(bubblemon_applet, panel_applet);
+  }
 
   return retval;
 }

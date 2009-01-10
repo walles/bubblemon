@@ -25,6 +25,8 @@
 #include <panel-applet.h>
 #include <sys/types.h>
 
+#include "bubblemon.h"
+
 #define FRAMERATE 25
 
 typedef struct
@@ -43,6 +45,9 @@ typedef struct
   guint refresh_timeout_id;
   guint tooltip_timeout_id;
 
+  // Reference to our load-metering, bubble-drawing, tool-tipping
+  // bubblemon thingy.
+  bubblemon_t *bubblemon;
 } BubblemonApplet;
 
 #endif

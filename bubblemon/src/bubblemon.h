@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2009 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 #ifndef BUBBLEMON_H
 #define BUBBLEMON_H
 
-#include <config.h> 
+#include <config.h>
 #include <sys/types.h>
 #include <gnome.h>
 #include <panel-applet.h>
@@ -90,6 +90,12 @@ typedef enum { GONE, FLOATING, SINKING, FALLING, SUNK } bubblemon_bottlestate_t;
 /* Bubble layers */
 typedef enum { BACKGROUND, FOREGROUND } bubblemon_layer_t;
 
+/* Data holder for a bubblemon instance. */
+typedef struct
+{
+  char *tooltipstring;
+} bubblemon_t;
+
 /* An (a)rgb color value */
 typedef union {
   int value;
@@ -101,11 +107,12 @@ typedef union {
   } components;
 } bubblemon_color_t;
 
+/* A bubblemon image */
 typedef struct
 {
   int width;
   int height;
-  
+
   bubblemon_colorcode_t *airAndWater;
   bubblemon_color_t *pixels;
 } bubblemon_picture_t;
@@ -169,12 +176,12 @@ extern int bubblemon_getAverageLoadPercentage(void);
 extern int bubblemon_getCpuLoadPercentage(int cpu);
 
 /* Return a suitable tool tip */
-extern const char *bubblemon_getTooltip(void);
+extern const char *bubblemon_getTooltip(bubblemon_t *bubblemon);
 
 /* Must be called at the very start of the program */
-extern void bubblemon_init(void);
+extern bubblemon_t *bubblemon_init(void);
 
 /* Should be called at shutdown */
-extern void bubblemon_done(void);
+extern void bubblemon_done(bubblemon_t *bubblemon);
 
 #endif
