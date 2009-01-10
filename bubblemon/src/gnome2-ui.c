@@ -246,7 +246,7 @@ applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, Bubbl
   }
 
   bubble->rgb_buffer = g_realloc(bubble->rgb_buffer, width * height * 3);
-  bubblemon_setSize(width, height);
+  bubblemon_setSize(bubble->bubblemon, width, height);
 
   ui_update(bubble);
 

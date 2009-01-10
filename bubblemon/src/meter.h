@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2009 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,25 +21,23 @@
 #ifndef METER_H
 #define METER_H
 
-#include "bubblemon.h"
-
 /* The system load */
 typedef struct
 {
   u_int64_t memoryUsed;
   u_int64_t memorySize;
-    
+
   u_int64_t swapUsed;
   u_int64_t swapSize;
-    
+
   /* How many CPUs are in the system */
   int nCpus;
-  
+
   /* A pointer to an array containing the loads of each of the
      system's CPUs in percent (0-100).  Index 0 is the average CPU
      load for the whole system, index 1 and up are the loads on the
      individual CPUs. */
-  int *cpuLoad; 
+  int *cpuLoad;
 } meter_sysload_t;
 
 /* Initialize the load metering */

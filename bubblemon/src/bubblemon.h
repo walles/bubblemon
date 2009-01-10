@@ -27,6 +27,8 @@
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
 
+#include "meter.h"
+
 /* How fast do the bubbles rise? */
 #define GRAVITY -0.01
 
@@ -90,27 +92,6 @@ typedef enum { GONE, FLOATING, SINKING, FALLING, SUNK } bubblemon_bottlestate_t;
 /* Bubble layers */
 typedef enum { BACKGROUND, FOREGROUND } bubblemon_layer_t;
 
-/* Data holder for a bubblemon instance. */
-typedef struct
-{
-  char *tooltipstring;
-
-  int physicalTimeElapsed;
-
-  // When bubblemon_getMsecsSinceLastCall was last called
-  long last_sec;
-  long last_usec;
-
-  // Milliseconds left until the weeds should be updated
-  int timeToNextWeedsUpdate;
-
-  // How many bubbles to create per CPU
-  float *createNNewBubbles;
-
-  // The CPU loads, sorted
-  int *sortedCpuLoads;
-} bubblemon_t;
-
 /* An (a)rgb color value */
 typedef union {
   int value;
@@ -173,22 +154,55 @@ typedef struct
   bubblemon_bottlestate_t bottle_state;
 } bubblemon_Physics;
 
+/* Data holder for a bubblemon instance. */
+typedef struct
+{
+  char *tooltipstring;
+
+  int physicalTimeElapsed;
+
+  // When bubblemon_getMsecsSinceLastCall was last called
+  long last_sec;
+  long last_usec;
+
+  // Milliseconds left until the weeds should be updated
+  int timeToNextWeedsUpdate;
+
+  // How many bubbles to create per CPU
+  float *createNNewBubbles;
+
+  // The CPU loads, sorted
+  int *sortedCpuLoads;
+
+  // Weed color striping seed
+  int stripey;
+
+  // The picture we're supposed to keep up-to-date
+  bubblemon_picture_t bubblePic;
+
+  // Our universe
+  bubblemon_Physics physics;
+
+  // System load
+  meter_sysload_t sysload;
+} bubblemon_t;
+
 /* The 'pixels' field of the returned struct contains the pixels to
  * draw on screen. */
 const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon);
 
 /* Set the dimensions of the bubble array */
-extern void bubblemon_setSize(int width, int height);
+extern void bubblemon_setSize(bubblemon_t *bubblemon, int width, int height);
 
 /* Return how many percent of the memory is used */
-extern int bubblemon_getMemoryPercentage(void);
+extern int bubblemon_getMemoryPercentage(bubblemon_t *bubblemon);
 
 /* Return how many percent of the swap is used */
-extern int bubblemon_getSwapPercentage(void);
+extern int bubblemon_getSwapPercentage(bubblemon_t *bubblemon);
 
 /* The cpu parameter is the cpu number, 1 - #CPUs.  0 means average load */
-extern int bubblemon_getAverageLoadPercentage(void);
-extern int bubblemon_getCpuLoadPercentage(int cpu);
+extern int bubblemon_getAverageLoadPercentage(bubblemon_t *bubblemon);
+extern int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpu);
 
 /* Return a suitable tool tip */
 extern const char *bubblemon_getTooltip(bubblemon_t *bubblemon);
