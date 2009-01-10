@@ -209,14 +209,11 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
   return bubblemon->tooltipstring;
 }
 
-static int bubblemon_getMsecsSinceLastCall()
+/* Return the number of milliseconds that have passed since the last
+   time this function was called, or -1 if this is the first call.  If
+   a long time has passed since last time, the result is undefined. */
+static int bubblemon_getMsecsSinceLastCall(bubblemon_t *bubblemon)
 {
-  /* Return the number of milliseconds that have passed since the last
-     time this function was called, or -1 if this is the first call.  If
-     a long time has passed since last time, the result is undefined. */
-  static long last_sec = 0L;
-  static long last_usec = 0L;
-
   int returnMe = -1;
 
   struct timeval currentTime;
@@ -224,14 +221,14 @@ static int bubblemon_getMsecsSinceLastCall()
   /* What time is it now? */
   gettimeofday(&currentTime, NULL);
 
-  if ((last_sec != 0L) || (last_usec != 0L))
+  if ((bubblemon->last_sec != 0L) || (bubblemon->last_usec != 0L))
   {
-    returnMe = 1000 * (int)(currentTime.tv_sec - last_sec);
-    returnMe += ((int)(currentTime.tv_usec - last_usec)) / 1000L;
+    returnMe = 1000 * (int)(currentTime.tv_sec - bubblemon->last_sec);
+    returnMe += ((int)(currentTime.tv_usec - bubblemon->last_usec)) / 1000L;
   }
 
-  last_sec = currentTime.tv_sec;
-  last_usec = currentTime.tv_usec;
+  bubblemon->last_sec = currentTime.tv_sec;
+  bubblemon->last_usec = currentTime.tv_usec;
 
   return returnMe;
 }
@@ -1154,7 +1151,7 @@ const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon)
 
   // Make sure we never try to move things backwards
   do {
-    msecsSinceLastCall = bubblemon_getMsecsSinceLastCall();
+    msecsSinceLastCall = bubblemon_getMsecsSinceLastCall(bubblemon);
   } while (msecsSinceLastCall < 0);
 
   // Get the system load

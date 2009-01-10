@@ -96,6 +96,10 @@ typedef struct
   char *tooltipstring;
 
   int physicalTimeElapsed;
+
+  // When bubblemon_getMsecsSinceLastCall was last called
+  long last_sec;
+  long last_usec;
 } bubblemon_t;
 
 /* An (a)rgb color value */
