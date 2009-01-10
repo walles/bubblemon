@@ -312,16 +312,14 @@ static void bubblemon_addNourishment(bubblemon_Weed *weed, int percentage)
   }
 }
 
-static void bubblemon_updateWeeds(int msecsSinceLastCall)
+static void bubblemon_updateWeeds(bubblemon_t *bubblemon, int msecsSinceLastCall)
 {
-  static int timeToNextUpdate = 0;
-
   int w = bubblePic.width;
   int x;
 
   // If enough time has elapsed...
-  timeToNextUpdate -= msecsSinceLastCall;
-  while (timeToNextUpdate <= 0)
+  bubblemon->timeToNextWeedsUpdate -= msecsSinceLastCall;
+  while (bubblemon->timeToNextWeedsUpdate <= 0)
   {
     // ... update the nourishment level of our next weed
     int weed = random() % bubblePic.width;
@@ -337,7 +335,7 @@ static void bubblemon_updateWeeds(int msecsSinceLastCall)
       bubblemon_addNourishment(&(physics.weeds[weed + 1]), (netload_getLoadPercentage() * 8) / 10);
     }
 
-    timeToNextUpdate += NETLOAD_INTERVAL;
+    bubblemon->timeToNextWeedsUpdate += NETLOAD_INTERVAL;
   }
 
   // For all weeds...
@@ -697,7 +695,8 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
 }
 
 /* Update the bubble array from the system load */
-static void bubblemon_updatePhysics(int msecsSinceLastCall,
+static void bubblemon_updatePhysics(bubblemon_t *bubblemon,
+				    int msecsSinceLastCall,
 				    mail_status_t mailStatus)
 {
   /* No size -- no go */
@@ -754,7 +753,7 @@ static void bubblemon_updatePhysics(int msecsSinceLastCall,
 
   /* Update our universe */
   bubblemon_updateWaterlevels(msecsSinceLastCall);
-  bubblemon_updateWeeds(msecsSinceLastCall);
+  bubblemon_updateWeeds(bubblemon, msecsSinceLastCall);
   bubblemon_updateBubbles(msecsSinceLastCall);
   bubblemon_updateBottle(msecsSinceLastCall, mailStatus);
 }
@@ -1174,13 +1173,13 @@ const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon)
   // Push the universe around
   if (msecsSinceLastCall <= msecsPerPhysicsFrame)
   {
-    bubblemon_updatePhysics(msecsSinceLastCall, mailStatus);
+    bubblemon_updatePhysics(bubblemon, msecsSinceLastCall, mailStatus);
   }
   else
   {
     while (bubblemon->physicalTimeElapsed < msecsSinceLastCall)
     {
-      bubblemon_updatePhysics(msecsPerPhysicsFrame, mailStatus);
+      bubblemon_updatePhysics(bubblemon, msecsPerPhysicsFrame, mailStatus);
       bubblemon->physicalTimeElapsed += msecsPerPhysicsFrame;
     }
     bubblemon->physicalTimeElapsed -= msecsSinceLastCall;

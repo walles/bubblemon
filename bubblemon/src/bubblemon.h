@@ -100,6 +100,9 @@ typedef struct
   // When bubblemon_getMsecsSinceLastCall was last called
   long last_sec;
   long last_usec;
+
+  // Milliseconds left until the weeds should be updated
+  int timeToNextWeedsUpdate;
 } bubblemon_t;
 
 /* An (a)rgb color value */
