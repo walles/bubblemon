@@ -21,6 +21,8 @@
 #ifndef METER_H
 #define METER_H
 
+#include "ackumulator.h"
+
 /* The system load */
 typedef struct
 {
@@ -38,6 +40,14 @@ typedef struct
      load for the whole system, index 1 and up are the loads on the
      individual CPUs. */
   int *cpuLoad;
+
+  /* How much of the system's IO bandwidth is in use */
+  int ioLoad;
+
+  // FIXME: Having the below fields as part of the official API might
+  // not be the best idea ever /Johan-2009feb22
+  ackumulator_t **cpuAckumulators;
+  ackumulator_t **ioAckumulators;
 } meter_sysload_t;
 
 /* Initialize the load metering */

@@ -1,3 +1,7 @@
+2009-02-23  Johan Walles  <johan.walles@gmail.com>
+
+	* Change weeds to reflect iowait rather than network load.
+
 2009-01-05  Johan Walles  <johan.walles@gmail.com>
 
 	* Gain some pixels by ditching the frame around the applet.

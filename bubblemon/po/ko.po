@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2008-12-26 10:56+0100\n"
+"POT-Creation-Date: 2009-02-23 07:15+0100\n"
 "PO-Revision-Date: 2004-01-11 20:52+0100\n"
 "Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -14,12 +14,12 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:71
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
 msgid "Bubbling Load Monitor"
 msgstr "물거품 부하 모니터"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
-msgid "Monitor CPU, memory and network load"
+msgid "Monitor CPU, memory and IO load"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
@@ -27,18 +27,18 @@ msgstr ""
 msgid "_About..."
 msgstr "프로그램 정보"
 
-#: ../src/bubblemon.c:131
+#: ../src/bubblemon.c:127
 msgid "bytes"
 msgstr ""
 
-#: ../src/bubblemon.c:177
+#: ../src/bubblemon.c:174
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: ../src/bubblemon.c:183
+#: ../src/bubblemon.c:182
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -47,7 +47,7 @@ msgstr ""
 "메모리 사용량: %s\n"
 "스왑 사용량: %s"
 
-#: ../src/bubblemon.c:191
+#: ../src/bubblemon.c:190
 #, c-format
 msgid ""
 "\n"
@@ -56,7 +56,7 @@ msgstr ""
 "\n"
 "CPU 부하: %d%%"
 
-#: ../src/bubblemon.c:202
+#: ../src/bubblemon.c:201
 #, c-format
 msgid ""
 "\n"
@@ -65,7 +65,7 @@ msgstr ""
 "\n"
 "CPU #%d 부하: %d%%"
 
-#: ../src/gnome2-ui.c:73
+#: ../src/gnome2-ui.c:69
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
 

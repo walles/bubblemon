@@ -20,12 +20,11 @@ bubblemon_gnome2_SOURCES = \
 	meter.h ui.h \
 	gnome1-meter.c \
 	unix-mail.c mail.h \
-	unix-interfaces.c interfaces.h \
-	gnome1-netload.c netload.c netload.h
+	ackumulator.c ackumulator.h
 
 bubblemon_gnome2_LDADD = \
 	$(GNOME_APPLETS_LIBS)   \
 	$(GTOP_APPLETS_LIBS)
 
-EXTRA_DIST = msgInBottle.c 
+EXTRA_DIST = msgInBottle.c
 

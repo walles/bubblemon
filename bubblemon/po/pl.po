@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2008-12-26 10:56+0100\n"
+"POT-Creation-Date: 2009-02-23 07:15+0100\n"
 "PO-Revision-Date: 2008-12-26 10:59+0100\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -15,28 +15,28 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:71
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
 msgid "Bubbling Load Monitor"
 msgstr "Bąbelkowy monitor obciążenia systemu"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
-msgid "Monitor CPU, memory and network load"
+msgid "Monitor CPU, memory and IO load"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "_O programie"
 
-#: ../src/bubblemon.c:131
+#: ../src/bubblemon.c:127
 msgid "bytes"
 msgstr "bajtów"
 
-#: ../src/bubblemon.c:177
+#: ../src/bubblemon.c:174
 #, c-format
 msgid "Memory used: %s"
 msgstr "Wykorzystanie pamięci: %s"
 
-#: ../src/bubblemon.c:183
+#: ../src/bubblemon.c:182
 #, c-format
 msgid ""
 "\n"
@@ -45,7 +45,7 @@ msgstr ""
 "\n"
 "Wykorzystanie przestrzeni wymiany: %s"
 
-#: ../src/bubblemon.c:191
+#: ../src/bubblemon.c:190
 #, c-format
 msgid ""
 "\n"
@@ -54,7 +54,7 @@ msgstr ""
 "\n"
 "Obciążenie procesora: %d%%"
 
-#: ../src/bubblemon.c:202
+#: ../src/bubblemon.c:201
 #, c-format
 msgid ""
 "\n"
@@ -63,7 +63,7 @@ msgstr ""
 "\n"
 "Obciążenie procesora: #%d: %d%%"
 
-#: ../src/gnome2-ui.c:73
+#: ../src/gnome2-ui.c:69
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
 
@@ -81,8 +81,7 @@ msgstr ""
 #~ "This is free software, and you are welcome to redistribute it under "
 #~ "certain conditions (GPL), see the LICENSE file for details."
 #~ msgstr ""
-#~ "Ten aplet przedstawia obciążenie Twojego procesora w postaci pływających "
-#~ "pęcherzyków.\n"
+#~ "Ten aplet przedstawia obciążenie Twojego procesora w postaci pływających pęcherzyków.\n"
 #~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
 #~ "details.\n"
 #~ "This is free software, and you are welcome to redistribute it under "
@@ -117,8 +116,8 @@ msgstr ""
 #~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 #~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 #~ msgstr ""
-#~ "Koniec dziaÄšÂania Bubblemon. Dane powinny znajdowaĂÂ siĂÂ w pliku ~/gmon."
-#~ "out.\n"
+#~ "Koniec dziaÄšÂania Bubblemon. Dane powinny znajdowaĂÂ siĂÂ w pliku "
+#~ "~/gmon.out.\n"
 #~ "Uruchom 'gprof -l -p %s ~/gmon.out'.\n"
 
 #~ msgid "<name of executable>"

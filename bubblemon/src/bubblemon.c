@@ -38,7 +38,6 @@ double exp2(double x);
 #include "ui.h"
 #include "meter.h"
 #include "mail.h"
-#include "netload.h"
 
 // Bottle graphics
 #include "msgInBottle.c"
@@ -313,6 +312,17 @@ static void bubblemon_addNourishment(bubblemon_t *bubblemon, bubblemon_Weed *wee
   }
 }
 
+/* How much of the system's IO bandwidth is being used?  Returns a
+ * percentage value, 0-100. */
+int bubblemon_getIoLoad(bubblemon_t *bubblemon)
+{
+#ifdef ENABLE_PROFILING
+  return 100;
+#else
+  return bubblemon->sysload.ioLoad;
+#endif
+}
+
 static void bubblemon_updateWeeds(bubblemon_t *bubblemon, int msecsSinceLastCall)
 {
   int w = bubblemon->bubblePic.width;
@@ -326,22 +336,23 @@ static void bubblemon_updateWeeds(bubblemon_t *bubblemon, int msecsSinceLastCall
     int weed = random() % bubblemon->bubblePic.width;
 
     // Distribute the nourishment over several weeds
+    int load = bubblemon_getIoLoad(bubblemon);
     if (weed > 0)
     {
       bubblemon_addNourishment(bubblemon,
 			       &(bubblemon->physics.weeds[weed - 1]),
-			       (netload_getLoadPercentage() * 8) / 10);
+			       (load * 8) / 10);
     }
     bubblemon_addNourishment(bubblemon, &(bubblemon->physics.weeds[weed]),
-			     netload_getLoadPercentage());
+			     load);
     if (weed < (bubblemon->bubblePic.width - 1))
     {
       bubblemon_addNourishment(bubblemon,
 			       &(bubblemon->physics.weeds[weed + 1]),
-			       (netload_getLoadPercentage() * 8) / 10);
+			       (load * 8) / 10);
     }
 
-    bubblemon->timeToNextWeedsUpdate += NETLOAD_INTERVAL;
+    bubblemon->timeToNextWeedsUpdate += IOLOAD_INTERVAL;
   }
 
   // For all weeds...
@@ -1176,12 +1187,6 @@ const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon)
   // Get the system load
   meter_getLoad(&bubblemon->sysload);
   bubblemon_censorLoad(bubblemon);
-
-  // Update the network load statistics.  Since they measure a real
-  // time phenomenon, they need to keep track of how much real time
-  // has actually passed since last time.  Thus, we provide the
-  // uncensored msecsSinceLastCall.
-  netload_updateLoadstats(msecsSinceLastCall);
 
   // If a "long" time has passed since the last frame, settle for
   // updating the physics just a bit of the way.

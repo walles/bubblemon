@@ -75,12 +75,12 @@ static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
 
-/* How often is the network load meter updated?  The unit is
- * milliseconds between updates. */
-#define NETLOAD_INTERVAL 250
+/* How often is the IO load meter updated?  The unit is milliseconds
+ * between updates. */
+#define IOLOAD_INTERVAL 250
 
-/* The maximum height of the weeds indicating the network load,
- * expressed in percent of the full height */
+/* The maximum height of the weeds indicating the IO load, expressed
+ * in percent of the full height */
 #define WEED_HEIGHT 40
 
 /* Color code constants */

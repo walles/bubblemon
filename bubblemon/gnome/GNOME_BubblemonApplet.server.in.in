@@ -14,7 +14,7 @@
 </oaf_server>
 
 <oaf_server iid="OAFIID:GNOME_BubblemonApplet"
-	    type="factory" 
+	    type="factory"
 	    location="OAFIID:GNOME_BubblemonApplet_Factory">
 
 	<oaf_attribute name="repo_ids" type="stringv">
@@ -23,7 +23,7 @@
 		<item value="IDL:Bonobo/Unknown:1.0"/>
 	</oaf_attribute>
 	<oaf_attribute name="name" type="string" _value="Bubbling Load Monitor"/>
-	<oaf_attribute name="description" type="string" _value="Monitor CPU, memory and network load"/>
+	<oaf_attribute name="description" type="string" _value="Monitor CPU, memory and IO load"/>
 	<oaf_attribute name="panel:category" type="string" value="System &amp; Hardware"/>
 	<oaf_attribute name="panel:icon" type="string" value="bubblemon.png"/>
 
