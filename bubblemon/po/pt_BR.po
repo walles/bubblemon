@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: bubblemon 2.0.8\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
 "POT-Creation-Date: 2009-02-23 07:15+0100\n"
-"PO-Revision-Date: 2008-01-15 13:50-0200\n"
+"PO-Revision-Date: 2009-02-23 07:27+0100\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr "Monitorador de Carga Borbulhento"
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
 #, fuzzy
 msgid "Monitor CPU, memory and IO load"
-msgstr "Monitora a CPU, memória e carga da rede"
+msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
