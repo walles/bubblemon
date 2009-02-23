@@ -57,6 +57,6 @@ extern void meter_init(meter_sysload_t *);
 extern void meter_getLoad(meter_sysload_t *);
 
 /* Shut down load metering */
-extern void meter_done(void);
+extern void meter_done(meter_sysload_t *);
 
 #endif

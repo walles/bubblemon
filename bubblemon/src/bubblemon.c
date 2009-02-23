@@ -42,46 +42,59 @@ double exp2(double x);
 // Bottle graphics
 #include "msgInBottle.c"
 
+void bubblemon_freeBuffers(bubblemon_t *bubblemon) {
+  if (bubblemon->bubblePic.airAndWater != NULL) {
+    free(bubblemon->bubblePic.airAndWater);
+    bubblemon->bubblePic.airAndWater = NULL;
+  }
+
+  if (bubblemon->bubblePic.pixels != NULL) {
+    free(bubblemon->bubblePic.pixels);
+    bubblemon->bubblePic.pixels = NULL;
+  }
+
+  if (bubblemon->physics.waterLevels != NULL) {
+    free(bubblemon->physics.waterLevels);
+    bubblemon->physics.waterLevels = NULL;
+  }
+
+  if (bubblemon->physics.weeds != NULL) {
+    free(bubblemon->physics.weeds);
+    bubblemon->physics.weeds = NULL;
+  }
+
+  bubblemon->physics.n_bubbles = 0;
+  bubblemon->physics.max_bubbles = 0;
+  if (bubblemon->physics.bubbles != NULL) {
+    free(bubblemon->physics.bubbles);
+    bubblemon->physics.bubbles = NULL;
+  }
+
+  if (bubblemon->tooltipstring != NULL) {
+    free(bubblemon->tooltipstring);
+    bubblemon->tooltipstring = NULL;
+  }
+
+  if (bubblemon->createNNewBubbles != NULL) {
+    free(bubblemon->createNNewBubbles);
+    bubblemon->createNNewBubbles = NULL;
+  }
+
+  if (bubblemon->sortedCpuLoads != NULL) {
+    free(bubblemon->sortedCpuLoads);
+    bubblemon->sortedCpuLoads = NULL;
+  }
+}
+
 /* Set the dimensions of the bubble array */
 void bubblemon_setSize(bubblemon_t *bubblemon, int width, int height)
 {
   if ((width != bubblemon->bubblePic.width) ||
       (height != bubblemon->bubblePic.height))
   {
+    bubblemon_freeBuffers(bubblemon);
     bubblemon->bubblePic.width = width;
     bubblemon->bubblePic.height = height;
-
-    if (bubblemon->bubblePic.airAndWater != NULL)
-    {
-      free(bubblemon->bubblePic.airAndWater);
-      bubblemon->bubblePic.airAndWater = NULL;
-    }
-
-    if (bubblemon->bubblePic.pixels != NULL)
-    {
-      free(bubblemon->bubblePic.pixels);
-      bubblemon->bubblePic.pixels = NULL;
-    }
-
-    if (bubblemon->physics.waterLevels != NULL)
-    {
-      free(bubblemon->physics.waterLevels);
-      bubblemon->physics.waterLevels = NULL;
-    }
-
-    if (bubblemon->physics.weeds != NULL)
-    {
-      free(bubblemon->physics.weeds);
-      bubblemon->physics.weeds = NULL;
-    }
-
-    bubblemon->physics.n_bubbles = 0;
-    bubblemon->physics.max_bubbles = 0;
-    if (bubblemon->physics.bubbles != NULL)
-    {
-      free(bubblemon->physics.bubbles);
-      bubblemon->physics.bubbles = NULL;
-    }
   }
 }
 
@@ -1241,8 +1254,6 @@ bubblemon_t *bubblemon_init(void)
 
   // Initialize the load metering
   meter_init(&bubblemon->sysload);
-  bubblemon->sysload.cpuLoad = (int *)calloc(bubblemon->sysload.nCpus, sizeof(int));
-  assert(bubblemon->sysload.cpuLoad != NULL);
 
   // Initialize the bottle
   bubblemon->physics.bottle_state = GONE;
@@ -1253,8 +1264,9 @@ bubblemon_t *bubblemon_init(void)
 void bubblemon_done(bubblemon_t *bubblemon)
 {
   // Terminate the load metering
-  meter_done();
+  meter_done(&bubblemon->sysload);
 
   // Free our data holding structure
+  bubblemon_freeBuffers(bubblemon);
   free(bubblemon);
 }

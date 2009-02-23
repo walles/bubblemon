@@ -49,13 +49,18 @@ void meter_init(meter_sysload_t *load)
 
   load->nCpus = glibtop_get_sysinfo()->ncpu;
   g_assert(load->nCpus > 0);
+  load->cpuLoad = (int *)calloc(load->nCpus, sizeof(int));
+  g_assert(load->cpuLoad != NULL);
 
   // Initialize the load histories and indices
   load->cpuAckumulators = calloc(load->nCpus, sizeof(ackumulator_t));
+  g_assert(load->cpuAckumulators != NULL);
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
     load->cpuAckumulators[cpuNo] = ackumulator_create(LOADSAMPLES);
   }
+
   load->ioAckumulators = calloc(load->nCpus, sizeof(ackumulator_t));
+  g_assert(load->ioAckumulators != NULL);
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
     load->ioAckumulators[cpuNo] = ackumulator_create(LOADSAMPLES);
   }
@@ -129,7 +134,18 @@ void meter_getLoad(meter_sysload_t *meter)
 }
 
 /* Shut down load metering */
-void meter_done()
+void meter_done(meter_sysload_t *meter)
 {
-  // FIXME: Free the load history stuff here
+  int cpuIndex;
+
+  for (cpuIndex = 0; cpuIndex < meter->nCpus; cpuIndex++) {
+    ackumulator_done(meter->cpuAckumulators[cpuIndex]);
+    meter->cpuAckumulators[cpuIndex] = NULL;
+
+    ackumulator_done(meter->ioAckumulators[cpuIndex]);
+    meter->ioAckumulators[cpuIndex] = NULL;
+  }
+  free(meter->cpuAckumulators);
+  free(meter->ioAckumulators);
+  free(meter->cpuLoad);
 }
