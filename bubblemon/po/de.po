@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: bubblemon 1.0.2pre1\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
 "POT-Creation-Date: 2009-02-28 10:25+0100\n"
-"PO-Revision-Date: 2009-02-28 12:02+0100\n"
+"PO-Revision-Date: 2009-02-28 15:23+0100\n"
 "Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
 "Language-Team: Detlef Reichl <detlef.reichl@arcormail.de>\n"
 "MIME-Version: 1.0\n"
@@ -23,29 +23,24 @@ msgid "Monitor CPU, memory and IO load"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
-#, fuzzy
 msgid "_About..."
-msgstr "Info"
+msgstr "_Info"
 
 #: ../src/bubblemon.c:140
 msgid "bytes"
 msgstr ""
 
 #: ../src/bubblemon.c:187
-#, fuzzy, c-format
+#, c-format
 msgid "Memory used: %s"
 msgstr ""
-"Belegter Speicher: %s\n"
-"Belegter Swapraum: %s"
 
 #: ../src/bubblemon.c:195
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Swap used: %s"
 msgstr ""
-"Belegter Speicher: %s\n"
-"Belegter Swapraum: %s"
 
 #: ../src/bubblemon.c:201
 #, c-format
@@ -75,53 +70,3 @@ msgstr ""
 #: ../src/gnome2-ui.c:69
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
-
-#, fuzzy
-#~ msgid ""
-#~ "Displays system load as a bubbling liquid.\n"
-#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-#~ "details.\n"
-#~ "This is free software, and you are welcome to redistribute it under "
-#~ "certain conditions (GPL), see the LICENSE file for details."
-#~ msgstr ""
-#~ "Dieses Applet stellt Ihre CPU-Last als eine blubbernde Flüssigkeit dar.\n"
-#~ "Auf dieses Applet gibt es KEINERLEI GARANTIE; schauen Sie für Details in "
-#~ "die Datei LICENSE.\n"
-#~ "Dies ist freie Software, und Sie sind ausdrücklich dazu eingeladen, sie "
-#~ "unter bestimmten Bedingungen (GPL) weiter zu geben; schauen Sie für "
-#~ "Details in die Datei LICENSE."
-
-#, fuzzy
-#~ msgid "Can't create bubblemon applet!"
-#~ msgstr "Applet kann nicht angelegt werden!\n"
-
-#~ msgid ""
-#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-#~ "       The current value of %d is not.\n"
-#~ msgstr ""
-#~ "Fehler: Die Konstante NUM_COLORS in bubblemon.h muss ein Vielfaches von 3 "
-#~ "sein.\n"
-#~ "        Der aktuelle Wert %d ist es nicht.\n"
-
-#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-#~ msgstr ""
-#~ "glibtop_get_mem() behauptet in Zeile %d in %s, Sie hätten keinen Speicher"
-
-#~ msgid "Couldn't chdir() to $HOME (%s)\n"
-#~ msgstr "chdir() nach $HOME konnte nicht ausgeführt werden(%s)\n"
-
-#~ msgid "$HOME environment variable not set\n"
-#~ msgstr "Umgebungs-Variable $HOME ist nicht gesetzt\n"
-
-#~ msgid ""
-#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-#~ msgstr ""
-#~ "Bubblemon wird beendet. Profiling-Daten sollten in ~/gmon.out sein.\n"
-#~ "In einer ruhigen Minute starten Sie 'gprof -l -p %s ~/gmon.out'.\n"
-
-#~ msgid "<name of executable>"
-#~ msgstr "<Name der ausführbaren Datei>"
-
-#~ msgid "Can't open glibtop!\n"
-#~ msgstr "glibtop kann nicht geöffnet werden!\n"

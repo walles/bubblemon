@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
 "POT-Creation-Date: 2009-02-28 10:25+0100\n"
-"PO-Revision-Date: 2009-02-28 12:01+0100\n"
+"PO-Revision-Date: 2009-02-28 15:21+0100\n"
 "Last-Translator: Robert Vanyi <robi@mora.u-szeged.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,29 +23,24 @@ msgid "Monitor CPU, memory and IO load"
 msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
-#, fuzzy
 msgid "_About..."
-msgstr "Névjegy"
+msgstr "_Névjegy"
 
 #: ../src/bubblemon.c:140
 msgid "bytes"
 msgstr ""
 
 #: ../src/bubblemon.c:187
-#, fuzzy, c-format
+#, c-format
 msgid "Memory used: %s"
 msgstr ""
-"Használt memória: %s\n"
-"Használt swap: %s"
 
 #: ../src/bubblemon.c:195
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Swap used: %s"
 msgstr ""
-"Használt memória: %s\n"
-"Használt swap: %s"
 
 #: ../src/bubblemon.c:201
 #, c-format
@@ -75,51 +70,3 @@ msgstr ""
 #: ../src/gnome2-ui.c:69
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
-
-#, fuzzy
-#~ msgid ""
-#~ "Displays system load as a bubbling liquid.\n"
-#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-#~ "details.\n"
-#~ "This is free software, and you are welcome to redistribute it under "
-#~ "certain conditions (GPL), see the LICENSE file for details."
-#~ msgstr ""
-#~ "Ez az applet a CPU terheltségét jelzi ki buborékoló folyadék formájában.\n"
-#~ "Ehhez az applethez SEMMIFÉLE GARANCIA nem jár, részletekért lásd a "
-#~ "LICENSE fájlt.\n"
-#~ "Ez szabad szoftver, és bizonyos feltételek mellett (GPL) szabadon "
-#~ "terjeszthetõ, részletekért lásd a LICENSE fájlt."
-
-#, fuzzy
-#~ msgid "Can't create bubblemon applet!"
-#~ msgstr "Nem sikerült az applet létrehozása!\n"
-
-#~ msgid ""
-#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-#~ "       The current value of %d is not.\n"
-#~ msgstr ""
-#~ "Hiba: A bubblemon.h fájlban a NUM_COLOR konstansnak 3 többszörösének kell "
-#~ "lennie.\n"
-#~ "      A jelenlegi érték, %d, nem az.\n"
-
-#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-#~ msgstr "glibtop_get_mem() az mondja, nincs több memória, %s, %d. sor"
-
-#~ msgid "Couldn't chdir() to $HOME (%s)\n"
-#~ msgstr "Nem sikerült a $HOME könyvtárba váltani (%s)\n"
-
-#~ msgid "$HOME environment variable not set\n"
-#~ msgstr "A $HOME környezeti változó nincs beállítva\n"
-
-#~ msgid ""
-#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-#~ msgstr ""
-#~ "A bubblemon kilép. A profiling adatok a ~/gmon.out-ban lesznek.\n"
-#~ "Futtassd a 'gprof -l -p %s ~/gmon.out' parancsot.\n"
-
-#~ msgid "<name of executable>"
-#~ msgstr "<futtatható fájl neve>"
-
-#~ msgid "Can't open glibtop!\n"
-#~ msgstr "Nem sikerült a glibtop megnyitása!\n"

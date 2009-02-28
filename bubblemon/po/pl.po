@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
 "POT-Creation-Date: 2009-02-28 10:25+0100\n"
-"PO-Revision-Date: 2009-02-28 12:01+0100\n"
+"PO-Revision-Date: 2009-02-28 15:16+0100\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
 msgid "Bubbling Load Monitor"
-msgstr "BĂÂbelkowy monitor obciĂÂÄšĹşenia systemu"
+msgstr "BÄÂĂÂbelkowy monitor obciÄÂĂÂĂĹĄÄšĹenia systemu"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
 msgid "Monitor CPU, memory and IO load"
@@ -29,12 +29,12 @@ msgstr "_O programie"
 
 #: ../src/bubblemon.c:140
 msgid "bytes"
-msgstr "bajtÄĹw"
+msgstr "bajtĂÂÄšÂw"
 
 #: ../src/bubblemon.c:187
 #, c-format
 msgid "Memory used: %s"
-msgstr "Wykorzystanie pamiĂÂci: %s"
+msgstr "Wykorzystanie pamiÄÂĂÂci: %s"
 
 #: ../src/bubblemon.c:195
 #, c-format
@@ -59,7 +59,7 @@ msgid ""
 "CPU load: %d%%"
 msgstr ""
 "\n"
-"ObciĂÂÄšĹşenie procesora: %d%%"
+"ObciÄÂĂÂĂĹĄÄšĹenie procesora: %d%%"
 
 #: ../src/bubblemon.c:219
 #, c-format
@@ -68,67 +68,8 @@ msgid ""
 "CPU #%d load: %d%%"
 msgstr ""
 "\n"
-"ObciĂÂÄšĹşenie procesora: #%d: %d%%"
+"ObciÄÂĂÂĂĹĄÄšĹenie procesora: #%d: %d%%"
 
 #: ../src/gnome2-ui.c:69
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
-
-#~ msgid "%llu/%llu bytes"
-#~ msgstr "%llu/%llu bajtÄĹw"
-
-#~ msgid "%llu/%llu%cb"
-#~ msgstr "%llu/%llu%cb"
-
-#, fuzzy
-#~ msgid ""
-#~ "Displays system load as a bubbling liquid.\n"
-#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-#~ "details.\n"
-#~ "This is free software, and you are welcome to redistribute it under "
-#~ "certain conditions (GPL), see the LICENSE file for details."
-#~ msgstr ""
-#~ "Ten aplet przedstawia obciĂÂÄšĹşenie Twojego procesora w postaci pÄšÂywajĂÂcych pĂÂcherzykÄĹw.\n"
-#~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-#~ "details.\n"
-#~ "This is free software, and you are welcome to redistribute it under "
-#~ "certain conditions (GPL), see the LICENSE file for details."
-
-#, fuzzy
-#~ msgid "A system load monitor"
-#~ msgstr "Monitor obciĂÂÄšĹşenia procesora"
-
-#, fuzzy
-#~ msgid "Can't create bubblemon applet!"
-#~ msgstr "Nie moÄÂÄšÄĂĹĄÄšÂna utworzyĂÂĂÂÄÂĂÂ apletu!\n"
-
-#~ msgid ""
-#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-#~ "       The current value of %d is not.\n"
-#~ msgstr ""
-#~ "BÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂd: WartoÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂ staÄÂÄšÄÄÂĂÂej NUM_COLORS w bubblemon.h musi byĂÂĂÂÄÂĂÂ "
-#~ "wielokrotnoÄÂÄšÄÄÂĂÂciĂÂĂÂÄÂĂÂ 3.\n"
-#~ "      BieÄÂÄšÄĂĹĄÄšÂĂÂĂÂÄÂĂÂca wartoÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂ (%d) niĂÂĂÂÄÂĂÂ nie jest.\n"
-
-#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-#~ msgstr "glibtop_get_mem() - brak pamiĂÂĂÂÄÂĂÂci (linia %d w %s)"
-
-#~ msgid "Couldn't chdir() to $HOME (%s)\n"
-#~ msgstr "BÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂd wykonania chdir() na $HOME (%s)\n"
-
-#~ msgid "$HOME environment variable not set\n"
-#~ msgstr "Nieustawiona zmienna $HOME\n"
-
-#~ msgid ""
-#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-#~ msgstr ""
-#~ "Koniec dziaÄÂÄšÄÄÂĂÂania Bubblemon. Dane powinny znajdowaĂÂĂÂÄÂĂÂ siĂÂĂÂÄÂĂÂ w pliku "
-#~ "~/gmon.out.\n"
-#~ "Uruchom 'gprof -l -p %s ~/gmon.out'.\n"
-
-#~ msgid "<name of executable>"
-#~ msgstr "<nazwa pliku wykonywalnego>"
-
-#~ msgid "Can't open glibtop!\n"
-#~ msgstr "Nie moÄÂÄšÄĂĹĄÄšÂna otworzyĂÂĂÂÄÂĂÂ biblioteki glibtop!\n"
