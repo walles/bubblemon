@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-02-23 07:15+0100\n"
-"PO-Revision-Date: 2009-02-23 07:16+0100\n"
+"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"PO-Revision-Date: 2009-02-28 10:28+0100\n"
 "Last-Translator: Johan Walles <johan.walles@gmail.com>\n"
 "Language-Team: Swedish <johan.walles@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,16 +24,16 @@ msgstr "Övervaka CPU-, minnes- och IOlast"
 msgid "_About..."
 msgstr "_Om..."
 
-#: ../src/bubblemon.c:127
+#: ../src/bubblemon.c:140
 msgid "bytes"
 msgstr ""
 
-#: ../src/bubblemon.c:174
+#: ../src/bubblemon.c:187
 #, c-format
 msgid "Memory used: %s"
 msgstr "Använt minne: %s"
 
-#: ../src/bubblemon.c:182
+#: ../src/bubblemon.c:195
 #, c-format
 msgid ""
 "\n"
@@ -42,7 +42,14 @@ msgstr ""
 "\n"
 "Virtuellt minne: %s"
 
-#: ../src/bubblemon.c:190
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr "\nIOlast: %d%%"
+
+#: ../src/bubblemon.c:208
 #, c-format
 msgid ""
 "\n"
@@ -51,7 +58,7 @@ msgstr ""
 "\n"
 "Processorlast: %d%%"
 
-#: ../src/bubblemon.c:201
+#: ../src/bubblemon.c:219
 #, c-format
 msgid ""
 "\n"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-02-23 07:15+0100\n"
-"PO-Revision-Date: 2008-12-26 10:59+0100\n"
+"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"PO-Revision-Date: 2009-02-28 12:01+0100\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
 msgid "Bubbling Load Monitor"
-msgstr "Bąbelkowy monitor obciążenia systemu"
+msgstr "BĂÂbelkowy monitor obciĂÂÄšĹşenia systemu"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
 msgid "Monitor CPU, memory and IO load"
@@ -27,16 +27,16 @@ msgstr ""
 msgid "_About..."
 msgstr "_O programie"
 
-#: ../src/bubblemon.c:127
+#: ../src/bubblemon.c:140
 msgid "bytes"
-msgstr "bajtów"
+msgstr "bajtÄĹw"
 
-#: ../src/bubblemon.c:174
+#: ../src/bubblemon.c:187
 #, c-format
 msgid "Memory used: %s"
-msgstr "Wykorzystanie pamięci: %s"
+msgstr "Wykorzystanie pamiĂÂci: %s"
 
-#: ../src/bubblemon.c:182
+#: ../src/bubblemon.c:195
 #, c-format
 msgid ""
 "\n"
@@ -45,30 +45,37 @@ msgstr ""
 "\n"
 "Wykorzystanie przestrzeni wymiany: %s"
 
-#: ../src/bubblemon.c:190
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr ""
+
+#: ../src/bubblemon.c:208
 #, c-format
 msgid ""
 "\n"
 "CPU load: %d%%"
 msgstr ""
 "\n"
-"Obciążenie procesora: %d%%"
+"ObciĂÂÄšĹşenie procesora: %d%%"
 
-#: ../src/bubblemon.c:201
+#: ../src/bubblemon.c:219
 #, c-format
 msgid ""
 "\n"
 "CPU #%d load: %d%%"
 msgstr ""
 "\n"
-"Obciążenie procesora: #%d: %d%%"
+"ObciĂÂÄšĹşenie procesora: #%d: %d%%"
 
 #: ../src/gnome2-ui.c:69
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
 
 #~ msgid "%llu/%llu bytes"
-#~ msgstr "%llu/%llu bajtów"
+#~ msgstr "%llu/%llu bajtÄĹw"
 
 #~ msgid "%llu/%llu%cb"
 #~ msgstr "%llu/%llu%cb"
@@ -81,7 +88,7 @@ msgstr ""
 #~ "This is free software, and you are welcome to redistribute it under "
 #~ "certain conditions (GPL), see the LICENSE file for details."
 #~ msgstr ""
-#~ "Ten aplet przedstawia obciążenie Twojego procesora w postaci pływających pęcherzyków.\n"
+#~ "Ten aplet przedstawia obciĂÂÄšĹşenie Twojego procesora w postaci pÄšÂywajĂÂcych pĂÂcherzykÄĹw.\n"
 #~ "This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
 #~ "details.\n"
 #~ "This is free software, and you are welcome to redistribute it under "
@@ -89,25 +96,25 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "A system load monitor"
-#~ msgstr "Monitor obciążenia procesora"
+#~ msgstr "Monitor obciĂÂÄšĹşenia procesora"
 
 #, fuzzy
 #~ msgid "Can't create bubblemon applet!"
-#~ msgstr "Nie moÄšĹşna utworzyĂÂ apletu!\n"
+#~ msgstr "Nie moÄÂÄšÄĂĹĄÄšÂna utworzyĂÂĂÂÄÂĂÂ apletu!\n"
 
 #~ msgid ""
 #~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
 #~ "       The current value of %d is not.\n"
 #~ msgstr ""
-#~ "BÄšÂĂÂd: WartoÄšÂĂÂ staÄšÂej NUM_COLORS w bubblemon.h musi byĂÂ "
-#~ "wielokrotnoÄšÂciĂÂ 3.\n"
-#~ "      BieÄšĹşĂÂca wartoÄšÂĂÂ (%d) niĂÂ nie jest.\n"
+#~ "BÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂd: WartoÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂ staÄÂÄšÄÄÂĂÂej NUM_COLORS w bubblemon.h musi byĂÂĂÂÄÂĂÂ "
+#~ "wielokrotnoÄÂÄšÄÄÂĂÂciĂÂĂÂÄÂĂÂ 3.\n"
+#~ "      BieÄÂÄšÄĂĹĄÄšÂĂÂĂÂÄÂĂÂca wartoÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂ (%d) niĂÂĂÂÄÂĂÂ nie jest.\n"
 
 #~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-#~ msgstr "glibtop_get_mem() - brak pamiĂÂci (linia %d w %s)"
+#~ msgstr "glibtop_get_mem() - brak pamiĂÂĂÂÄÂĂÂci (linia %d w %s)"
 
 #~ msgid "Couldn't chdir() to $HOME (%s)\n"
-#~ msgstr "BÄšÂĂÂd wykonania chdir() na $HOME (%s)\n"
+#~ msgstr "BÄÂÄšÄÄÂĂÂĂÂĂÂÄÂĂÂd wykonania chdir() na $HOME (%s)\n"
 
 #~ msgid "$HOME environment variable not set\n"
 #~ msgstr "Nieustawiona zmienna $HOME\n"
@@ -116,7 +123,7 @@ msgstr ""
 #~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
 #~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
 #~ msgstr ""
-#~ "Koniec dziaÄšÂania Bubblemon. Dane powinny znajdowaĂÂ siĂÂ w pliku "
+#~ "Koniec dziaÄÂÄšÄÄÂĂÂania Bubblemon. Dane powinny znajdowaĂÂĂÂÄÂĂÂ siĂÂĂÂÄÂĂÂ w pliku "
 #~ "~/gmon.out.\n"
 #~ "Uruchom 'gprof -l -p %s ~/gmon.out'.\n"
 
@@ -124,4 +131,4 @@ msgstr ""
 #~ msgstr "<nazwa pliku wykonywalnego>"
 
 #~ msgid "Can't open glibtop!\n"
-#~ msgstr "Nie moÄšĹşna otworzyĂÂ biblioteki glibtop!\n"
+#~ msgstr "Nie moÄÂÄšÄĂĹĄÄšÂna otworzyĂÂĂÂÄÂĂÂ biblioteki glibtop!\n"

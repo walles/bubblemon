@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.3\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-02-23 07:15+0100\n"
-"PO-Revision-Date: 2001-02-19 14:19-03:00\n"
+"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"PO-Revision-Date: 2009-02-28 12:02+0100\n"
 "Last-Translator: Edgardo Garcia Hoeffler <edybsd@yahoo.com.ar>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,16 +26,16 @@ msgstr ""
 msgid "_About..."
 msgstr "Acerca"
 
-#: ../src/bubblemon.c:127
+#: ../src/bubblemon.c:140
 msgid "bytes"
 msgstr ""
 
-#: ../src/bubblemon.c:174
+#: ../src/bubblemon.c:187
 #, c-format
 msgid "Memory used: %s"
 msgstr "Memoria usada: %s"
 
-#: ../src/bubblemon.c:182
+#: ../src/bubblemon.c:195
 #, c-format
 msgid ""
 "\n"
@@ -44,7 +44,14 @@ msgstr ""
 "\n"
 "Intercambio usado: %s"
 
-#: ../src/bubblemon.c:190
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr ""
+
+#: ../src/bubblemon.c:208
 #, c-format
 msgid ""
 "\n"
@@ -53,7 +60,7 @@ msgstr ""
 "\n"
 "Carga CPU: %d%%"
 
-#: ../src/bubblemon.c:201
+#: ../src/bubblemon.c:219
 #, c-format
 msgid ""
 "\n"

@@ -168,7 +168,7 @@ static void usage2string(char *string,
 
 const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 {
-  char memstring[20], swapstring[20], loadstring[50];
+  char memstring[20], swapstring[20], iowaitstring[20], loadstring[50];
   int cpu_number;
 
   if (!bubblemon->tooltipstring)
@@ -196,6 +196,11 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 	     swapstring);
     strcat(bubblemon->tooltipstring, loadstring);
   }
+
+  snprintf(iowaitstring, 18,
+	   _("\nIO wait: %d%%"),
+	   bubblemon->sysload.ioLoad);
+  strcat(bubblemon->tooltipstring, iowaitstring);
 
   if (bubblemon->sysload.nCpus == 1)
     {

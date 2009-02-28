@@ -1,11 +1,11 @@
 # This file is distributed under the same license as the PACKAGE package.
-# Диконов Вячеслав (Vyacheslav Dikonov) <slava@altlinux.ru>, 2002. 
+# Диконов Вячеслав (Vyacheslav Dikonov) <slava@altlinux.ru>, 2002.
 msgid ""
 msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-02-23 07:15+0100\n"
-"PO-Revision-Date: 2002-09-23 19:01+3hour\n"
+"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"PO-Revision-Date: 2009-02-28 10:34+0100\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,16 +24,16 @@ msgstr ""
 msgid "_About..."
 msgstr "_Об апплете"
 
-#: ../src/bubblemon.c:127
+#: ../src/bubblemon.c:140
 msgid "bytes"
 msgstr ""
 
-#: ../src/bubblemon.c:174
+#: ../src/bubblemon.c:187
 #, c-format
 msgid "Memory used: %s"
 msgstr "Занято памяти: %s"
 
-#: ../src/bubblemon.c:182
+#: ../src/bubblemon.c:195
 #, c-format
 msgid ""
 "\n"
@@ -42,7 +42,14 @@ msgstr ""
 "\n"
 "Виртуальной памяти: %s"
 
-#: ../src/bubblemon.c:190
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr ""
+
+#: ../src/bubblemon.c:208
 #, c-format
 msgid ""
 "\n"
@@ -51,7 +58,7 @@ msgstr ""
 "\n"
 "Загрузка процессора: %d%%"
 
-#: ../src/bubblemon.c:201
+#: ../src/bubblemon.c:219
 #, c-format
 msgid ""
 "\n"

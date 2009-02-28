@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-02-23 07:15+0100\n"
-"PO-Revision-Date: 2004-01-11 20:58+0100\n"
+"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"PO-Revision-Date: 2009-02-28 10:33+0100\n"
 "Last-Translator: Alex Badea <vampire@go.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,18 +28,18 @@ msgstr ""
 msgid "_About..."
 msgstr "Despre"
 
-#: ../src/bubblemon.c:127
+#: ../src/bubblemon.c:140
 msgid "bytes"
 msgstr ""
 
-#: ../src/bubblemon.c:174
+#: ../src/bubblemon.c:187
 #, fuzzy, c-format
 msgid "Memory used: %s"
 msgstr ""
 "Memorie ocupat: %s\n"
 "Swap ocupat: %s"
 
-#: ../src/bubblemon.c:182
+#: ../src/bubblemon.c:195
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -48,7 +48,14 @@ msgstr ""
 "Memorie ocupat: %s\n"
 "Swap ocupat: %s"
 
-#: ../src/bubblemon.c:190
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr ""
+
+#: ../src/bubblemon.c:208
 #, c-format
 msgid ""
 "\n"
@@ -57,7 +64,7 @@ msgstr ""
 "\n"
 "Procesor: %d%%"
 
-#: ../src/bubblemon.c:201
+#: ../src/bubblemon.c:219
 #, c-format
 msgid ""
 "\n"
