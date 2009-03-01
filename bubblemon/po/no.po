@@ -1,6 +1,6 @@
 # Oversettelse til norsk bokmål for Bubblemon.
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# Vegard Bakke <Vegard.Bakke@bigfoot.com>, 2001.
+# Vegard Bakke, 2001.
 #
 #, fuzzy
 msgid ""
@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
 "POT-Creation-Date: 2009-02-28 10:25+0100\n"
 "PO-Revision-Date: 2009-02-28 15:17+0100\n"
-"Last-Translator: Vegard Bakke <Vegard.Bakke@bigfoot.com>\n"
-"Language-Team: Norsk-bokmål <Vegard.Bakke@bigfoot.com>\n"
+"Last-Translator: Vegard Bakke\n"
+"Language-Team: Norsk-bokmål\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"

@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
-# Man-Yong Lee <yong@linuxkorea.co.kr>, 2000.
+# Man-Yong Lee, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
 "POT-Creation-Date: 2009-02-28 10:25+0100\n"
-"PO-Revision-Date: 2009-02-28 15:18+0100\n"
-"Last-Translator: Man-Yong Lee <yong@linuxkorea.co.kr>\n"
+"PO-Revision-Date: 2009-03-01 09:59+0100\n"
+"Last-Translator: Man-Yong Lee\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-KR\n"
