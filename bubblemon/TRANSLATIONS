@@ -15,20 +15,18 @@ know.
 
   ./configure
   make
+  cd po
+  make update-po
 
   ... from the bubblemon directory.
 
-3. Enter the 'po' directory:
-
-  cd po
-
-4. Initialize your translation by copying bubblemon.pot (the template
+3. Initialize your translation by copying bubblemon.pot (the template
   file created in step 3) into xx.po (but remember to use *your*
   language code instead of xx):
 
   cp bubblemon.pot xx.po
 
-5. Edit xx.po using your favourite text editor.  Leave the lines
+4. Edit xx.po using your favourite text editor.  Leave the lines
   containing English (marked "msgid") alone; your translations should
   be added under the "msgstr" heading.  If you are unsure, look at
   some other translation (sv.po for example) to see how it's done.
@@ -36,10 +34,10 @@ know.
 
   emacs xx.po
 
-6. When you have translated everything in that file, mail it to me
+5. When you have translated everything in that file, mail it to me
    (johan.walles@gmail.com) for inclusion in the next version.
 
-7. If you want to see your newly created translation in action, use
+6. If you want to see your newly created translation in action, use
    your favourite text editor to edit configure.in in the bubblemon
    directory, and add your language to the ALL_LINGUAS variable.  This
    is what the ALL_LINGUAS line should look like if there are
@@ -47,14 +45,12 @@ know.
 
   ALL_LINGUAS="sv xx"
 
-8. Run autoconf, build and install the project:
+7. Run autoconf, build and install the project:
 
-  autoconf
+  ./autogen.sh
   ./configure
   make
-  su
-  [enter the root password]
-  make install
+  sudo make install
   exit
 
 The applet should now appear in the language of your choice!  If you
