@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
 "POT-Creation-Date: 2009-02-28 10:25+0100\n"
-"PO-Revision-Date: 2009-02-28 15:14+0100\n"
+"PO-Revision-Date: 2009-03-01 13:57+0300\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr "Пузырьки"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
 msgid "Monitor CPU, memory and IO load"
-msgstr ""
+msgstr "Отображает загрузку процессора и памяти, а также интесивность процессов записи/чтения данных."
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
@@ -26,7 +26,7 @@ msgstr "_Об апплете"
 
 #: ../src/bubblemon.c:140
 msgid "bytes"
-msgstr ""
+msgstr "байт"
 
 #: ../src/bubblemon.c:187
 #, c-format
@@ -48,6 +48,8 @@ msgid ""
 "\n"
 "IO wait: %d%%"
 msgstr ""
+"\n"
+"Задержка ввода-вывода: %d%%"
 
 #: ../src/bubblemon.c:208
 #, c-format
@@ -69,4 +71,5 @@ msgstr ""
 
 #: ../src/gnome2-ui.c:69
 msgid "Displays system load as a bubbling liquid."
-msgstr ""
+msgstr "Показывает рабочую загрузку системы в виде кипящей жидкости."
+
