@@ -1,3 +1,8 @@
+2009-04-09  Johan Walles  <johan.walles@gmail.com>
+
+	* Rename LICENSE->COPYING since the COPYING file is the one that
+	gets distributed.
+
 2009-03-30  Johan Walles  <johan.walles@gmail.com>
 
 	* Update translations.
