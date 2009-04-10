@@ -1,0 +1,78 @@
+# Nederlandse vertaling van Bubblemon.
+# Copyright (C) 2009 Johan Walles
+# This file is distributed under the same license as the bubblemon package.
+# Edwin ten Brink <edwin.ten.brink@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 2.0.12\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2009-04-02 07:31+0200\n"
+"PO-Revision-Date: 2009-04-08 16:00+0200\n"
+"Last-Translator: Edwin ten Brink <edwin.ten.brink@gmail.com>\n"
+"Language-Team: Dutch <xxx@xxx>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
+msgid "Bubbling Load Monitor"
+msgstr "Bubbelende belastingsmonitor"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Monitor CPU, memory and IO load"
+msgstr "Monitor CPU-, geheugen- en IO belasting"
+
+#: ../gnome/GNOME_BubblemonApplet.xml.h:1
+msgid "_About..."
+msgstr "_Over..."
+
+#: ../src/bubblemon.c:140
+msgid "bytes"
+msgstr "bytes"
+
+#: ../src/bubblemon.c:187
+#, c-format
+msgid "Memory used: %s"
+msgstr "Geheugen gebruikt: %s"
+
+#: ../src/bubblemon.c:195
+#, c-format
+msgid ""
+"\n"
+"Swap used: %s"
+msgstr ""
+"\n"
+"Swap gebruikt: %s"
+
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr ""
+"\n"
+"Wacht op IO: %d%%"
+
+#: ../src/bubblemon.c:208
+#, c-format
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+"\n"
+"CPU belasting: %d%%"
+
+#: ../src/bubblemon.c:219
+#, c-format
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+"\n"
+"CPU #%d belasting: %d%%"
+
+#: ../src/gnome2-ui.c:69
+msgid "Displays system load as a bubbling liquid."
+msgstr "Laat de systeembelasting zien als bubbelende vloeistof."
+
