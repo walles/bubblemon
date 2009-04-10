@@ -1,33 +1,39 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Johan Walles <johan.walles@gmail.com>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-16 22:30+0200\n"
-"PO-Revision-Date: 2004-08-16 22:21+0200\n"
-"Last-Translator: Johan Walles <d92-jwa@nada.kth.se>\n"
-"Language-Team: Swedish <d92-jwa@nada.kth.se>\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"PO-Revision-Date: 2009-02-28 10:28+0100\n"
+"Last-Translator: Johan Walles <johan.walles@gmail.com>\n"
+"Language-Team: Swedish <johan.walles@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: gnome/GNOME_BubblemonApplet.server.in.in.h:1
-msgid "A CPU load meter monitor"
-msgstr "En bubblande lastmätare"
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
+msgid "Bubbling Load Monitor"
+msgstr "Bubblande lastmätare"
 
-#: gnome/GNOME_BubblemonApplet.xml.h:1
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Monitor CPU, memory and IO load"
+msgstr "Övervaka CPU-, minnes- och IOlast"
+
+#: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "_Om..."
 
-#: src/bubblemon.c:152
+#: ../src/bubblemon.c:140
+msgid "bytes"
+msgstr ""
+
+#: ../src/bubblemon.c:187
 #, c-format
 msgid "Memory used: %s"
 msgstr "Använt minne: %s"
 
-#: src/bubblemon.c:158
+#: ../src/bubblemon.c:195
 #, c-format
 msgid ""
 "\n"
@@ -36,7 +42,14 @@ msgstr ""
 "\n"
 "Virtuellt minne: %s"
 
-#: src/bubblemon.c:166
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr "\nIOlast: %d%%"
+
+#: ../src/bubblemon.c:208
 #, c-format
 msgid ""
 "\n"
@@ -45,7 +58,7 @@ msgstr ""
 "\n"
 "Processorlast: %d%%"
 
-#: src/bubblemon.c:177
+#: ../src/bubblemon.c:219
 #, c-format
 msgid ""
 "\n"
@@ -54,58 +67,12 @@ msgstr ""
 "\n"
 "Processorlast (CPU %d): %d%%"
 
-#: src/gnome2-ui.c:72
-msgid "Bubbling Load Monitor"
-msgstr "Bubblande lastmätare"
+#: ../src/gnome2-ui.c:69
+msgid "Displays system load as a bubbling liquid."
+msgstr "Visar systemlasten som en bubblande vätska."
 
-#: src/gnome2-ui.c:74
-msgid ""
-"This applet displays your CPU load as a bubbling liquid.\n"
-"This applet comes with ABSOLUTELY NO WARRANTY, see the LICENSE file for "
-"details.\n"
-"This is free software, and you are welcome to redistribute it under certain "
-"conditions (GPL), see the LICENSE file for details."
-msgstr ""
-"Denna applet visar datorns processorlast som en bubblande vätska.\n"
-"Detta är fri programvara som får spridas i enlighet med GNU GPL."
+#~ msgid "%llu/%llu bytes"
+#~ msgstr "%llu/%llu bytes"
 
-#~ msgid "Can't create bubblemon applet!"
-#~ msgstr "Kan inte skapa appleten!"
-
-#~ msgid ""
-#~ "Error: The NUM_COLORS constant in bubblemon.h must be a multiple of 3.\n"
-#~ "       The current value of %d is not.\n"
-#~ msgstr ""
-#~ "Fel: Konstanten NUM_COLORS i bubblemon.h måste vara en multipel av\n"
-#~ "    tre.  Nuvarande värde (%d) är inte det.\n"
-
-#~ msgid "glibtop_get_mem() says you have no memory on line %d in %s"
-#~ msgstr "glibtop_get_mem() hävdar att du inte har något minne på rad %d i %s"
-
-#~ msgid "Couldn't chdir() to $HOME (%s)\n"
-#~ msgstr "Kunde inte byta katalog till $HOME (%s)\n"
-
-#~ msgid "$HOME environment variable not set\n"
-#~ msgstr "Miljövariabeln $HOME är inte satt\n"
-
-#~ msgid ""
-#~ "Bubblemon exiting.  Profiling data should be in ~/gmon.out.\n"
-#~ "For a good time, run 'gprof -l -p %s ~/gmon.out'.\n"
-#~ msgstr ""
-#~ "Bubblaren avslutas nu.  Profildata bör ligga i ~/gmon.out.\n"
-#~ "Kör 'gprof -l -p %s ~/gmon.out' för att få se statistiken.\n"
-
-#~ msgid "<name of executable>"
-#~ msgstr "<programmets namn>"
-
-#~ msgid "Can't open glibtop!\n"
-#~ msgstr "Kan inte öppna glibtop!\n"
-
-#~ msgid "bm == NULL in update_tooltip() on line %d of %s\n"
-#~ msgstr "bm == NULL i update_tooltip() på rad %d i %s\n"
-
-#~ msgid ""
-#~ "get_censored_memory_and_swap() says you have no memory on line %d in %s"
-#~ msgstr ""
-#~ "get_censored_memory_and_swap() hävdar att du inte har något minne på\n"
-#~ "rad %d i %s"
+#~ msgid "%llu/%llu%cb"
+#~ msgstr "%llu/%llu%cb"

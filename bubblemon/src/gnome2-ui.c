@@ -1,8 +1,8 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2002 Johan Walles - d92-jwa@nada.kth.se
- *  This file (C) 2002 Juan Salaverria - rael@vectorstar.net
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2009 Johan Walles - johan.walles@gmail.com
+ *  This file (C) 2002-2008 Juan Salaverria - rael@vectorstar.net
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  * This file contains the GNOME 2 ui for bubblemon. It has been
  * adapted from many GNOME 2 core applets already ported, and based in
  * the original gnome1-ui.c code, of course.
- * 
+ *
  */
 
 #include <stdio.h>
@@ -47,19 +47,14 @@
 // Bottle graphics
 #include "msgInBottle.c"
 
-static int width;
-static int height;
-static GtkWidget *drawingArea = NULL;
-static GtkWidget *applet;
-
-static guchar *rgb_buffer;
-
 static void
 display_about_dialog (BonoboUIComponent *uic,
-		      BubblemonApplet *bubble,
-		      const gchar       *verbname)
+		      gpointer data,
+		      const gchar *verbname)
 {
-  static const gchar *authors[] = { "Johan Walles <d92-jwa@nada.kth.se>",
+  BubblemonApplet *bubble = (BubblemonApplet*)data;
+
+  static const gchar *authors[] = { "Johan Walles <johan.walles@gmail.com>",
 				    "Juan Salaverria <rael@vectorstar.net>",
 				    NULL };
   static const gchar *documenters[] = { NULL };
@@ -70,60 +65,24 @@ display_about_dialog (BonoboUIComponent *uic,
   }
 
   bubble->aboutbox= gnome_about_new(_("Bubbling Load Monitor"), VERSION,
-				    "Copyright (C) 1999-2004 Johan Walles",
-				    _("This applet displays your CPU load as a bubbling liquid.\n"
-				      "This applet comes with ABSOLUTELY NO WARRANTY, "
-				      "see the LICENSE file for details.\n"
-				      "This is free software, and you are welcome to redistribute it "
-				      "under certain conditions (GPL), "
-				      "see the LICENSE file for details."),
+				    "Copyright (C) 1999-2009 Johan Walles",
+				    _("Displays system load as a bubbling liquid."),
 				    authors,
 				    documenters,
 				    NULL,
 				    NULL);
- 
+
   gtk_window_set_wmclass (GTK_WINDOW (bubble->aboutbox), "bubblemon", "Bubblemon");
 
   g_signal_connect ( bubble->aboutbox, "destroy", G_CALLBACK (gtk_widget_destroyed), &bubble->aboutbox);
-							    
+
   gtk_widget_show(bubble->aboutbox);
 
   return;
 }
 
-static void ui_setSize(int newPanelSize)
-{
-  // Leave room for the border
-  int newSize = newPanelSize - 4;
-
-  height = newSize;
-  width  = (newSize * RELATIVE_WIDTH) / RELATIVE_HEIGHT;
-
-  /*
-    FIXME: For some unknown reason, at 16bpp, the width cannot be odd,
-    or the drawing doesn't work.  I have not been able to determine
-    why.  Until someone convinces me otherwise, I'll assume this is a
-    bug in gdk / gtk+.  Anyway, the workaround on the next line kills
-    the lowermost bit of the new width so that this bug never (?) gets
-    triggered.  This is not a solution, and I hate it, but it's the
-    best I'll do for the moment.
-  */
-  width &= ~1;
-
-  if (drawingArea != NULL)
-  {
-    gtk_drawing_area_size(GTK_DRAWING_AREA(drawingArea), width, height);
-    gtk_widget_set_usize(GTK_WIDGET(drawingArea), width, height);
-  }
-
-  rgb_buffer = realloc(rgb_buffer, width * height * 3);
-
-  bubblemon_setSize(width, height);
-}
-
-
 static void
-ui_update (void)
+ui_update (BubblemonApplet *applet)
 {
   int w, h, i;
   const bubblemon_picture_t *bubblePic;
@@ -132,15 +91,17 @@ ui_update (void)
 
   GdkGC *gc;
 
+  GtkWidget *drawingArea = applet->drawingArea;
+
   if((drawingArea == NULL) ||
      !GTK_WIDGET_REALIZED(drawingArea) ||
      !GTK_WIDGET_DRAWABLE(drawingArea) ||
-     width <= 0)
+     applet->width <= 0)
   {
     return;
   }
 
-  bubblePic = bubblemon_getPicture();
+  bubblePic = bubblemon_getPicture(applet->bubblemon);
   if ((bubblePic == NULL) ||
       (bubblePic->width == 0) ||
       (bubblePic->pixels == 0))
@@ -152,7 +113,7 @@ ui_update (void)
 
   gc = gdk_gc_new(drawingArea->window);
 
-  p = rgb_buffer;
+  p = applet->rgb_buffer;
   pixel = bubblePic->pixels;
   for(i = 0; i < w * h; i++) {
     *(p++) = pixel->components.r;
@@ -162,163 +123,181 @@ ui_update (void)
   }
 
   gdk_draw_rgb_image(drawingArea->window, gc,
-                     0, 0, width, height,
+                     0, 0,
+		     applet->width, applet->height,
                      GDK_RGB_DITHER_NORMAL,
-                     rgb_buffer, w * 3);
+                     applet->rgb_buffer, w * 3);
 
   gdk_gc_destroy(gc);
 
 }
 
 static int
-ui_expose (void)
+ui_expose(GtkWidget *exposed, GdkEventExpose *event, gpointer data)
 {
-  ui_update();
+  BubblemonApplet *applet = (BubblemonApplet*)data;
+
+  ui_update(applet);
   return FALSE;
 }
 
 static int
-ui_timeoutHandler(gpointer ignored)
+ui_realize(GtkWidget *realized, gpointer data)
 {
-	
-  ui_update();
+  BubblemonApplet *applet = (BubblemonApplet*)data;
+
+  ui_update(applet);
+  return FALSE;
+}
+
+static int
+ui_timeoutHandler(gpointer data)
+{
+  BubblemonApplet *applet = (BubblemonApplet*)data;
+
+  ui_update(applet);
+  return TRUE;
+}
+
+static int
+update_tooltip (gpointer bubbles)
+{
+  BubblemonApplet *bubble = bubbles;
+
+  gtk_widget_set_tooltip_text(bubble->applet,
+			      bubblemon_getTooltip(bubble->bubblemon));
+
+  // FIXME: We want to call
+  // gtk_widget_trigger_tooltip_query(bubble->applet) here, but we can't
+  // due to http://bugs.debian.org/510873.
+  //
+  // There may be other problems as well, try running the applet in
+  // valgrind after 510873 is fixed and see if we can show the tooltip
+  // without any complaints from valgrind then.
+
   return TRUE;
 }
 
 static void
-set_tooltip (gpointer bubbles) 
+applet_destroy (GtkWidget *panelApplet, BubblemonApplet *applet)
 {
-  GtkTooltips *tooltips;
-  BubblemonApplet *bubble = bubbles;
-	
-  tooltips = gtk_tooltips_new ();
-  g_object_ref (tooltips);
-  gtk_object_sink (GTK_OBJECT (tooltips));
-  g_object_set_data (G_OBJECT (bubble->applet), "tooltips", tooltips);
-  gtk_tooltips_set_tip (tooltips, bubble->applet, bubblemon_getTooltip(), NULL);
-  bubble->tooltips = tooltips;
-}
+  g_source_remove(applet->refresh_timeout_id);
+  applet->refresh_timeout_id = 0;
+  g_source_remove(applet->tooltip_timeout_id);
+  applet->tooltip_timeout_id = 0;
 
-static int 
-update_tooltip (gpointer bubbles) 
-{
-  BubblemonApplet *bubble = bubbles;
-	
-  gtk_tooltips_set_tip (bubble->tooltips, bubble->applet, bubblemon_getTooltip(), NULL);
-  return TRUE;
-}
-
-
-void
-destroy_tooltip (GtkWidget *object)
-{
-  GtkTooltips *tooltips;
-
-  tooltips = g_object_get_data (G_OBJECT (object), "tooltips");
-  if (tooltips) {
-    g_object_unref (tooltips);
-    g_object_set_data (G_OBJECT (object), "tooltips", NULL);
+  if (applet->aboutbox != NULL) {
+    gtk_widget_destroy(applet->aboutbox);
   }
+  applet->aboutbox = NULL;
+
+  if (applet->rgb_buffer != NULL) {
+    g_free(applet->rgb_buffer);
+  }
+  applet->rgb_buffer = NULL;
+
+  bubblemon_done(applet->bubblemon);
+
+  g_free(applet);
 }
 
-
-static void
-applet_destroy (GtkWidget *applet, BubblemonApplet *bubble)
+static gboolean
+applet_reconfigure (GtkDrawingArea *drawingArea, GdkEventConfigure *event, BubblemonApplet *bubble)
 {
-  destroy_tooltip (GTK_WIDGET (bubble->applet));
+  int width = event->width;
+  int height = event->height;
 
-  if (bubble->aboutbox != NULL)
-    gtk_widget_destroy(bubble->aboutbox);
-  bubble->aboutbox = NULL;
+  PanelAppletOrient orientation =
+    panel_applet_get_orient(PANEL_APPLET(bubble->applet));
 
-  g_free(bubble);
+  if (orientation == PANEL_APPLET_ORIENT_LEFT
+    || orientation == PANEL_APPLET_ORIENT_RIGHT)
+  {
+    // We're on a vertical panel, height is decided based on the width
+    if (width <= RELATIVE_WIDTH) {
+      height = RELATIVE_HEIGHT;
+    } else {
+      height = (width * RELATIVE_HEIGHT) / RELATIVE_WIDTH;
+    }
+  } else {
+    // We're on a horizontal panel, width is decided based on the height
+    if (height <= RELATIVE_HEIGHT) {
+      width = RELATIVE_WIDTH;
+    } else {
+      width = (height * RELATIVE_WIDTH) / RELATIVE_HEIGHT;
+    }
+  }
 
-  bubblemon_done();
-}
+  if (bubble->width == width
+      && bubble->height == height)
+  {
+    // Already at the correct size, done!
+    return TRUE;
+  }
 
+  gtk_widget_set_size_request(GTK_WIDGET(drawingArea), width, height);
 
-static void
-applet_change_size (PanelApplet *applet, gint  size, gpointer data)
-{
-  BubblemonApplet *bubble = (BubblemonApplet *)data;
+  bubble->width = width;
+  bubble->height = height;
 
-  if (bubble->size == size)
-    return;
+  if (bubble->applet == NULL) {
+    // Not yet all loaded up
+    return TRUE;
+  }
 
-  bubble->size = size;
+  bubble->rgb_buffer = g_realloc(bubble->rgb_buffer, width * height * 3);
+  bubblemon_setSize(bubble->bubblemon, width, height);
 
-  /* not yet all loaded up */
-  if (bubble->frame == NULL)
-    return;
+  ui_update(bubble);
 
-  ui_setSize(size);
-  ui_update();
+  return TRUE;
 }
 
 static const BonoboUIVerb bubblemon_menu_verbs [] = {
-  BONOBO_UI_UNSAFE_VERB ("About",       display_about_dialog),
-
+  BONOBO_UI_VERB ("About", display_about_dialog),
   BONOBO_UI_VERB_END
 };
 
 static gboolean
-bubblemon_applet_fill (PanelApplet *applet)
+bubblemon_applet_fill(BubblemonApplet *bubblemon_applet, PanelApplet *applet)
 {
-	
-  BubblemonApplet *bubblemon_applet;
-	
-  bubblemon_applet = g_new0 (BubblemonApplet, 1);
+  GtkWidget *drawingArea;
+
+  panel_applet_set_flags(applet, PANEL_APPLET_EXPAND_MINOR);
 
   bubblemon_applet->applet = GTK_WIDGET (applet);
-  bubblemon_applet->size   = panel_applet_get_size (applet);
+  bubblemon_applet->width   = 0;
+  bubblemon_applet->height= 0;
 
   g_signal_connect (G_OBJECT (bubblemon_applet->applet),
 		    "destroy",
 		    G_CALLBACK (applet_destroy),
 		    bubblemon_applet);
 
-  g_signal_connect (G_OBJECT (bubblemon_applet->applet),
-		    "change_size",
-		    G_CALLBACK (applet_change_size),
-		    bubblemon_applet);
-
-  ui_setSize(panel_applet_get_size(PANEL_APPLET(bubblemon_applet->applet)));
-
-  bubblemon_applet->frame = gtk_frame_new (NULL);	
-  gtk_frame_set_shadow_type (GTK_FRAME (bubblemon_applet->frame), GTK_SHADOW_IN);
-
-  gtk_widget_push_visual(gdk_rgb_get_visual());
-  gtk_widget_push_colormap(gdk_rgb_get_cmap());
-  
   drawingArea = gtk_drawing_area_new();
   g_assert(drawingArea != NULL);
+  bubblemon_applet->drawingArea = drawingArea;
+  gtk_widget_set_size_request(GTK_WIDGET(drawingArea), RELATIVE_WIDTH, RELATIVE_HEIGHT);
 
-  gtk_widget_pop_colormap();
-  gtk_widget_pop_visual();
-  
+  g_signal_connect (G_OBJECT (drawingArea),
+		    "configure_event",
+		    G_CALLBACK (applet_reconfigure),
+		    bubblemon_applet);
+
   gtk_widget_set_events(drawingArea,
-			GDK_EXPOSURE_MASK |
-			GDK_ENTER_NOTIFY_MASK);
-        
-  gtk_drawing_area_size(GTK_DRAWING_AREA(drawingArea), width, height);
- 
-  gtk_container_add(GTK_CONTAINER (bubblemon_applet->frame), drawingArea);
-  gtk_widget_show(drawingArea);
-  gtk_widget_show(bubblemon_applet->frame);
-        
+			GDK_EXPOSURE_MASK
+			| GDK_ENTER_NOTIFY_MASK
+			| GDK_STRUCTURE_MASK);
+
+  gtk_container_add(GTK_CONTAINER (bubblemon_applet->applet), drawingArea);
+
   gtk_signal_connect_after(GTK_OBJECT(drawingArea), "realize",
-			   GTK_SIGNAL_FUNC(ui_update), bubblemon_applet);
-        
+			   GTK_SIGNAL_FUNC(ui_realize), bubblemon_applet);
+
   gtk_signal_connect(GTK_OBJECT(drawingArea), "expose_event",
 		     GTK_SIGNAL_FUNC(ui_expose), bubblemon_applet);
-        
-  set_tooltip (bubblemon_applet);
 
-  gtk_container_add (GTK_CONTAINER (bubblemon_applet->applet), bubblemon_applet->frame);
-
-  gtk_widget_show_all (GTK_WIDGET (bubblemon_applet->frame));
-
-  gtk_widget_show (GTK_WIDGET (bubblemon_applet->applet));
+  gtk_widget_show_all (GTK_WIDGET (bubblemon_applet->applet));
 
   panel_applet_setup_menu_from_file (PANEL_APPLET (bubblemon_applet->applet),
 				     NULL,
@@ -326,32 +305,37 @@ bubblemon_applet_fill (PanelApplet *applet)
 				     NULL,
 				     bubblemon_menu_verbs,
 				     bubblemon_applet);
-	
-  gtk_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, NULL);
-  gtk_timeout_add(2000, update_tooltip, bubblemon_applet);
-	
+
+  bubblemon_applet->refresh_timeout_id =
+    g_timeout_add(1000 / FRAMERATE, ui_timeoutHandler, bubblemon_applet);
+  bubblemon_applet->tooltip_timeout_id =
+    g_timeout_add(2000, update_tooltip, bubblemon_applet);
+
   return TRUE;
 }
 
 static gboolean
-bubble_applet_factory (PanelApplet *applet,
+bubble_applet_factory (PanelApplet *panel_applet,
 		       const gchar *iid,
 		       gpointer     data)
 {
+  BubblemonApplet *bubblemon_applet;
+
   gboolean retval = FALSE;
-  
-  // Initialize the load metering
-  bubblemon_init();
-  
-  if (strcmp(iid, "OAFIID:GNOME_BubblemonApplet") == 0)
-    retval = bubblemon_applet_fill (applet); 
-  
+
+  bubblemon_applet = g_new0(BubblemonApplet, 1);
+  bubblemon_applet->bubblemon = bubblemon_init();
+
+  if (strcmp(iid, "OAFIID:GNOME_BubblemonApplet") == 0) {
+    retval = bubblemon_applet_fill(bubblemon_applet, panel_applet);
+  }
+
   return retval;
 }
 
 PANEL_APPLET_BONOBO_FACTORY ("OAFIID:GNOME_BubblemonApplet_Factory",
 			     PANEL_TYPE_APPLET,
-			     "bubblemon",
-			     "0",
+			     PACKAGE_NAME,
+			     VERSION,
 			     bubble_applet_factory,
 			     NULL)

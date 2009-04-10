@@ -1,4 +1,147 @@
-2004-08-17  Johan Walles <walles@mailblocks.com>
+2009-03-30  Johan Walles  <johan.walles@gmail.com>
+
+	* Update translations.
+
+	* Build 2.0.12.
+
+2009-02-23  Johan Walles  <johan.walles@gmail.com>
+
+	* Change weeds to reflect iowait rather than network load.
+
+2009-01-05  Johan Walles  <johan.walles@gmail.com>
+
+	* Gain some pixels by ditching the frame around the applet.
+
+2009-01-03  Johan Walles  <johan.walles@gmail.com>
+
+	* Fix printf() format strings to work on 64 bit systems.
+
+	* Build 2.0.11.
+
+2008-12-28  Johan Walles  <johan.walles@gmail.com>
+
+	* Fix man page syntax as requested in
+	https://savannah.nongnu.org/bugs/?23611
+
+2008-12-28  Johan Walles  <johan.walles@gmail.com>
+
+	* Add instrumentation for http://bugs.debian.org/470299.
+
+	* Enforce a minimum water level to make CPU load bubbles visible
+	even on systems with lots of free RAM.
+
+	* Build 2.0.10.
+
+2008-12-26  Johan Walles  <johan.walles@gmail.com>
+
+	* Update tooltip to always display at least two digits for both
+	max and used.
+
+	* Fix resizing code so that we actually use all pixels that are
+	available to us.
+
+	* Enable compiler warnings and fix a bunch of them.
+
+2008-01-15  Johan Walles  <johan.walles@gmail.com>
+
+	* Sync Brazilian Portuguese translation with latest source
+	changes, courtesy of Jose Carlos Medeiros.
+
+	* Release 2.0.9 with the updated translation.
+
+2008-01-05  Johan Walles  <johan.walles@gmail.com>
+
+	* Use ioctls for listing interfaces rather than polling for a list
+	of known interface names.  Should close Debian bug 158667.
+
+	* Change phrasing in some places to match that of other GNOME
+	applets.
+
+2007-09-02  Johan Walles  <johan.walles@gmail.com>
+
+	* Change default installation prefix to /usr since many GNOME
+	installs aren't aware of the existence of /usr/local.
+
+	* Change GNOME category to System & Hardware since the Utility
+	category used previously seems deprecated.
+
+2007-08-26  Johan Walles  <johan.walles@gmail.com>
+
+	* Fix SMP detection code.  Has been broken since dackefejden.
+
+	* Give each CPU some space of its own on the bubble display.  The
+	CPU with the heaviest load gets to bubble in the middle.  CPUs
+	with lower load bubbles nearer to the edges.  The idea is to make
+	it possible to see not only how loaded the system is, but also how
+	the load is distributed between different CPUs.
+
+2007-08-22  Johan Walles  <johan.walles@gmail.com>
+
+	* Released 2.0.6
+
+	* Update the Polish translation, courtesy of Tomasz Dominikowski.
+
+	* Add a Brazilian Portuguese traslation, courtesy of Jose Carlos
+	Medeiros.
+
+	* Fix grammar problem (what's a "load meter monitor"?).
+
+2007-08-22  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* m4/gettext.m4: Upgrade to gettext-0.16.1.
+	* m4/iconv.m4: Upgrade to gettext-0.16.1.
+	* m4/lib-ld.m4: Upgrade to gettext-0.16.1.
+	* m4/lib-link.m4: Upgrade to gettext-0.16.1.
+	* m4/lib-prefix.m4: Upgrade to gettext-0.16.1.
+	* m4/nls.m4: Upgrade to gettext-0.16.1.
+	* m4/po.m4: Upgrade to gettext-0.16.1.
+	* m4/progtest.m4: Upgrade to gettext-0.16.1.
+	* m4/codeset.m4: Upgrade to gettext-0.16.1.
+	* m4/glibc2.m4: New file, from gettext-0.16.1.
+	* m4/glibc21.m4: Upgrade to gettext-0.16.1.
+	* m4/intdiv0.m4: Upgrade to gettext-0.16.1.
+	* m4/intl.m4: New file, from gettext-0.16.1.
+	* m4/intldir.m4: New file, from gettext-0.16.1.
+	* m4/intmax.m4: New file, from gettext-0.16.1.
+	* m4/inttypes_h.m4: Upgrade to gettext-0.16.1.
+	* m4/inttypes-pri.m4: Upgrade to gettext-0.16.1.
+	* m4/lcmessage.m4: Upgrade to gettext-0.16.1.
+	* m4/lock.m4: New file, from gettext-0.16.1.
+	* m4/longdouble.m4: New file, from gettext-0.16.1.
+	* m4/longlong.m4: New file, from gettext-0.16.1.
+	* m4/printf-posix.m4: New file, from gettext-0.16.1.
+	* m4/size_max.m4: New file, from gettext-0.16.1.
+	* m4/stdint_h.m4: Upgrade to gettext-0.16.1.
+	* m4/uintmax_t.m4: Upgrade to gettext-0.16.1.
+	* m4/ulonglong.m4: Upgrade to gettext-0.16.1.
+	* m4/visibility.m4: New file, from gettext-0.16.1.
+	* m4/wchar_t.m4: New file, from gettext-0.16.1.
+	* m4/wint_t.m4: New file, from gettext-0.16.1.
+	* m4/xsize.m4: New file, from gettext-0.16.1.
+	* m4/Makefile.am (EXTRA_DIST): Add the new files.
+	* Makefile.am (SUBDIRS): Remove intl.
+
+2005-11-06  Johan Walles  <johan.walles@gmail.com>
+
+	* Released 2.0.5
+
+	* Made the word "bytes" translatable.
+
+	* Updated French and Swedish translations.
+
+2005-03-08  Johan Walles  <johan.walles@gmail.com>
+
+	* Released 2.0.4
+
+	* Updated Italian translation.
+
+	* Improved mail spool directory discovery.
+
+	* Updated bottle behaviour; the bottle now sinks to the bottom if
+	the spool file contains read mail.  The bottle goes away if the
+	log file is empty.
+
+2004-08-17  Johan Walles <johan.walles@gmail.com>
 
 	* Released 2.0.2-pre2
 
@@ -21,9 +164,9 @@
 
 2002-11-28  Juan Salaverria <rael@vectorstar.net>
 
-	* 2.0.1 : Added internationalization support and minor bugfixes. 
+	* 2.0.1 : Added internationalization support and minor bugfixes.
 
 2002-11-12  Juan Salaverria <rael@vectorstar.net>
 
 	* Initial release of the GNOME 2 branch
-	
+

@@ -15,3 +15,7 @@ ui_DATA = GNOME_BubblemonApplet.xml
 EXTRA_DIST = \
 	GNOME_BubblemonApplet.server.in.in \
 	$(ui_DATA)
+
+CLEANFILES = \
+	$(server_in_files) \
+	$(server_in_files:.in=)

@@ -1,6 +1,14 @@
-aclocal.m4
-configure
+Makefile
 Makefile.in
+aclocal.m4
+autom4te.cache
+bubblemon-*.tar.gz
+bubblemon-*.tar.gz.sig
 config.h.in
-stamp-h.in
+configure
 intl
+intltool-extract
+intltool-merge
+intltool-update
+stamp-h.in
+stamp-h

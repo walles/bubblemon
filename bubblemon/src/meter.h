@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2004, 2009 Johan Walles - johan.walles@gmail.com
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,25 +21,33 @@
 #ifndef METER_H
 #define METER_H
 
-#include "bubblemon.h"
+#include "ackumulator.h"
 
 /* The system load */
 typedef struct
 {
   u_int64_t memoryUsed;
   u_int64_t memorySize;
-    
+
   u_int64_t swapUsed;
   u_int64_t swapSize;
-    
+
   /* How many CPUs are in the system */
   int nCpus;
-  
+
   /* A pointer to an array containing the loads of each of the
      system's CPUs in percent (0-100).  Index 0 is the average CPU
      load for the whole system, index 1 and up are the loads on the
      individual CPUs. */
-  int *cpuLoad; 
+  int *cpuLoad;
+
+  /* How much of the system's IO bandwidth is in use */
+  int ioLoad;
+
+  // FIXME: Having the below fields as part of the official API might
+  // not be the best idea ever /Johan-2009feb22
+  ackumulator_t **cpuAckumulators;
+  ackumulator_t **ioAckumulators;
 } meter_sysload_t;
 
 /* Initialize the load metering */
@@ -49,6 +57,6 @@ extern void meter_init(meter_sysload_t *);
 extern void meter_getLoad(meter_sysload_t *);
 
 /* Shut down load metering */
-extern void meter_done(void);
+extern void meter_done(meter_sysload_t *);
 
 #endif

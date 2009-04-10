@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2004, 2008 Johan Walles - johan.walles@gmail.com
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,17 +23,116 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pwd.h>
 
 #include "mail.h"
 
 /* Check $MAIL for new mail on every N calls to mail_hasUnreadMail. */
 static const int CHECKEVERYNTH = 100;
 
-int mail_hasUnreadMail(void)
+// Returns 1 if fileName seems to be a mail spool file, and 0
+// otherwise.  Currently just verifies that the permissions and file
+// type look sane.
+static int isUserMailSpoolFile(const char *fileName)
+{
+  struct stat fileInfo;
+  uid_t currentUser = getuid();
+  unsigned int userReadWrite = S_IRUSR | S_IWUSR;
+
+  // Does this directory entry exist?
+  if (stat(fileName, &fileInfo) != 0)
+  {
+    return 0;
+  }
+
+  // Is it a regular file?
+  if (S_ISREG(fileInfo.st_mode))
+  {
+    // Is it owned by the current user?
+    if (fileInfo.st_uid != currentUser)
+    {
+      return 0;
+    }
+
+    // Does the current user have read / write access to it?
+    if ((fileInfo.st_mode & userReadWrite) != userReadWrite)
+    {
+      return 0;
+    }
+
+    return 1;
+  }
+
+  // Is it /dev/null?
+  if (S_ISCHR(fileInfo.st_mode))
+  {
+    // We could make a more thorough check here, but until somebody
+    // reports they are having problems with this, I'll just assume
+    // people who use a character device as spool file are actually
+    // using /dev/null.  //Johan, 2005jan16
+    return 1;
+  }
+
+  return 0;
+}
+
+// Returns the name of the user's mail spool file, or NULL if no spool
+// file could be located.
+static char *getMailFileName(void)
+{
+  static char *mailFileName = NULL;
+  const char *varSpoolMail = "/var/spool/mail/";
+  struct passwd *userinfo;
+
+  if (mailFileName != NULL)
+  {
+    goto done;
+  }
+
+  mailFileName = getenv("MAIL");
+  if (mailFileName != NULL && isUserMailSpoolFile(mailFileName))
+  {
+    mailFileName = strdup(mailFileName);
+    goto done;
+  }
+
+  userinfo = getpwuid(getuid());
+  if (userinfo == NULL)
+  {
+    // How do we get here?  By having the current user removed from
+    // the passwd file?
+    mailFileName = "";
+    goto done;
+  }
+
+  mailFileName = (char*)malloc(sizeof(char)
+			       * (strlen(varSpoolMail)
+				  + strlen(userinfo->pw_name)
+				  + 1));
+  strcpy(mailFileName, varSpoolMail);
+  strcat(mailFileName, userinfo->pw_name);
+  if (isUserMailSpoolFile(mailFileName)) {
+    goto done;
+  }
+
+  strcpy(mailFileName, "/var/mail/");
+  strcat(mailFileName, userinfo->pw_name);
+  if (isUserMailSpoolFile(mailFileName)) {
+    goto done;
+  }
+
+  free(mailFileName);
+  mailFileName = "";
+
+ done:
+  return mailFileName[0] == '\0' ? NULL : mailFileName;
+}
+
+mail_status_t mail_getMailStatus(void)
 {
   static int countdown = 0;
-  static char *mailFileName = NULL;
-  static int cachedMailState = 0;
+  static mail_status_t cachedMailState = 0;
+  char *mailFileName;
 
   struct stat mailStat;
 
@@ -44,26 +143,30 @@ int mail_hasUnreadMail(void)
   }
   countdown = CHECKEVERYNTH;
 
+  mailFileName = getMailFileName();
   if (mailFileName == NULL)
   {
-    mailFileName = getenv("MAIL") ? strdup(getenv("MAIL")) : "";
-  }
-
-  if (!mailFileName || strcmp(mailFileName, "") == 0)
-  {
-    // We don't know where to look for new mail
-    return 0;
+    cachedMailState = NO_MAIL;
+    return cachedMailState;
   }
 
   if (stat(mailFileName, &mailStat) != 0)
   {
     // Checking the file dates on the spool file failed
-    return 0;
+    cachedMailState = NO_MAIL;
+    return cachedMailState;
   }
 
-  // New mail has arrived if the mail file has been updated after it
-  // was last read from
-  cachedMailState = mailStat.st_mtime > mailStat.st_atime;
+  if (mailStat.st_size == 0) {
+    /* No mail */
+    cachedMailState = NO_MAIL;
+  } else {
+    /* New mail has arrived if the mail file has been updated after it
+       was last read from */
+    cachedMailState = ((mailStat.st_mtime > mailStat.st_atime)
+		       ? UNREAD_MAIL
+		       : READ_MAIL);
+  }
 
   return cachedMailState;
 }

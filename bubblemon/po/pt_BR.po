@@ -1,0 +1,79 @@
+# translation of bubblemon.po to Brazilian Portuguese
+# Copyright (C) 2007 Johan Walles <johan.walles@gmail.com>
+# This file is distributed under the same license as the bubblemon package.
+# Jose Carlos N Medeiros <jose@psabs.com.br>, 2007, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bubblemon 2.0.8\n"
+"Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
+"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"PO-Revision-Date: 2009-03-26 10:22-0300\n"
+"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
+"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
+#: ../src/gnome2-ui.c:67
+msgid "Bubbling Load Monitor"
+msgstr "Monitorador de Carga Borbulhento"
+
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
+msgid "Monitor CPU, memory and IO load"
+msgstr "Monitor de CPU, memória e carga de IO"
+
+#: ../gnome/GNOME_BubblemonApplet.xml.h:1
+msgid "_About..."
+msgstr "_Sobre..."
+
+#: ../src/bubblemon.c:140
+msgid "bytes"
+msgstr "bytes"
+
+#: ../src/bubblemon.c:187
+#, c-format
+msgid "Memory used: %s"
+msgstr "Memória utilizada: %s"
+
+#: ../src/bubblemon.c:195
+#, c-format
+msgid ""
+"\n"
+"Swap used: %s"
+msgstr ""
+"\n"
+"Memória swap utilizada: %s"
+
+#: ../src/bubblemon.c:201
+#, c-format
+msgid ""
+"\n"
+"IO wait: %d%%"
+msgstr ""
+"\n"
+"Espera de IO: %d%%"
+
+#: ../src/bubblemon.c:208
+#, c-format
+msgid ""
+"\n"
+"CPU load: %d%%"
+msgstr ""
+"\n"
+"Carga da CPU: %d%%"
+
+#: ../src/bubblemon.c:219
+#, c-format
+msgid ""
+"\n"
+"CPU #%d load: %d%%"
+msgstr ""
+"\n"
+"Carga da CPU #%d: %d%%"
+
+#: ../src/gnome2-ui.c:69
+msgid "Displays system load as a bubbling liquid."
+msgstr "Mostra a carga de sua CPU como um líquido borbulhento."
+

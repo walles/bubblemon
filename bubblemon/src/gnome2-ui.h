@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2004, 2008, 2009 Johan Walles - johan.walles@gmail.com
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,19 +25,29 @@
 #include <panel-applet.h>
 #include <sys/types.h>
 
+#include "bubblemon.h"
+
 #define FRAMERATE 25
 
 typedef struct
 {
-  GtkWidget         *applet;
-  GtkWidget         *frame;
-  GdkPixmap         *pix;
+  GtkWidget *applet;
+  GtkWidget *drawingArea;
+  GdkPixmap *pix;
 
-  int size;
-	
-  GtkWidget         *aboutbox;
-  GtkTooltips       *tooltips;
+  guchar *rgb_buffer;
 
+  int width;
+  int height;
+
+  GtkWidget *aboutbox;
+
+  guint refresh_timeout_id;
+  guint tooltip_timeout_id;
+
+  // Reference to our load-metering, bubble-drawing, tool-tipping
+  // bubblemon thingy.
+  bubblemon_t *bubblemon;
 } BubblemonApplet;
 
 #endif

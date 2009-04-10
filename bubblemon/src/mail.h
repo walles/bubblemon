@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2004 Johan Walles - johan.walles@gmail.com
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,11 +23,14 @@
 
 #include "bubblemon.h"
 
+/* E-mail status constants */
+typedef enum { NO_MAIL, UNREAD_MAIL, READ_MAIL } mail_status_t;
+
 /* Does the user have unread mail?
  *
  * Note that this function will be called once per on-screen frame, so
  * in case it always takes lots of time to evaluate the bubblemon will
- * get *slow*. */
-extern int mail_hasUnreadMail(void);
+ * become *slow*. */
+extern mail_status_t mail_getMailStatus(void);
 
 #endif

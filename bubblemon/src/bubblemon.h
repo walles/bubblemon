@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2000 Johan Walles - d92-jwa@nada.kth.se
- *  http://www.nada.kth.se/~d92-jwa/code/#bubblemon
+ *  Copyright (C) 1999-2004, 2009 Johan Walles - johan.walles@gmail.com
+ *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,11 +21,13 @@
 #ifndef BUBBLEMON_H
 #define BUBBLEMON_H
 
-#include <config.h> 
+#include <config.h>
 #include <sys/types.h>
 #include <gnome.h>
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
+
+#include "meter.h"
 
 /* How fast do the bubbles rise? */
 #define GRAVITY -0.01
@@ -56,7 +58,7 @@
 
 /* How fast the weed grows in pixels/sec */
 #define WEED_MAXSPEED 10
-#define WEED_MINSPEED 1
+#define WEED_MINSPEED 3
 #define WEED_SPEEDFACTOR 1
 
 /* Swap usage color scale */              /*              rrggbbaa */
@@ -73,19 +75,19 @@ static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
 
-/* How often is the network load meter updated?  The unit is
- * milliseconds between updates. */
-#define NETLOAD_INTERVAL 500
+/* How often is the IO load meter updated?  The unit is milliseconds
+ * between updates. */
+#define IOLOAD_INTERVAL 250
 
-/* The maximum height of the weeds indicating the network load,
- * expressed in percent of the full height */
+/* The maximum height of the weeds indicating the IO load, expressed
+ * in percent of the full height */
 #define WEED_HEIGHT 40
 
 /* Color code constants */
 typedef enum { WATER, ANTIALIAS, AIR } bubblemon_colorcode_t;
 
 /* Bottle behaviour */
-typedef enum { GONE, FLOATING, SINKING, FALLING } bubblemon_bottlestate_t;
+typedef enum { GONE, FLOATING, SINKING, FALLING, SUNK } bubblemon_bottlestate_t;
 
 /* Bubble layers */
 typedef enum { BACKGROUND, FOREGROUND } bubblemon_layer_t;
@@ -101,11 +103,12 @@ typedef union {
   } components;
 } bubblemon_color_t;
 
+/* A bubblemon image */
 typedef struct
 {
   int width;
   int height;
-  
+
   bubblemon_colorcode_t *airAndWater;
   bubblemon_color_t *pixels;
 } bubblemon_picture_t;
@@ -151,30 +154,63 @@ typedef struct
   bubblemon_bottlestate_t bottle_state;
 } bubblemon_Physics;
 
+/* Data holder for a bubblemon instance. */
+typedef struct
+{
+  char *tooltipstring;
+
+  int physicalTimeElapsed;
+
+  // When bubblemon_getMsecsSinceLastCall was last called
+  long last_sec;
+  long last_usec;
+
+  // Milliseconds left until the weeds should be updated
+  int timeToNextWeedsUpdate;
+
+  // How many bubbles to create per CPU
+  float *createNNewBubbles;
+
+  // The CPU loads, sorted
+  int *sortedCpuLoads;
+
+  // Weed color striping seed
+  int stripey;
+
+  // The picture we're supposed to keep up-to-date
+  bubblemon_picture_t bubblePic;
+
+  // Our universe
+  bubblemon_Physics physics;
+
+  // System load
+  meter_sysload_t sysload;
+} bubblemon_t;
+
 /* The 'pixels' field of the returned struct contains the pixels to
  * draw on screen. */
-const bubblemon_picture_t *bubblemon_getPicture(void);
+const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon);
 
 /* Set the dimensions of the bubble array */
-extern void bubblemon_setSize(int width, int height);
+extern void bubblemon_setSize(bubblemon_t *bubblemon, int width, int height);
 
 /* Return how many percent of the memory is used */
-extern int bubblemon_getMemoryPercentage(void);
+extern int bubblemon_getMemoryPercentage(bubblemon_t *bubblemon);
 
 /* Return how many percent of the swap is used */
-extern int bubblemon_getSwapPercentage(void);
+extern int bubblemon_getSwapPercentage(bubblemon_t *bubblemon);
 
 /* The cpu parameter is the cpu number, 1 - #CPUs.  0 means average load */
-extern int bubblemon_getAverageLoadPercentage(void);
-extern int bubblemon_getCpuLoadPercentage(int cpu);
+extern int bubblemon_getAverageLoadPercentage(bubblemon_t *bubblemon);
+extern int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpu);
 
 /* Return a suitable tool tip */
-extern const char *bubblemon_getTooltip(void);
+extern const char *bubblemon_getTooltip(bubblemon_t *bubblemon);
 
 /* Must be called at the very start of the program */
-extern void bubblemon_init(void);
+extern bubblemon_t *bubblemon_init(void);
 
 /* Should be called at shutdown */
-extern void bubblemon_done(void);
+extern void bubblemon_done(bubblemon_t *bubblemon);
 
 #endif
