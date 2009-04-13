@@ -21,7 +21,7 @@ know.
   ... from the bubblemon directory.
 
 3. Initialize your translation by copying bubblemon.pot (the template
-  file created in step 3) into xx.po (but remember to use *your*
+  file created in step 2) into xx.po (but remember to use *your*
   language code instead of xx):
 
   cp bubblemon.pot xx.po
