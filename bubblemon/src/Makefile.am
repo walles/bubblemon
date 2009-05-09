@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
 localedir=$(datadir)/locale
-defaultincludes = -I. -I$(srcdir) -I..
 
 INCLUDES = \
-	-I $(defaultincludes) \
 	-DGTK_ENABLE_BROKEN \
 	-DGNOMELOCALEDIR=\"$(prefix)/$(DATADIRNAME)/locale\" \
 	$(GNOME_APPLETS_CFLAGS) \
