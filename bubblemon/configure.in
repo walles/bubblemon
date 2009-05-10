@@ -114,31 +114,14 @@ fi
 ##############################
 # GNOME 2.x specific tests
 
-# Versions required
-LIBPANEL_REQUIRED=2.0.0
-LIBGTOP_REQUIRED=2.0.0
-
-# We need the panel for the applets
-build_gpanel=false;
-PKG_CHECK_MODULES(GNOME_APPLETS,
-	[libpanelapplet-2.0 >= $LIBPANEL_REQUIRED],
-	build_gpanel=true,
-	AC_MSG_ERROR([GNOME2 panel not found.]))
-AC_SUBST(GNOME_APPLETS_CFLAGS)
-AC_SUBST(GNOME_APPLETS_LIBS)
-
-# Check for gtop2 libs
-build_gtop_applets=false
-PKG_CHECK_MODULES(GTOP_APPLETS,
-	[libgtop-2.0 >= $LIBGTOP_REQUIRED],
-	build_gtop_applets=true,
-	AC_MSG_ERROR([libgtop not found.]))
-AC_SUBST(GTOP_APPLETS_CFLAGS)
-AC_SUBST(GTOP_APPLETS_LIBS)
-AM_CONDITIONAL(BUILD_GTOP_APPLETS, $build_gtop_applets)
-
-# The gnome2 panel is resizable
-AC_DEFINE([HAVE_CHANGE_PIXEL_SIZE], [], [Whether the GNOME Panel can change size])
+PKG_CHECK_MODULES(BUBBLEMON,
+	[libpanelapplet-2.0 >= 2.0.0
+	 libgtop-2.0 >= 2.0.0
+	 libgnomeui-2.0 >= 2.0.0],
+	,
+	AC_MSG_ERROR([GNOME2 panel applet things not found.]))
+AC_SUBST(BUBBLEMON_CFLAGS)
+AC_SUBST(BUBBLEMON_LIBS)
 
 
 ######################################################################
