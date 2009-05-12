@@ -1,7 +1,7 @@
 2009-05-12  Johan Walles  <johan.walles@gmail.com>
 
-	* Make TB, GB, MB and kB translatable and make the 'B'
-	upper-case.
+	* Make TiB, GiB, MiB and kiB translatable, make the 'B'
+	upper-case and add the "i" between the letters.
 
 	* Fix build errors on GNOME >= 2.26.
 

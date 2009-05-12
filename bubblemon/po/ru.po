@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed_applet 0.4\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-05-12 18:10+0200\n"
+"POT-Creation-Date: 2009-05-12 19:51+0200\n"
 "PO-Revision-Date: 2009-03-01 13:57+0300\n"
 "Last-Translator: Vyacheslav Dikonov <slava@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -27,19 +27,19 @@ msgid "_About..."
 msgstr "_Об апплете"
 
 #: ../src/bubblemon.c:120
-msgid "TB"
+msgid "TiB"
 msgstr ""
 
 #: ../src/bubblemon.c:125
-msgid "GB"
+msgid "GiB"
 msgstr ""
 
 #: ../src/bubblemon.c:130
-msgid "MB"
+msgid "MiB"
 msgstr ""
 
 #: ../src/bubblemon.c:135
-msgid "kB"
+msgid "kiB"
 msgstr ""
 
 #: ../src/bubblemon.c:140

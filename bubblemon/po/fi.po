@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 0.9.12\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-05-12 18:10+0200\n"
+"POT-Creation-Date: 2009-05-12 19:51+0200\n"
 "PO-Revision-Date: 2009-02-28 15:24+0100\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -29,19 +29,19 @@ msgid "_About..."
 msgstr "_Tietoja"
 
 #: ../src/bubblemon.c:120
-msgid "TB"
+msgid "TiB"
 msgstr ""
 
 #: ../src/bubblemon.c:125
-msgid "GB"
+msgid "GiB"
 msgstr ""
 
 #: ../src/bubblemon.c:130
-msgid "MB"
+msgid "MiB"
 msgstr ""
 
 #: ../src/bubblemon.c:135
-msgid "kB"
+msgid "kiB"
 msgstr ""
 
 #: ../src/bubblemon.c:140

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 2.0.12\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-05-12 18:10+0200\n"
+"POT-Creation-Date: 2009-05-12 19:51+0200\n"
 "PO-Revision-Date: 2009-04-08 16:00+0200\n"
 "Last-Translator: Edwin ten Brink <edwin.ten.brink@gmail.com>\n"
 "Language-Team: Dutch <xxx@xxx>\n"
@@ -28,19 +28,19 @@ msgid "_About..."
 msgstr "_Over..."
 
 #: ../src/bubblemon.c:120
-msgid "TB"
+msgid "TiB"
 msgstr ""
 
 #: ../src/bubblemon.c:125
-msgid "GB"
+msgid "GiB"
 msgstr ""
 
 #: ../src/bubblemon.c:130
-msgid "MB"
+msgid "MiB"
 msgstr ""
 
 #: ../src/bubblemon.c:135
-msgid "kB"
+msgid "kiB"
 msgstr ""
 
 #: ../src/bubblemon.c:140

@@ -117,22 +117,22 @@ static void usage2string(char *string,
   if ((max >> 30) > 7000)
     {
       shiftme = 40;
-      unit = _("TB");
+      unit = _("TiB");
     }
   else if ((max >> 20) > 7000)
     {
       shiftme = 30;
-      unit = _("GB");
+      unit = _("GiB");
     }
   else if ((max >> 10) > 7000)
     {
       shiftme = 20;
-      unit = _("MB");
+      unit = _("MiB");
     }
   else if ((max >> 0) > 7000)
     {
       shiftme = 10;
-      unit = _("kB");
+      unit = _("kiB");
     }
   else
     {
@@ -168,7 +168,7 @@ static void usage2string(char *string,
 
 const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 {
-  char memstring[20], swapstring[20], iowaitstring[20], loadstring[50];
+  char memstring[20], swapstring[20], iowaitstring[40], loadstring[50];
   int cpu_number;
 
   if (!bubblemon->tooltipstring)
@@ -176,7 +176,7 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
     /* Prevent the tooltipstring buffer from overflowing on a system
        with lots of CPUs */
     bubblemon->tooltipstring =
-      malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 100));
+      malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 200));
     assert(bubblemon->tooltipstring != NULL);
   }
 
@@ -197,7 +197,7 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
     strcat(bubblemon->tooltipstring, loadstring);
   }
 
-  snprintf(iowaitstring, 18,
+  snprintf(iowaitstring, 38,
 	   _("\nIO wait: %d%%"),
 	   bubblemon->sysload.ioLoad);
   strcat(bubblemon->tooltipstring, iowaitstring);
