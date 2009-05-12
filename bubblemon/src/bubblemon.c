@@ -117,22 +117,22 @@ static void usage2string(char *string,
   if ((max >> 30) > 7000)
     {
       shiftme = 40;
-      unit = "Tb";
+      unit = _("TB");
     }
   else if ((max >> 20) > 7000)
     {
       shiftme = 30;
-      unit = "Gb";
+      unit = _("GB");
     }
   else if ((max >> 10) > 7000)
     {
       shiftme = 20;
-      unit = "Mb";
+      unit = _("MB");
     }
   else if ((max >> 0) > 7000)
     {
       shiftme = 10;
-      unit = "kb";
+      unit = _("kB");
     }
   else
     {

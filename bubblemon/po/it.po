@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0.2\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"POT-Creation-Date: 2009-05-12 18:10+0200\n"
 "PO-Revision-Date: 2009-03-03 17:59+0000\n"
 "Last-Translator: Marco Colombo <m.colombo@ed.ac.uk>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -27,6 +27,22 @@ msgstr "Controlla il carico CPU, memoria e I/O."
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "I_nformazioni"
+
+#: ../src/bubblemon.c:120
+msgid "TB"
+msgstr ""
+
+#: ../src/bubblemon.c:125
+msgid "GB"
+msgstr ""
+
+#: ../src/bubblemon.c:130
+msgid "MB"
+msgstr ""
+
+#: ../src/bubblemon.c:135
+msgid "kB"
+msgstr ""
 
 #: ../src/bubblemon.c:140
 msgid "bytes"
@@ -51,7 +67,9 @@ msgstr ""
 msgid ""
 "\n"
 "IO wait: %d%%"
-msgstr "\nAttesa I/O: %d%%"
+msgstr ""
+"\n"
+"Attesa I/O: %d%%"
 
 #: ../src/bubblemon.c:208
 #, c-format
