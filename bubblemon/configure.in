@@ -7,7 +7,7 @@
 # stuff.
 #
 #
-AC_INIT([Bubbling Load Monitor], 2.0.14-pre3, johan.walles@gmail.com, bubblemon)
+AC_INIT([Bubbling Load Monitor], 2.0.14, johan.walles@gmail.com, bubblemon)
 AC_CONFIG_SRCDIR(src/bubblemon.h)
 
 # Install in /usr by default since many GNOME installations aren't
