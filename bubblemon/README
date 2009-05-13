@@ -1,7 +1,7 @@
 Bubbling Load Monitoring Applet
 - A GNOME panel applet that displays the CPU + memory load as a
   bubbling liquid.
-Copyright (C) 1999-2004 Johan Walles
+Copyright (C) 1999-2009 Johan Walles
 - johan.walles@gmail.com
 - http://www.nongnu.org/bubblemon/
 

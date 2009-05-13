@@ -1,21 +1,21 @@
 .TH "Bubblemon" "1" "@VERSION@" "Johan Walles" "GNOME Applets"
-.SH "NÉV"
-bubblemon-gnome2 \- A rendszer terheltségét folyadék formájában jelzi ki
-.SH "ÁTTEKINTÉS"
+.SH "NÃ‰V"
+bubblemon-gnome2 \- A rendszer terheltsÃ©gÃ©t folyadÃ©k formÃ¡jÃ¡ban jelzi ki
+.SH "ÃTTEKINTÃ‰S"
 bubblemon-gnome2
-.SH "LEÍRÁS"
-Ez a GNOME applet a rendszer terheltségét buborékoló folyadék formájában
-jelzi ki. A folyadékszint a rendszer által használt memória mennyiségének
-felel meg, magas szint azt jelenti, hogy sok memória van használtaban. A
-buborékok mennyisége a rendszer terheltségét jelzi, sok buborék nagy
-terheltséget jelent. Végezetül a folyadék színe a felhasznált swap terület
-méretét jelzi. Amíg a folyadék vízszinû, a swap nincs használatban, de ahogy
-egyre több swap kerül lefoglalásra, úgy változik a folyadék pirosabbá.
+.SH "LEÃRÃS"
+Ez a GNOME applet a rendszer terheltsÃ©gÃ©t buborÃ©kolÃ³ folyadÃ©k formÃ¡jÃ¡ban
+jelzi ki. A folyadÃ©kszint a rendszer Ã¡ltal hasznÃ¡lt memÃ³ria mennyisÃ©gÃ©nek
+felel meg, magas szint azt jelenti, hogy sok memÃ³ria van hasznÃ¡ltaban. A
+buborÃ©kok mennyisÃ©ge a rendszer terheltsÃ©gÃ©t jelzi, sok buborÃ©k nagy
+terheltsÃ©get jelent. VÃ©gezetÃ¼l a folyadÃ©k szÃ­ne a felhasznÃ¡lt swap terÃ¼let
+mÃ©retÃ©t jelzi. AmÃ­g a folyadÃ©k vÃ­zszinÃ», a swap nincs hasznÃ¡latban, de ahogy
+egyre tÃ¶bb swap kerÃ¼l lefoglalÃ¡sra, Ãºgy vÃ¡ltozik a folyadÃ©k pirosabbÃ¡.
 .LP
-Ha pontos értékeket akarsz, van egy felbukkanó segítség, ami elõjön, ha az
-egérmutatót egy másodpercig az applet felett hagyod.
-.SH "SZERZÕK"
+Ha pontos Ã©rtÃ©keket akarsz, van egy felbukkanÃ³ segÃ­tsÃ©g, ami elÃµjÃ¶n, ha az
+egÃ©rmutatÃ³t egy mÃ¡sodpercig az applet felett hagyod.
+.SH "SZERZÃ•K"
 Johan Walles <johan.walles@gmail.com>
 .SH "URL"
-A Bubblemon honlapját megtalálod itt:
+A Bubblemon honlapjÃ¡t megtalÃ¡lod itt:
 "http://www.nongnu.org/bubblemon/".

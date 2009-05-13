@@ -1,7 +1,7 @@
 Bubbling Load Monitoring Applet
 - A GNOME panel applet that displays the CPU + memory load as a
   bubbling liquid.
-Copyright (C) 1999-2004 Johan Walles
+Copyright (C) 1999-2009 Johan Walles
 - johan.walles@gmail.com
 - http://www.nongnu.org/bubblemon/
 
@@ -18,51 +18,23 @@ Install (from tar.gz)
 
   1. Untar the tarball somewhere, and cd into the new directory created
 
-     tar xzvf bubblemon-2.0.0.tar.gz
-     cd bubblemon-2.0.0
+     tar xzvf bubblemon-2.0.13.tar.gz
+     cd bubblemon-2.0.13
 
   2. Compile it
 
-     ./configure --prefix=/usr
+     ./configure
      make
 
   3. Install it. You need to have root privileges to do this
 
-     su
+     sudo make install
      [enter root password]
-     make install
 
-  4. Finally you need that the panel refresh it's own configuration. 
-     You can look for the panel process id and send to the process a SIGHUP to i
-     reread the file, or you can logout and the login again ( easier :) ).
+  4. Finally you need that the panel refresh it's own configuration.
+     You can look for the panel process id and send to the process a
+     SIGHUP to i reread the file, or you can logout and the login
+     again.
 
   5. Right-click some free spot on any GNOME panel.  Choose
      Add to Panel->Utility->Bubblemon.
-
-
-Build a rpm package (from src.rpm)
-
-Since is difficult to maintain rpm binaries for all the distros, actually to 
-create a rpm for your platform you need to follow these steps. Please note that
-you may need root privileges to do this.
-
-
-  1. Rebuild the rpm package from sources
-
-     rpm --rebuild  bubblemon-2.0.0-2.src.rpm
-
-  2. Install the generated package 
-
-     rpm --install /usr/src/redhat/RPMS/i386/bubblemon-2.0.0-2.i386.rpm
-   
-  3. Finally you need that the panel refresh it's own configuration. 
-     You can look for the panel process id and send to the process a SIGHUP to i
-     reread the file, or you can logout and the login again ( easier :) ).
-
-  4. Right-click some free spot on any GNOME panel.  Choose
-     Add to Panel->Utility->Bubblemon.
-
-  
-If you have any problem in the installation, just drop an email to the list
-(http://mail.nongnu.org/mailman/listinfo/bubblemon-list) with a detailed explanation 
-of the error, so we can work to fix it.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-02-28 10:25+0100\n"
+"POT-Creation-Date: 2009-05-12 19:51+0200\n"
 "PO-Revision-Date: 2009-03-30 20:29+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -24,6 +24,22 @@ msgstr ""
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
 msgstr "_Um"
+
+#: ../src/bubblemon.c:120
+msgid "TiB"
+msgstr ""
+
+#: ../src/bubblemon.c:125
+msgid "GiB"
+msgstr ""
+
+#: ../src/bubblemon.c:130
+msgid "MiB"
+msgstr ""
+
+#: ../src/bubblemon.c:135
+msgid "kiB"
+msgstr ""
 
 #: ../src/bubblemon.c:140
 msgid "bytes"

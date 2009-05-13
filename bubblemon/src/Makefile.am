@@ -1,14 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 
 localedir=$(datadir)/locale
-defaultincludes = -I. -I$(srcdir) -I..
 
 INCLUDES = \
-	-I $(defaultincludes) \
 	-DGTK_ENABLE_BROKEN \
 	-DGNOMELOCALEDIR=\"$(prefix)/$(DATADIRNAME)/locale\" \
-	$(GNOME_APPLETS_CFLAGS) \
-	$(GTOP_APPLETS_CFLAGS)
+	$(BUBBLEMON_CFLAGS)
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
@@ -23,8 +20,7 @@ bubblemon_gnome2_SOURCES = \
 	ackumulator.c ackumulator.h
 
 bubblemon_gnome2_LDADD = \
-	$(GNOME_APPLETS_LIBS)   \
-	$(GTOP_APPLETS_LIBS)
+	$(BUBBLEMON_LIBS)
 
 EXTRA_DIST = msgInBottle.c
 

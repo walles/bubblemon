@@ -1,24 +1,24 @@
-.TH "Bubblande lastmätare" "1" "@VERSION@" "Johan Walles" "GNOME panelprogram"
+.TH "Bubblande lastmÃ¤tare" "1" "@VERSION@" "Johan Walles" "GNOME panelprogram"
 .SH "NAMN"
-bubblemon-gnome2 \- Visar systemlasten som en bubblande vätska
+bubblemon-gnome2 \- Visar systemlasten som en bubblande vÃ¤tska
 .SH "SYNTAX"
 bubblemon-gnome2
 .SH "BESKRIVNING"
-Detta panelprogram för GNOME visar systemlasten som en bubblande
-vätska.  Vätskenivån motsvarar minnesanvändningen, om mycket minne
-används är vätskan nära toppen.  Mängden bubblor talar om hur mycket
-processorn arbetar, mycket bubblor betyder hög processorlast.  Färgen
-på vätskan talar om hur mycket växlingsutrymme ("swap") som används.
-Så länge som vätskan är vattenfärgad används inget växlingsutrymme,
-men ju mer växlingsutrymme som används desto rödare blir vätskan.  En
-flaskpost dyker upp när det finns oläst mail i filen som pekas ut av
-miljövariabeln $MAIL.  Sjögräs växer upp vid IOlast; mycket sjögräs
-innebär hög IOlast.
+Detta panelprogram fÃ¶r GNOME visar systemlasten som en bubblande
+vÃ¤tska.  VÃ¤tskenivÃ¥n motsvarar minnesanvÃ¤ndningen, om mycket minne
+anvÃ¤nds Ã¤r vÃ¤tskan nÃ¤ra toppen.  MÃ¤ngden bubblor talar om hur mycket
+processorn arbetar, mycket bubblor betyder hÃ¶g processorlast.  FÃ¤rgen
+pÃ¥ vÃ¤tskan talar om hur mycket vÃ¤xlingsutrymme ("swap") som anvÃ¤nds.
+SÃ¥ lÃ¤nge som vÃ¤tskan Ã¤r vattenfÃ¤rgad anvÃ¤nds inget vÃ¤xlingsutrymme,
+men ju mer vÃ¤xlingsutrymme som anvÃ¤nds desto rÃ¶dare blir vÃ¤tskan.  En
+flaskpost dyker upp nÃ¤r det finns olÃ¤st mail i filen som pekas ut av
+miljÃ¶variabeln $MAIL.  SjÃ¶grÃ¤s vÃ¤xer upp vid IOlast; mycket sjÃ¶grÃ¤s
+innebÃ¤r hÃ¶g IOlast.
 .LP
-Om du håller muspekaren ovanför lastmätaren någon sekund får du se
-exakta siffror på systemlasten.
-.SH "FÖRFATTARE"
+Om du hÃ¥ller muspekaren ovanfÃ¶r lastmÃ¤taren nÃ¥gon sekund fÃ¥r du se
+exakta siffror pÃ¥ systemlasten.
+.SH "FÃ–RFATTARE"
 Johan Walles <johan.walles@gmail.com>
 .SH "URL"
-Hemsidan finns på
+Hemsidan finns pÃ¥
 "http://www.nongnu.org/bubblemon/".
