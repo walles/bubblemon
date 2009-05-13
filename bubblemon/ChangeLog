@@ -1,3 +1,7 @@
+2009-05-13  Johan Walles  <johan.walles@gmail.com>
+
+	* French translation updated, thanks to Jean-Luc Coulon.
+
 2009-05-12  Johan Walles  <johan.walles@gmail.com>
 
 	* Make TiB, GiB, MiB and kiB translatable, make the 'B'
