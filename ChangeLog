@@ -1,3 +1,8 @@
+2009-06-02  Johan Walles  <johan.walles@gmail.com>
+
+	* Converted source code repository from CVS to BZR. Thank you CVS
+	for your long and dedicated service.
+
 2009-05-13  Johan Walles  <johan.walles@gmail.com>
 
 	* French translation updated, thanks to Jean-Luc Coulon.
