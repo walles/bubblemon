@@ -1,3 +1,7 @@
+2009-09-14  Johan Walles  <johan.walles@gmail.com>
+
+	* Fixed a potential local buffer overflow, thanks to Ilya Barygin.
+
 2009-06-02  Johan Walles  <johan.walles@gmail.com>
 
 	* Converted source code repository from CVS to BZR. Thank you CVS
