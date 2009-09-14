@@ -191,7 +191,7 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
     usage2string(swapstring,
 		 bubblemon->sysload.swapUsed,
 		 bubblemon->sysload.swapSize);
-    snprintf(loadstring, 90,
+    snprintf(loadstring, 45,
 	     _("\nSwap used: %s"),
 	     swapstring);
     strcat(bubblemon->tooltipstring, loadstring);
