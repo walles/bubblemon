@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004, 2008, 2009 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2008, 2009, 2010 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,6 @@
 #ifndef GNOME2_UI_H
 #define GNOME2_UI_H
 
-#include <gnome.h>
 #include <panel-applet.h>
 #include <sys/types.h>
 
@@ -39,8 +38,6 @@ typedef struct
 
   int width;
   int height;
-
-  GtkWidget *aboutbox;
 
   guint refresh_timeout_id;
   guint tooltip_timeout_id;

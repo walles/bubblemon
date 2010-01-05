@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004, 2009 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2004, 2009, 2010 Johan Walles - johan.walles@gmail.com
  *  http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,6 @@
 
 #include <config.h>
 #include <sys/types.h>
-#include <gnome.h>
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
 

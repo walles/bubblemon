@@ -116,8 +116,7 @@ fi
 
 PKG_CHECK_MODULES(BUBBLEMON,
 	[libpanelapplet-2.0 >= 2.0.0
-	 libgtop-2.0 >= 2.0.0
-	 libgnomeui-2.0 >= 2.0.0],
+	 libgtop-2.0 >= 2.0.0],
 	,
 	AC_MSG_ERROR([GNOME2 panel applet things not found.]))
 AC_SUBST(BUBBLEMON_CFLAGS)

@@ -1,6 +1,6 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2009 Johan Walles - johan.walles@gmail.com
+ *  Copyright (C) 1999-2010 Johan Walles - johan.walles@gmail.com
  *  This file (C) 2002-2008 Juan Salaverria - rael@vectorstar.net
  *  http://www.nongnu.org/bubblemon/
  *
@@ -35,7 +35,6 @@
 
 #include <config.h>
 #include <math.h>
-#include <gnome.h>
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
 
@@ -52,33 +51,20 @@ display_about_dialog (BonoboUIComponent *uic,
 		      gpointer data,
 		      const gchar *verbname)
 {
-  BubblemonApplet *bubble = (BubblemonApplet*)data;
+  // BubblemonApplet *bubble = (BubblemonApplet*)data;
 
   static const gchar *authors[] = { "Johan Walles <johan.walles@gmail.com>",
 				    "Juan Salaverria <rael@vectorstar.net>",
 				    NULL };
-  static const gchar *documenters[] = { NULL };
 
-  if (bubble->aboutbox != NULL) {
-    gtk_window_present (GTK_WINDOW (bubble->aboutbox));
-    return;
-  }
-
-  bubble->aboutbox= gnome_about_new(_("Bubbling Load Monitor"), VERSION,
-				    "Copyright (C) 1999-2009 Johan Walles",
-				    _("Displays system load as a bubbling liquid."),
-				    authors,
-				    documenters,
-				    NULL,
-				    NULL);
-
-  gtk_window_set_wmclass (GTK_WINDOW (bubble->aboutbox), "bubblemon", "Bubblemon");
-
-  g_signal_connect ( bubble->aboutbox, "destroy", G_CALLBACK (gtk_widget_destroyed), &bubble->aboutbox);
-
-  gtk_widget_show(bubble->aboutbox);
-
-  return;
+  gtk_show_about_dialog (NULL,
+			 "version",            VERSION,
+			 "copyright",          "Copyright (C) 1999-2010 Johan Walles",
+			 "comments",           _("Displays system load as a bubbling liquid."),
+			 "authors",            authors,
+			 // "translator-credits", _("translator-credits"),
+			 // "logo_icon_name",     NULL,
+			 NULL);
 }
 
 static void
@@ -185,11 +171,6 @@ applet_destroy (GtkWidget *panelApplet, BubblemonApplet *applet)
   applet->refresh_timeout_id = 0;
   g_source_remove(applet->tooltip_timeout_id);
   applet->tooltip_timeout_id = 0;
-
-  if (applet->aboutbox != NULL) {
-    gtk_widget_destroy(applet->aboutbox);
-  }
-  applet->aboutbox = NULL;
 
   if (applet->rgb_buffer != NULL) {
     g_free(applet->rgb_buffer);
