@@ -1,56 +1,58 @@
-# Tradu��o portuguesa do "Bubbling Load Monitor Applet"
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# Edson Medina, 2000.
+# Translation of bubblemon's messages to Portuguese
+# Copyright (C) 2010 Free Software Foundation, Inc.
 #
-#, fuzzy
+# Edson Medina, 2000.
+# Américo Monteiro <a_monteiro@netcabo.pt>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0.1\n"
+"Project-Id-Version: bubblemon 2.0.15\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-05-12 19:51+0200\n"
-"PO-Revision-Date: 2009-02-28 15:23+0100\n"
-"Last-Translator: Edson Medina\n"
-"Language-Team: Unknown\n"
+"POT-Creation-Date: 2010-03-14 18:00+0100\n"
+"PO-Revision-Date: 2010-03-14 22:24+0000\n"
+"Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
 msgid "Bubbling Load Monitor"
-msgstr "Monitor de carga borbulhento"
+msgstr "Monitor de Carga Borbulhento"
 
 #: ../gnome/GNOME_BubblemonApplet.server.in.in.h:2
 msgid "Monitor CPU, memory and IO load"
-msgstr ""
+msgstr "Monitor de carga da CPU, memória e IO"
 
 #: ../gnome/GNOME_BubblemonApplet.xml.h:1
 msgid "_About..."
-msgstr "_Sobre"
+msgstr "_Acerca de..."
 
 #: ../src/bubblemon.c:120
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/bubblemon.c:125
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/bubblemon.c:130
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/bubblemon.c:135
 msgid "kiB"
-msgstr ""
+msgstr "kiB"
 
 #: ../src/bubblemon.c:140
 msgid "bytes"
-msgstr ""
+msgstr "bytes"
 
 #: ../src/bubblemon.c:187
 #, c-format
 msgid "Memory used: %s"
-msgstr ""
+msgstr "Memória utilizada: %s"
 
 #: ../src/bubblemon.c:195
 #, c-format
@@ -58,6 +60,8 @@ msgid ""
 "\n"
 "Swap used: %s"
 msgstr ""
+"\n"
+"Swap utilizada: %s"
 
 #: ../src/bubblemon.c:201
 #, c-format
@@ -65,6 +69,8 @@ msgid ""
 "\n"
 "IO wait: %d%%"
 msgstr ""
+"\n"
+"Espera de IO: %d%%"
 
 #: ../src/bubblemon.c:208
 #, c-format
@@ -82,8 +88,9 @@ msgid ""
 "CPU #%d load: %d%%"
 msgstr ""
 "\n"
-"Carga do CPU %d: #%d%%"
+"Carga do CPU #%d: %d%%"
 
-#: ../src/gnome2-ui.c:69
+#: ../src/gnome2-ui.c:63
 msgid "Displays system load as a bubbling liquid."
-msgstr ""
+msgstr "Mostra a carga do sistema num líquido borbulhante."
+
