@@ -698,6 +698,10 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
   int a, r, g, b;
   bubblemon_color_t returnme;
 
+  if (amount == 0) {
+     return c1;
+  }
+
   assert(amount >= 0 && amount < 256);
 
   r = ((((int)c1.components.r) * (255 - amount)) +
@@ -730,8 +734,10 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
   returnme.components.b = b;
   returnme.components.a = a;
 
+  /*
   assert((amount != 0)   || (returnme.value == c1.value));
   assert((amount != 255) || (returnme.value == c2.value));
+  */
 
   return returnme;
 }
