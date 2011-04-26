@@ -1102,10 +1102,13 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   } else {
     // Draw on top of the current pic
     for (i = 0; i < w * h; i++) {
-      bubblemon_color_t myColor = colors[*airOrWater++];
-      *pixel = bubblemon_interpolateColor(*pixel,
-					  myColor,
-					  myColor.components.a);
+      bubblemon_color_t currentColor = *pixel;
+      bubblemon_color_t newColor = colors[*airOrWater++];
+      if (newColor.value != currentColor.value) {
+        *pixel = bubblemon_interpolateColor(currentColor,
+                                            newColor,
+                                            newColor.components.a);
+      }
       pixel++;
     }
   }
