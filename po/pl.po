@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bubblemon 1.0.5\n"
 "Report-Msgid-Bugs-To: https://savannah.nongnu.org/bugs/?group=bubblemon\n"
-"POT-Creation-Date: 2009-05-12 19:51+0200\n"
+"POT-Creation-Date: 2011-06-25 10:08+0200\n"
 "PO-Revision-Date: 2009-02-28 15:16+0100\n"
 "Last-Translator: Cezary Jackiewicz <cjackiewicz@poczta.onet.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1 ../src/gnome2-ui.c:67
+#: ../gnome/GNOME_BubblemonApplet.server.in.in.h:1
 msgid "Bubbling Load Monitor"
 msgstr "BÄÂĂÂbelkowy monitor obciÄÂĂÂĂĹĄÄšĹenia systemu"
 
@@ -86,6 +87,6 @@ msgstr ""
 "\n"
 "ObciÄÂĂÂĂĹĄÄšĹenie procesora: #%d: %d%%"
 
-#: ../src/gnome2-ui.c:69
+#: ../src/gnome2-ui.c:63
 msgid "Displays system load as a bubbling liquid."
 msgstr ""
