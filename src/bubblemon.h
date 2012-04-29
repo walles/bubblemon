@@ -21,10 +21,15 @@
 #ifndef BUBBLEMON_H
 #define BUBBLEMON_H
 
+#ifndef __APPLE__
 #include <config.h>
+#endif
 #include <sys/types.h>
-#include <panel-applet.h>
-#include <panel-applet-gconf.h>
+
+#ifndef _
+// GNU Gettext not available
+#define _(X) X
+#endif
 
 #include "meter.h"
 

@@ -1,0 +1,310 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04DCE75E154D644700C3C4FD /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
+		04DCE760154D670700C3C4FD /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
+		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
+		04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E364A5154D613F002BC8DD /* InfoPlist.strings */; };
+		04E364A9154D613F002BC8DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.m */; };
+		04E364AD154D613F002BC8DD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 04E364AB154D613F002BC8DD /* Credits.rtf */; };
+		04E364B0154D613F002BC8DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E364AF154D613F002BC8DD /* AppDelegate.m */; };
+		04E364B3154D613F002BC8DD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E364B1154D613F002BC8DD /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04DCE75A154D641600C3C4FD /* bubblemon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubblemon.png; sourceTree = "<group>"; };
+		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
+		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
+		04E36498154D613F002BC8DD /* bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04E3649C154D613F002BC8DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		04E3649F154D613F002BC8DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		04E364A0154D613F002BC8DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		04E364A1154D613F002BC8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		04E364A4154D613F002BC8DD /* bubblemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "bubblemon-Info.plist"; sourceTree = "<group>"; };
+		04E364A6154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04E364A8154D613F002BC8DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		04E364AA154D613F002BC8DD /* bubblemon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bubblemon-Prefix.pch"; sourceTree = "<group>"; };
+		04E364AC154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		04E364AE154D613F002BC8DD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		04E364AF154D613F002BC8DD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		04E364B2154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04E36495154D613F002BC8DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04E3648D154D613F002BC8DD = {
+			isa = PBXGroup;
+			children = (
+				04DCE75D154D644700C3C4FD /* bubblemon.c */,
+				04DCE75F154D670700C3C4FD /* osx-meter.c */,
+				04DCE75A154D641600C3C4FD /* bubblemon.png */,
+				04E364A2154D613F002BC8DD /* bubblemon */,
+				04E3649B154D613F002BC8DD /* Frameworks */,
+				04E36499154D613F002BC8DD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		04E36499154D613F002BC8DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04E36498154D613F002BC8DD /* bubblemon.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04E3649B154D613F002BC8DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04E3649C154D613F002BC8DD /* Cocoa.framework */,
+				04E3649E154D613F002BC8DD /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		04E3649E154D613F002BC8DD /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04E3649F154D613F002BC8DD /* AppKit.framework */,
+				04E364A0154D613F002BC8DD /* CoreData.framework */,
+				04E364A1154D613F002BC8DD /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		04E364A2154D613F002BC8DD /* bubblemon */ = {
+			isa = PBXGroup;
+			children = (
+				04E364AE154D613F002BC8DD /* AppDelegate.h */,
+				04E364AF154D613F002BC8DD /* AppDelegate.m */,
+				04E364B1154D613F002BC8DD /* MainMenu.xib */,
+				04E364A3154D613F002BC8DD /* Supporting Files */,
+			);
+			path = bubblemon;
+			sourceTree = "<group>";
+		};
+		04E364A3154D613F002BC8DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				04E364A4154D613F002BC8DD /* bubblemon-Info.plist */,
+				04E364A5154D613F002BC8DD /* InfoPlist.strings */,
+				04E364A8154D613F002BC8DD /* main.m */,
+				04E364AA154D613F002BC8DD /* bubblemon-Prefix.pch */,
+				04E364AB154D613F002BC8DD /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04E36497154D613F002BC8DD /* bubblemon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "bubblemon" */;
+			buildPhases = (
+				04E36494154D613F002BC8DD /* Sources */,
+				04E36495154D613F002BC8DD /* Frameworks */,
+				04E36496154D613F002BC8DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bubblemon;
+			productName = bubblemon;
+			productReference = 04E36498154D613F002BC8DD /* bubblemon.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04E3648F154D613F002BC8DD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 04E36492154D613F002BC8DD /* Build configuration list for PBXProject "bubblemon" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 04E3648D154D613F002BC8DD;
+			productRefGroup = 04E36499154D613F002BC8DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04E36497154D613F002BC8DD /* bubblemon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04E36496154D613F002BC8DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */,
+				04E364AD154D613F002BC8DD /* Credits.rtf in Resources */,
+				04E364B3154D613F002BC8DD /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04E36494154D613F002BC8DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04DCE75E154D644700C3C4FD /* bubblemon.c in Sources */,
+				04E364A9154D613F002BC8DD /* main.m in Sources */,
+				04E364B0154D613F002BC8DD /* AppDelegate.m in Sources */,
+				04DCE760154D670700C3C4FD /* osx-meter.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		04E364A5154D613F002BC8DD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04E364A6154D613F002BC8DD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		04E364AB154D613F002BC8DD /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04E364AC154D613F002BC8DD /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		04E364B1154D613F002BC8DD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04E364B2154D613F002BC8DD /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		04E364B4154D613F002BC8DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		04E364B5154D613F002BC8DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		04E364B7154D613F002BC8DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "bubblemon/bubblemon-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
+				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		04E364B8154D613F002BC8DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "bubblemon/bubblemon-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
+				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04E36492154D613F002BC8DD /* Build configuration list for PBXProject "bubblemon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04E364B4154D613F002BC8DD /* Debug */,
+				04E364B5154D613F002BC8DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "bubblemon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04E364B7154D613F002BC8DD /* Debug */,
+				04E364B8154D613F002BC8DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04E3648F154D613F002BC8DD /* Project object */;
+}

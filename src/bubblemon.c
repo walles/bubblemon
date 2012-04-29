@@ -22,7 +22,9 @@
  * This is a platform independent file that drives the program.
  */
 
+#ifndef __APPLE__
 #include <config.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
