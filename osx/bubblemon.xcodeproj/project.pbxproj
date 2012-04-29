@@ -18,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04DCE75A154D641600C3C4FD /* bubblemon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubblemon.png; sourceTree = "<group>"; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
 		04E36498154D613F002BC8DD /* bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,7 +52,6 @@
 			children = (
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
 				04DCE75F154D670700C3C4FD /* osx-meter.c */,
-				04DCE75A154D641600C3C4FD /* bubblemon.png */,
 				04E364A2154D613F002BC8DD /* bubblemon */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
