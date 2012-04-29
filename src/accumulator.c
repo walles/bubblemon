@@ -18,7 +18,7 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-/* An ackumulator measures something using two values; one timer
+/* An accumulator measures something using two values; one timer
  * counter and one events counter.  Given those values, the functions
  * in this file can be used to find out the current load in
  * percent. */
@@ -26,26 +26,26 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "ackumulator.h"
+#include "accumulator.h"
 
-/* Create a new ackumulator */
-ackumulator_t *ackumulator_create(unsigned int historySize) {
-  ackumulator_t *ackumulator = calloc(1, sizeof(ackumulator_t));
-  assert(ackumulator != NULL);
+/* Create a new accumulator */
+accumulator_t *accumulator_create(unsigned int historySize) {
+  accumulator_t *accumulator = calloc(1, sizeof(accumulator_t));
+  assert(accumulator != NULL);
 
-  ackumulator->historySize = historySize;
+  accumulator->historySize = historySize;
 
-  ackumulator->loadHistory = calloc(historySize, sizeof(u_int64_t));
-  assert(ackumulator->loadHistory != NULL);
+  accumulator->loadHistory = calloc(historySize, sizeof(u_int64_t));
+  assert(accumulator->loadHistory != NULL);
 
-  ackumulator->totalHistory = calloc(historySize, sizeof(u_int64_t));
-  assert(ackumulator->totalHistory != NULL);
+  accumulator->totalHistory = calloc(historySize, sizeof(u_int64_t));
+  assert(accumulator->totalHistory != NULL);
 
-  return ackumulator;
+  return accumulator;
 }
 
-/* Update an ackumulator with current values. */
-void ackumulator_update(ackumulator_t *ackumulator,
+/* Update an accumulator with current values. */
+void accumulator_update(accumulator_t *accumulator,
 			u_int64_t load, u_int64_t total)
 {
   int i;
@@ -53,49 +53,49 @@ void ackumulator_update(ackumulator_t *ackumulator,
   u_int64_t lastTotal;
 
   /* "i" is an index into a load history */
-  i = ackumulator->loadIndex;
-  lastLoad = ackumulator->loadHistory[i];
-  lastTotal = ackumulator->totalHistory[i];
+  i = accumulator->loadIndex;
+  lastLoad = accumulator->loadHistory[i];
+  lastTotal = accumulator->totalHistory[i];
 
   if (total - lastTotal == 0) {
     // No ticks have elapsed, load cannot be measured (Debian bug #220255)
     return;
   }
 
-  ackumulator->loadHistory[i] = load;
-  ackumulator->totalHistory[i] = total;
-  ackumulator->loadIndex = (i + 1) % ackumulator->historySize;
+  accumulator->loadHistory[i] = load;
+  accumulator->totalHistory[i] = total;
+  accumulator->loadIndex = (i + 1) % accumulator->historySize;
 
   // Calculate load as the extra amount of work that has been
   // performed since the last sample.
   if (lastTotal == 0) {
     // This is the first time we get here
-    ackumulator->percentage = 0;
+    accumulator->percentage = 0;
   } else {
-    ackumulator->percentage = (100 * (load - lastLoad)) / (total - lastTotal);
+    accumulator->percentage = (100 * (load - lastLoad)) / (total - lastTotal);
   }
 
-  if (ackumulator->percentage > 100) {
+  if (accumulator->percentage > 100) {
     // Clip percentage at 100%
-    ackumulator->percentage = 100;
+    accumulator->percentage = 100;
   }
 
   // We should never get < 0% load
-  assert(ackumulator->percentage >= 0);
+  assert(accumulator->percentage >= 0);
 }
 
 /* Fetch the current load percentage value (0-100). */
-int ackumulator_get_percentage(ackumulator_t *ackumulator) {
-  return ackumulator->percentage;
+int accumulator_get_percentage(accumulator_t *accumulator) {
+  return accumulator->percentage;
 }
 
-/* Free an ackumulator struct. */
-void ackumulator_done(ackumulator_t *ackumulator) {
-  free(ackumulator->loadHistory);
-  ackumulator->loadHistory = NULL;
+/* Free an accumulator struct. */
+void accumulator_done(accumulator_t *accumulator) {
+  free(accumulator->loadHistory);
+  accumulator->loadHistory = NULL;
 
-  free(ackumulator->totalHistory);
-  ackumulator->totalHistory = NULL;
+  free(accumulator->totalHistory);
+  accumulator->totalHistory = NULL;
 
-  free(ackumulator);
+  free(accumulator);
 }

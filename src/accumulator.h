@@ -18,12 +18,12 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACKUMULATOR_H
-#define ACKUMULATOR_H
+#ifndef ACCUMULATOR_H
+#define ACCUMULATOR_H
 
 #include <sys/types.h>
 
-/* Holds info about an ackumulator.  An ackumulator measures something
+/* Holds info about an accumulator.  An accumulator measures something
  * using two values; one timer counter and one events counter.  Given
  * such a value, the functions in this file can be used to find out
  * the current load in percent. */
@@ -44,20 +44,20 @@ typedef struct
 
   /* Last computed value */
   int percentage;
-} ackumulator_t;
+} accumulator_t;
 
-/* Create a new ackumulator */
-ackumulator_t *ackumulator_create(unsigned int historySize);
+/* Create a new accumulator */
+accumulator_t *accumulator_create(unsigned int historySize);
 
-/* Update an ackumulator with current values. */
-void ackumulator_update(ackumulator_t *ackumulator,
+/* Update an accumulator with current values. */
+void accumulator_update(accumulator_t *accumulator,
 			u_int64_t loadValue,
 			u_int64_t totalValue);
 
 /* Fetch the current load percentage value (0-100). */
-int ackumulator_get_percentage(ackumulator_t *ackumulator);
+int accumulator_get_percentage(accumulator_t *accumulator);
 
-/* Free an ackumulator struct. */
-void ackumulator_done(ackumulator_t *ackumulator);
+/* Free an accumulator struct. */
+void accumulator_done(accumulator_t *accumulator);
 
 #endif

@@ -58,16 +58,16 @@ void meter_init(meter_sysload_t *load)
   g_assert(load->cpuLoad != NULL);
 
   // Initialize the load histories and indices
-  load->cpuAckumulators = calloc(load->nCpus, sizeof(ackumulator_t));
-  g_assert(load->cpuAckumulators != NULL);
+  load->cpuAccumulators = calloc(load->nCpus, sizeof(accumulator_t));
+  g_assert(load->cpuAccumulators != NULL);
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
-    load->cpuAckumulators[cpuNo] = ackumulator_create(LOADSAMPLES);
+    load->cpuAccumulators[cpuNo] = accumulator_create(LOADSAMPLES);
   }
 
-  load->ioAckumulators = calloc(load->nCpus, sizeof(ackumulator_t));
-  g_assert(load->ioAckumulators != NULL);
+  load->ioAccumulators = calloc(load->nCpus, sizeof(accumulator_t));
+  g_assert(load->ioAccumulators != NULL);
   for (cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
-    load->ioAckumulators[cpuNo] = ackumulator_create(LOADSAMPLES);
+    load->ioAccumulators[cpuNo] = accumulator_create(LOADSAMPLES);
   }
 
   // Initialize memory and swap sizes
@@ -127,11 +127,11 @@ void meter_getLoad(meter_sysload_t *meter)
         }
         myLoad = myUser + mySystem;
         
-        ackumulator_update(meter->cpuAckumulators[cpuIndex], myLoad, myTotal);
-        meter->cpuLoad[cpuIndex] = ackumulator_get_percentage(meter->cpuAckumulators[cpuIndex]);
+        accumulator_update(meter->cpuAccumulators[cpuIndex], myLoad, myTotal);
+        meter->cpuLoad[cpuIndex] = accumulator_get_percentage(meter->cpuAccumulators[cpuIndex]);
         
-        ackumulator_update(meter->ioAckumulators[cpuIndex], myIowait, myTotal);
-        ioSum += ackumulator_get_percentage(meter->ioAckumulators[cpuIndex]);
+        accumulator_update(meter->ioAccumulators[cpuIndex], myIowait, myTotal);
+        ioSum += accumulator_get_percentage(meter->ioAccumulators[cpuIndex]);
      }
      if (ioSum > 100) {
         ioSum = 100;
@@ -149,13 +149,13 @@ void meter_done(meter_sysload_t *meter)
   int cpuIndex;
 
   for (cpuIndex = 0; cpuIndex < meter->nCpus; cpuIndex++) {
-    ackumulator_done(meter->cpuAckumulators[cpuIndex]);
-    meter->cpuAckumulators[cpuIndex] = NULL;
+    accumulator_done(meter->cpuAccumulators[cpuIndex]);
+    meter->cpuAccumulators[cpuIndex] = NULL;
 
-    ackumulator_done(meter->ioAckumulators[cpuIndex]);
-    meter->ioAckumulators[cpuIndex] = NULL;
+    accumulator_done(meter->ioAccumulators[cpuIndex]);
+    meter->ioAccumulators[cpuIndex] = NULL;
   }
-  free(meter->cpuAckumulators);
-  free(meter->ioAckumulators);
+  free(meter->cpuAccumulators);
+  free(meter->ioAccumulators);
   free(meter->cpuLoad);
 }

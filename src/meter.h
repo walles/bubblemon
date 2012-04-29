@@ -21,7 +21,7 @@
 #ifndef METER_H
 #define METER_H
 
-#include "ackumulator.h"
+#include "accumulator.h"
 
 /* The system load */
 typedef struct
@@ -46,8 +46,8 @@ typedef struct
 
   // FIXME: Having the below fields as part of the official API might
   // not be the best idea ever /Johan-2009feb22
-  ackumulator_t **cpuAckumulators;
-  ackumulator_t **ioAckumulators;
+  accumulator_t **cpuAccumulators;
+  accumulator_t **ioAccumulators;
 } meter_sysload_t;
 
 /* Initialize the load metering */

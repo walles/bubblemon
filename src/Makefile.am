@@ -17,7 +17,7 @@ bubblemon_gnome2_SOURCES = \
 	meter.h ui.h \
 	gnome1-meter.c \
 	unix-mail.c mail.h \
-	ackumulator.c ackumulator.h
+	accumulator.c accumulator.h
 
 bubblemon_gnome2_LDADD = \
 	$(BUBBLEMON_LIBS)
