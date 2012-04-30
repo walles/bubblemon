@@ -17,28 +17,44 @@
 #include <mach/task.h>
 #include <assert.h>
 
-static void measureMemory(meter_sysload_t *load) {
-    // FIXME: Replace these lines with actual measurements
-    load->swapUsed = 0;
-    load->swapSize = 0;
+static void measureSwap(meter_sysload_t *load) {
+    int vmmib[2] = {CTL_VM, VM_SWAPUSAGE};
+    struct xsw_usage swapused; /* defined in sysctl.h */
+    size_t swlen = sizeof(swapused);
+    assert(sysctl(vmmib, 2, &swapused, &swlen, NULL, 0) >= 0);
     
+    load->swapUsed = swapused.xsu_used ;
+    load->swapSize = swapused.xsu_total;
+}
+
+int getPageSize() {
     int mib[6]; 
     mib[0] = CTL_HW;
     mib[1] = HW_PAGESIZE;
     
-    int pagesize;
+    int pageSize;
     size_t length;
-    length = sizeof (pagesize);
-    assert(sysctl(mib, 2, &pagesize, &length, NULL, 0) >= 0);
+    length = sizeof (pageSize);
+    assert(sysctl(mib, 2, &pageSize, &length, NULL, 0) >= 0);
     
+    return pageSize;
+}
+
+static void measureRam(meter_sysload_t *load) {
     mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
     
     vm_statistics_data_t vmstat;
     assert(host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count) == KERN_SUCCESS);
     
     natural_t total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
-    load->memorySize = total * pagesize;
-    load->memoryUsed = (vmstat.wire_count + vmstat.active_count) * pagesize;
+    int pageSize = getPageSize();
+    load->memorySize = total * pageSize;
+    load->memoryUsed = (vmstat.wire_count + vmstat.active_count) * pageSize;
+}
+
+static void measureMemory(meter_sysload_t *load) {
+    measureRam(load);
+    measureSwap(load);
 }
 
 /* Initialize the load metering */
