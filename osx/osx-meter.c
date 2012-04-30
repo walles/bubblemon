@@ -67,6 +67,7 @@ void meter_init(meter_sysload_t *load) {
 
 /* Meter the system load */
 void meter_getLoad(meter_sysload_t *load) {
+    measureMemory(load);
     load->cpuLoad[0] = 30;
 }
 
