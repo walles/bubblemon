@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041BF107154DAEED009AE6D8 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
 		04DCE75E154D644700C3C4FD /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		04DCE760154D670700C3C4FD /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041BF105154DAEED009AE6D8 /* BubblemonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubblemonView.h; sourceTree = "<group>"; };
+		041BF106154DAEED009AE6D8 /* BubblemonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubblemonView.m; sourceTree = "<group>"; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
 		04E36498154D613F002BC8DD /* bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +55,8 @@
 			children = (
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
 				04DCE75F154D670700C3C4FD /* osx-meter.c */,
+				041BF105154DAEED009AE6D8 /* BubblemonView.h */,
+				041BF106154DAEED009AE6D8 /* BubblemonView.m */,
 				04E364A2154D613F002BC8DD /* bubblemon */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
@@ -175,6 +180,7 @@
 				04E364A9154D613F002BC8DD /* main.m in Sources */,
 				04E364B0154D613F002BC8DD /* AppDelegate.m in Sources */,
 				04DCE760154D670700C3C4FD /* osx-meter.c in Sources */,
+				041BF107154DAEED009AE6D8 /* BubblemonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
