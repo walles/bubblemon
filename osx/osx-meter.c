@@ -11,11 +11,15 @@
 
 #include <stdlib.h>
 #include <sys/sysctl.h>
+#include <mach/mach.h>
 #include <mach/host_info.h>
 #include <mach/mach_host.h>
-#include <mach/task_info.h>
-#include <mach/task.h>
 #include <assert.h>
+
+// How large is the CPU load history?  Large values gives good precision
+// but over a long time.  Small values gives worse precision but more
+// current values.
+#define LOADSAMPLES 16
 
 static void measureSwap(meter_sysload_t *load) {
     int vmmib[2] = {CTL_VM, VM_SWAPUSAGE};
@@ -27,7 +31,7 @@ static void measureSwap(meter_sysload_t *load) {
     load->swapSize = swapused.xsu_total;
 }
 
-int getPageSize() {
+static int getPageSize() {
     int mib[6]; 
     mib[0] = CTL_HW;
     mib[1] = HW_PAGESIZE;
@@ -57,24 +61,74 @@ static void measureMemory(meter_sysload_t *load) {
     measureSwap(load);
 }
 
+static int getCpuCount(void) {
+    int cpuCount;
+    int mib[2U] = { CTL_HW, HW_NCPU };
+    size_t sizeOfCpuCount = sizeof(cpuCount);
+    int status = sysctl(mib, 2U, &cpuCount, &sizeOfCpuCount, NULL, 0U);
+    assert(status == KERN_SUCCESS);
+    return cpuCount;
+}
+
 /* Initialize the load metering */
 void meter_init(meter_sysload_t *load) {
     measureMemory(load);
-    load->nCpus = 1;
-    load->cpuLoad = calloc(1, sizeof(int));
+    
+    load->nCpus = getCpuCount();
+    assert(load->nCpus > 0);
+    load->cpuLoad = calloc(load->nCpus, sizeof(int));
+    
+    // Initialize the load histories and indices
+    load->cpuAccumulators = calloc(load->nCpus, sizeof(accumulator_t));
+    for (int cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
+        load->cpuAccumulators[cpuNo] = accumulator_create(LOADSAMPLES);
+    }
+    
+    // OSX has no iowait
     load->ioLoad = 0;
+}
+
+static integer_t getCounterByCpu(processor_info_array_t cpuInfo, int cpuNumber, int counter) {
+    return cpuInfo[CPU_STATE_MAX * cpuNumber + counter];
 }
 
 /* Meter the system load */
 void meter_getLoad(meter_sysload_t *load) {
     measureMemory(load);
-    load->cpuLoad[0] = 30;
+    
+    // Measure CPU load, inspired by
+    // http://stackoverflow.com/questions/6785069/get-cpu-percent-usage
+    natural_t numCPUsU = 0U;
+    processor_info_array_t cpuInfo;
+    mach_msg_type_number_t numCpuInfo;
+    kern_return_t err = host_processor_info(mach_host_self(), PROCESSOR_CPU_LOAD_INFO, &numCPUsU, &cpuInfo, &numCpuInfo);
+    assert(err == KERN_SUCCESS);
+
+    for (int cpuIndex = 0; cpuIndex < load->nCpus; cpuIndex++) {
+        integer_t loadValue = (getCounterByCpu(cpuInfo, cpuIndex, CPU_STATE_USER)
+                               + getCounterByCpu(cpuInfo, cpuIndex, CPU_STATE_SYSTEM));
+        integer_t totalValue = (loadValue
+                                + getCounterByCpu(cpuInfo, cpuIndex, CPU_STATE_IDLE)
+                                + getCounterByCpu(cpuInfo, cpuIndex, CPU_STATE_NICE));
+        accumulator_t *accumulator = load->cpuAccumulators[cpuIndex];
+        accumulator_update(accumulator, loadValue, totalValue);
+        load->cpuLoad[cpuIndex] = accumulator_get_percentage(accumulator);
+    }
+    
+    size_t cpuInfoSize = sizeof(integer_t) * numCpuInfo;
+    vm_deallocate(mach_task_self(), (vm_address_t)cpuInfo, cpuInfoSize);
 }
 
 /* Shut down load metering */
 void meter_done(meter_sysload_t *load) {
     free(load->cpuLoad);
     load->cpuLoad = NULL;
+    
+    for (int i = 0; i < load->nCpus; i++) {
+        accumulator_done(load->cpuAccumulators[i]);
+    }
+    free(load->cpuAccumulators);
+    load->cpuAccumulators = NULL;
 }
 
 mail_status_t mail_getMailStatus(void) {
