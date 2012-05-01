@@ -32,6 +32,8 @@
 {
     // Invalidate ourselves
     [self setNeedsDisplay:YES];
+    NSString *tooltip = [[NSString alloc] initWithUTF8String:bubblemon_getTooltip(bubblemon)];
+    [self setToolTip: tooltip];
 }
 
 static void releaseDataProvider(void *info, const void *data, size_t size) {
