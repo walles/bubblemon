@@ -21,12 +21,16 @@
 // current values.
 #define LOADSAMPLES 16
 
+// Measure load every N calls.  The measurement itself can be costly;
+// this gets our CPU usage down
+#define MEASURE_LOAD_EVERY 5
+
 static void measureSwap(meter_sysload_t *load) {
     int vmmib[2] = {CTL_VM, VM_SWAPUSAGE};
     struct xsw_usage swapused; /* defined in sysctl.h */
     size_t swlen = sizeof(swapused);
     assert(sysctl(vmmib, 2, &swapused, &swlen, NULL, 0) >= 0);
-    
+
     load->swapUsed = swapused.xsu_used ;
     load->swapSize = swapused.xsu_total;
 }
@@ -35,7 +39,7 @@ static int getPageSize() {
     int mib[6]; 
     mib[0] = CTL_HW;
     mib[1] = HW_PAGESIZE;
-    
+
     int pageSize;
     size_t length;
     length = sizeof (pageSize);
@@ -46,10 +50,10 @@ static int getPageSize() {
 
 static void measureRam(meter_sysload_t *load) {
     mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
-    
+
     vm_statistics_data_t vmstat;
     assert(host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count) == KERN_SUCCESS);
-    
+
     natural_t total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
     int pageSize = getPageSize();
     load->memorySize = total * pageSize;
@@ -73,17 +77,17 @@ static int getCpuCount(void) {
 /* Initialize the load metering */
 void meter_init(meter_sysload_t *load) {
     measureMemory(load);
-    
+
     load->nCpus = getCpuCount();
     assert(load->nCpus > 0);
     load->cpuLoad = calloc(load->nCpus, sizeof(int));
-    
+
     // Initialize the load histories and indices
     load->cpuAccumulators = calloc(load->nCpus, sizeof(accumulator_t));
     for (int cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
-        load->cpuAccumulators[cpuNo] = accumulator_create(LOADSAMPLES);
+        load->cpuAccumulators[cpuNo] = accumulator_create(LOADSAMPLES / MEASURE_LOAD_EVERY);
     }
-    
+
     // OSX has no iowait
     load->ioLoad = 0;
 }
@@ -92,10 +96,7 @@ static integer_t getCounterByCpu(processor_info_array_t cpuInfo, int cpuNumber, 
     return cpuInfo[CPU_STATE_MAX * cpuNumber + counter];
 }
 
-/* Meter the system load */
-void meter_getLoad(meter_sysload_t *load) {
-    measureMemory(load);
-    
+static void measureCpuLoad(meter_sysload_t *load) {
     // Measure CPU load, inspired by
     // http://stackoverflow.com/questions/6785069/get-cpu-percent-usage
     natural_t numCPUsU = 0U;
@@ -103,7 +104,7 @@ void meter_getLoad(meter_sysload_t *load) {
     mach_msg_type_number_t numCpuInfo;
     kern_return_t err = host_processor_info(mach_host_self(), PROCESSOR_CPU_LOAD_INFO, &numCPUsU, &cpuInfo, &numCpuInfo);
     assert(err == KERN_SUCCESS);
-
+    
     for (int cpuIndex = 0; cpuIndex < load->nCpus; cpuIndex++) {
         integer_t loadValue = (getCounterByCpu(cpuInfo, cpuIndex, CPU_STATE_USER)
                                + getCounterByCpu(cpuInfo, cpuIndex, CPU_STATE_SYSTEM));
@@ -114,16 +115,29 @@ void meter_getLoad(meter_sysload_t *load) {
         accumulator_update(accumulator, loadValue, totalValue);
         load->cpuLoad[cpuIndex] = accumulator_get_percentage(accumulator);
     }
-    
+
     size_t cpuInfoSize = sizeof(integer_t) * numCpuInfo;
     vm_deallocate(mach_task_self(), (vm_address_t)cpuInfo, cpuInfoSize);
+}
+
+/* Meter the system load */
+void meter_getLoad(meter_sysload_t *load) {
+    static int updateDelay = -1;
+    if (updateDelay >= 0) {
+        updateDelay--;
+        return;
+    }
+    updateDelay = MEASURE_LOAD_EVERY;
+
+    measureMemory(load);
+    measureCpuLoad(load);
 }
 
 /* Shut down load metering */
 void meter_done(meter_sysload_t *load) {
     free(load->cpuLoad);
     load->cpuLoad = NULL;
-    
+
     for (int i = 0; i < load->nCpus; i++) {
         accumulator_done(load->cpuAccumulators[i]);
     }
