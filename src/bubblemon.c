@@ -572,9 +572,10 @@ static void bubblemon_updateBubbles(bubblemon_t *bubblemon, int msecsSinceLastCa
       }
 
       /* We just lost it, so let's nuke it */
-      bubblemon->physics.bubbles[i].x  = bubblemon->physics.bubbles[bubblemon->physics.n_bubbles - 1].x;
-      bubblemon->physics.bubbles[i].y  = bubblemon->physics.bubbles[bubblemon->physics.n_bubbles - 1].y;
-      bubblemon->physics.bubbles[i].dy = bubblemon->physics.bubbles[bubblemon->physics.n_bubbles - 1].dy;
+      int lastIndex = bubblemon->physics.n_bubbles - 1;
+      bubblemon_Bubble *currentBubble = &bubblemon->physics.bubbles[i];
+      bubblemon_Bubble *lastBubble = &bubblemon->physics.bubbles[lastIndex];
+      memcpy(currentBubble, lastBubble, sizeof(bubblemon_Bubble));
       bubblemon->physics.n_bubbles--;
 
       /* We must check the previously last bubble, which is
