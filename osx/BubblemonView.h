@@ -11,6 +11,7 @@
 
 @interface BubblemonView : NSView {
     bubblemon_t *bubblemon;
+    const bubblemon_picture_t *picture;
 }
 
 @end

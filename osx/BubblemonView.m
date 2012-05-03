@@ -16,6 +16,7 @@
     if (self) {
         // Initialization code here.
         bubblemon = bubblemon_init();
+        picture = NULL;
         
         // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
         [NSTimer scheduledTimerWithTimeInterval:(1.0 / 25.0)
@@ -30,10 +31,16 @@
 
 - (void)timerFired
 {
-    // Invalidate ourselves
-    [self setNeedsDisplay:YES];
+    // Compute a new image to display
+    bubblemon_setSize(bubblemon, 
+                      [self bounds].size.width,
+                      [self bounds].size.height);
+    picture = bubblemon_getPicture(bubblemon);
+
     NSString *tooltip = [[NSString alloc] initWithUTF8String:bubblemon_getTooltip(bubblemon)];
     [self setToolTip: tooltip];
+    
+    [self setNeedsDisplay:YES];
 }
 
 static void releaseDataProvider(void *info, const void *data, size_t size) {
@@ -43,24 +50,23 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
 
 - (void)drawRect:(NSRect)dirtyRectIgnored
 {
-    // Drawing code here.
-    bubblemon_setSize(bubblemon, 
-                      [self bounds].size.width,
-                      [self bounds].size.height);
-    const bubblemon_picture_t *picture = bubblemon_getPicture(bubblemon);
+    if (!picture) {
+        return;
+    }
     
-    size_t imageDataSize = [self bounds].size.width * [self bounds].size.height * sizeof(bubblemon_color_t);
+    // Redraw ourselves
+    size_t imageDataSize = picture->width * picture->height * sizeof(bubblemon_color_t);
     
     CGDataProviderRef dataProviderRef = CGDataProviderCreateWithData(NULL, picture->pixels, imageDataSize, releaseDataProvider);
     
     const size_t bitsPerComponent = 8;
     const size_t bitsPerPixel = sizeof(bubblemon_color_t) * 8;
-    const size_t bytesPerRow = [self bounds].size.width * sizeof(bubblemon_color_t);
+    const size_t bytesPerRow = picture->width * sizeof(bubblemon_color_t);
     const bool shouldInterpolate = false;
     
     CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-    CGImageRef cgImageRef = CGImageCreate([self bounds].size.width,
-                                          [self bounds].size.height,
+    CGImageRef cgImageRef = CGImageCreate(picture->width,
+                                          picture->height,
                                           bitsPerComponent,
                                           bitsPerPixel,
                                           bytesPerRow,
@@ -78,7 +84,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
     
     CGRect cgRect = NSRectToCGRect([self bounds]);
     CGContextDrawImage(cgContextRef, cgRect, cgImageRef);
-    CGImageRelease(cgImageRef);
+    CGImageRelease(cgImageRef);    
 }
 
 @end
