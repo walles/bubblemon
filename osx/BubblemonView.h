@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "bubblemon.h"
 
-@interface BubblemonView : NSView {
+@interface BubblemonView : NSView <NSDockTilePlugIn> {
     bubblemon_t *bubblemon;
     const bubblemon_picture_t *picture;
 }

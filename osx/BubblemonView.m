@@ -10,6 +10,12 @@
 
 @implementation BubblemonView
 
+- (void)setDockTile:(NSDockTile*)dockTile {
+    if (dockTile) {
+        [dockTile setContentView:self];
+    }
+}
+
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
