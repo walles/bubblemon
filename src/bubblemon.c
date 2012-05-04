@@ -837,7 +837,20 @@ int bubblemon_getSwapPercentage(bubblemon_t *bubblemon)
   }
   else
   {
+    // How much swap is actually used?
     returnme = (int)((200L * bubblemon->sysload.swapUsed + 1) / (2 * bubblemon->sysload.swapSize));
+    
+    // On systems with dynamically growing swap using too much swap can still be
+    // a problem.  How large part of the used memory must be on disk?
+    size_t memoryUsed = bubblemon->sysload.memoryUsed + bubblemon->sysload.swapUsed;
+    ssize_t memoryRequiringDisk = memoryUsed - bubblemon->sysload.memorySize;
+    if (memoryRequiringDisk > 0) {
+      int memoryRequiringDiskPercentage = (100 * memoryRequiringDisk) / memoryUsed;
+      
+      if (memoryRequiringDiskPercentage > returnme) {
+        returnme = memoryRequiringDiskPercentage;
+      }
+    }
   }
 
 #ifdef ENABLE_PROFILING
