@@ -110,18 +110,46 @@ if test "x$profiling" = "xyes"; then
   AC_MSG_WARN()
 fi
 
+PKG_CHECK_MODULES(libgtop,
+        [libgtop-2.0 >= 2.0.0],
+        ,
+        AC_MSG_ERROR([libgtop 2.0 not found.]))
 
 ##############################
 # GNOME 2.x specific tests
 
-PKG_CHECK_MODULES(BUBBLEMON,
-	[libpanelapplet-2.0 >= 2.0.0
-	 libgtop-2.0 >= 2.0.0],
-	,
-	AC_MSG_ERROR([GNOME2 panel applet things not found.]))
+AC_ARG_ENABLE(
+  [gnome2],
+  [  --disable-gnome2        do not build GNOME 2 applet],
+  [gnome2=$enableval],
+  [gnome2=yes])
+
+if test "x$gnome2" = "xyes"; then
+  PKG_CHECK_MODULES(GNOME2,
+          [libpanelapplet-2.0 >= 2.0.0],
+          ,
+          AC_MSG_ERROR([GNOME2 panel applet library not found.]))
+fi
+
+##############################
+# XFCE4 specific tests
+
+AC_ARG_ENABLE(
+  [xfce4],
+  [  --enable-xfce4          build XFCE4 plugin],
+  [xfce4=$enableval],
+  [xfce4=no])
+
+if test "x$xfce4" = "xyes"; then
+  PKG_CHECK_MODULES(XFCE,
+          [libxfcegui4-1.0 >= 4.3.20
+           libxfce4panel-1.0 >= 4.3.20],
+          ,
+          AC_MSG_ERROR([XFCE4 panel plugin libraries not found.]))
+fi
+
 AC_SUBST(BUBBLEMON_CFLAGS)
 AC_SUBST(BUBBLEMON_LIBS)
-
 
 ######################################################################
 #
