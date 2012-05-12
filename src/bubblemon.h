@@ -26,9 +26,11 @@
 #endif
 #include <sys/types.h>
 
+#ifdef __APPLE__
 #ifndef _
 // GNU Gettext not available
 #define _(X) X
+#endif
 #endif
 
 #include "meter.h"

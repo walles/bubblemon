@@ -33,6 +33,11 @@
 #include <time.h>
 #include <inttypes.h>
 
+#ifndef _
+# include <libintl.h>
+# define _(String) gettext (String)
+#endif
+
 #include <math.h>
 double exp2(double x);
 
