@@ -22,7 +22,7 @@ AM_CONFIG_HEADER(config.h)
 AC_PROG_INTLTOOL([0.35])
 
 # Compiler setup
-AC_PROG_CC
+AM_PROG_CC_C_O
 if test "x$GCC" = "xyes"; then
   # -Wno-missing-field-initializers is because of
   # http://bugs.debian.org/509663
@@ -33,7 +33,6 @@ if test "x$GCC" = "xyes"; then
   CFLAGS="-g -O2 -Wall -Werror -Wextra -Wno-unused-parameter -Wno-missing-field-initializers"
   AC_SUBST(CFLAGS)
 fi
-AM_PROG_CC_STDC
 AC_ISC_POSIX
 AC_HEADER_STDC
 
@@ -114,6 +113,10 @@ PKG_CHECK_MODULES(libgtop,
         [libgtop-2.0 >= 2.0.0],
         ,
         AC_MSG_ERROR([libgtop 2.0 not found.]))
+LIBGTOP_CFLAGS=`$PKG_CONFIG --cflags "libgtop-2.0"`
+AC_SUBST(LIBGTOP_CFLAGS)
+LIBGTOP_LIBS=`$PKG_CONFIG --libs "libgtop-2.0"`
+AC_SUBST(LIBGTOP_LIBS)
 
 ##############################
 # GNOME 2.x specific tests
@@ -146,6 +149,16 @@ if test "x$xfce4" = "xyes"; then
            libxfce4panel-1.0 >= 4.3.20],
           ,
           AC_MSG_ERROR([XFCE4 panel plugin libraries not found.]))
+  LIBXFCE4PANEL_VERSION=`$PKG_CONFIG --modversion "libxfce4panel-1.0"`
+  LIBXFCE4PANEL_CFLAGS=`$PKG_CONFIG --cflags "libxfce4panel-1.0"`
+  AC_SUBST(LIBXFCE4PANEL_CFLAGS)
+  LIBXFCE4PANEL_LIBS=`$PKG_CONFIG --libs "libxfce4panel-1.0"`
+  AC_SUBST(LIBXFCE4PANEL_LIBS)
+  LIBXFCEGUI4_VERSION=`$PKG_CONFIG --modversion "libxfcegui4-1.0"`
+  LIBXFCEGUI4_CFLAGS=`$PKG_CONFIG --cflags "libxfcegui4-1.0"`
+  AC_SUBST(LIBXFCEGUI4_CFLAGS)
+  LIBXFCEGUI4_LIBS=`$PKG_CONFIG --libs "libxfcegui4-1.0"`
+  AC_SUBST(LIBXFCEGUI4_LIBS)
 fi
 
 AC_SUBST(BUBBLEMON_CFLAGS)
