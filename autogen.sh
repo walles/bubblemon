@@ -8,9 +8,9 @@ echo
 
 set -x
 
-aclocal-1.10 -I m4 &&\
+aclocal -I m4 &&\
 autoheader &&\
-automake-1.10 --add-missing &&\
+automake --add-missing &&\
 autoconf &&\
 intltoolize --force || exit $?
 
