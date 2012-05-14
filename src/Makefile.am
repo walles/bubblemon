@@ -5,7 +5,7 @@ xmluidir=$(datadir)/gnome-panel/ui
 
 INCLUDES = \
 	-DGTK_ENABLE_BROKEN \
-	-DGNOMELOCALEDIR=\"$(localedir)\" \
+	-DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
 	-DBUBBLEMON_MENU_UI_DIR=\"$(xmluidir)\" \
 	$(PLATFORM_CFLAGS)
 
