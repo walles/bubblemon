@@ -1,0 +1,16 @@
+[Applet Factory]
+Id=BubblemonAppletFactory
+Location="@LIBEXECDIR@/bubblemon-gnome3"
+_Name=Bubbling Load Monitor Applet Factory
+_Description=Bubbling Load Monitor Applet Factory
+
+[BubblemonApplet]
+_Name=Bubbling Load Monitor
+_Description=Monitor CPU, memory and IO load
+Icon=bubblemon
+BonoboId=BubblemonApplet
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=gnome-panel
+X-GNOME-Bugzilla-Component=Bubbling Load Monitor Applet
+X-GNOME-Bugzilla-Version=@VERSION@
+X-GNOME-Bugzilla-OtherBinaries=bubblemon-applet

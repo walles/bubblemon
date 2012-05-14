@@ -1,10 +1,10 @@
 .TH "Bubbling Load Monitor" "1" "@VERSION@" "Johan Walles" "GNOME Applets"
 .SH "NAME"
-bubblemon-gnome2 \- Displays the system load as a bubbling liquid
+bubblemon-@BUBBLEMON_PLATFORM@ \- Displays the system load as a bubbling liquid
 .SH "SYNTAX"
-bubblemon-gnome2
+bubblemon-@BUBBLEMON_PLATFORM@
 .SH "DESCRIPTION"
-This GNOME applet displays the system load in the form of a bubbling
+This monitor displays the system load in the form of a bubbling
 liquid.  The surface level corresponds to the amount of memory used by
 the system; a high surface level means that lots of memory is in use.
 The amount of bubbles indicates the system load; lots of bubbles means
@@ -22,4 +22,4 @@ hover your mouse pointer over the applet for a second.
 Johan Walles <johan.walles@gmail.com>
 .SH "URL"
 The home page of Bubblemon is at
-"http://www.nongnu.org/bubblemon/".
+"http://savannah.nongnu.org/projects/bubblemon/".

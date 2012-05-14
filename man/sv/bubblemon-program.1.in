@@ -1,10 +1,10 @@
 .TH "Bubblande lastmätare" "1" "@VERSION@" "Johan Walles" "GNOME panelprogram"
 .SH "NAMN"
-bubblemon-gnome2 \- Visar systemlasten som en bubblande vätska
+bubblemon-@BUBBLEMON_PLATFORM@ \- Visar systemlasten som en bubblande vätska
 .SH "SYNTAX"
-bubblemon-gnome2
+bubblemon-@BUBBLEMON_PLATFORM@
 .SH "BESKRIVNING"
-Detta panelprogram för GNOME visar systemlasten som en bubblande
+Detta monitor visar systemlasten som en bubblande
 vätska.  Vätskenivån motsvarar minnesanvändningen, om mycket minne
 används är vätskan nära toppen.  Mängden bubblor talar om hur mycket
 processorn arbetar, mycket bubblor betyder hög processorlast.  Färgen

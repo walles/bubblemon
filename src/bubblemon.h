@@ -30,6 +30,10 @@
 // GNU Gettext not available
 #define _(X) X
 #endif
+#ifndef N_
+#define N_(String) String
+#endif
+
 
 #include "meter.h"
 
