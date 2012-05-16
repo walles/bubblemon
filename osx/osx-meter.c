@@ -10,6 +10,7 @@
 #include "mail.h"
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/sysctl.h>
 #include <mach/mach.h>
 #include <mach/host_info.h>
@@ -35,27 +36,14 @@ static void measureSwap(meter_sysload_t *load) {
     load->swapSize = swapused.xsu_total;
 }
 
-static int getPageSize() {
-    int mib[6]; 
-    mib[0] = CTL_HW;
-    mib[1] = HW_PAGESIZE;
-
-    int pageSize;
-    size_t length;
-    length = sizeof (pageSize);
-    assert(sysctl(mib, 2, &pageSize, &length, NULL, 0) >= 0);
-    
-    return pageSize;
-}
-
 static void measureRam(meter_sysload_t *load) {
     mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
 
     vm_statistics_data_t vmstat;
     assert(host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count) == KERN_SUCCESS);
 
-    natural_t total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
-    int pageSize = getPageSize();
+    size_t total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
+    size_t pageSize = sysconf(_SC_PAGESIZE);
     load->memorySize = total * pageSize;
     load->memoryUsed = (vmstat.wire_count + vmstat.active_count) * pageSize;
 }
