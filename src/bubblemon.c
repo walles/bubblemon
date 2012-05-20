@@ -1022,14 +1022,16 @@ static void bubblemon_environmentToBubbleArray(bubblemon_t *bubblemon,
     double dummy;
 
     float waterHeight = bubblemon->physics.waterLevels[x].y;
-    int nAirPixels = h - waterHeight;
+    int nAirPixels = h - truncf(waterHeight);
     int antialias = 0;
 
-    if (modf(waterHeight, &dummy) >= 0.5) {
+    if (modf(waterHeight, &dummy) >= 0.75f) {
+      nAirPixels--;
+    } else if (modf(waterHeight, &dummy) >= 0.25f) {
       nAirPixels--;
       antialias = 1;
     }
-
+    
     pixel = &(bubblePic->airAndWater[x]);
     for (y = 0; y < nAirPixels; y++)
     {
@@ -1299,4 +1301,40 @@ void bubblemon_done(bubblemon_t *bubblemon)
   // Free our data holding structure
   bubblemon_freeBuffers(bubblemon);
   free(bubblemon);
+}
+
+static void testWaveCrestAntialiasingHelper(bubblemon_t *testMe,
+                                            float height,
+                                            bubblemon_colorcode_t color)
+{
+  testMe->physics.waterLevels[0].y = height;
+  bubblemon_environmentToBubbleArray(testMe, BACKGROUND);
+  assert(AIR   == testMe->bubblePic.airAndWater[0 * 3]);
+  assert(AIR   == testMe->bubblePic.airAndWater[1 * 3]);
+  assert(color == testMe->bubblePic.airAndWater[2 * 3]);
+  assert(WATER == testMe->bubblePic.airAndWater[3 * 3]);
+  assert(WATER == testMe->bubblePic.airAndWater[4 * 3]);
+}
+
+static void testWaveCrestAntialiasing() {
+  bubblemon_t *testMe = bubblemon_init();
+  
+  bubblemon_setSize(testMe, 3, 5);
+  bubblemon_updatePhysics(testMe, 42, NO_MAIL);
+  testMe->physics.waterLevels[0].y = 2;
+  testMe->physics.waterLevels[1].y = 2;
+  testMe->physics.waterLevels[2].y = 2;
+  
+  testWaveCrestAntialiasingHelper(testMe, 2.0f, AIR);
+  testWaveCrestAntialiasingHelper(testMe, 2.24f, AIR);
+  testWaveCrestAntialiasingHelper(testMe, 2.26f, ANTIALIAS);
+  testWaveCrestAntialiasingHelper(testMe, 2.74f, ANTIALIAS);
+  testWaveCrestAntialiasingHelper(testMe, 2.76f, WATER);
+  testWaveCrestAntialiasingHelper(testMe, 2.99f, WATER);
+  
+  bubblemon_done(testMe);
+}
+
+void bubblemon_selftest() {
+  testWaveCrestAntialiasing();
 }

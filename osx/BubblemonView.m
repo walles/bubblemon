@@ -21,6 +21,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
+#ifdef DEBUG
+        bubblemon_selftest();
+#endif
         bubblemon = bubblemon_init();
         picture = NULL;
         

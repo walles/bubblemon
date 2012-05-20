@@ -217,4 +217,7 @@ extern bubblemon_t *bubblemon_init(void);
 /* Should be called at shutdown */
 extern void bubblemon_done(bubblemon_t *bubblemon);
 
+/* Run self tests, assert()s will fail on failures */
+extern void bubblemon_selftest(void);
+
 #endif
