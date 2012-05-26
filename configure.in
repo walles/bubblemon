@@ -176,6 +176,8 @@ po/Makefile.in
 po/Makefile
 src/Makefile
 gnome/Makefile
+xfce/Makefile
+icons/Makefile
 pixmaps/Makefile
 man/Makefile
 man/bubblemon-gnome2.1

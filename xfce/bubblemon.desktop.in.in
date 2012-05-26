@@ -1,0 +1,8 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+_Name=Bubblemon
+_Comment=Bubbling load monitor
+Icon=xfce4-bubblemon-plugin
+X-XFCE-Exec=@PLUGIN_PATH@/xfce4-bubblemon-plugin
+
