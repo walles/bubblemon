@@ -8,6 +8,7 @@
 
 #include "meter.h"
 #include "mail.h"
+#include "dynamic-accumulator.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -16,6 +17,14 @@
 #include <mach/host_info.h>
 #include <mach/mach_host.h>
 #include <assert.h>
+
+#include <IOKitLib.h>
+#include <IOKit/IOBSD.h>
+#include <IOKit/storage/IOMedia.h>
+#include <IOKit/storage/IOBlockStorageDriver.h>
+#include <CoreFoundation/CoreFoundation.h>
+
+static mach_port_t masterPort;
 
 // How large is the CPU load history?  Large values gives good precision
 // but over a long time.  Small values gives worse precision but more
@@ -62,24 +71,6 @@ static int getCpuCount(void) {
     return cpuCount;
 }
 
-/* Initialize the load metering */
-void meter_init(meter_sysload_t *load) {
-    measureMemory(load);
-
-    load->nCpus = getCpuCount();
-    assert(load->nCpus > 0);
-    load->cpuLoad = calloc(load->nCpus, sizeof(int));
-
-    // Initialize the load histories and indices
-    load->cpuAccumulators = calloc(load->nCpus, sizeof(accumulator_t));
-    for (int cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
-        load->cpuAccumulators[cpuNo] = accumulator_create(LOADSAMPLES / MEASURE_LOAD_EVERY);
-    }
-
-    // OSX has no iowait
-    load->ioLoad = 0;
-}
-
 static integer_t getCounterByCpu(processor_info_array_t cpuInfo, int cpuNumber, int counter) {
     return cpuInfo[CPU_STATE_MAX * cpuNumber + counter];
 }
@@ -108,6 +99,132 @@ static void measureCpuLoad(meter_sysload_t *load) {
     vm_deallocate(mach_task_self(), (vm_address_t)cpuInfo, cpuInfoSize);
 }
 
+// This function is much inspired by record_device() and devstats() from
+// http://opensource.apple.com/source/system_cmds/system_cmds-230/iostat.tproj/iostat.c
+static void reportDrive(dynamic_accumulator_t *ioLoad, io_registry_entry_t drive) {
+  io_registry_entry_t parent;
+  CFStringRef name;
+  kern_return_t status;
+  
+  // get drive's parent
+  status = IORegistryEntryGetParentEntry(drive,
+                                         kIOServicePlane, &parent);
+  if (status != KERN_SUCCESS) {
+    return;
+  }
+  if (!IOObjectConformsTo(parent, "IOBlockStorageDriver")) {
+    IOObjectRelease(parent);
+    return;
+  }
+
+  // get drive properties
+  CFDictionaryRef driveProperties;
+  status = IORegistryEntryCreateCFProperties(drive,
+                                             (CFMutableDictionaryRef *)&driveProperties,
+                                             kCFAllocatorDefault,
+                                             kNilOptions);
+  if (status != KERN_SUCCESS) {
+    return;
+  }
+  
+  // get name from properties
+  name = (CFStringRef)CFDictionaryGetValue(driveProperties,
+                                           CFSTR(kIOBSDNameKey));
+  char cname[100];
+  CFStringGetCString(name, cname, sizeof(cname), CFStringGetSystemEncoding());
+  CFRelease(driveProperties);
+  
+  // get parent properties
+  CFDictionaryRef parentProperties;
+  status = IORegistryEntryCreateCFProperties(parent,
+                                             (CFMutableDictionaryRef *)&parentProperties,
+                                             kCFAllocatorDefault,
+                                             kNilOptions);
+  IOObjectRelease(parent);
+  if (status != KERN_SUCCESS) {
+    CFRelease(driveProperties);
+    return;
+  }
+  
+  CFDictionaryRef statistics;
+  statistics = (CFDictionaryRef)CFDictionaryGetValue(parentProperties,
+                                                     CFSTR(kIOBlockStorageDriverStatisticsKey));
+  if (!statistics) {
+    CFRelease(parentProperties);
+    return;
+  }
+  
+  u_int64_t bytesRead = 0;
+  u_int64_t bytesWritten = 0;
+  CFNumberRef number;
+  if ((number = (CFNumberRef)CFDictionaryGetValue(statistics,
+                                                  CFSTR(kIOBlockStorageDriverStatisticsBytesReadKey)))) {
+    CFNumberGetValue(number, kCFNumberSInt64Type, &bytesRead);
+  }
+  if ((number = (CFNumberRef)CFDictionaryGetValue(statistics,
+                                                  CFSTR(kIOBlockStorageDriverStatisticsBytesWrittenKey)))) {
+    CFNumberGetValue(number, kCFNumberSInt64Type, &bytesWritten);
+  }
+
+  CFRelease(parentProperties);
+  
+  dynamic_accumulator_report(ioLoad, cname, bytesRead, bytesWritten);
+}
+
+// This function is much inspired by record_all_devices() from
+// http://opensource.apple.com/source/system_cmds/system_cmds-230/iostat.tproj/iostat.c
+static void measureIoLoad(meter_sysload_t *load) {
+  dynamic_accumulator_t *ioLoad = (dynamic_accumulator_t*)load->user;
+  dynamic_accumulator_startReporting(ioLoad);
+  
+  // For all devices..
+  io_iterator_t drivelist;
+  io_registry_entry_t drive;
+  CFMutableDictionaryRef match;
+  kern_return_t status;
+  
+  // Get an iterator for IOMedia objects.
+  match = IOServiceMatching("IOMedia");
+  CFDictionaryAddValue(match, CFSTR(kIOMediaWholeKey), kCFBooleanTrue);
+  status = IOServiceGetMatchingServices(masterPort, match, &drivelist);
+  assert(status == KERN_SUCCESS);
+  
+  // Scan all of the IOMedia objects, report each object that has a parent
+  // IOBlockStorageDriver
+  while ((drive = IOIteratorNext(drivelist))) {
+    reportDrive(ioLoad, drive);
+    
+    IOObjectRelease(drive);
+  }
+  IOObjectRelease(drivelist);
+  
+  load->ioLoad = dynamic_accumulator_getLoadPercentage(ioLoad);
+}
+
+/* Initialize the load metering */
+void meter_init(meter_sysload_t *load) {
+#ifdef DEBUG
+  dynamic_accumulator_selftest();
+#endif
+  
+  load->user = dynamic_accumulator_create();
+  
+  measureMemory(load);
+  
+  load->nCpus = getCpuCount();
+  assert(load->nCpus > 0);
+  load->cpuLoad = calloc(load->nCpus, sizeof(int));
+  
+  // Initialize the load histories and indices
+  load->cpuAccumulators = calloc(load->nCpus, sizeof(accumulator_t));
+  for (int cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
+    load->cpuAccumulators[cpuNo] = accumulator_create(LOADSAMPLES / MEASURE_LOAD_EVERY);
+  }
+  
+  IOMasterPort(bootstrap_port, &masterPort);
+  measureIoLoad(load);
+}
+
 /* Meter the system load */
 void meter_getLoad(meter_sysload_t *load) {
     static int updateDelay = -1;
@@ -119,6 +236,7 @@ void meter_getLoad(meter_sysload_t *load) {
 
     measureMemory(load);
     measureCpuLoad(load);
+    measureIoLoad(load);
 }
 
 /* Shut down load metering */
@@ -131,6 +249,8 @@ void meter_done(meter_sysload_t *load) {
     }
     free(load->cpuAccumulators);
     load->cpuAccumulators = NULL;
+  
+    dynamic_accumulator_destroy((dynamic_accumulator_t*)load->user);
 }
 
 mail_status_t mail_getMailStatus(void) {
