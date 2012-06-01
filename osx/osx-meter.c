@@ -228,14 +228,23 @@ void meter_init(meter_sysload_t *load) {
 /* Meter the system load */
 void meter_getLoad(meter_sysload_t *load) {
     static int updateDelay = -1;
-    if (updateDelay >= 0) {
-        updateDelay--;
+    if (updateDelay-- >= 0) {
         return;
     }
     updateDelay = MEASURE_LOAD_EVERY;
 
     measureMemory(load);
     measureCpuLoad(load);
+
+    // Delay IO measurement even more; empirical studies show that this gives us
+    // a lot better values.
+    static int ioDelay = -1;
+    if (ioDelay-- >= 0) {
+      return;
+    }
+    // The magical number 2 comes from a trial-and-error session.  2 looks nice.
+    ioDelay = 2;
+
     measureIoLoad(load);
 }
 
