@@ -23,6 +23,23 @@
 		DB197C91161B106A009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		DB197C92161B106E009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
 		DB197C93161B117F009EA096 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
+		DB197C94161B2198009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
+		DB197C95161B21AC009EA096 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
+		DB197C96161B21AC009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
+		DB197C97161B21AC009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
+		DB197C98161B21AC009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
+		DB197CB9161B239A009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
+		DB197CBF161B239A009EA096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB197CBD161B239A009EA096 /* InfoPlist.strings */; };
+		DB197CC1161B239A009EA096 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DB197CC0161B239A009EA096 /* main.m */; };
+		DB197CC5161B239A009EA096 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DB197CC3161B239A009EA096 /* Credits.rtf */; };
+		DB197CC8161B239A009EA096 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB197CC7161B239A009EA096 /* AppDelegate.m */; };
+		DB197CCB161B239A009EA096 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB197CC9161B239A009EA096 /* MainMenu.xib */; };
+		DB197CCF161B23A6009EA096 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
+		DB197CD0161B23A6009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
+		DB197CD1161B23A6009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
+		DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
+		DB197CD3161B23A6009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
+		DB197CD4161B23FE009EA096 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +90,16 @@
 		DB197C79161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bubblemon Dock Tile Plugin-Info.plist"; sourceTree = "<group>"; };
 		DB197C7B161B0EB4009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB197C7D161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubblemon Dock Tile Plugin-Prefix.pch"; sourceTree = "<group>"; };
+		DB197CB2161B2361009EA096 /* bubblemon copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "bubblemon copy-Info.plist"; path = "/Users/walles/src/bubblemon-osx/osx/bubblemon copy-Info.plist"; sourceTree = "<absolute>"; };
+		DB197CB7161B239A009EA096 /* BubblemonWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BubblemonWindow-Info.plist"; sourceTree = "<group>"; };
+		DB197CBE161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB197CC0161B239A009EA096 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DB197CC2161B239A009EA096 /* BubblemonWindow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BubblemonWindow-Prefix.pch"; sourceTree = "<group>"; };
+		DB197CC4161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		DB197CC6161B239A009EA096 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DB197CC7161B239A009EA096 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DB197CCA161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +121,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB197CB4161B239A009EA096 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB197CD4161B23FE009EA096 /* IOKit.framework in Frameworks */,
+				DB197CB9161B239A009EA096 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -108,8 +144,10 @@
 				041BF106154DAEED009AE6D8 /* BubblemonView.m */,
 				04E364A2154D613F002BC8DD /* bubblemon */,
 				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
+				DB197CBA161B239A009EA096 /* BubblemonWindow */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
+				DB197CB2161B2361009EA096 /* bubblemon copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +156,7 @@
 			children = (
 				04E36498154D613F002BC8DD /* bubblemon.app */,
 				DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */,
+				DB197CB7161B239A009EA096 /* BubblemonWindow.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,12 +222,35 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DB197CBA161B239A009EA096 /* BubblemonWindow */ = {
+			isa = PBXGroup;
+			children = (
+				DB197CC6161B239A009EA096 /* AppDelegate.h */,
+				DB197CC7161B239A009EA096 /* AppDelegate.m */,
+				DB197CC9161B239A009EA096 /* MainMenu.xib */,
+				DB197CBB161B239A009EA096 /* Supporting Files */,
+			);
+			path = BubblemonWindow;
+			sourceTree = "<group>";
+		};
+		DB197CBB161B239A009EA096 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */,
+				DB197CBD161B239A009EA096 /* InfoPlist.strings */,
+				DB197CC0161B239A009EA096 /* main.m */,
+				DB197CC2161B239A009EA096 /* BubblemonWindow-Prefix.pch */,
+				DB197CC3161B239A009EA096 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		04E36497154D613F002BC8DD /* bubblemon */ = {
+		04E36497154D613F002BC8DD /* BubblemonDocked */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "bubblemon" */;
+			buildConfigurationList = 04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "BubblemonDocked" */;
 			buildPhases = (
 				04E36494154D613F002BC8DD /* Sources */,
 				04E36495154D613F002BC8DD /* Frameworks */,
@@ -200,7 +262,7 @@
 			dependencies = (
 				DB197C83161B0ECB009EA096 /* PBXTargetDependency */,
 			);
-			name = bubblemon;
+			name = BubblemonDocked;
 			productName = bubblemon;
 			productReference = 04E36498154D613F002BC8DD /* bubblemon.app */;
 			productType = "com.apple.product-type.application";
@@ -222,6 +284,23 @@
 			productReference = DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		DB197CB6161B239A009EA096 /* BubblemonWindow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB197CCC161B239A009EA096 /* Build configuration list for PBXNativeTarget "BubblemonWindow" */;
+			buildPhases = (
+				DB197CB3161B239A009EA096 /* Sources */,
+				DB197CB4161B239A009EA096 /* Frameworks */,
+				DB197CB5161B239A009EA096 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BubblemonWindow;
+			productName = BubblemonWindow;
+			productReference = DB197CB7161B239A009EA096 /* BubblemonWindow.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -242,8 +321,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				04E36497154D613F002BC8DD /* bubblemon */,
+				04E36497154D613F002BC8DD /* BubblemonDocked */,
 				DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
+				DB197CB6161B239A009EA096 /* BubblemonWindow */,
 			);
 		};
 /* End PBXProject section */
@@ -267,6 +347,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB197CB5161B239A009EA096 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB197CBF161B239A009EA096 /* InfoPlist.strings in Resources */,
+				DB197CC5161B239A009EA096 /* Credits.rtf in Resources */,
+				DB197CCB161B239A009EA096 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -276,6 +366,11 @@
 			files = (
 				04E364A9154D613F002BC8DD /* main.m in Sources */,
 				04E364B0154D613F002BC8DD /* AppDelegate.m in Sources */,
+				DB197C94161B2198009EA096 /* BubblemonView.m in Sources */,
+				DB197C95161B21AC009EA096 /* dynamic-accumulator.c in Sources */,
+				DB197C96161B21AC009EA096 /* accumulator.c in Sources */,
+				DB197C97161B21AC009EA096 /* bubblemon.c in Sources */,
+				DB197C98161B21AC009EA096 /* osx-meter.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +383,20 @@
 				DB197C90161B106A009EA096 /* bubblemon.c in Sources */,
 				DB197C91161B106A009EA096 /* osx-meter.c in Sources */,
 				DB197C92161B106E009EA096 /* BubblemonView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB197CB3161B239A009EA096 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB197CC1161B239A009EA096 /* main.m in Sources */,
+				DB197CC8161B239A009EA096 /* AppDelegate.m in Sources */,
+				DB197CCF161B23A6009EA096 /* dynamic-accumulator.c in Sources */,
+				DB197CD0161B23A6009EA096 /* accumulator.c in Sources */,
+				DB197CD1161B23A6009EA096 /* bubblemon.c in Sources */,
+				DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */,
+				DB197CD3161B23A6009EA096 /* BubblemonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +441,30 @@
 				DB197C7B161B0EB4009EA096 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DB197CBD161B239A009EA096 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB197CBE161B239A009EA096 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DB197CC3161B239A009EA096 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB197CC4161B239A009EA096 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		DB197CC9161B239A009EA096 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB197CCA161B239A009EA096 /* en */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -388,6 +521,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "bubblemon/bubblemon-Prefix.pch";
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
@@ -404,6 +538,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "bubblemon/bubblemon-Prefix.pch";
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
@@ -454,6 +589,42 @@
 			};
 			name = Release;
 		};
+		DB197CCD161B239A009EA096 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BubblemonWindow/BubblemonWindow-Prefix.pch";
+				HEADER_SEARCH_PATHS = ../src;
+				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DB197CCE161B239A009EA096 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BubblemonWindow/BubblemonWindow-Prefix.pch";
+				HEADER_SEARCH_PATHS = ../src;
+				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -466,7 +637,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "bubblemon" */ = {
+		04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "BubblemonDocked" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04E364B7154D613F002BC8DD /* Debug */,
@@ -480,6 +651,14 @@
 			buildConfigurations = (
 				DB197C7E161B0EB4009EA096 /* Debug */,
 				DB197C7F161B0EB4009EA096 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DB197CCC161B239A009EA096 /* Build configuration list for PBXNativeTarget "BubblemonWindow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB197CCD161B239A009EA096 /* Debug */,
+				DB197CCE161B239A009EA096 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

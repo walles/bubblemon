@@ -43,15 +43,20 @@
 - (void)timerFired
 {
     // Compute a new image to display
-    bubblemon_setSize(bubblemon, 
-                      [self bounds].size.width,
-                      [self bounds].size.height);
+    bubblemon_setSize(bubblemon,
+                      48,
+                      48);
     picture = bubblemon_getPicture(bubblemon);
-
+  
     NSString *tooltip = [[NSString alloc] initWithUTF8String:bubblemon_getTooltip(bubblemon)];
     [self setToolTip: tooltip];
+    [tooltip release];
     
-    [dockTile display];
+    if (dockTile != nil) {
+        [dockTile display];
+    } else {
+        [self setNeedsDisplay:YES];
+    }
 }
 
 static void releaseDataProvider(void *info, const void *data, size_t size) {
