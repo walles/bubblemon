@@ -10,8 +10,10 @@
 
 @implementation BubblemonView
 
-- (void)setDockTile:(NSDockTile*)dockTile {
-    if (dockTile) {
+- (void)setDockTile:(NSDockTile*)aDockTile {
+    if (aDockTile) {
+        dockTile = aDockTile;
+        [dockTile retain];
         [dockTile setContentView:self];
     }
 }
@@ -49,7 +51,7 @@
     NSString *tooltip = [[NSString alloc] initWithUTF8String:bubblemon_getTooltip(bubblemon)];
     [self setToolTip: tooltip];
     
-    [self setNeedsDisplay:YES];
+    [dockTile display];
 }
 
 static void releaseDataProvider(void *info, const void *data, size_t size) {
