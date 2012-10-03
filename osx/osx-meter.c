@@ -93,6 +93,13 @@ static void measureCpuLoad(meter_sysload_t *load) {
         accumulator_t *accumulator = load->cpuAccumulators[cpuIndex];
         accumulator_update(accumulator, loadValue, totalValue);
         load->cpuLoad[cpuIndex] = accumulator_get_percentage(accumulator);
+      
+        // Johan's MacBook can go up to 15% per core even when Johan thinks the
+        // system is idle.  Censor load measurements to get a quiet meter on
+        // idle system.
+        if (load->cpuLoad[cpuIndex] < 15) {
+            load->cpuLoad[cpuIndex] = 0;
+        }
     }
 
     size_t cpuInfoSize = sizeof(integer_t) * numCpuInfo;
