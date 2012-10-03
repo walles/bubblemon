@@ -73,7 +73,7 @@
 		0420B9FE1576A9B600A7B26C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
-		04E36498154D613F002BC8DD /* bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04E36498154D613F002BC8DD /* bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = bubblemon.app; path = BubblemonDocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E3649C154D613F002BC8DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		04E3649F154D613F002BC8DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		04E364A0154D613F002BC8DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -90,7 +90,6 @@
 		DB197C79161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bubblemon Dock Tile Plugin-Info.plist"; sourceTree = "<group>"; };
 		DB197C7B161B0EB4009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB197C7D161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubblemon Dock Tile Plugin-Prefix.pch"; sourceTree = "<group>"; };
-		DB197CB2161B2361009EA096 /* bubblemon copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "bubblemon copy-Info.plist"; path = "/Users/walles/src/bubblemon-osx/osx/bubblemon copy-Info.plist"; sourceTree = "<absolute>"; };
 		DB197CB7161B239A009EA096 /* BubblemonWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BubblemonWindow-Info.plist"; sourceTree = "<group>"; };
 		DB197CBE161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -147,7 +146,6 @@
 				DB197CBA161B239A009EA096 /* BubblemonWindow */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
-				DB197CB2161B2361009EA096 /* bubblemon copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -653,6 +651,7 @@
 				DB197C7F161B0EB4009EA096 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB197CCC161B239A009EA096 /* Build configuration list for PBXNativeTarget "BubblemonWindow" */ = {
 			isa = XCConfigurationList;
@@ -661,6 +660,7 @@
 				DB197CCE161B239A009EA096 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
