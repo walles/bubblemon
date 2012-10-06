@@ -73,7 +73,7 @@
 		0420B9FE1576A9B600A7B26C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
-		04E36498154D613F002BC8DD /* bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = bubblemon.app; path = BubblemonDocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04E36498154D613F002BC8DD /* BubblemonDocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonDocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E3649C154D613F002BC8DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		04E3649F154D613F002BC8DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		04E364A0154D613F002BC8DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -152,7 +152,7 @@
 		04E36499154D613F002BC8DD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04E36498154D613F002BC8DD /* bubblemon.app */,
+				04E36498154D613F002BC8DD /* BubblemonDocked.app */,
 				DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */,
 				DB197CB7161B239A009EA096 /* BubblemonWindow.app */,
 			);
@@ -262,7 +262,7 @@
 			);
 			name = BubblemonDocked;
 			productName = bubblemon;
-			productReference = 04E36498154D613F002BC8DD /* bubblemon.app */;
+			productReference = 04E36498154D613F002BC8DD /* BubblemonDocked.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */ = {
@@ -305,7 +305,7 @@
 		04E3648F154D613F002BC8DD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 04E36492154D613F002BC8DD /* Build configuration list for PBXProject "bubblemon" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -520,6 +520,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "bubblemon/bubblemon-Prefix.pch";
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
@@ -537,6 +538,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "bubblemon/bubblemon-Prefix.pch";
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
