@@ -845,7 +845,7 @@ int bubblemon_getSwapPercentage(bubblemon_t *bubblemon)
     size_t memoryUsed = bubblemon->sysload.memoryUsed + bubblemon->sysload.swapUsed;
     ssize_t memoryRequiringDisk = memoryUsed - bubblemon->sysload.memorySize;
     if (memoryRequiringDisk > 0) {
-      int memoryRequiringDiskPercentage = (100 * memoryRequiringDisk) / memoryUsed;
+      int memoryRequiringDiskPercentage = (int)((100 * memoryRequiringDisk) / memoryUsed);
       
       if (memoryRequiringDiskPercentage > returnme) {
         returnme = memoryRequiringDiskPercentage;
@@ -1282,7 +1282,7 @@ bubblemon_t *bubblemon_init(void)
   assert(bubblemon != NULL);
 
   // Initialize the random number generation
-  srandom(time(NULL));
+  srandom((int)time(NULL));
 
   // Initialize the load metering
   meter_init(&bubblemon->sysload);

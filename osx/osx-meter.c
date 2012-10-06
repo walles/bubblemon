@@ -223,7 +223,7 @@ void meter_init(meter_sysload_t *load) {
   load->cpuLoad = calloc(load->nCpus, sizeof(int));
   
   // Initialize the load histories and indices
-  load->cpuAccumulators = calloc(load->nCpus, sizeof(accumulator_t));
+  load->cpuAccumulators = calloc(load->nCpus, sizeof(accumulator_t*));
   for (int cpuNo = 0; cpuNo < load->nCpus; cpuNo++) {
     load->cpuAccumulators[cpuNo] = accumulator_create(LOADSAMPLES / MEASURE_LOAD_EVERY);
   }

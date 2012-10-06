@@ -72,7 +72,7 @@ void accumulator_update(accumulator_t *accumulator,
     // This is the first time we get here
     accumulator->percentage = 0;
   } else {
-    accumulator->percentage = (100 * (load - lastLoad)) / (total - lastTotal);
+    accumulator->percentage = (int)((100 * (load - lastLoad)) / (total - lastTotal));
   }
 
   if (accumulator->percentage > 100) {
