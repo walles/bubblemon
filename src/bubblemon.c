@@ -44,7 +44,7 @@ double exp2(double x);
 // Bottle graphics
 #include "msgInBottle.c"
 
-void bubblemon_freeBuffers(bubblemon_t *bubblemon) {
+static void bubblemon_freeBuffers(bubblemon_t *bubblemon) {
   if (bubblemon->bubblePic.airAndWater != NULL) {
     free(bubblemon->bubblePic.airAndWater);
     bubblemon->bubblePic.airAndWater = NULL;
@@ -334,7 +334,7 @@ static void bubblemon_addNourishment(bubblemon_t *bubblemon, bubblemon_Weed *wee
 
 /* How much of the system's IO bandwidth is being used?  Returns a
  * percentage value, 0-100. */
-int bubblemon_getIoLoad(bubblemon_t *bubblemon)
+static int bubblemon_getIoLoad(bubblemon_t *bubblemon)
 {
 #ifdef ENABLE_PROFILING
   return 100;
