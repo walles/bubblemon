@@ -99,6 +99,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
     CGContextRef cgContextRef = (CGContextRef)[nsGraphicsContext graphicsPort];
     
     CGRect cgRect = NSRectToCGRect([self bounds]);
+    CGContextSetAlpha(cgContextRef, 0.8f);
     CGContextDrawImage(cgContextRef, cgRect, cgImageRef);
     CGImageRelease(cgImageRef);    
 }
