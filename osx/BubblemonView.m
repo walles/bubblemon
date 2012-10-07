@@ -13,7 +13,6 @@
 - (void)setDockTile:(NSDockTile*)aDockTile {
     if (aDockTile) {
         dockTile = aDockTile;
-        [dockTile retain];
         [dockTile setContentView:self];
     }
 }
@@ -50,7 +49,6 @@
   
     NSString *tooltip = [[NSString alloc] initWithUTF8String:bubblemon_getTooltip(bubblemon)];
     [self setToolTip: tooltip];
-    [tooltip release];
     
     if (dockTile != nil) {
         [dockTile display];

@@ -12,7 +12,7 @@
 
 - (void)dealloc
 {
-    [super dealloc];
+  // This method intentionally left blank
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
