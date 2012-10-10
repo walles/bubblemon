@@ -777,11 +777,14 @@ static void bubblemon_updatePhysics(bubblemon_t *bubblemon,
     assert(bubblemon->physics.weeds != NULL);
 
     // Colorize the weeds
+    const bubblemon_color_t weedcolor0 =
+      bubblemon_constant2color(bubblemon->weedColor0);
+    const bubblemon_color_t weedcolor1 =
+      bubblemon_constant2color(bubblemon->weedColor1);
     for (i = 0; i < bubblemon->bubblePic.width; i++)
     {
       bubblemon->physics.weeds[i].color =
-	bubblemon_interpolateColor(bubblemon_constant2color(WEEDCOLOR0),
-				   bubblemon_constant2color(WEEDCOLOR1),
+	bubblemon_interpolateColor(weedcolor0, weedcolor1,
 				   (random() % 156) + bubblemon->stripey);
       bubblemon->stripey = 100 - bubblemon->stripey;
     }
@@ -1085,11 +1088,11 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
 
   int w, h;
 
-  noSwapAirColor = bubblemon_constant2color(NOSWAPAIRCOLOR);
-  noSwapWaterColor = bubblemon_constant2color(NOSWAPWATERCOLOR);
+  noSwapAirColor = bubblemon_constant2color(bubblemon->noSwapAirColor);
+  noSwapWaterColor = bubblemon_constant2color(bubblemon->noSwapWaterColor);
 
-  maxSwapAirColor = bubblemon_constant2color(MAXSWAPAIRCOLOR);
-  maxSwapWaterColor = bubblemon_constant2color(MAXSWAPWATERCOLOR);
+  maxSwapAirColor = bubblemon_constant2color(bubblemon->maxSwapAirColor);
+  maxSwapWaterColor = bubblemon_constant2color(bubblemon->maxSwapWaterColor);
 
   colors[AIR] = bubblemon_interpolateColor(noSwapAirColor,
 					   maxSwapAirColor,
@@ -1290,7 +1293,27 @@ bubblemon_t *bubblemon_init(void)
   // Initialize the bottle
   bubblemon->physics.bottle_state = GONE;
 
+  bubblemon->noSwapAirColor = NOSWAPAIRCOLOR;
+  bubblemon->noSwapWaterColor = NOSWAPWATERCOLOR;
+  bubblemon->maxSwapAirColor = MAXSWAPAIRCOLOR;
+  bubblemon->maxSwapWaterColor = MAXSWAPWATERCOLOR;
+  bubblemon->weedColor0 = WEEDCOLOR0;
+  bubblemon->weedColor1 = WEEDCOLOR1;
+  
   return bubblemon;
+}
+
+void bubblemon_setColors(bubblemon_t *bubblemon,
+                         unsigned int noSwapAirColor, unsigned int noSwapWaterColor,
+                         unsigned int maxSwapAirColor, unsigned int maxSwapWaterColor,
+                         unsigned int weedColor0, unsigned int weedColor1)
+{
+  bubblemon->noSwapAirColor = noSwapAirColor;
+  bubblemon->noSwapWaterColor = noSwapWaterColor;
+  bubblemon->maxSwapAirColor = maxSwapAirColor;
+  bubblemon->maxSwapWaterColor = maxSwapWaterColor;
+  bubblemon->weedColor0 = weedColor0;
+  bubblemon->weedColor1 = weedColor1;
 }
 
 void bubblemon_done(bubblemon_t *bubblemon)
