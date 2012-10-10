@@ -34,17 +34,24 @@
                                        selector:@selector(timerFired)
                                        userInfo:nil
                                         repeats:YES];
+
+        // Load window frame graphics
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        CFURLRef windowFrameUrl = (__bridge CFURLRef)[bundle URLForImageResource:@"window-frame"];
+        CGDataProviderRef dataProvider = CGDataProviderCreateWithURL(windowFrameUrl);
+        windowFrame = CGImageCreateWithPNGDataProvider(dataProvider, NULL, NO, kCGRenderingIntentDefault);
+        CGDataProviderRelease(dataProvider);
     }
-    
+  
     return self;
 }
 
 - (void)timerFired
 {
     // Compute a new image to display
-    bubblemon_setSize(bubblemon,
-                      48,
-                      48);
+    // The Dock won't tell us its size, so this is a guess at roughly how many pixels
+    // the bubblemon will get on screen.
+    bubblemon_setSize(bubblemon, 38, 38);
     picture = bubblemon_getPicture(bubblemon);
   
     NSString *tooltip = [[NSString alloc] initWithUTF8String:bubblemon_getTooltip(bubblemon)];
@@ -62,6 +69,38 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
     // the bubblemon code.
 }
 
+- (CGImageRef)getMask
+{
+  if (mask != NULL) {
+    return mask;
+  }
+  
+  // Create a blank image of the right proportions
+  CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+  CGContextRef context = CGBitmapContextCreate(NULL,
+                                               picture->width, picture->height,
+                                               8, 0,
+                                               colorSpace,
+                                               kCGImageAlphaNone);
+
+  // Draw a black background
+  CGRect rect = CGRectMake((CGFloat)0.0, (CGFloat)0.0,
+                           (CGFloat)picture->width, (CGFloat)picture->height);
+  CGContextSetGrayFillColor(context, (CGFloat)0.0, (CGFloat)1.0);
+  CGContextFillRect(context, rect);
+  
+  // Draw a filled white circle
+  CGContextSetGrayFillColor(context, (CGFloat)1.0, (CGFloat)1.0);
+  CGContextFillEllipseInRect(context, rect);
+  
+  mask = CGBitmapContextCreateImage(context);
+  
+  CGColorSpaceRelease(colorSpace);
+  CGContextRelease(context);
+  
+  return mask;
+}
+
 - (void)drawRect:(NSRect)dirtyRectIgnored
 {
     if (!picture) {
@@ -77,7 +116,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
     const size_t bitsPerPixel = sizeof(bubblemon_color_t) * 8;
     const size_t bytesPerRow = picture->width * sizeof(bubblemon_color_t);
     const bool shouldInterpolate = false;
-    
+  
     CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
     CGImageRef cgImageRef = CGImageCreate(picture->width,
                                           picture->height,
@@ -92,14 +131,26 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
                                           kCGRenderingIntentDefault);
     CGColorSpaceRelease(rgb);
     CGDataProviderRelease(dataProviderRef);
+  
+    CGImageRef maskedBubbles = CGImageCreateWithMask(cgImageRef, [self getMask]);
+    CGImageRelease(cgImageRef);
     
     __strong NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef cgContextRef = (CGContextRef)[nsGraphicsContext graphicsPort];
-    
-    CGRect cgRect = NSRectToCGRect([self bounds]);
+  
+    // Draw the bubblemon image
+    CGRect bubbleViewRect = CGRectMake([self bounds].size.width  * 0.09f,
+                                       [self bounds].size.height * 0.09f,
+                                       [self bounds].size.width  * 0.83f,
+                                       [self bounds].size.height * 0.83f);
     CGContextSetAlpha(cgContextRef, 0.8f);
-    CGContextDrawImage(cgContextRef, cgRect, cgImageRef);
-    CGImageRelease(cgImageRef);    
+    CGContextDrawImage(cgContextRef, bubbleViewRect, maskedBubbles);
+    CGImageRelease(maskedBubbles);
+  
+    // Draw the window frame
+    CGRect fullSizeRect = NSRectToCGRect([self bounds]);
+    CGContextSetAlpha(cgContextRef, 1.0f);
+    CGContextDrawImage(cgContextRef, fullSizeRect, windowFrame);
 }
 
 @end

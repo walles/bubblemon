@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0420B9FF1576A9B600A7B26C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
+		0483188516218FE500B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
+		048318861621FFAE00B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
+		04831887162200F700B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E364A5154D613F002BC8DD /* InfoPlist.strings */; };
 		04E364A9154D613F002BC8DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.m */; };
@@ -71,6 +74,7 @@
 		041BF109154F1DA1009AE6D8 /* accumulator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = accumulator.c; path = ../src/accumulator.c; sourceTree = "<group>"; };
 		0420B9FB1575431100A7B26C /* dynamic-accumulator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "dynamic-accumulator.c"; path = "../src/dynamic-accumulator.c"; sourceTree = "<group>"; };
 		0420B9FE1576A9B600A7B26C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		0483188316218F5400B4E13F /* window-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-frame.png"; sourceTree = "<group>"; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
 		04E36498154D613F002BC8DD /* BubblemonDocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonDocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +139,7 @@
 		04E3648D154D613F002BC8DD = {
 			isa = PBXGroup;
 			children = (
+				0483188316218F5400B4E13F /* window-frame.png */,
 				0420B9FB1575431100A7B26C /* dynamic-accumulator.c */,
 				041BF109154F1DA1009AE6D8 /* accumulator.c */,
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
@@ -331,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0483188516218FE500B4E13F /* window-frame.png in Resources */,
 				04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */,
 				04E364AD154D613F002BC8DD /* Credits.rtf in Resources */,
 				04E364B3154D613F002BC8DD /* MainMenu.xib in Resources */,
@@ -341,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04831887162200F700B4E13F /* window-frame.png in Resources */,
 				DB197C7C161B0EB4009EA096 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,6 +356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048318861621FFAE00B4E13F /* window-frame.png in Resources */,
 				DB197CBF161B239A009EA096 /* InfoPlist.strings in Resources */,
 				DB197CC5161B239A009EA096 /* Credits.rtf in Resources */,
 				DB197CCB161B239A009EA096 /* MainMenu.xib in Resources */,

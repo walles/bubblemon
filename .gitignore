@@ -29,3 +29,4 @@ po/stamp-it
 src/.deps/
 src/bubblemon-gnome2
 osx/bubblemon.xcodeproj/**/xcuserdata
+osx/window-frame.blend[0-9]

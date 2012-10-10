@@ -13,6 +13,8 @@
     bubblemon_t *bubblemon;
     const bubblemon_picture_t *picture;
     NSDockTile *dockTile;
+    CGImageRef windowFrame;
+    CGImageRef mask;
 }
 
 @end
