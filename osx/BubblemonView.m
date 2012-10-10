@@ -26,6 +26,10 @@
     bubblemon_selftest();
 #endif
     bubblemon = bubblemon_init();
+    bubblemon_setColors(bubblemon,
+                        0x75ceff00u, 0x0066ff80u,
+                        0xff333340u, 0xaa000080u,
+                        0x00ff0080u, 0xffff40ffu);
     picture = NULL;
     
     // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
@@ -143,7 +147,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
                                      [self bounds].size.height * 0.09f,
                                      [self bounds].size.width  * 0.83f,
                                      [self bounds].size.height * 0.83f);
-  CGContextSetAlpha(cgContextRef, 0.8f);
+  CGContextSetAlpha(cgContextRef, 0.9f);
   CGContextDrawImage(cgContextRef, bubbleViewRect, maskedBubbles);
   CGImageRelease(maskedBubbles);
   
