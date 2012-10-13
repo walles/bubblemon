@@ -73,38 +73,6 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
   // the bubblemon code.
 }
 
-- (CGImageRef)getMask
-{
-  if (mask != NULL) {
-    return mask;
-  }
-  
-  // Create a blank image of the right proportions
-  CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-  CGContextRef context = CGBitmapContextCreate(NULL,
-                                               picture->width, picture->height,
-                                               8, 0,
-                                               colorSpace,
-                                               kCGImageAlphaNone);
-  
-  // Draw a black background
-  CGRect rect = CGRectMake((CGFloat)0.0, (CGFloat)0.0,
-                           (CGFloat)picture->width, (CGFloat)picture->height);
-  CGContextSetGrayFillColor(context, (CGFloat)0.0, (CGFloat)1.0);
-  CGContextFillRect(context, rect);
-  
-  // Draw a filled white circle
-  CGContextSetGrayFillColor(context, (CGFloat)1.0, (CGFloat)1.0);
-  CGContextFillEllipseInRect(context, rect);
-  
-  mask = CGBitmapContextCreateImage(context);
-  
-  CGColorSpaceRelease(colorSpace);
-  CGContextRelease(context);
-  
-  return mask;
-}
-
 - (void)drawRect:(NSRect)dirtyRectIgnored
 {
   if (!picture) {
@@ -136,20 +104,17 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
   CGColorSpaceRelease(rgb);
   CGDataProviderRelease(dataProviderRef);
   
-  CGImageRef maskedBubbles = CGImageCreateWithMask(cgImageRef, [self getMask]);
-  CGImageRelease(cgImageRef);
-  
   __strong NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext currentContext];
   CGContextRef cgContextRef = (CGContextRef)[nsGraphicsContext graphicsPort];
   
   // Draw the bubblemon image
-  CGRect bubbleViewRect = CGRectMake([self bounds].size.width  * 0.09f,
-                                     [self bounds].size.height * 0.09f,
-                                     [self bounds].size.width  * 0.83f,
-                                     [self bounds].size.height * 0.83f);
+  CGRect bubbleViewRect = CGRectMake([self bounds].size.width  * 0.08f,
+                                     [self bounds].size.height * 0.08f,
+                                     [self bounds].size.width  * 0.84f,
+                                     [self bounds].size.height * 0.84f);
   CGContextSetAlpha(cgContextRef, 0.9f);
-  CGContextDrawImage(cgContextRef, bubbleViewRect, maskedBubbles);
-  CGImageRelease(maskedBubbles);
+  CGContextDrawImage(cgContextRef, bubbleViewRect, cgImageRef);
+  CGImageRelease(cgImageRef);
   
   // Draw the window frame
   CGRect fullSizeRect = NSRectToCGRect([self bounds]);
