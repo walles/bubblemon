@@ -55,7 +55,7 @@
   // Compute a new image to display
   // The Dock won't tell us its size, so this is a guess at roughly how many pixels
   // the bubblemon will get on screen.
-  bubblemon_setSize(bubblemon, 38, 38);
+  bubblemon_setSize(bubblemon, 50, 50);
   picture = bubblemon_getPicture(bubblemon);
   
   NSString *tooltip = [[NSString alloc] initWithUTF8String:bubblemon_getTooltip(bubblemon)];
