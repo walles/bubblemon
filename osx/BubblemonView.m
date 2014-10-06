@@ -96,7 +96,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
                                         bitsPerPixel,
                                         bytesPerRow,
                                         rgb,
-                                        kCGImageAlphaNoneSkipLast,
+                                        (CGBitmapInfo)kCGImageAlphaNoneSkipLast,
                                         dataProviderRef,
                                         NULL,
                                         shouldInterpolate,
