@@ -16,6 +16,10 @@ On SMP systems CPU load distribution is visualized by having the most
 heavily loaded CPUs bubbles in the middle and the others nearer to the
 edges.
 
+Here's what it looks like running in the Mac OS X dock:
+
+![OS X Screenshot](https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png)
+
 # License
 <pre>
 This program is free software; you can redistribute it and/or modify
