@@ -1,0 +1,42 @@
+These instructions will tell you how to make an installation package
+starting only from source code, and how to install that package.
+
+These instructions have been tested on OS X 10.9.5 Mavericks with
+Xcode version 6.0.1 (6A317).
+
+
+Building and packaging
+----------------------
+* Install Xcode from the App Store.
+
+* open bubblemon.xcodeproj
+
+* Make sure you have the Bubblemon Docked scheme selected (should be
+  the default).
+
+* Press the Play button to build. After building is done, Bubblemon
+  should start in your Dock. Right click Bubblemon in the Dock and
+  Quit it.
+
+* cd ~/Library/Developer/Xcode/DerivedData
+
+* If you do 'ls' here there should be a directory here called
+  bubblemon-something. 'cd' into that directory. If you have several,
+  do 'ls -l' and pick the newest one.
+
+* cd Build/Products/Debug
+
+* tar czf bubblemon-bin.tar.gz BubblemonDocked.app
+
+You can now distribute bubblemon-bin.tar.gz to friends and family.
+
+
+Installing
+----------
+* tar xf bubblemon-bin.tar.gz
+
+* open BubblemonDockapp.app
+
+* Right click the new entry in the Dock and check "Keep in Dock"
+
+* Right click the new entry in the Dock and click "Quit"
