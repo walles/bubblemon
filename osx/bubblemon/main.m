@@ -8,7 +8,56 @@
 
 #import <Cocoa/Cocoa.h>
 
+// From: http://www.danandcheryl.com/tag/cocoa
+@implementation NSUserDefaults (Additions)
+- (BOOL)addApplicationToDock:(NSString *)path {
+  NSDictionary *domain = [self persistentDomainForName:@"com.apple.dock"];
+  NSArray *apps = [domain objectForKey:@"persistent-apps"];
+  NSArray *matchingApps = [apps filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K CONTAINS %@", @"tile-data.file-data._CFURLString", path]];
+  if ([matchingApps count] == 0) {
+    NSMutableDictionary *newDomain = [domain mutableCopy];
+    NSMutableArray *newApps = [apps mutableCopy];
+    NSDictionary *app = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObjectsAndKeys:path, @"_CFURLString", [NSNumber numberWithInt:0], @"_CFURLStringType", nil] forKey:@"file-data"] forKey:@"tile-data"];
+    [newApps addObject:app];
+    [newDomain setObject:newApps forKey:@"persistent-apps"];
+    [self setPersistentDomain:newDomain forName:@"com.apple.dock"];
+    return [self synchronize];
+  }
+  return NO;
+}
+@end
+
+static BOOL isKeptInDock() {
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSDictionary *dock_settings = [defaults persistentDomainForName:@"com.apple.dock"];
+  NSArray *persistent_apps = [dock_settings objectForKey:@"persistent-apps"];
+  for (id persistent_app in persistent_apps) {
+    NSDictionary *tile_data = [(NSDictionary*)persistent_app objectForKey:@"tile-data"];
+    NSString *bundle_identifier = [tile_data objectForKey:@"bundle-identifier"];
+    if ([@"com.gmail.walles.johan.BubblemonDocked" isEqualToString:bundle_identifier]) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+static void keepInDock(NSString *app_path) {
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults addApplicationToDock:app_path];
+  
+  // Kill the Dock to get it to re-load its configuration
+  NSArray *docks = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"];
+  for (id dock in docks) {
+    [(NSRunningApplication*)dock terminate];
+  }
+}
+
 int main(int argc, char *argv[])
 {
+  if (!isKeptInDock()) {
+    keepInDock([[NSBundle mainBundle] bundlePath]);
+    exit(0);
+  }
+
   return NSApplicationMain(argc, (const char **)argv);
 }
