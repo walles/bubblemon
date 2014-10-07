@@ -77,7 +77,7 @@
 		0483188316218F5400B4E13F /* window-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-frame.png"; sourceTree = "<group>"; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
-		04E36498154D613F002BC8DD /* BubblemonDocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonDocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04E36498154D613F002BC8DD /* Bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E3649C154D613F002BC8DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		04E3649F154D613F002BC8DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		04E364A0154D613F002BC8DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -157,7 +157,7 @@
 		04E36499154D613F002BC8DD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04E36498154D613F002BC8DD /* BubblemonDocked.app */,
+				04E36498154D613F002BC8DD /* Bubblemon.app */,
 				DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */,
 				DB197CB7161B239A009EA096 /* BubblemonWindow.app */,
 			);
@@ -251,9 +251,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		04E36497154D613F002BC8DD /* BubblemonDocked */ = {
+		04E36497154D613F002BC8DD /* Bubblemon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "BubblemonDocked" */;
+			buildConfigurationList = 04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "Bubblemon" */;
 			buildPhases = (
 				04E36494154D613F002BC8DD /* Sources */,
 				04E36495154D613F002BC8DD /* Frameworks */,
@@ -265,9 +265,9 @@
 			dependencies = (
 				DB197C83161B0ECB009EA096 /* PBXTargetDependency */,
 			);
-			name = BubblemonDocked;
+			name = Bubblemon;
 			productName = bubblemon;
-			productReference = 04E36498154D613F002BC8DD /* BubblemonDocked.app */;
+			productReference = 04E36498154D613F002BC8DD /* Bubblemon.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */ = {
@@ -324,7 +324,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				04E36497154D613F002BC8DD /* BubblemonDocked */,
+				04E36497154D613F002BC8DD /* Bubblemon */,
 				DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				DB197CB6161B239A009EA096 /* BubblemonWindow */,
 			);
@@ -715,7 +715,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "BubblemonDocked" */ = {
+		04E364B6154D613F002BC8DD /* Build configuration list for PBXNativeTarget "Bubblemon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04E364B7154D613F002BC8DD /* Debug */,

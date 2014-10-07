@@ -34,7 +34,7 @@ static BOOL isKeptInDock() {
   for (id persistent_app in persistent_apps) {
     NSDictionary *tile_data = [(NSDictionary*)persistent_app objectForKey:@"tile-data"];
     NSString *bundle_identifier = [tile_data objectForKey:@"bundle-identifier"];
-    if ([@"com.gmail.walles.johan.BubblemonDocked" isEqualToString:bundle_identifier]) {
+    if ([@"com.gmail.walles.johan.Bubblemon" isEqualToString:bundle_identifier]) {
       return TRUE;
     }
   }
