@@ -42,22 +42,33 @@ static BOOL isKeptInDock() {
 }
 
 static void keepInDock(NSString *app_path) {
+  NSLog(@"Adding Bubblemon as a Keep-in-Dock app...\n");
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults addApplicationToDock:app_path];
   
-  // Kill the Dock to get it to re-load its configuration
+  NSLog(@"Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n");
   NSArray *docks = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"];
   for (id dock in docks) {
     [(NSRunningApplication*)dock terminate];
   }
 }
 
+static void launchActivityMonitor() {
+  NSLog(@"Launching Activity Monitor...\n");
+  BOOL launched = [[NSWorkspace sharedWorkspace] launchApplication:@"Activity Monitor"];
+  if (!launched) {
+    NSLog(@"Launching Activity Monitor failed\n");
+  }
+}
+
 int main(int argc, char *argv[])
 {
-  if (!isKeptInDock()) {
+  if (isKeptInDock()) {
+    NSLog(@"Bubblemon already installed in the Dock\n");
+    launchActivityMonitor();
+  } else {
     keepInDock([[NSBundle mainBundle] bundlePath]);
-    exit(0);
   }
 
-  return NSApplicationMain(argc, (const char **)argv);
+  exit(0);
 }
