@@ -12,7 +12,10 @@
 @interface BubblemonView : NSView <NSDockTilePlugIn> {
   bubblemon_t *bubblemon;
   const bubblemon_picture_t *picture;
+  
   NSDockTile *dockTile;
+  NSMenu *dockMenu;
+  
   CGImageRef windowFrame;
 }
 

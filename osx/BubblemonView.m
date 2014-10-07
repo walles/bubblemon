@@ -17,6 +17,27 @@
   }
 }
 
+- (NSMenu *)dockMenu {
+  NSLog(@"Setting up dock menu\n");
+  if (dockMenu != NULL) {
+    return dockMenu;
+  }
+  
+  dockMenu = [[NSMenu alloc] init];
+  
+  NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Help" action:@selector(openLegend:) keyEquivalent:@""];
+  [item setTarget:self];
+  
+  [dockMenu addItem:item];
+  
+  return dockMenu;
+}
+
+- (IBAction)openLegend:(id)sender {
+  NSLog(@"Opening help in browser...\n");
+  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://walles.github.io/bubblemon/"]];
+}
+
 - (id)initWithFrame:(NSRect)frame
 {
   self = [super initWithFrame:frame];
