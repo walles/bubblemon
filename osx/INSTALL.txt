@@ -14,9 +14,11 @@ Building and packaging
 * Make sure you have the Bubblemon scheme selected (should be the
   default).
 
+* Make sure you're doing a Release build:
+  http://stackoverflow.com/a/18038359
+
 * Press the Play button to build. After building is done, Bubblemon
-  should start in your Dock. Right click Bubblemon in the Dock and
-  Quit it.
+  should start in your Dock.
 
 * "cd ~/Library/Developer/Xcode/DerivedData"
 
@@ -24,15 +26,22 @@ Building and packaging
   bubblemon-something. 'cd' into that directory. If you have several,
   do 'ls -l' and pick the newest one.
 
-* "cd Build/Products/Debug"
+* "cd Build/Products/Release"
 
-* "tar czf bubblemon-bin.tar.gz Bubblemon.app"
-
-You can now distribute bubblemon-bin.tar.gz to friends and family.
+In this directory you'll find a Bubblemon zip file that you can
+distribute to friends and family.
 
 
 Installing
 ----------
-* "tar xf bubblemon-bin.tar.gz"
+* Double click the zip file in the Finder. This will create
+  Bubblemon.app.
 
-* "open Bubblemon.app"
+* Right click Bubblemon and choose "Open".
+
+* Say yes to the security question (if any).
+
+Bubblemon should now be running in your Dock.
+
+Right click Bubblemon in the Dock and choose "Help" if you have
+questions.
