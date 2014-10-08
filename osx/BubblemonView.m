@@ -59,6 +59,7 @@
                                  @"Copyright": @"Copyright 1999-2014 johan.walles@gmail.com",
                                  @"ApplicationVersion": gitDescribe
                                  };
+  [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
   [[NSApplication sharedApplication] orderFrontStandardAboutPanelWithOptions: aboutOptions];
 }
 
