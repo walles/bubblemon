@@ -274,6 +274,7 @@
 				DB197C71161B0EB4009EA096 /* Sources */,
 				DB197C72161B0EB4009EA096 /* Frameworks */,
 				DB197C73161B0EB4009EA096 /* Resources */,
+				DBB0A7FB19E56BDA006103D8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -360,6 +361,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DBB0A7FB19E56BDA006103D8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -x\n\nGITHASH=$(git rev-parse --verify --short=8 HEAD)\nGITDESCRIBE=$(git describe | sed 's/^osx-//')\n\nINFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\n/usr/libexec/PlistBuddy -c \"Add :GitHash string $GITHASH\" \"$INFO_PLIST\" ||\n  /usr/libexec/PlistBuddy -c \"Set :GitHash $GITHASH\" \"$INFO_PLIST\"\n\n/usr/libexec/PlistBuddy -c \"Add :GitDescribe string $GITDESCRIBE\" \"$INFO_PLIST\" ||\n  /usr/libexec/PlistBuddy -c \"Set :GitDescribe $GITDESCRIBE\" \"$INFO_PLIST\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		04E36494154D613F002BC8DD /* Sources */ = {

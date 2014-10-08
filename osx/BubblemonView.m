@@ -25,10 +25,13 @@
   
   dockMenu = [[NSMenu alloc] init];
   
-  NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Help" action:@selector(openLegend:) keyEquivalent:@""];
-  [item setTarget:self];
+  NSMenuItem *helpItem = [[NSMenuItem alloc] initWithTitle:@"Help" action:@selector(openLegend:) keyEquivalent:@""];
+  [helpItem setTarget:self];
+  [dockMenu addItem:helpItem];
   
-  [dockMenu addItem:item];
+  NSMenuItem *aboutItem = [[NSMenuItem alloc] initWithTitle:@"About" action:@selector(openAboutPanel:) keyEquivalent:@""];
+  [aboutItem setTarget:self];
+  [dockMenu addItem:aboutItem];
   
   return dockMenu;
 }
@@ -36,6 +39,27 @@
 - (IBAction)openLegend:(id)sender {
   NSLog(@"Opening help in browser...\n");
   [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://walles.github.io/bubblemon/"]];
+}
+
+- (IBAction)openAboutPanel:(id)sender {
+  NSAttributedString *credits = [[NSAttributedString alloc]
+                                 initWithString:@"http://walles.github.io/bubblemon"
+                                 attributes: @{NSLinkAttributeName: @"http://walles.github.io/bubblemon"}];
+  
+  // The Git hash and version get filled in by a "Run Script" build step
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *gitHash = [bundle infoDictionary][@"GitHash"];
+  NSString *gitDescribe = [bundle infoDictionary][@"GitDescribe"];
+  
+  NSDictionary *aboutOptions = @{
+                                 @"Credits": credits,
+                                 @"ApplicationName": @"Bubblemon",
+                                 // @"ApplicationIcon": FIXME,
+                                 @"Version": gitHash,
+                                 @"Copyright": @"Copyright 1999-2014 johan.walles@gmail.com",
+                                 @"ApplicationVersion": gitDescribe
+                                 };
+  [[NSApplication sharedApplication] orderFrontStandardAboutPanelWithOptions: aboutOptions];
 }
 
 - (id)initWithFrame:(NSRect)frame
