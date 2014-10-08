@@ -20,6 +20,9 @@ Here's what it looks like running in the Mac OS X dock:
 
 ![OS X Screenshot](https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png)
 
+# Building and Installing
+* [Build-and-install instructions for Mac OS X](https://github.com/walles/bubblemon/blob/master/osx/INSTALL.txt).
+
 # License
 <pre>
 This program is free software; you can redistribute it and/or modify
