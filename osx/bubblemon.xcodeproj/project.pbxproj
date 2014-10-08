@@ -16,7 +16,6 @@
 		04E364A9154D613F002BC8DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.m */; };
 		04E364AD154D613F002BC8DD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 04E364AB154D613F002BC8DD /* Credits.rtf */; };
 		04E364B0154D613F002BC8DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E364AF154D613F002BC8DD /* AppDelegate.m */; };
-		04E364B3154D613F002BC8DD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E364B1154D613F002BC8DD /* MainMenu.xib */; };
 		DB197C76161B0EB4009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		DB197C7C161B0EB4009EA096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB197C7A161B0EB4009EA096 /* InfoPlist.strings */; };
 		DB197C85161B0EE7009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -89,7 +88,6 @@
 		04E364AC154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		04E364AE154D613F002BC8DD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04E364AF154D613F002BC8DD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		04E364B2154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bubblemon Dock Tile Plugin.docktileplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB197C79161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bubblemon Dock Tile Plugin-Info.plist"; sourceTree = "<group>"; };
 		DB197C7B161B0EB4009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 			children = (
 				04E364AE154D613F002BC8DD /* AppDelegate.h */,
 				04E364AF154D613F002BC8DD /* AppDelegate.m */,
-				04E364B1154D613F002BC8DD /* MainMenu.xib */,
 				04E364A3154D613F002BC8DD /* Supporting Files */,
 			);
 			path = bubblemon;
@@ -339,7 +336,6 @@
 				0483188516218FE500B4E13F /* window-frame.png in Resources */,
 				04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */,
 				04E364AD154D613F002BC8DD /* Credits.rtf in Resources */,
-				04E364B3154D613F002BC8DD /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,14 +427,6 @@
 				04E364AC154D613F002BC8DD /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		04E364B1154D613F002BC8DD /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04E364B2154D613F002BC8DD /* en */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		DB197C7A161B0EB4009EA096 /* InfoPlist.strings */ = {
