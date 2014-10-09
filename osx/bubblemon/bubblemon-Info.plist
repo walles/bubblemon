@@ -25,7 +25,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2012 __MyCompanyName__. All rights reserved.</string>
+	<string>Copyright 1999-2014 johan.walles@gmail.com</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSDockTilePlugIn</key>

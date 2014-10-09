@@ -27,3 +27,7 @@ DONE
 
 * Unzipping bubblemon-osx-1234.zip should give you the app in
   bubblemon-osx-1234/Bubblemon.app.
+
+* Fix the copyright information you get if you right-click
+  Bubblemon.app in the Finder and do "Get Info". It should be the same
+  as what you get in the About box.

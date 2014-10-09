@@ -50,13 +50,14 @@
   NSBundle *bundle = [NSBundle bundleForClass:[self class]];
   NSString *gitHash = [bundle infoDictionary][@"GitHash"];
   NSString *gitDescribe = [bundle infoDictionary][@"GitDescribe"];
+  NSString *copyright = [bundle infoDictionary][@"NSHumanReadableCopyright"];
   
   NSDictionary *aboutOptions = @{
                                  @"Credits": credits,
                                  @"ApplicationName": @"Bubblemon",
                                  // @"ApplicationIcon": FIXME,
                                  @"Version": gitHash,
-                                 @"Copyright": @"Copyright 1999-2014 johan.walles@gmail.com",
+                                 @"Copyright": copyright,
                                  @"ApplicationVersion": gitDescribe
                                  };
   [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
