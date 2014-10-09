@@ -20,16 +20,10 @@ Building and packaging
 * Press the Play button to build. After building is done, Bubblemon
   should start in your Dock.
 
-* "cd ~/Library/Developer/Xcode/DerivedData"
+* "cd ~/Downloads"
 
-* If you do 'ls' here there should be a directory here called
-  bubblemon-something. 'cd' into that directory. If you have several,
-  do 'ls -l' and pick the newest one.
-
-* "cd Build/Products/Release"
-
-In this directory you'll find a Bubblemon zip file that you can
-distribute to friends and family.
+In this directory you'll find a bubblemon-osx-[version].zip file that
+you can distribute to friends and family.
 
 
 Installing

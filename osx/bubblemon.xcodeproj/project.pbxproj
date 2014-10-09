@@ -388,7 +388,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -e\nset -x\n\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  echo \"NOTE: Only release builds get packaged, bailing\"\n  exit 0\nfi\n\nif [ -n \"$(git status --porcelain)\" ]; then\n  echo \"ERROR: There are uncommitted changes, do a Debug build or clean up\"\n  exit 1\nfi\n\nVERSION_NAME=$(git describe --dirty | sed 's/^osx-//')\nZIPDIR=\"${TARGET_BUILD_DIR}\"\nZIPNAME=\"bubblemon-osx-${VERSION_NAME}.zip\"\n\ncd \"${TARGET_BUILD_DIR}\"\nrm -f \"${ZIPNAME}\"\nzip -r \"${ZIPNAME}\" \"${TARGET_NAME}.app\"\n";
+			shellScript = "set -e\nset -x\n\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  echo \"NOTE: Only release builds get packaged, bailing\"\n  exit 0\nfi\n\nif [ -n \"$(git status --porcelain)\" ]; then\n  echo \"ERROR: There are uncommitted changes, do a Debug build or clean up\"\n  exit 1\nfi\n\nVERSION_NAME=$(git describe --dirty | sed 's/^osx-//')\nZIPDIR=\"${HOME}/Downloads\"\nZIPNAME=\"bubblemon-osx-${VERSION_NAME}.zip\"\n\ncd \"${TARGET_BUILD_DIR}\"\nrm -f \"${ZIPDIR}/${ZIPNAME}\"\nzip -r \"${ZIPDIR}/${ZIPNAME}\" \"${TARGET_NAME}.app\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -1,0 +1,30 @@
+TODO
+----
+* Think about making the frame thinner; would that look better?
+
+* As a stop-gap solution for the icon in the About box, just put an
+  empty image there instead of the stock icon.
+
+* Make a 1024x1024 app icon. That's a requirement for App Store
+  release, and while releasing to App Store won't be possible we
+  should follow their guidelines as well as we can. The icon should
+  show up in the About box and when you look at Bubblemon.app in
+  Finder.
+
+* Think about using NSDefaults to query the Dock about our tile
+  size. Maybe not every frame (for performance reasons), but every
+  five seconds or so.
+
+* Unzipping bubblemon-osx-1234.zip should give you the app in
+  bubblemon-osx-1234/Bubblemon.app.
+
+
+
+DONE
+----
+* Point the old web page to http://walles.github.io/bubblemon.
+
+* Make sure http://walles.github.io/bubblemon has a link to
+  https://github.com/walles/bubblemon/releases.
+
+* Release zip files should go into ~/Downloads.
