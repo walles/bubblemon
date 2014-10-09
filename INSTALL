@@ -7,14 +7,15 @@ Copyright (C) 1999-2009 Johan Walles
 
 --
 
-Installing The Bubbling Load Monitoring Applet ("bubblemon" for short)
+
+Mac OS X
+--------
+Please read osx/INSTALL.txt.
 
 
-
-In order to install bubblemon, follow this simple guide.
-
-
-Install (from tar.gz)
+GNOME 2
+-------
+Install (from .tar.gz)
 
   1. Untar the tarball somewhere, and cd into the new directory created
 
