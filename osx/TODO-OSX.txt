@@ -15,10 +15,6 @@ TODO
   size. Maybe not every frame (for performance reasons), but every
   five seconds or so.
 
-* Unzipping bubblemon-osx-1234.zip should give you the app in
-  bubblemon-osx-1234/Bubblemon.app.
-
-
 
 DONE
 ----
@@ -28,3 +24,6 @@ DONE
   https://github.com/walles/bubblemon/releases.
 
 * Release zip files should go into ~/Downloads.
+
+* Unzipping bubblemon-osx-1234.zip should give you the app in
+  bubblemon-osx-1234/Bubblemon.app.
