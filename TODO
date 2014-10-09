@@ -28,8 +28,10 @@ using the highest amount of memory.
 . If lots of CPU is used, add the text "Process 4711 "mozilla" is
 using 100% CPU" to the tool tip.  The process mentioned should be the
 one using the largest amount of CPU.
- 
-. Add a "Legend" to the right mouse button menu.
+
+. Add a "Legend" to the right mouse button menu. Already there on Mac
+OS X where it just opens http://walles.github.io/bubblemon/ in a
+browser.
 
 . Add a pointer to where the FAQ is located to the About box.  Is this
  at all possible to do in some way that survives all different kinds
