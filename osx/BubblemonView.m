@@ -82,7 +82,7 @@
     // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
     [NSTimer scheduledTimerWithTimeInterval:(1.0 / 25.0)
                                      target:self
-                                   selector:@selector(timerFired)
+                                   selector:@selector(timerTriggered)
                                    userInfo:nil
                                     repeats:YES];
     
@@ -97,7 +97,49 @@
   return self;
 }
 
-- (void)timerFired
+static CGContextRef createContext(size_t width, size_t height) {
+  NSInteger bytesPerRow  = width * 4; // rgb alpha
+  
+  CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
+  CGContextRef zBitmapContextRef = CGBitmapContextCreate(
+                                                         NULL,
+                                                         width,
+                                                         height,
+                                                         8,
+                                                         bytesPerRow,
+                                                         rgb,
+                                                         (CGBitmapInfo)kCGImageAlphaPremultipliedLast
+                                                         );
+  CGColorSpaceRelease(rgb);
+  
+  return zBitmapContextRef;
+}
+
+- (CGImageRef)getCachedWindowFrame {
+  size_t width = [self bounds].size.width;
+  size_t height = [self bounds].size.height;
+  if (scaledWindowFrame != NULL &&
+      CGImageGetWidth(scaledWindowFrame) == width &&
+      CGImageGetHeight(scaledWindowFrame) == height)
+  {
+    return scaledWindowFrame;
+  }
+  
+  if (scaledWindowFrame != NULL) {
+    CGImageRelease(scaledWindowFrame);
+  }
+  
+  CGContextRef scaledContext = createContext(width, height);
+  
+  CGRect rect = CGRectMake(0, 0, width, height);
+  CGContextDrawImage(scaledContext, rect, windowFrame);
+  
+  scaledWindowFrame = CGBitmapContextCreateImage(scaledContext);
+  CGContextRelease(scaledContext);
+  return scaledWindowFrame;
+}
+
+- (void)timerTriggered
 {
   // Compute a new image to display
   // The Dock won't tell us its size, so this is a guess at roughly how many pixels
@@ -166,7 +208,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
   // Draw the window frame
   CGRect fullSizeRect = NSRectToCGRect([self bounds]);
   CGContextSetAlpha(cgContextRef, 1.0f);
-  CGContextDrawImage(cgContextRef, fullSizeRect, windowFrame);
+  CGContextDrawImage(cgContextRef, fullSizeRect, [self getCachedWindowFrame]);
 }
 
 @end

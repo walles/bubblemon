@@ -17,6 +17,8 @@
   NSMenu *dockMenu;
   
   CGImageRef windowFrame;
+  
+  CGImageRef scaledWindowFrame;
 }
 
 @end
