@@ -1,5 +1,7 @@
 TODO
 ----
+* Profile running on a really slow system
+
 * Think about making the frame thinner; would that look better?
 
 * As a stop-gap solution for the icon in the About box, just put an
