@@ -80,7 +80,7 @@
     picture = NULL;
     
     // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
-    [NSTimer scheduledTimerWithTimeInterval:(1.0 / 25.0)
+    [NSTimer scheduledTimerWithTimeInterval:(1.0 / 10.0)
                                      target:self
                                    selector:@selector(timerTriggered)
                                    userInfo:nil
