@@ -5,7 +5,7 @@ These instructions have been tested on OS X 10.9.5 Mavericks with
 Xcode version 6.0.1 (6A317).
 
 
-Building and packaging
+Building and Packaging
 ----------------------
 * Install Xcode from the App Store.
 
@@ -39,3 +39,20 @@ Bubblemon should now be running in your Dock.
 
 Right click Bubblemon in the Dock and choose "Help" if you have
 questions.
+
+
+Making a Release
+----------------
+* "git tag" to show previous releases; release tags are the ones named
+osx-versionnumber.
+
+* "git tag --annotate osx-1.2.3" to tag version 1.2.3
+
+* "git push"
+
+* Follow the Building and Packaging instructions at the top of this
+  document to get a binary zip file to distribute.
+
+* Go to https://github.com/walles/bubblemon/releases and make a new
+  release for the version you just tagged and built. Don't forget to
+  upload the zip file.
