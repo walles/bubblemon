@@ -202,6 +202,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
                                      [self bounds].size.width  * 0.84f,
                                      [self bounds].size.height * 0.84f);
   CGContextSetAlpha(cgContextRef, 0.9f);
+  CGContextSetInterpolationQuality(cgContextRef, kCGInterpolationNone);
   CGContextDrawImage(cgContextRef, bubbleViewRect, cgImageRef);
   CGImageRelease(cgImageRef);
   
