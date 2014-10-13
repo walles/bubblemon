@@ -2,10 +2,14 @@ TODO
 ----
 * Profile running on a really slow system
 
-* Think about making the frame thinner; would that look better?
+* Dock performance is about 4x worse when having the Dock at the
+  bottom of the screen compared to running with the Dock to the left
+  or right. At first start, before killing the Dock, we should ask if
+  people want their Dock to the left, to the right, or not installing
+  Bubblemon. Running it at the bottom of the screen will take too much
+  CPU.
 
-* As a stop-gap solution for the icon in the About box, just put an
-  empty image there instead of the stock icon.
+* Think about making the frame thinner; would that look better?
 
 * Make a 1024x1024 app icon. That's a requirement for App Store
   release, and while releasing to App Store won't be possible we
