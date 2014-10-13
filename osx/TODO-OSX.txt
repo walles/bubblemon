@@ -1,6 +1,15 @@
 TODO
 ----
-* Profile running on a really slow system
+* If the Dock is at the bottom of the screen at installation, we
+  should move it to the left, no questions asked.
+
+* If the user moves the Dock to the bottom, we should replace
+  ourselves with a crossed over static bubblemon image. Then, if the
+  user clicks us, we bring up a dialog offering to move the Dock back
+  to the left.
+
+* Enable easy upgrades. If some other Bubblemon is running in the
+  Dock, we should replace it with ourselves.
 
 * Dock performance is about 4x worse when having the Dock at the
   bottom of the screen compared to running with the Dock to the left
@@ -37,3 +46,5 @@ DONE
 * Fix the copyright information you get if you right-click
   Bubblemon.app in the Finder and do "Get Info". It should be the same
   as what you get in the About box.
+
+* Profile running on a really slow system
