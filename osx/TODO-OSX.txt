@@ -1,22 +1,20 @@
 TODO
 ----
-* If the Dock is at the bottom of the screen at installation, we
-  should move it to the left, no questions asked.
-
-* If the user moves the Dock to the bottom, we should replace
-  ourselves with a crossed over static bubblemon image. Then, if the
-  user clicks us, we bring up a dialog offering to move the Dock back
-  to the left.
-
 * Enable easy upgrades. If some other Bubblemon is running in the
   Dock, we should replace it with ourselves.
 
-* Dock performance is about 4x worse when having the Dock at the
-  bottom of the screen compared to running with the Dock to the left
-  or right. At first start, before killing the Dock, we should ask if
-  people want their Dock to the left, to the right, or not installing
-  Bubblemon. Running it at the bottom of the screen will take too much
-  CPU.
+* If the Dock is at the bottom of the screen at installation, and
+  we're on OSX10.9 or older, we should move it to the left, no
+  questions asked.
+
+* On OSX10.9 or older, if the user moves the Dock to the bottom, we
+  should replace ourselves with a crossed over 1FPS Bubblemon. Then,
+  if the user clicks us, we bring up a dialog offering to move the
+  Dock back to the left.
+
+* On OSX10.9 and older, Dock performance is about 4x worse when having
+  the Dock at the bottom of the screen compared to running with the
+  Dock to the left or right. Handle this.
 
 * Think about making the frame thinner; would that look better?
 
