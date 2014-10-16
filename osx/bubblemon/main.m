@@ -86,13 +86,18 @@ int main(int argc, char *argv[])
   if (runningBubblemonPath != NULL &&
       [runningBubblemonPath caseInsensitiveCompare:appPath] != NSOrderedSame)
   {
+    NSLog(@"Other Bubblemon detected, removing:\n");
+    NSLog(@"  %@ <- me\n", appPath);
+    NSLog(@"  %@ <- the other guy\n", runningBubblemonPath);
     [defaults removeApplicationFromDock:runningBubblemonPath];
   }
   
   if ([defaults dockHasApplication:appPath]) {
-    NSLog(@"Bubblemon already installed in the Dock\n");
+    NSLog(@"Bubblemon already installed in the Dock, launching Activity Monitor...\n");
     launchActivityMonitor();
   } else {
+    NSLog(@"Not found, installing: %@\n", appPath);
+    
     // Add ourselves to the dock
     [defaults addApplicationToDock:appPath];
     

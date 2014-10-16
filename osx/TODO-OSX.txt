@@ -1,5 +1,9 @@
 TODO
 ----
+* If Bubblemon.app has a file system timestamp later than when the
+  Dock process started, then we should replace the running Bubblemon
+  with ourselves. Nice during development.
+
 * Add a dialog warning the user before we restart the Dock.
 
 * If the Dock is at the bottom of the screen at installation, and
