@@ -1,7 +1,6 @@
 TODO
 ----
-* Enable easy upgrades. If some other Bubblemon is running in the
-  Dock, we should replace it with ourselves.
+* Add a dialog warning the user before we restart the Dock.
 
 * If the Dock is at the bottom of the screen at installation, and
   we're on OSX10.9 or older, we should move it to the left, no
@@ -46,3 +45,6 @@ DONE
   as what you get in the About box.
 
 * Profile running on a really slow system
+
+* Enable easy upgrades. If some other Bubblemon is running in the
+  Dock, we should replace it with ourselves.

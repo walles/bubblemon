@@ -25,33 +25,50 @@
   }
   return NO;
 }
-@end
 
-static BOOL isKeptInDock() {
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSDictionary *dock_settings = [defaults persistentDomainForName:@"com.apple.dock"];
-  NSArray *persistent_apps = [dock_settings objectForKey:@"persistent-apps"];
-  for (id persistent_app in persistent_apps) {
-    NSDictionary *tile_data = [(NSDictionary*)persistent_app objectForKey:@"tile-data"];
-    NSString *bundle_identifier = [tile_data objectForKey:@"bundle-identifier"];
-    if ([@"com.gmail.walles.johan.Bubblemon" isEqualToString:bundle_identifier]) {
-      return TRUE;
-    }
+// From: http://www.danandcheryl.com/tag/cocoa
+- (BOOL)removeApplicationFromDock:(NSString *)name {
+  NSDictionary *domain = [self persistentDomainForName:@"com.apple.dock"];
+  NSArray *apps = [domain objectForKey:@"persistent-apps"];
+  NSArray *newApps = [apps filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not %K CONTAINS %@", @"tile-data.file-data._CFURLString", name]];
+  if (![apps isEqualToArray:newApps]) {
+    NSMutableDictionary *newDomain = [domain mutableCopy];
+    [newDomain setObject:newApps forKey:@"persistent-apps"];
+    [self setPersistentDomain:newDomain forName:@"com.apple.dock"];
+    return [self synchronize];
   }
-  return FALSE;
+  return NO;
 }
 
-static void keepInDock(NSString *app_path) {
-  NSLog(@"Adding Bubblemon as a Keep-in-Dock app...\n");
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults addApplicationToDock:app_path];
+- (BOOL)dockHasApplication:(NSString *)path {
+  NSDictionary *domain = [self persistentDomainForName:@"com.apple.dock"];
+  NSArray *apps = [domain objectForKey:@"persistent-apps"];
+  NSArray *matchingApps = [apps filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K CONTAINS[c] %@", @"tile-data.file-data._CFURLString", path]];
+  return [matchingApps count] > 0;
+}
+
+- (NSString*)getRunningBubblemonPath {
+  NSDictionary *domain = [self persistentDomainForName:@"com.apple.dock"];
+  NSArray *apps = [domain objectForKey:@"persistent-apps"];
+  NSArray *matchingApps = [apps filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K CONTAINS %@", @"tile-data.bundle-identifier", @"com.gmail.walles.johan.Bubblemon"]];
+  if ([matchingApps count] == 0) {
+    return NULL;
+  }
+  NSDictionary *appDictionary = [matchingApps firstObject];
+  NSDictionary *tileDictionary = [appDictionary objectForKey:@"tile-data"];
+  NSDictionary *fileDictionary = [tileDictionary objectForKey:@"file-data"];
+  NSString *urlString = [fileDictionary objectForKey:@"_CFURLString"];
   
-  NSLog(@"Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n");
-  NSArray *docks = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"];
-  for (id dock in docks) {
-    [(NSRunningApplication*)dock terminate];
-  }
+  // Remove leading file://
+  NSString *urlPrefix = @"file://";
+  NSString *pathString = [urlString substringFromIndex:[urlPrefix length]];
+  
+  // Remove trailing /
+  pathString = [pathString substringToIndex:[pathString length] - 1];
+
+  return pathString;
 }
+@end
 
 static void launchActivityMonitor() {
   NSLog(@"Launching Activity Monitor...\n");
@@ -63,11 +80,27 @@ static void launchActivityMonitor() {
 
 int main(int argc, char *argv[])
 {
-  if (isKeptInDock()) {
+  NSString *appPath = [[NSBundle mainBundle] bundlePath];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSString *runningBubblemonPath = [defaults getRunningBubblemonPath];
+  if (runningBubblemonPath != NULL &&
+      [runningBubblemonPath caseInsensitiveCompare:appPath] != NSOrderedSame)
+  {
+    [defaults removeApplicationFromDock:runningBubblemonPath];
+  }
+  
+  if ([defaults dockHasApplication:appPath]) {
     NSLog(@"Bubblemon already installed in the Dock\n");
     launchActivityMonitor();
   } else {
-    keepInDock([[NSBundle mainBundle] bundlePath]);
+    // Add ourselves to the dock
+    [defaults addApplicationToDock:appPath];
+    
+    NSLog(@"Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n");
+    NSArray *docks = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"];
+    for (id dock in docks) {
+      [(NSRunningApplication*)dock terminate];
+    }
   }
 
   exit(0);
