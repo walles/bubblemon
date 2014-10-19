@@ -8,29 +8,45 @@
 
 #import <Cocoa/Cocoa.h>
 
+// Return a normalized path from a Dock defaults app entry
+static NSString *getPath(NSDictionary *appDictionary) {
+  NSDictionary *tileDictionary = [appDictionary objectForKey:@"tile-data"];
+  NSDictionary *fileDictionary = [tileDictionary objectForKey:@"file-data"];
+  NSString *urlString = [fileDictionary objectForKey:@"_CFURLString"];
+  NSString *pathString = [[NSURL URLWithString:urlString] path];
+  
+  return [pathString stringByResolvingSymlinksInPath];
+}
+
 // From: http://www.danandcheryl.com/tag/cocoa
 @implementation NSUserDefaults (Additions)
 - (BOOL)addApplicationToDock:(NSString *)path {
   NSDictionary *domain = [self persistentDomainForName:@"com.apple.dock"];
   NSArray *apps = [domain objectForKey:@"persistent-apps"];
-  NSArray *matchingApps = [apps filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K CONTAINS %@", @"tile-data.file-data._CFURLString", path]];
-  if ([matchingApps count] == 0) {
-    NSMutableDictionary *newDomain = [domain mutableCopy];
-    NSMutableArray *newApps = [apps mutableCopy];
-    NSDictionary *app = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObjectsAndKeys:path, @"_CFURLString", [NSNumber numberWithInt:0], @"_CFURLStringType", nil] forKey:@"file-data"] forKey:@"tile-data"];
-    [newApps addObject:app];
-    [newDomain setObject:newApps forKey:@"persistent-apps"];
-    [self setPersistentDomain:newDomain forName:@"com.apple.dock"];
-    return [self synchronize];
-  }
-  return NO;
+
+  NSMutableDictionary *newDomain = [domain mutableCopy];
+  NSMutableArray *newApps = [apps mutableCopy];
+  NSDictionary *app = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObjectsAndKeys:path, @"_CFURLString", [NSNumber numberWithInt:0], @"_CFURLStringType", nil] forKey:@"file-data"] forKey:@"tile-data"];
+  [newApps addObject:app];
+  [newDomain setObject:newApps forKey:@"persistent-apps"];
+  [self setPersistentDomain:newDomain forName:@"com.apple.dock"];
+  return [self synchronize];
 }
 
 // From: http://www.danandcheryl.com/tag/cocoa
-- (BOOL)removeApplicationFromDock:(NSString *)name {
+- (BOOL)removeApplicationFromDock:(NSString *)removePath {
   NSDictionary *domain = [self persistentDomainForName:@"com.apple.dock"];
   NSArray *apps = [domain objectForKey:@"persistent-apps"];
-  NSArray *newApps = [apps filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not %K CONTAINS %@", @"tile-data.file-data._CFURLString", name]];
+  NSMutableArray *newApps = [NSMutableArray array];
+  for (id app in apps) {
+    if ([getPath(app) caseInsensitiveCompare:removePath] == NSOrderedSame) {
+      // This is what we're removing, skip it
+      continue;
+    }
+
+    [newApps addObject:app];
+  }
+  
   if (![apps isEqualToArray:newApps]) {
     NSMutableDictionary *newDomain = [domain mutableCopy];
     [newDomain setObject:newApps forKey:@"persistent-apps"];
@@ -40,11 +56,16 @@
   return NO;
 }
 
-- (BOOL)dockHasApplication:(NSString *)path {
+- (BOOL)dockHasApplication:(NSString *)appPath {
   NSDictionary *domain = [self persistentDomainForName:@"com.apple.dock"];
   NSArray *apps = [domain objectForKey:@"persistent-apps"];
-  NSArray *matchingApps = [apps filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K CONTAINS[c] %@", @"tile-data.file-data._CFURLString", path]];
-  return [matchingApps count] > 0;
+  for (id appDictionary in apps) {
+    if ([getPath(appDictionary) caseInsensitiveCompare:appPath] == NSOrderedSame) {
+      return TRUE;
+    }
+  }
+  
+  return FALSE;
 }
 
 - (NSString*)getRunningBubblemonPath {
@@ -54,19 +75,7 @@
   if ([matchingApps count] == 0) {
     return NULL;
   }
-  NSDictionary *appDictionary = [matchingApps firstObject];
-  NSDictionary *tileDictionary = [appDictionary objectForKey:@"tile-data"];
-  NSDictionary *fileDictionary = [tileDictionary objectForKey:@"file-data"];
-  NSString *urlString = [fileDictionary objectForKey:@"_CFURLString"];
-  
-  // Remove leading file://
-  NSString *urlPrefix = @"file://";
-  NSString *pathString = [urlString substringFromIndex:[urlPrefix length]];
-  
-  // Remove trailing /
-  pathString = [pathString substringToIndex:[pathString length] - 1];
-
-  return pathString;
+  return getPath([matchingApps firstObject]);
 }
 @end
 
@@ -80,20 +89,18 @@ static void launchActivityMonitor() {
 
 int main(int argc, char *argv[])
 {
-  NSString *appPath = [[NSBundle mainBundle] bundlePath];
+  NSString *appPath = [[[NSBundle mainBundle] bundlePath] stringByResolvingSymlinksInPath];
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSString *runningBubblemonPath = [defaults getRunningBubblemonPath];
   if (runningBubblemonPath != NULL &&
       [runningBubblemonPath caseInsensitiveCompare:appPath] != NSOrderedSame)
   {
-    NSLog(@"Other Bubblemon detected, removing:\n");
-    NSLog(@"  %@ <- me\n", appPath);
-    NSLog(@"  %@ <- the other guy\n", runningBubblemonPath);
+    NSLog(@"Removing old Bubblemon: %@\n", runningBubblemonPath);
     [defaults removeApplicationFromDock:runningBubblemonPath];
   }
   
   if ([defaults dockHasApplication:appPath]) {
-    NSLog(@"Bubblemon already installed in the Dock, launching Activity Monitor...\n");
+    NSLog(@"Bubblemon already installed in the Dock\n");
     launchActivityMonitor();
   } else {
     NSLog(@"Not found, installing: %@\n", appPath);
