@@ -51,7 +51,15 @@ static NSString *getPath(NSDictionary *appDictionary) {
     NSMutableDictionary *newDomain = [domain mutableCopy];
     [newDomain setObject:newApps forKey:@"persistent-apps"];
     [self setPersistentDomain:newDomain forName:@"com.apple.dock"];
-    return [self synchronize];
+    BOOL result = [self synchronize];
+    
+    NSLog(@"Killing com.apple.dock.extra to force it to unload the old Bubblemon...\n");
+    NSArray *docks = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock.extra"];
+    for (id dock in docks) {
+      [(NSRunningApplication*)dock terminate];
+    }
+    
+    return result;
   }
   return NO;
 }
