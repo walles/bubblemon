@@ -1,8 +1,17 @@
 TODO
 ----
+* Set up a Travis CI job building and launching at least OSX Debug for
+  all pull requests and commits.
+
+* Somehow make the Travis CI build run the self-checks that are built
+  into Bubblemon.
+
 * If Bubblemon.app has a file system timestamp later than when the
   Dock process started, then we should replace the running Bubblemon
   with ourselves. Nice during development.
+
+* Deal with the timer syslog message that shows up every time
+  Bubblemon has to install itself.
 
 * Add a dialog warning the user before we restart the Dock.
 
