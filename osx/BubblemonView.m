@@ -204,7 +204,7 @@ static void releaseDataProvider(void *info, const void *data, size_t size) {
   CGContextSetAlpha(cgContextRef, 1.0f);
   CGContextSetInterpolationQuality(cgContextRef, kCGInterpolationNone);
   CGContextDrawImage(cgContextRef, bubbleViewRect, cgImageRef);
-  CGImageRelease(cgImageRef);
+  // FIXME: Analyze should warn about this missing: CGImageRelease(cgImageRef);
   
   // Draw the window frame
   CGRect fullSizeRect = NSRectToCGRect([self bounds]);
