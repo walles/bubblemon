@@ -9,9 +9,6 @@ TODO
   Dock process started, then we should replace the running Bubblemon
   with ourselves. Nice during development.
 
-* Deal with the timer syslog message that shows up every time
-  Bubblemon has to install itself.
-
 * Add a dialog warning the user before we restart the Dock.
 
 * If the Dock is at the bottom of the screen at installation, and
@@ -65,3 +62,6 @@ DONE
   commits.
 
 * Make sure Travis CI fails on Analyze warnings.
+
+* Not our fault, didn't do anything: Deal with the timer syslog
+  message that shows up every time Bubblemon has to install itself.
