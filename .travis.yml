@@ -2,6 +2,6 @@ language: objective-c
 
 before_install:
   - brew update
-  - brew install xctool
+  - brew upgrade
 
 script: xctool -project osx/bubblemon.xcodeproj -scheme Debug analyze -failOnWarnings
