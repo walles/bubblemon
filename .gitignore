@@ -31,3 +31,4 @@ src/bubblemon-gnome2
 osx/bubblemon.xcodeproj/**/xcuserdata
 osx/window-frame.blend[0-9]
 bubblemon.xccheckout
+xctool.log

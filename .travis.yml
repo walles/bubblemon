@@ -4,4 +4,4 @@ before_install:
   - brew update
   - brew upgrade
 
-script: xctool -project osx/bubblemon.xcodeproj -scheme Debug analyze -failOnWarnings
+script: osx/xctool-analyze-runner.sh

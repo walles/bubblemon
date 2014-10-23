@@ -2,8 +2,6 @@ TODO
 ----
 * Enable all warnings and warnings-as-errors.
 
-* Make sure Travis CI fails on Analyze warnings.
-
 * Somehow make the Travis CI build run the self-checks that are built
   into Bubblemon.
 
@@ -65,3 +63,5 @@ DONE
 
 * Set up a Travis CI job analyzing OSX Debug for all pull requests and
   commits.
+
+* Make sure Travis CI fails on Analyze warnings.
