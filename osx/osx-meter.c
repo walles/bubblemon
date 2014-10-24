@@ -18,7 +18,7 @@
 #include <mach/mach_host.h>
 #include <assert.h>
 
-#include <IOKitLib.h>
+#include <IOKit/IOKitLib.h>
 #include <IOKit/IOBSD.h>
 #include <IOKit/storage/IOMedia.h>
 #include <IOKit/storage/IOBlockStorageDriver.h>
