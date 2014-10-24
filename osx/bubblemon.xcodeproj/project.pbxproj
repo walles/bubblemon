@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0420B9FF1576A9B600A7B26C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
 		0483188516218FE500B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		048318861621FFAE00B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04831887162200F700B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
@@ -42,6 +41,7 @@
 		DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		DB197CD3161B23A6009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
 		DB197CD4161B23FE009EA096 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
+		DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0420B9FF1576A9B600A7B26C /* IOKit.framework in Frameworks */,
+				DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */,
 				04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -651,8 +651,6 @@
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				USER_HEADER_SEARCH_PATHS = "";
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -670,8 +668,6 @@
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				USER_HEADER_SEARCH_PATHS = "";
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
