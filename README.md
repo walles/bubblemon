@@ -2,7 +2,7 @@
 Copyright (C) 1999-2014 Johan Walles, johan.walles@gmail.com
 
 - A widget displaying the CPU + memory load as a bubbling liquid.
-- https://github.com/walles/bubblemon
+- http://walles.github.io/bubblemon/
 
 The Bubbling Load Monitor (or "Bubblemon" for short) is a system load
 monitor originally developed for the GNOME panel. It looks like a vial
