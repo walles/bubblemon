@@ -1,6 +1,8 @@
 TODO
 ----
 * Enable all warnings and warnings-as-errors.
+ Don't know how, have asked:
+ http://stackoverflow.com/q/26624470/473672
 
 * Somehow make the Travis CI build run the self-checks that are built
   into Bubblemon.

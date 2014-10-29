@@ -9,6 +9,17 @@
 #import "BubblemonView.h"
 
 @implementation BubblemonView
+{
+  bubblemon_t *bubblemon;
+  const bubblemon_picture_t *picture;
+  
+  NSDockTile *dockTile;
+  NSMenu *dockMenu;
+  
+  CGImageRef windowFrame;
+  
+  CGImageRef scaledWindowFrame;
+}
 
 - (void)setDockTile:(NSDockTile*)aDockTile {
   if (aDockTile) {
