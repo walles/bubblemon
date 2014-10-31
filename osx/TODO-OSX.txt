@@ -8,6 +8,8 @@ TODO
 
 * Make the frame thinner and glossier
 
+* Add bubbles to the 1024x1024 app icon.
+
 * Enable all warnings and warnings-as-errors.
  Don't know how, have asked:
  http://stackoverflow.com/q/26624470/473672
