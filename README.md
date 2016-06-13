@@ -22,7 +22,7 @@ Here's what it looks like running in the Mac OS X dock:
 
 # Building and Installing
 * [Installation instructions for Mac OS X](https://walles.github.io/bubblemon/)
-* [Build-and-install instructions for Mac OS X](https://github.com/walles/bubblemon/blob/master/osx/INSTALL.txt).
+* [Build-and-install-from-source-code instructions for Mac OS X](https://github.com/walles/bubblemon/blob/master/osx/INSTALL.txt).
 
 # License
 <pre>
