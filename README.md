@@ -21,6 +21,7 @@ Here's what it looks like running in the Mac OS X dock:
 ![OS X Screenshot](https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png)
 
 # Building and Installing
+* [Installation instructions for Mac OS X](https://walles.github.io/bubblemon/)
 * [Build-and-install instructions for Mac OS X](https://github.com/walles/bubblemon/blob/master/osx/INSTALL.txt).
 
 # License
