@@ -125,9 +125,9 @@ static void reportDrive(dynamic_accumulator_t *ioLoad, io_registry_entry_t drive
   }
 
   // get drive properties
-  CFDictionaryRef driveProperties;
+  CFMutableDictionaryRef driveProperties;
   status = IORegistryEntryCreateCFProperties(drive,
-                                             (CFMutableDictionaryRef *)&driveProperties,
+                                             &driveProperties,
                                              kCFAllocatorDefault,
                                              kNilOptions);
   if (status != KERN_SUCCESS) {
@@ -142,9 +142,9 @@ static void reportDrive(dynamic_accumulator_t *ioLoad, io_registry_entry_t drive
   CFRelease(driveProperties);
   
   // get parent properties
-  CFDictionaryRef parentProperties;
+  CFMutableDictionaryRef parentProperties;
   status = IORegistryEntryCreateCFProperties(parent,
-                                             (CFMutableDictionaryRef *)&parentProperties,
+                                             &parentProperties,
                                              kCFAllocatorDefault,
                                              kNilOptions);
   IOObjectRelease(parent);

@@ -311,7 +311,7 @@
 		04E3648F154D613F002BC8DD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0730;
 			};
 			buildConfigurationList = 04E36492154D613F002BC8DD /* Build configuration list for PBXProject "bubblemon" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -550,6 +550,7 @@
 				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_SHORT_ENUMS = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -572,7 +573,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
@@ -581,6 +582,7 @@
 					"-Wno-direct-ivar-access",
 					"-Wno-cast-align",
 					"-Wno-float-equal",
+					"-Wno-double-promotion",
 				);
 			};
 			name = Debug;
@@ -635,7 +637,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Weverything",
@@ -643,6 +645,7 @@
 					"-Wno-direct-ivar-access",
 					"-Wno-cast-align",
 					"-Wno-float-equal",
+					"-Wno-double-promotion",
 				);
 			};
 			name = Release;
@@ -655,6 +658,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = app;
@@ -669,6 +673,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = app;
@@ -685,6 +690,7 @@
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Bubblemon Dock Tile Plugin-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = docktileplugin;
@@ -701,6 +707,7 @@
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Bubblemon Dock Tile Plugin-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = docktileplugin;
@@ -716,6 +723,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
@@ -731,6 +739,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;

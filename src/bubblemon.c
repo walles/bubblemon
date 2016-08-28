@@ -461,8 +461,8 @@ static void bubblemon_createBubble(bubblemon_t *bubblemon,
 /* Compare two ints.  Used by bubblemon_createBubbles().  See the
  * qsort(3) man page for info. */
 static int intCompare(const void *ap, const void *bp) {
-  int a = *(int*)ap;
-  int b = *(int*)bp;
+  int a = *(const int*)ap;
+  int b = *(const int*)bp;
 
   if (a < b) {
     return -1;
@@ -1188,7 +1188,7 @@ static void bubblemon_bottleToPixmap(bubblemon_t *bubblemon)
 
       // assert(pictureY < pictureH);
 
-      bottlePixel = ((bubblemon_color_t*)(msgInBottle.pixel_data))[bottleX + bottleY * bottleW];
+      bottlePixel = ((const bubblemon_color_t*)(msgInBottle.pixel_data))[bottleX + bottleY * bottleW];
       picturePixel = &(bubblePic->pixels[pictureX + pictureY * pictureW]);
 
       *picturePixel = bubblemon_interpolateColor(*picturePixel,

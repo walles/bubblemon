@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,11 +24,11 @@
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<key>NSDockTilePlugIn</key>
+	<string>Bubblemon Dock Tile Plugin.docktileplugin</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright 1999-2014 johan.walles@gmail.com</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>NSDockTilePlugIn</key>
-	<string>Bubblemon Dock Tile Plugin.docktileplugin</string>
 </dict>
 </plist>

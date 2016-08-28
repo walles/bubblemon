@@ -49,7 +49,10 @@
 
 - (IBAction)openLegend:(id)sender {
   NSLog(@"Opening help in browser...\n");
-  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://walles.github.io/bubblemon/"]];
+
+  // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
+  NSURL *url = [NSURL URLWithString:@"http://walles.github.io/bubblemon/"];
+  [[NSWorkspace sharedWorkspace] openURL:url];
 }
 
 - (IBAction)openAboutPanel:(id)sender {
