@@ -89,7 +89,11 @@ static NSString *getPath(NSDictionary *appDictionary) {
 
 static void launchActivityMonitor() {
   NSLog(@"Launching Activity Monitor...\n");
-  BOOL launched = [[NSWorkspace sharedWorkspace] launchApplication:@"Activity Monitor"];
+  BOOL launched = [[NSWorkspace sharedWorkspace]
+                   launchAppWithBundleIdentifier:@"com.apple.ActivityMonitor"
+                   options:NSWorkspaceLaunchDefault
+                   additionalEventParamDescriptor:NULL
+                   launchIdentifier:NULL];
   if (!launched) {
     NSLog(@"Launching Activity Monitor failed\n");
   }
