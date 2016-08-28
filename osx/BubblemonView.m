@@ -44,12 +44,27 @@
   [aboutItem setTarget:self];
   [dockMenu addItem:aboutItem];
   
+  NSMenuItem *shareItem = [[NSMenuItem alloc] initWithTitle:@"Share on Facebook" action:@selector(shareOnFacebook:) keyEquivalent:@""];
+  [shareItem setTarget:self];
+  [dockMenu addItem:shareItem];
+
   return dockMenu;
 }
 
 - (IBAction)openLegend:(id)sender {
   NSLog(@"Opening help in browser...\n");
-  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://walles.github.io/bubblemon/"]];
+
+  // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
+  NSURL *url = [NSURL URLWithString:@"http://walles.github.io/bubblemon/"];
+  [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
+- (IBAction)shareOnFacebook:(id)sender {
+  NSLog(@"Opening browser to share on Facebook...\n");
+
+  // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
+  NSURL *url = [NSURL URLWithString:@"https://www.facebook.com/sharer/sharer.php?u=http%3A//walles.github.io/bubblemon/"];
+  [[NSWorkspace sharedWorkspace] openURL:url];
 }
 
 - (IBAction)openAboutPanel:(id)sender {
