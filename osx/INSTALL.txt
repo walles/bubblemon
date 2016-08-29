@@ -1,8 +1,8 @@
 These instructions will tell you how to make an installation package
 starting only from source code, and how to install that package.
 
-These instructions have been tested on OS X 10.9.5 Mavericks with
-Xcode version 6.0.1 (6A317).
+These instructions have been tested on OS X 10.11.6 El Capitan with
+Xcode version 7.3.1 (7D1014).
 
 
 Building and Packaging
@@ -45,7 +45,7 @@ osx-versionnumber.
 
 * "git tag --annotate osx-1.2.3" to tag version 1.2.3
 
-* "git push"
+* "git push --tags"
 
 * Follow the Building and Packaging instructions at the top of this
   document to get a binary zip file to distribute.
