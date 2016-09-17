@@ -1,4 +1,5 @@
-The icon.png file is based on the icon.blend file.
+The icon.png.icns and the icon.png files are both based on the icon.blend
+file.
 
 To modify icon.blend, get Blender at http://www.blender.org/download.
 
@@ -9,5 +10,7 @@ To recreate icon.png from icon.blend:
 Image.
 4. Double click on icon.png to save over it.
 
-Please commit your changes to both icon.blend and icon.png in the same
-commit.
+To recreate icon.png.icns from icon.png, use https://iconverticons.com/online/.
+
+Please commit your changes to both icon.blend, icon.png and icon.png.icns in
+the same commit.
