@@ -32,3 +32,6 @@ osx/bubblemon.xcodeproj/**/xcuserdata
 osx/window-frame.blend[0-9]
 bubblemon.xccheckout
 xctool.log
+pixmaps/cache_fluid
+pixmaps/icon.blend[0-9]
+.DS_Store
