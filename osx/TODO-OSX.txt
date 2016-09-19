@@ -1,8 +1,5 @@
 TODO
 ----
-* Sign the app to remove the unknown-developer warning and to enable
-  people to just double-click after download.
-
 * Make the frame thinner and glossier
 
 * Enable all warnings and warnings-as-errors.
@@ -19,6 +16,14 @@ TODO
 * Think about using NSDefaults to query the Dock about our tile
   size. Maybe not every frame (for performance reasons), but every
   five seconds or so.
+
+
+WONTFIX
+-------
+* Sign the app to remove the unknown-developer warning and to enable
+  people to just double-click after download. This would cost me $99
+  per year, which is just plain silly:
+  https://developer.apple.com/support/compare-memberships/
 
 
 DONE
