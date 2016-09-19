@@ -1,14 +1,6 @@
 TODO
 ----
-* Make a 1024x1024 app icon. That's a requirement for App Store
-  release, and while releasing to App Store won't be possible we
-  should follow their guidelines as well as we can. The icon should
-  show up in the About box and when you look at Bubblemon.app in
-  Finder.
-
 * Make the frame thinner and glossier
-
-* Add bubbles to the 1024x1024 app icon.
 
 * Enable all warnings and warnings-as-errors.
  Don't know how, have asked:
@@ -69,3 +61,9 @@ DONE
 
 * Not our fault, didn't do anything: Deal with the timer syslog
   message that shows up every time Bubblemon has to install itself.
+
+* Make a 1024x1024 app icon. This is a requirement for App Store
+  release, and while releasing to App Store won't be possible we
+  should follow their guidelines as well as we can. The icon should
+  show up in the About box and when you look at Bubblemon.app in
+  Finder.
