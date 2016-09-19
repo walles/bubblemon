@@ -74,6 +74,7 @@
   
   // The Git hash and version get filled in by a "Run Script" build step
   NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSImage *icon = [bundle imageForResource:@"icon.png"];
   NSString *gitHash = [bundle infoDictionary][@"GitHash"];
   NSString *gitDescribe = [bundle infoDictionary][@"GitDescribe"];
   NSString *copyright = [bundle infoDictionary][@"NSHumanReadableCopyright"];
@@ -81,7 +82,7 @@
   NSDictionary *aboutOptions = @{
                                  @"Credits": credits,
                                  @"ApplicationName": @"Bubblemon",
-                                 // @"ApplicationIcon": FIXME,
+                                 @"ApplicationIcon": icon,
                                  @"Version": gitHash,
                                  @"Copyright": copyright,
                                  @"ApplicationVersion": gitDescribe
