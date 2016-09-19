@@ -1,5 +1,8 @@
 TODO
 ----
+* Sign the app to remove the unknown-developer warning and to enable
+  people to just double-click after download.
+
 * Make the frame thinner and glossier
 
 * Enable all warnings and warnings-as-errors.
@@ -12,21 +15,6 @@ TODO
 * If Bubblemon.app has a file system timestamp later than when the
   Dock process started, then we should replace the running Bubblemon
   with ourselves. Nice during development.
-
-* Add a dialog warning the user before we restart the Dock.
-
-* If the Dock is at the bottom of the screen at installation, and
-  we're on OSX10.9 or older, we should move it to the left, no
-  questions asked.
-
-* On OSX10.9 or older, if the user moves the Dock to the bottom, we
-  should replace ourselves with a crossed over 1FPS Bubblemon. Then,
-  if the user clicks us, we bring up a dialog offering to move the
-  Dock back to the left.
-
-* On OSX10.9 and older, Dock performance is about 4x worse when having
-  the Dock at the bottom of the screen compared to running with the
-  Dock to the left or right. Handle this.
 
 * Think about using NSDefaults to query the Dock about our tile
   size. Maybe not every frame (for performance reasons), but every
