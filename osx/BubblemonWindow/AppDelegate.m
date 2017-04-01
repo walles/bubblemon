@@ -10,6 +10,8 @@
 
 @implementation AppDelegate
 
+@synthesize window = _window;
+
 - (void)dealloc
 {
   // This method intentionally left blank
