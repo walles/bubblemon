@@ -46,15 +46,24 @@ static void measureSwap(meter_sysload_t *load) {
 }
 
 static void measureRam(meter_sysload_t *load) {
-    mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
+    mach_msg_type_number_t count = HOST_VM_INFO64_COUNT;
 
-    vm_statistics_data_t vmstat;
-    assert(host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count) == KERN_SUCCESS);
+    vm_statistics64_data_t vmstat;
+    assert(host_statistics64(mach_host_self(), HOST_VM_INFO64, (host_info64_t)&vmstat, &count) == KERN_SUCCESS);
 
-    size_t total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
-    size_t pageSize = sysconf(_SC_PAGESIZE);
-    load->memorySize = total * pageSize;
-    load->memoryUsed = (vmstat.wire_count + vmstat.active_count) * pageSize;
+    size_t totalPages =
+        vmstat.wire_count +
+        vmstat.active_count +
+        vmstat.inactive_count +
+        vmstat.free_count +
+        vmstat.compressor_page_count;
+
+  size_t pageSize = sysconf(_SC_PAGESIZE);
+    load->memorySize = totalPages * pageSize;
+    load->memoryUsed = pageSize *
+        (vmstat.wire_count +
+         vmstat.active_count +
+         vmstat.compressor_page_count);
 }
 
 static void measureMemory(meter_sysload_t *load) {
