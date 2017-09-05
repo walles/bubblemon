@@ -7,8 +7,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   deinit {
     // This method intentionally left blank
   }
-  
-  func applicationDidFinishLaunching(_ notification: Notification) {
-    // Insert code here to initialize your application
-  }
 }
