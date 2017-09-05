@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,9 +35,8 @@
 		DB197C98161B21AC009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		DB197CB9161B239A009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		DB197CBF161B239A009EA096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB197CBD161B239A009EA096 /* InfoPlist.strings */; };
-		DB197CC1161B239A009EA096 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DB197CC0161B239A009EA096 /* main.m */; };
 		DB197CC5161B239A009EA096 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DB197CC3161B239A009EA096 /* Credits.rtf */; };
-		DB197CC8161B239A009EA096 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB197CC7161B239A009EA096 /* AppDelegate.m */; };
+		DB197CC8161B239A009EA096 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB197CC7161B239A009EA096 /* AppDelegate.swift */; };
 		DB197CCB161B239A009EA096 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB197CC9161B239A009EA096 /* MainMenu.xib */; };
 		DB197CCF161B23A6009EA096 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
 		DB197CD0161B23A6009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
@@ -101,11 +100,9 @@
 		DB197CB7161B239A009EA096 /* BubblemonWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BubblemonWindow-Info.plist"; sourceTree = "<group>"; };
 		DB197CBE161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DB197CC0161B239A009EA096 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DB197CC2161B239A009EA096 /* BubblemonWindow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BubblemonWindow-Prefix.pch"; sourceTree = "<group>"; };
 		DB197CC4161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		DB197CC6161B239A009EA096 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		DB197CC7161B239A009EA096 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DB197CC7161B239A009EA096 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB197CCA161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,8 +230,7 @@
 		DB197CBA161B239A009EA096 /* BubblemonWindow */ = {
 			isa = PBXGroup;
 			children = (
-				DB197CC6161B239A009EA096 /* AppDelegate.h */,
-				DB197CC7161B239A009EA096 /* AppDelegate.m */,
+				DB197CC7161B239A009EA096 /* AppDelegate.swift */,
 				DB197CC9161B239A009EA096 /* MainMenu.xib */,
 				DB197CBB161B239A009EA096 /* Supporting Files */,
 			);
@@ -246,7 +242,6 @@
 			children = (
 				DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */,
 				DB197CBD161B239A009EA096 /* InfoPlist.strings */,
-				DB197CC0161B239A009EA096 /* main.m */,
 				DB197CC2161B239A009EA096 /* BubblemonWindow-Prefix.pch */,
 				DB197CC3161B239A009EA096 /* Credits.rtf */,
 			);
@@ -320,9 +315,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0830;
+				TargetAttributes = {
+					DB197CB6161B239A009EA096 = {
+						LastSwiftMigration = 0830;
+					};
+				};
 			};
 			buildConfigurationList = 04E36492154D613F002BC8DD /* Build configuration list for PBXProject "bubblemon" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -463,8 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB197CC1161B239A009EA096 /* main.m in Sources */,
-				DB197CC8161B239A009EA096 /* AppDelegate.m in Sources */,
+				DB197CC8161B239A009EA096 /* AppDelegate.swift in Sources */,
 				DB197CCF161B23A6009EA096 /* dynamic-accumulator.c in Sources */,
 				DB197CD0161B23A6009EA096 /* accumulator.c in Sources */,
 				DB197CD1161B23A6009EA096 /* bubblemon.c in Sources */,
@@ -588,7 +587,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
@@ -655,7 +654,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Weverything",
@@ -676,6 +675,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -691,6 +691,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -743,6 +744,7 @@
 				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
 			};
@@ -759,6 +761,7 @@
 				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
 			};
