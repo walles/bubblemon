@@ -7,7 +7,7 @@ extension UserDefaults {
   func addApplication(toDock path: String) -> Bool {
     let domain: [String: Any]? = persistentDomain(forName: "com.apple.dock")
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
-    var newDomain: [String: Any]? = domain?.mutableCopy()
+    var newDomain: [String: Any]? = domain
     var newApps: [Any] = apps
     let app: [AnyHashable: Any] = [ "tile-data" : [ "file-data" : [
                                                                    "_CFURLString" : path,
@@ -33,7 +33,7 @@ extension UserDefaults {
       newApps.append(app)
     }
     if !(apps as NSArray).isEqual(to: newApps) {
-      var newDomain: [String: Any]? = domain?.mutableCopy()
+      var newDomain: [String: Any]? = domain
       newDomain?["persistent-apps"] = newApps
       setPersistentDomain(newDomain!, forName: "com.apple.dock")
       let result: Bool = synchronize()
@@ -58,7 +58,7 @@ extension UserDefaults {
     return false
   }
   
-  func getRunningBubblemonPath() -> String {
+  func getRunningBubblemonPath() -> String? {
     let domain: [String: Any]? = persistentDomain(forName: "com.apple.dock")
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     let matchingApps: [Any] = apps.filter { NSPredicate(format: "%K CONTAINS %@", "tile-data.bundle-identifier", "com.gmail.walles.johan.Bubblemon").evaluate(with: $0) }
