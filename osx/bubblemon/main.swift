@@ -26,7 +26,7 @@ extension UserDefaults {
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     var newApps = [Any]()
     for app: Any in apps {
-      if getPath(app).caseInsensitiveCompare(removePath) == .orderedSame {
+      if getPath(appDictionary: app).caseInsensitiveCompare(removePath) == .orderedSame {
         // This is what we're removing, skip it
         continue
       }
@@ -51,7 +51,7 @@ extension UserDefaults {
     let domain: [String: Any]? = persistentDomain(forName: "com.apple.dock")
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     for appDictionary: Any in apps {
-      if getPath(appDictionary).caseInsensitiveCompare(appPath) == .orderedSame {
+      if getPath(appDictionary: appDictionary).caseInsensitiveCompare(appPath) == .orderedSame {
         return true
       }
     }
@@ -65,7 +65,7 @@ extension UserDefaults {
     if matchingApps.count == 0 {
       return nil
     }
-    return getPath(matchingApps.first!)!
+    return getPath(appDictionary: matchingApps.first!)!
   }
 }
 
