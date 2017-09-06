@@ -29,7 +29,7 @@ extension UserDefaults {
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     var newApps = [Any]()
     for app: Any in apps {
-      if getPath(appDictionary: app as! [String : Any]).caseInsensitiveCompare(removePath) == .orderedSame {
+      if getPath(appDictionary: app)?.caseInsensitiveCompare(removePath) == .orderedSame {
         // This is what we're removing, skip it
         continue
       }
@@ -54,7 +54,7 @@ extension UserDefaults {
     let domain: [String: Any]? = persistentDomain(forName: "com.apple.dock")
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     for appDictionary: Any in apps {
-      if getPath(appDictionary: appDictionary as! [String : Any]).caseInsensitiveCompare(appPath) == .orderedSame {
+      if getPath(appDictionary: appDictionary)?.caseInsensitiveCompare(appPath) == .orderedSame {
         return true
       }
     }
@@ -68,48 +68,60 @@ extension UserDefaults {
     if matchingApps.count == 0 {
       return nil
     }
-    return getPath(appDictionary: matchingApps.first! as! [String : Any])
+    return getPath(appDictionary: matchingApps.first!)
   }
 }
 
 // Return a normalized path from a Dock defaults app entry
-private func getPath(appDictionary: [String: Any]) -> String {
-  let tileDictionary = appDictionary["tile-data"] as? [String: Any] ?? [String: Any]()
-  let fileDictionary = tileDictionary["file-data"] as? [String: Any] ?? [String: Any]()
-  let urlString: String = fileDictionary["_CFURLString"] as? String ?? ""
-  let pathString: String? = URL(string: urlString)?.path
-  return pathString?.resolvingSymlinksInPath!
+//
+// We accept an Any since the data comes from some struct on disk. If we can't
+// parse it we just return nil.
+private func getPath(appDictionary: Any) -> String? {
+  let dictionary = appDictionary as? [String: Any]
+  let tileDictionary = dictionary?["tile-data"] as? [String: Any]
+  let fileDictionary = tileDictionary?["file-data"] as? [String: String]
+  let urlString = fileDictionary?["_CFURLString"]
+  if urlString == nil {
+    return nil
   }
   
-  private func launchActivityMonitor() {
-    print("Launching Activity Monitor...\n")
-    let launched: Bool = NSWorkspace.shared().launchApplication(withBundleIdentifier: "com.apple.ActivityMonitor", options: .default, additionalEventParamDescriptor: nil, launchIdentifier: nil)
-    if !launched {
-      print("Launching Activity Monitor failed\n")
-    }
+  let url = URL(string: urlString!)
+  if url == nil {
+    return nil
   }
   
-  func main(argc: Int, argv: [CChar]) -> Int {
-    let appPath: String = Bundle.main.bundlePath.resolvingSymlinksInPath
-    let defaults = UserDefaults.standard
-    let runningBubblemonPath: String = defaults.getRunningBubblemonPath()
-    if runningBubblemonPath != nil && runningBubblemonPath.caseInsensitiveCompare(appPath) != .orderedSame {
-      print("Removing old Bubblemon: \(runningBubblemonPath)\n")
-      defaults.removeApplication(fromDock: runningBubblemonPath)
-    }
-    if defaults.dockHasApplication(appPath) {
-      print("Bubblemon already installed in the Dock\n")
-      launchActivityMonitor()
-    }
-    else {
-      print("Not found, installing: \(appPath)\n")
-      // Add ourselves to the dock
-      defaults.addApplication(toDock: appPath)
-      print("Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n")
-      let docks: [Any] = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock")
-      for dock: Any in docks {
-        (dock as? NSRunningApplication)?.terminate()
-      }
-    }
-    exit(0)
+  return url!.resolvingSymlinksInPath().path
+}
+
+private func launchActivityMonitor() {
+  print("Launching Activity Monitor...\n")
+  let launched: Bool = NSWorkspace.shared().launchApplication(withBundleIdentifier: "com.apple.ActivityMonitor", options: .default, additionalEventParamDescriptor: nil, launchIdentifier: nil)
+  if !launched {
+    print("Launching Activity Monitor failed\n")
   }
+}
+
+func main(argc: Int, argv: [CChar]) -> Int {
+  let appPath: String = Bundle.main.bundlePath.resolvingSymlinksInPath
+  let defaults = UserDefaults.standard
+  let runningBubblemonPath: String = defaults.getRunningBubblemonPath()
+  if runningBubblemonPath != nil && runningBubblemonPath.caseInsensitiveCompare(appPath) != .orderedSame {
+    print("Removing old Bubblemon: \(runningBubblemonPath)\n")
+    defaults.removeApplication(fromDock: runningBubblemonPath)
+  }
+  if defaults.dockHasApplication(appPath) {
+    print("Bubblemon already installed in the Dock\n")
+    launchActivityMonitor()
+  }
+  else {
+    print("Not found, installing: \(appPath)\n")
+    // Add ourselves to the dock
+    defaults.addApplication(toDock: appPath)
+    print("Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n")
+    let docks: [Any] = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock")
+    for dock: Any in docks {
+      (dock as? NSRunningApplication)?.terminate()
+    }
+  }
+  exit(0)
+}
