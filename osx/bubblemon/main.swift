@@ -101,12 +101,12 @@ private func launchActivityMonitor() {
   }
 }
 
-func main(argc: Int, argv: [CChar]) -> Int32 {
+func main() -> Int32 {
   let appPath = URL(string: Bundle.main.bundlePath)!.resolvingSymlinksInPath().path
   let defaults = UserDefaults.standard
   let runningBubblemonPath = defaults.getRunningBubblemonPath()
-  if runningBubblemonPath != nil && runningBubblemonPath!.caseInsensitiveCompare(appPath) != .orderedSame {
-    print("Removing old Bubblemon: \(runningBubblemonPath)\n")
+  if (runningBubblemonPath ?? "x").caseInsensitiveCompare(appPath) != .orderedSame {
+    print("Removing old Bubblemon: \(runningBubblemonPath!)\n")
 
     if !defaults.removeApplication(fromDock: runningBubblemonPath!) {
       print("Removing old bubblemon failed\n")
@@ -134,3 +134,5 @@ func main(argc: Int, argv: [CChar]) -> Int32 {
 
   return EXIT_SUCCESS
 }
+
+exit(main())
