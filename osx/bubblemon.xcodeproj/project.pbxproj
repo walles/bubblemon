@@ -16,7 +16,7 @@
 		04831887162200F700B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E364A5154D613F002BC8DD /* InfoPlist.strings */; };
-		04E364A9154D613F002BC8DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.m */; };
+		04E364A9154D613F002BC8DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.swift */; };
 		04E364AD154D613F002BC8DD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 04E364AB154D613F002BC8DD /* Credits.rtf */; };
 		DB197C76161B0EB4009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		DB197C7C161B0EB4009EA096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB197C7A161B0EB4009EA096 /* InfoPlist.strings */; };
@@ -85,7 +85,7 @@
 		04E364A1154D613F002BC8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		04E364A4154D613F002BC8DD /* bubblemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "bubblemon-Info.plist"; sourceTree = "<group>"; };
 		04E364A6154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		04E364A8154D613F002BC8DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		04E364A8154D613F002BC8DD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		04E364AA154D613F002BC8DD /* bubblemon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bubblemon-Prefix.pch"; sourceTree = "<group>"; };
 		04E364AC154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		04E364AE154D613F002BC8DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 			children = (
 				04E364A4154D613F002BC8DD /* bubblemon-Info.plist */,
 				04E364A5154D613F002BC8DD /* InfoPlist.strings */,
-				04E364A8154D613F002BC8DD /* main.m */,
+				04E364A8154D613F002BC8DD /* main.swift */,
 				04E364AA154D613F002BC8DD /* bubblemon-Prefix.pch */,
 				04E364AB154D613F002BC8DD /* Credits.rtf */,
 			);
@@ -432,7 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04E364A9154D613F002BC8DD /* main.m in Sources */,
+				04E364A9154D613F002BC8DD /* main.swift in Sources */,
 				DB197C94161B2198009EA096 /* BubblemonView.m in Sources */,
 				DB197C95161B21AC009EA096 /* dynamic-accumulator.c in Sources */,
 				DB197C96161B21AC009EA096 /* accumulator.c in Sources */,
@@ -673,6 +673,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -689,6 +691,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -740,6 +744,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
@@ -759,6 +764,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
