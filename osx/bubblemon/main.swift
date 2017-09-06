@@ -9,11 +9,14 @@ extension UserDefaults {
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     var newDomain: [String: Any]? = domain
     var newApps: [Any] = apps
-    let app: [AnyHashable: Any] = [ "tile-data" : [ "file-data" : [
-                                                                   "_CFURLString" : path,
-                                                                   "_CFURLStringType" : Int(0)
-                                                                   ]
-                                                   ] ]
+    let app: [AnyHashable: Any] = [
+      "tile-data" : [
+        "file-data" : [
+          "_CFURLString" : path,
+          "_CFURLStringType" : Int(0)
+        ]
+      ]
+    ]
     newApps.append(app)
     newDomain?["persistent-apps"] = newApps
     setPersistentDomain(newDomain!, forName: "com.apple.dock")
@@ -26,7 +29,7 @@ extension UserDefaults {
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     var newApps = [Any]()
     for app: Any in apps {
-      if getPath(appDictionary: app).caseInsensitiveCompare(removePath) == .orderedSame {
+      if getPath(appDictionary: app as! [String : Any]).caseInsensitiveCompare(removePath) == .orderedSame {
         // This is what we're removing, skip it
         continue
       }
@@ -51,7 +54,7 @@ extension UserDefaults {
     let domain: [String: Any]? = persistentDomain(forName: "com.apple.dock")
     let apps = domain?["persistent-apps"] as? [Any] ?? [Any]()
     for appDictionary: Any in apps {
-      if getPath(appDictionary: appDictionary).caseInsensitiveCompare(appPath) == .orderedSame {
+      if getPath(appDictionary: appDictionary as! [String : Any]).caseInsensitiveCompare(appPath) == .orderedSame {
         return true
       }
     }
@@ -65,14 +68,14 @@ extension UserDefaults {
     if matchingApps.count == 0 {
       return nil
     }
-    return getPath(appDictionary: matchingApps.first!)!
+    return getPath(appDictionary: matchingApps.first! as! [String : Any])
   }
 }
 
 // Return a normalized path from a Dock defaults app entry
-private func getPath(appDictionary: [AnyHashable: Any]) -> String {
-  let tileDictionary = appDictionary["tile-data"] as? [AnyHashable: Any] ?? [AnyHashable: Any]()
-  let fileDictionary = tileDictionary["file-data"] as? [AnyHashable: Any] ?? [AnyHashable: Any]()
+private func getPath(appDictionary: [String: Any]) -> String {
+  let tileDictionary = appDictionary["tile-data"] as? [String: Any] ?? [String: Any]()
+  let fileDictionary = tileDictionary["file-data"] as? [String: Any] ?? [String: Any]()
   let urlString: String = fileDictionary["_CFURLString"] as? String ?? ""
   let pathString: String? = URL(string: urlString)?.path
   return pathString?.resolvingSymlinksInPath!
