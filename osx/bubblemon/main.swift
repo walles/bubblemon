@@ -101,27 +101,36 @@ private func launchActivityMonitor() {
   }
 }
 
-func main(argc: Int, argv: [CChar]) -> Int {
-  let appPath: String = Bundle.main.bundlePath.resolvingSymlinksInPath
+func main(argc: Int, argv: [CChar]) -> Int32 {
+  let appPath = URL(string: Bundle.main.bundlePath)!.resolvingSymlinksInPath().path
   let defaults = UserDefaults.standard
-  let runningBubblemonPath: String = defaults.getRunningBubblemonPath()
-  if runningBubblemonPath != nil && runningBubblemonPath.caseInsensitiveCompare(appPath) != .orderedSame {
+  let runningBubblemonPath = defaults.getRunningBubblemonPath()
+  if runningBubblemonPath != nil && runningBubblemonPath!.caseInsensitiveCompare(appPath) != .orderedSame {
     print("Removing old Bubblemon: \(runningBubblemonPath)\n")
-    defaults.removeApplication(fromDock: runningBubblemonPath)
+
+    if !defaults.removeApplication(fromDock: runningBubblemonPath!) {
+      print("Removing old bubblemon failed\n")
+    }
   }
+
   if defaults.dockHasApplication(appPath) {
     print("Bubblemon already installed in the Dock\n")
     launchActivityMonitor()
+    return EXIT_SUCCESS
   }
-  else {
-    print("Not found, installing: \(appPath)\n")
-    // Add ourselves to the dock
-    defaults.addApplication(toDock: appPath)
-    print("Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n")
-    let docks: [Any] = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock")
-    for dock: Any in docks {
-      (dock as? NSRunningApplication)?.terminate()
-    }
+
+  print("Not found, installing: \(appPath)\n")
+  // Add ourselves to the dock
+  if !defaults.addApplication(toDock: appPath) {
+    print("Adding ourselves to the Dock failed, bailing...")
+    return EXIT_FAILURE
   }
-  exit(0)
+
+  print("Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n")
+  let docks: [Any] = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock")
+  for dock: Any in docks {
+    (dock as? NSRunningApplication)?.terminate()
+  }
+
+  return EXIT_SUCCESS
 }
