@@ -33,7 +33,6 @@
 		DB197C96161B21AC009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		DB197C97161B21AC009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		DB197C98161B21AC009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
-		DB197CB9161B239A009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		DB197CBF161B239A009EA096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB197CBD161B239A009EA096 /* InfoPlist.strings */; };
 		DB197CC5161B239A009EA096 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DB197CC3161B239A009EA096 /* Credits.rtf */; };
 		DB197CC8161B239A009EA096 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB197CC7161B239A009EA096 /* AppDelegate.swift */; };
@@ -43,8 +42,6 @@
 		DB197CD1161B23A6009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		DB197CD3161B23A6009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
-		DB197CD4161B23FE009EA096 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
-		DB7C5EEE1F5E749E00CE84F2 /* libswiftAppKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7C5EED1F5E749E00CE84F2 /* libswiftAppKit.tbd */; };
 		DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,9 +128,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB7C5EEE1F5E749E00CE84F2 /* libswiftAppKit.tbd in Frameworks */,
-				DB197CD4161B23FE009EA096 /* IOKit.framework in Frameworks */,
-				DB197CB9161B239A009EA096 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
