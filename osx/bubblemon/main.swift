@@ -92,8 +92,8 @@ extension UserDefaults {
 private func getPath(appDictionary: Any) -> String? {
   let dictionary = appDictionary as? [String: Any]
   let tileDictionary = dictionary?["tile-data"] as? [String: Any]
-  let fileDictionary = tileDictionary?["file-data"] as? [String: String]
-  let urlString = fileDictionary?["_CFURLString"]
+  let fileDictionary = tileDictionary?["file-data"] as? [String: Any]
+  let urlString = fileDictionary?["_CFURLString"] as? String
   if urlString == nil {
     return nil
   }
