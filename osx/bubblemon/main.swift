@@ -105,7 +105,7 @@ func main() -> Int32 {
   let appPath = URL(string: Bundle.main.bundlePath)!.resolvingSymlinksInPath().path
   let defaults = UserDefaults.standard
   let runningBubblemonPath = defaults.getRunningBubblemonPath()
-  if (runningBubblemonPath ?? "x").caseInsensitiveCompare(appPath) != .orderedSame {
+  if runningBubblemonPath != nil && runningBubblemonPath!.caseInsensitiveCompare(appPath) != .orderedSame {
     print("Removing old Bubblemon: \(runningBubblemonPath!)\n")
 
     if !defaults.removeApplication(fromDock: runningBubblemonPath!) {
