@@ -669,6 +669,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -687,6 +688,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
