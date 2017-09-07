@@ -25,9 +25,7 @@
 		DB197C8F161B106A009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		DB197C90161B106A009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		DB197C91161B106A009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
-		DB197C92161B106E009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
 		DB197C93161B117F009EA096 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
-		DB197C94161B2198009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
 		DB197C95161B21AC009EA096 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
 		DB197C96161B21AC009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		DB197C97161B21AC009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
@@ -40,7 +38,6 @@
 		DB197CD0161B23A6009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		DB197CD1161B23A6009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
-		DB197CD3161B23A6009EA096 /* BubblemonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041BF106154DAEED009AE6D8 /* BubblemonView.m */; };
 		DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,8 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		041BF105154DAEED009AE6D8 /* BubblemonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubblemonView.h; sourceTree = "<group>"; };
-		041BF106154DAEED009AE6D8 /* BubblemonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubblemonView.m; sourceTree = "<group>"; };
+		041BF105154DAEED009AE6D8 /* BubblemonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblemonView.swift; sourceTree = "<group>"; };
 		041BF109154F1DA1009AE6D8 /* accumulator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = accumulator.c; path = ../src/accumulator.c; sourceTree = "<group>"; };
 		0420B9FB1575431100A7B26C /* dynamic-accumulator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "dynamic-accumulator.c"; path = "../src/dynamic-accumulator.c"; sourceTree = "<group>"; };
 		0420B9FE1576A9B600A7B26C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -142,8 +138,7 @@
 				041BF109154F1DA1009AE6D8 /* accumulator.c */,
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
 				04DCE75F154D670700C3C4FD /* osx-meter.c */,
-				041BF105154DAEED009AE6D8 /* BubblemonView.h */,
-				041BF106154DAEED009AE6D8 /* BubblemonView.m */,
+				041BF105154DAEED009AE6D8 /* BubblemonView.swift */,
 				04E364A2154D613F002BC8DD /* bubblemon */,
 				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				DB197CBA161B239A009EA096 /* BubblemonWindow */,
@@ -433,7 +428,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				04E364A9154D613F002BC8DD /* main.swift in Sources */,
-				DB197C94161B2198009EA096 /* BubblemonView.m in Sources */,
 				DB197C95161B21AC009EA096 /* dynamic-accumulator.c in Sources */,
 				DB197C96161B21AC009EA096 /* accumulator.c in Sources */,
 				DB197C97161B21AC009EA096 /* bubblemon.c in Sources */,
@@ -449,7 +443,6 @@
 				DB197C8F161B106A009EA096 /* accumulator.c in Sources */,
 				DB197C90161B106A009EA096 /* bubblemon.c in Sources */,
 				DB197C91161B106A009EA096 /* osx-meter.c in Sources */,
-				DB197C92161B106E009EA096 /* BubblemonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,7 +455,6 @@
 				DB197CD0161B23A6009EA096 /* accumulator.c in Sources */,
 				DB197CD1161B23A6009EA096 /* bubblemon.c in Sources */,
 				DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */,
-				DB197CD3161B23A6009EA096 /* BubblemonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
