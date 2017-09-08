@@ -38,6 +38,9 @@
 		DB197CD0161B23A6009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		DB197CD1161B23A6009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
+		DB6C6E211F6280D400CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
+		DB6C6E221F6280DC00CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
+		DB6C6E231F6280E300CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -421,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6C6E231F6280E300CFE8D4 /* BubblemonView.swift in Sources */,
 				04E364A9154D613F002BC8DD /* main.swift in Sources */,
 				DB197C95161B21AC009EA096 /* dynamic-accumulator.c in Sources */,
 				DB197C96161B21AC009EA096 /* accumulator.c in Sources */,
@@ -433,6 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6C6E221F6280DC00CFE8D4 /* BubblemonView.swift in Sources */,
 				DB197C8E161B106A009EA096 /* dynamic-accumulator.c in Sources */,
 				DB197C8F161B106A009EA096 /* accumulator.c in Sources */,
 				DB197C90161B106A009EA096 /* bubblemon.c in Sources */,
@@ -444,6 +449,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6C6E211F6280D400CFE8D4 /* BubblemonView.swift in Sources */,
 				DB197CC8161B239A009EA096 /* AppDelegate.swift in Sources */,
 				DB197CCF161B23A6009EA096 /* dynamic-accumulator.c in Sources */,
 				DB197CD0161B23A6009EA096 /* accumulator.c in Sources */,
@@ -650,6 +656,7 @@
 		04E364B7154D613F002BC8DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -670,6 +677,7 @@
 		04E364B8154D613F002BC8DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
