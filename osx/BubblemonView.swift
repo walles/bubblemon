@@ -1,19 +1,19 @@
 import Cocoa
 
 private func createContext(width: size_t, height: size_t) -> CGContext? {
-  let bytesPerRow: Int = width * 4
+  let bytesPerRow = width * 4
 
   // rgb alpha
-  let rgb: CGColorSpace? = CGColorSpaceCreateDeviceRGB()
+  let rgb = CGColorSpaceCreateDeviceRGB()
   let zBitmapContextRef = CGContext(data: nil,
                                     width: width,
                                     height: height,
                                     bitsPerComponent: 8,
                                     bytesPerRow: bytesPerRow,
                                     space: rgb,
-                                    bitmapInfo: (kCGImageAlphaPremultipliedLast as? CGBitmapInfo))
+                                    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
   return zBitmapContextRef
- }
+}
 
 private func releaseDataProvider(info: Void, data: Void, size: size_t) {
   // No need to actually free anything here, the data is handled by
