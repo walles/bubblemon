@@ -179,24 +179,23 @@ class BubblemonView: NSView, NSDockTilePlugIn {
       bitsPerPixel: bitsPerPixel,
       bytesPerRow: bytesPerRow,
       space: rgb,
-      bitmapInfo: (kCGImageAlphaNoneSkipLast as? CGBitmapInfo),
-      provider: dataProviderRef,
+      bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue),
+      provider: dataProviderRef!,
       decode: nil,
       shouldInterpolate: shouldInterpolate,
       intent: CGColorRenderingIntent.defaultIntent)
 
     let nsGraphicsContext = NSGraphicsContext.current()
-    let cgContextRef = nsGraphicsContext?.cgContext
+    let cgContext = nsGraphicsContext?.cgContext
     // Draw the bubblemon image
     let bubbleViewRect = CGRect(x: bounds.size.width * 0.08, y: bounds.size.height * 0.08, width: bounds.size.width * 0.84, height: bounds.size.height * 0.84)
-    cgContextRef?.setAlpha(1.0)
-    CGContextSetInterpolationQuality(cgContextRef, kCGInterpolationNone)
-    cgContextRef.draw(in: cgImage, image: bubbleViewRect)
-    CGImageRelease(cgImage)
+    cgContext!.setAlpha(1.0)
+    cgContext!.interpolationQuality = .none
+    cgContext!.draw(cgImage!, in: bubbleViewRect)
     // Draw the window frame
     let fullSizeRect = NSRectToCGRect(bounds)
-    cgContextRef?.setAlpha(1.0)
-    cgContextRef?.draw(getCachedWindowFrame(), in: fullSizeRect)
+    cgContext?.setAlpha(1.0)
+    cgContext?.draw(getCachedWindowFrame(), in: fullSizeRect)
   }
 }
 
