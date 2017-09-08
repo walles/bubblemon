@@ -15,14 +15,9 @@ private func createContext(width: size_t, height: size_t) -> CGContext? {
   return zBitmapContextRef
 }
 
-private func releaseDataProvider(info: Void, data: Void, size: size_t) {
-  // No need to actually free anything here, the data is handled by
-  // the bubblemon code.
-}
-
 class BubblemonView: NSView, NSDockTilePlugIn {
   private var _bubblemon: UnsafeMutablePointer<bubblemon_t>
-  private var _picture: UnsafeMutablePointer<bubblemon_picture_t>?
+  private var _picture: UnsafePointer<bubblemon_picture_t>?
   private var _dockTile: NSDockTile?
   private var _dockMenu: NSMenu?
   private var _windowFrame: CGImage?
@@ -163,29 +158,49 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     if _picture == nil {
       return
     }
-    let picture = _picture!
+    let picture = _picture!.pointee
 
     // Redraw ourselves
-    let imageDataSize = picture.width * picture.height * MemoryLayout<bubblemon_color_t>.size
-    let dataProviderRef: CGDataProvider? = CGDataProviderCreateWithData(nil, picture.pixels, imageDataSize, releaseDataProvider)
+    let imageDataSize = Int(picture.width * picture.height) * MemoryLayout<bubblemon_color_t>.size
+    let dataProviderRef = CGDataProvider(
+      dataInfo: nil,
+      data: picture.pixels,
+      size: imageDataSize,
+      releaseData: releaseDataProvider)
+
     let bitsPerComponent: size_t = 8
     let bitsPerPixel = MemoryLayout<bubblemon_color_t>.size * 8
-    let bytesPerRow = picture.width * MemoryLayout<bubblemon_color_t>.size
+    let bytesPerRow = Int(picture.width) * MemoryLayout<bubblemon_color_t>.size
     let shouldInterpolate: Bool = false
-    let rgb: CGColorSpace? = CGColorSpaceCreateDeviceRGB()
-    let CGImage: CGImage? = CGImageCreate(picture.width, picture.height, bitsPerComponent, bitsPerPixel, bytesPerRow, rgb, (kCGImageAlphaNoneSkipLast as? CGBitmapInfo), dataProviderRef, nil, shouldInterpolate, CGColorRenderingIntent.defaultIntent)
-    CGDataProviderRelease(dataProviderRef)
+    let rgb = CGColorSpaceCreateDeviceRGB()
+    let cgImage = CGImage(
+      width: Int(picture.width), height: Int(picture.height),
+      bitsPerComponent: bitsPerComponent,
+      bitsPerPixel: bitsPerPixel,
+      bytesPerRow: bytesPerRow,
+      space: rgb,
+      bitmapInfo: (kCGImageAlphaNoneSkipLast as? CGBitmapInfo),
+      provider: dataProviderRef,
+      decode: nil,
+      shouldInterpolate: shouldInterpolate,
+      intent: CGColorRenderingIntent.defaultIntent)
+
     let nsGraphicsContext = NSGraphicsContext.current()
-    let cgContextRef: CGContext?? = (nsGraphicsContext?.graphicsPort as? CGContext?)
+    let cgContextRef = nsGraphicsContext?.cgContext
     // Draw the bubblemon image
     let bubbleViewRect = CGRect(x: bounds.size.width * 0.08, y: bounds.size.height * 0.08, width: bounds.size.width * 0.84, height: bounds.size.height * 0.84)
-    cgContextRef.setAlpha(1.0)
+    cgContextRef?.setAlpha(1.0)
     CGContextSetInterpolationQuality(cgContextRef, kCGInterpolationNone)
-    cgContextRef.draw(in: CGImage, image: bubbleViewRect)
-    CGImageRelease(CGImage)
+    cgContextRef.draw(in: cgImage, image: bubbleViewRect)
+    CGImageRelease(cgImage)
     // Draw the window frame
     let fullSizeRect = NSRectToCGRect(bounds)
-    cgContextRef.setAlpha(1.0)
-    cgContextRef.draw(in: getCachedWindowFrame(), image: fullSizeRect)
+    cgContextRef?.setAlpha(1.0)
+    cgContextRef?.draw(getCachedWindowFrame(), in: fullSizeRect)
   }
+}
+
+func releaseDataProvider(_ context:UnsafeMutableRawPointer?, data:UnsafeRawPointer, size:Int) {
+  // No need to actually free anything here, the data is handled by
+  // the bubblemon code.
 }
