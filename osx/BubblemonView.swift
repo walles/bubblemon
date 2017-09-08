@@ -139,7 +139,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 
     let scaledContext = createContext(width: width, height: height)
     let rect = CGRect(x: 0, y: 0, width: width, height: height)
-    scaledContext!.draw(in: _windowFrame, image: rect)
+    scaledContext!.draw(_windowFrame!, in: rect)
     _scaledWindowFrame = scaledContext!.makeImage()
     return _scaledWindowFrame!
   }
