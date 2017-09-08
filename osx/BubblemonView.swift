@@ -79,14 +79,21 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     )
 
     // The Git hash and version get filled in by a "Run Script" build step
-    let bundle = Bundle(for: BubblemonView)
-    let icon: NSImage? = bundle.image(forResource: "icon.png")
-    let gitHash: String? = bundle.infoDictionary["GitHash"]
-    let gitDescribe: String? = bundle.infoDictionary["GitDescribe"]
-    let copyright: String? = bundle.infoDictionary["NSHumanReadableCopyright"]
-    let aboutOptions: [AnyHashable: Any] = ["Credits": credits, "ApplicationName": "Bubblemon", "ApplicationIcon": icon, "Version": gitHash, "Copyright": copyright, "ApplicationVersion": gitDescribe]
+    let bundle = Bundle(for: BubblemonView.self)
+    let icon = bundle.image(forResource: "icon.png")
+    let gitHash = bundle.infoDictionary?["GitHash"] as? String
+    let gitDescribe = bundle.infoDictionary?["GitDescribe"] as? String
+    let copyright = bundle.infoDictionary?["NSHumanReadableCopyright"] as? String
+    let aboutOptions: [String: Any] = [
+      "Credits": credits,
+      "ApplicationName": "Bubblemon",
+      "ApplicationIcon": icon!,
+      "Version": gitHash!,
+      "Copyright": copyright!,
+      "ApplicationVersion": gitDescribe!
+    ]
     NSApplication.shared().activate(ignoringOtherApps: true)
-    NSApplication.shared().orderFrontStandardAboutPanel(options: aboutOptions as? [String : Any] ?? [String : Any]())
+    NSApplication.shared().orderFrontStandardAboutPanel(options: aboutOptions)
   }
 
   override init(frame frameRect: NSRect) {
