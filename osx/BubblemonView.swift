@@ -111,10 +111,14 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     // Load window frame graphics
     let bundle = Bundle(for: BubblemonView.self)
     let windowFrameUrl = bundle.urlForImageResource("window-frame")
-    let dataProvider = CGDataProviderCreateWithURL(windowFrameUrl)
-    _windowFrame = CGImageCreateWithPNGDataProvider(dataProvider, nil, false, CGColorRenderingIntent.defaultIntent)
-    CGDataProviderRelease(dataProvider)
+    let windowFrameNsUrl = NSURL(string: (windowFrameUrl?.absoluteString)!)
 
+    let dataProvider = CGDataProvider(url: windowFrameNsUrl!)
+    _windowFrame = CGImage(
+      pngDataProviderSource: dataProvider!,
+      decode: nil,
+      shouldInterpolate: false,
+      intent: CGColorRenderingIntent.defaultIntent)
   }
 
   func getCachedWindowFrame() -> CGImage {
