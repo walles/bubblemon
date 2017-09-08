@@ -122,20 +122,26 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   }
 
   func getCachedWindowFrame() -> CGImage {
-    let width: size_t = bounds.size.width
-    let height: size_t = bounds.size.height
-    if _scaledWindowFrame != nil && CGImageGetWidth(_scaledWindowFrame) == width && CGImageGetHeight(_scaledWindowFrame) == height {
-      return _scaledWindowFrame
+    let width = Int(round(bounds.size.width))
+    let height = Int(round(bounds.size.height))
+
+    // Can we use our cached window frame?
+    if _scaledWindowFrame == nil {
+      // No; we don't have one
+    } else if _scaledWindowFrame!.width != width {
+      // No; the width doesn't match
+    } else if _scaledWindowFrame!.height != height {
+      // No; the height doesn't match
+    } else {
+      // Yes!
+      return _scaledWindowFrame!
     }
-    if _scaledWindowFrame != nil {
-      CGImageRelease(_scaledWindowFrame)
-    }
-    let scaledContext: CGContext? = createContext(width, height)
-    let rect = CGRect(x: 0, y: 0, width: width as? CGFloat ?? 0.0, height: height as? CGFloat ?? 0.0)
-    scaledContext.draw(in: _windowFrame, image: rect)
-    _scaledWindowFrame = scaledContext.makeImage()
-    CGContextRelease(scaledContext)
-    return _scaledWindowFrame
+
+    let scaledContext = createContext(width: width, height: height)
+    let rect = CGRect(x: 0, y: 0, width: width, height: height)
+    scaledContext!.draw(in: _windowFrame, image: rect)
+    _scaledWindowFrame = scaledContext!.makeImage()
+    return _scaledWindowFrame!
   }
 
   func timerTriggered() {
