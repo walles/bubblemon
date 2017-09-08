@@ -91,9 +91,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     NSApplication.shared().orderFrontStandardAboutPanel(options: aboutOptions)
   }
 
-  override init(frame frameRect: NSRect) {
-    super.init(frame: frame)
-
+  override init(frame: NSRect) {
     // Initialization code here.
 #if DEBUG
     bubblemon_selftest()
@@ -101,8 +99,6 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     _bubblemon = bubblemon_init()
     bubblemon_setColors(_bubblemon, 0x75ceff00, 0x0066ff80, 0xff333340, 0xaa000080, 0x00ff0080, 0xffff40ff)
     _picture = nil
-    // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
-    Timer.scheduledTimer(timeInterval: (1.0 / 10.0), target: self, selector: #selector(self.timerTriggered), userInfo: nil, repeats: true)
     // Load window frame graphics
     let bundle = Bundle(for: BubblemonView.self)
     let windowFrameUrl = bundle.urlForImageResource("window-frame")
@@ -114,6 +110,20 @@ class BubblemonView: NSView, NSDockTilePlugIn {
       decode: nil,
       shouldInterpolate: false,
       intent: CGColorRenderingIntent.defaultIntent)
+
+    super.init(frame: frame)
+
+    // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
+    Timer.scheduledTimer(
+      timeInterval: (1.0 / 10.0),
+      target: self,
+      selector: #selector(self.timerTriggered),
+      userInfo: nil,
+      repeats: true)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 
   func getCachedWindowFrame() -> CGImage {
