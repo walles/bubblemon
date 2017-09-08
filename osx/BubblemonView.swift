@@ -40,16 +40,19 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     if _dockMenu != nil {
       return _dockMenu
     }
-    _dockMenu = NSMenu()
+
+    let menu = NSMenu()
     let helpItem = NSMenuItem(title: "Help", action: #selector(self.openLegend), keyEquivalent: "")
     helpItem.target = self
-    _dockMenu!.addItem(helpItem)
+    menu.addItem(helpItem)
     let aboutItem = NSMenuItem(title: "About", action: #selector(self.openAboutPanel), keyEquivalent: "")
     aboutItem.target = self
-    _dockMenu!.addItem(aboutItem)
+    menu.addItem(aboutItem)
     let shareItem = NSMenuItem(title: "Share on Facebook", action: #selector(self.shareOnFacebook), keyEquivalent: "")
     shareItem.target = self
-    _dockMenu.addItem(shareItem)
+    menu.addItem(shareItem)
+
+    _dockMenu = menu
     return _dockMenu
   }
 
@@ -60,7 +63,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     NSWorkspace.shared().open(url!)
   }
 
-  @IBAction func share(onFacebook sender: Any) {
+  @IBAction func shareOnFacebook(_ sender: Any) {
     Swift.print("Opening browser to share on Facebook...\n")
     // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
     let url = URL(string: "https://www.facebook.com/sharer/sharer.php?u=http%3A//walles.github.io/bubblemon/")
