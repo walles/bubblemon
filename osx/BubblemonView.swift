@@ -21,8 +21,8 @@ private func releaseDataProvider(info: Void, data: Void, size: size_t) {
 }
 
 class BubblemonView: NSView, NSDockTilePlugIn {
-  private var _bubblemon: bubblemon_t?
-  private let _picture: bubblemon_picture_t?
+  private var _bubblemon: UnsafeMutablePointer<bubblemon_t>
+  private var _picture: UnsafeMutablePointer<bubblemon_picture_t>?
   private var _dockTile: NSDockTile?
   private var _dockMenu: NSMenu?
   private var _windowFrame: CGImage?
@@ -109,9 +109,9 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
     Timer.scheduledTimer(timeInterval: (1.0 / 10.0), target: self, selector: #selector(self.timerTriggered), userInfo: nil, repeats: true)
     // Load window frame graphics
-    let bundle = Bundle(for: BubblemonView)
-    let windowFrameUrl: CFURLRef? = (bundle.urlForImageResource("window-frame") as? CFURLRef)
-    let dataProvider: CGDataProviderRef = CGDataProviderCreateWithURL(windowFrameUrl)
+    let bundle = Bundle(for: BubblemonView.self)
+    let windowFrameUrl = bundle.urlForImageResource("window-frame")
+    let dataProvider = CGDataProviderCreateWithURL(windowFrameUrl)
     _windowFrame = CGImageCreateWithPNGDataProvider(dataProvider, nil, false, CGColorRenderingIntent.defaultIntent)
     CGDataProviderRelease(dataProvider)
 
