@@ -23,30 +23,30 @@ private func releaseDataProvider(info: Void, data: Void, size: size_t) {
 class BubblemonView: NSView, NSDockTilePlugIn {
   private var bubblemon: bubblemon_t?
   private let picture: bubblemon_picture_t?
-  private var dockTile: NSDockTile?
-  private var dockMenu: NSMenu?
+  private var _dockTile: NSDockTile?
+  private var _dockMenu: NSMenu?
   private var windowFrame: CGImage?
   private var scaledWindowFrame: CGImage?
 
   func setDockTile(_ dockTile: NSDockTile?) {
     if dockTile != nil {
-      self.dockTile = dockTile
-      self.dockTile!.contentView = self
+      _dockTile = dockTile
+      _dockTile!.contentView = self
     }
   }
 
   func dockMenu() -> NSMenu? {
-    print("Setting up dock menu\n")
+    Swift.print("Setting up dock menu\n")
     if _dockMenu != nil {
       return _dockMenu
     }
     _dockMenu = NSMenu()
     let helpItem = NSMenuItem(title: "Help", action: #selector(self.openLegend), keyEquivalent: "")
     helpItem.target = self
-    _dockMenu.addItem(helpItem)
+    _dockMenu!.addItem(helpItem)
     let aboutItem = NSMenuItem(title: "About", action: #selector(self.openAboutPanel), keyEquivalent: "")
     aboutItem.target = self
-    _dockMenu.addItem(aboutItem)
+    _dockMenu!.addItem(aboutItem)
     let shareItem = NSMenuItem(title: "Share on Facebook", action: #selector(self.shareOnFacebook), keyEquivalent: "")
     shareItem.target = self
     _dockMenu.addItem(shareItem)
@@ -61,7 +61,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   }
 
   @IBAction func share(onFacebook sender: Any) {
-    print("Opening browser to share on Facebook...\n")
+    Swift.print("Opening browser to share on Facebook...\n")
     // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
     let url = URL(string: "https://www.facebook.com/sharer/sharer.php?u=http%3A//walles.github.io/bubblemon/")
     NSWorkspace.shared().open(url!)
