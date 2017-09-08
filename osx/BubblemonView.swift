@@ -21,12 +21,12 @@ private func releaseDataProvider(info: Void, data: Void, size: size_t) {
 }
 
 class BubblemonView: NSView, NSDockTilePlugIn {
-  private var bubblemon: bubblemon_t?
-  private let picture: bubblemon_picture_t?
+  private var _bubblemon: bubblemon_t?
+  private let _picture: bubblemon_picture_t?
   private var _dockTile: NSDockTile?
   private var _dockMenu: NSMenu?
-  private var windowFrame: CGImage?
-  private var scaledWindowFrame: CGImage?
+  private var _windowFrame: CGImage?
+  private var _scaledWindowFrame: CGImage?
 
   func setDockTile(_ dockTile: NSDockTile?) {
     if dockTile != nil {
@@ -71,7 +71,13 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   }
 
   @IBAction func openAboutPanel(_ sender: Any) {
-    let credits = NSAttributedString(string: "http://walles.github.io/bubblemon", attributes: [NSLinkAttributeName: "http://walles.github.io/bubblemon"])
+    let credits = NSAttributedString(
+      string: "http://walles.github.io/bubblemon",
+      attributes: [
+        NSLinkAttributeName: "http://walles.github.io/bubblemon"
+      ]
+    )
+
     // The Git hash and version get filled in by a "Run Script" build step
     let bundle = Bundle(for: BubblemonView)
     let icon: NSImage? = bundle.image(forResource: "icon.png")
@@ -90,16 +96,16 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 #if DEBUG
     bubblemon_selftest()
 #endif
-    bubblemon = bubblemon_init()
-    bubblemon_setColors(bubblemon, 0x75ceff00, 0x0066ff80, 0xff333340, 0xaa000080, 0x00ff0080, 0xffff40ff)
-    picture = nil
+    _bubblemon = bubblemon_init()
+    bubblemon_setColors(_bubblemon, 0x75ceff00, 0x0066ff80, 0xff333340, 0xaa000080, 0x00ff0080, 0xffff40ff)
+    _picture = nil
     // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
     Timer.scheduledTimer(timeInterval: (1.0 / 10.0), target: self, selector: #selector(self.timerTriggered), userInfo: nil, repeats: true)
     // Load window frame graphics
     let bundle = Bundle(for: BubblemonView)
     let windowFrameUrl: CFURLRef? = (bundle.urlForImageResource("window-frame") as? CFURLRef)
     let dataProvider: CGDataProviderRef = CGDataProviderCreateWithURL(windowFrameUrl)
-    windowFrame = CGImageCreateWithPNGDataProvider(dataProvider, nil, false, CGColorRenderingIntent.defaultIntent)
+    _windowFrame = CGImageCreateWithPNGDataProvider(dataProvider, nil, false, CGColorRenderingIntent.defaultIntent)
     CGDataProviderRelease(dataProvider)
 
   }
@@ -107,49 +113,50 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   func getCachedWindowFrame() -> CGImage {
     let width: size_t = bounds.size.width
     let height: size_t = bounds.size.height
-    if scaledWindowFrame != nil && CGImageGetWidth(scaledWindowFrame) == width && CGImageGetHeight(scaledWindowFrame) == height {
-      return scaledWindowFrame
+    if _scaledWindowFrame != nil && CGImageGetWidth(_scaledWindowFrame) == width && CGImageGetHeight(_scaledWindowFrame) == height {
+      return _scaledWindowFrame
     }
-    if scaledWindowFrame != nil {
-      CGImageRelease(scaledWindowFrame)
+    if _scaledWindowFrame != nil {
+      CGImageRelease(_scaledWindowFrame)
     }
     let scaledContext: CGContext? = createContext(width, height)
     let rect = CGRect(x: 0, y: 0, width: width as? CGFloat ?? 0.0, height: height as? CGFloat ?? 0.0)
-    scaledContext.draw(in: windowFrame, image: rect)
-    scaledWindowFrame = scaledContext.makeImage()
+    scaledContext.draw(in: _windowFrame, image: rect)
+    _scaledWindowFrame = scaledContext.makeImage()
     CGContextRelease(scaledContext)
-    return scaledWindowFrame
+    return _scaledWindowFrame
   }
 
   func timerTriggered() {
     // Compute a new image to display
     // The Dock won't tell us its size, so this is a guess at roughly how many pixels
     // the bubblemon will get on screen.
-    bubblemon_setSize(bubblemon, 50, 50)
-    picture = bubblemon_getPicture(bubblemon)
-    let tooltip = String(utf8String: bubblemon_getTooltip(bubblemon))
+    bubblemon_setSize(_bubblemon, 50, 50)
+    _picture = bubblemon_getPicture(_bubblemon)
+    let tooltip = String(utf8String: bubblemon_getTooltip(_bubblemon))
     toolTip = tooltip
-    if dockTile != nil {
-      dockTile?.display()
-    }
-    else {
+    if _dockTile != nil {
+      _dockTile!.display()
+    } else {
       needsDisplay = true
     }
   }
 
   override func draw(_ dirtyRect: NSRect) {
-    if picture == nil {
+    if _picture == nil {
       return
     }
+    let picture = _picture!
+
     // Redraw ourselves
-    let imageDataSize: size_t? = picture?.width * picture?.height * MemoryLayout<bubblemon_color_t>.size
-    let dataProviderRef: CGDataProviderRef? = CGDataProviderCreateWithData(nil, picture?.pixels, imageDataSize, releaseDataProvider)
+    let imageDataSize = picture.width * picture.height * MemoryLayout<bubblemon_color_t>.size
+    let dataProviderRef: CGDataProvider? = CGDataProviderCreateWithData(nil, picture.pixels, imageDataSize, releaseDataProvider)
     let bitsPerComponent: size_t = 8
-    let bitsPerPixel: size_t = MemoryLayout<bubblemon_color_t>.size * 8
-    let bytesPerRow: size_t? = picture?.width * MemoryLayout<bubblemon_color_t>.size
+    let bitsPerPixel = MemoryLayout<bubblemon_color_t>.size * 8
+    let bytesPerRow = picture.width * MemoryLayout<bubblemon_color_t>.size
     let shouldInterpolate: Bool = false
     let rgb: CGColorSpace? = CGColorSpaceCreateDeviceRGB()
-    let CGImage: CGImage? = CGImageCreate(picture?.width, picture?.height, bitsPerComponent, bitsPerPixel, bytesPerRow, rgb, (kCGImageAlphaNoneSkipLast as? CGBitmapInfo), dataProviderRef, nil, shouldInterpolate, CGColorRenderingIntent.defaultIntent)
+    let CGImage: CGImage? = CGImageCreate(picture.width, picture.height, bitsPerComponent, bitsPerPixel, bytesPerRow, rgb, (kCGImageAlphaNoneSkipLast as? CGBitmapInfo), dataProviderRef, nil, shouldInterpolate, CGColorRenderingIntent.defaultIntent)
     CGDataProviderRelease(dataProviderRef)
     let nsGraphicsContext = NSGraphicsContext.current()
     let cgContextRef: CGContext?? = (nsGraphicsContext?.graphicsPort as? CGContext?)
