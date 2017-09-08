@@ -84,9 +84,9 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     super.init(frame: frame)
 
     // Initialization code here.
-f DEBUG
+#if DEBUG
     bubblemon_selftest()
-ndif
+#endif
     bubblemon = bubblemon_init()
     bubblemon_setColors(bubblemon, 0x75ceff00, 0x0066ff80, 0xff333340, 0xaa000080, 0x00ff0080, 0xffff40ff)
     picture = nil
