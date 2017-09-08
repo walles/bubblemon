@@ -186,16 +186,19 @@ class BubblemonView: NSView, NSDockTilePlugIn {
       intent: CGColorRenderingIntent.defaultIntent)
 
     let nsGraphicsContext = NSGraphicsContext.current()
-    let cgContext = nsGraphicsContext?.cgContext
+    guard let cgContext = nsGraphicsContext?.cgContext else {
+      fatalError("unable to get a CGContext, can't draw")
+    }
+
     // Draw the bubblemon image
     let bubbleViewRect = CGRect(x: bounds.size.width * 0.08, y: bounds.size.height * 0.08, width: bounds.size.width * 0.84, height: bounds.size.height * 0.84)
-    cgContext!.setAlpha(1.0)
-    cgContext!.interpolationQuality = .none
-    cgContext!.draw(cgImage!, in: bubbleViewRect)
+    cgContext.setAlpha(1.0)
+    cgContext.interpolationQuality = .none
+    cgContext.draw(cgImage!, in: bubbleViewRect)
     // Draw the window frame
     let fullSizeRect = NSRectToCGRect(bounds)
-    cgContext?.setAlpha(1.0)
-    cgContext?.draw(getCachedWindowFrame(), in: fullSizeRect)
+    cgContext.setAlpha(1.0)
+    cgContext.draw(getCachedWindowFrame(), in: fullSizeRect)
   }
 }
 
