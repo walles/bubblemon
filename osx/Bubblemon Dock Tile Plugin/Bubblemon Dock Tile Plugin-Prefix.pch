@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'Bubblemon Dock Tile Plugin' target in the 'Bubblemon Dock Tile Plugin' project
-//
-
-#ifdef __OBJC__
-  #import <Cocoa/Cocoa.h>
-#endif

@@ -82,17 +82,14 @@
 		04E364A4154D613F002BC8DD /* bubblemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "bubblemon-Info.plist"; sourceTree = "<group>"; };
 		04E364A6154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04E364A8154D613F002BC8DD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		04E364AA154D613F002BC8DD /* bubblemon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bubblemon-Prefix.pch"; sourceTree = "<group>"; };
 		04E364AC154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		04E364AE154D613F002BC8DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bubblemon Dock Tile Plugin.docktileplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB197C79161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bubblemon Dock Tile Plugin-Info.plist"; sourceTree = "<group>"; };
 		DB197C7B161B0EB4009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DB197C7D161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubblemon Dock Tile Plugin-Prefix.pch"; sourceTree = "<group>"; };
 		DB197CB7161B239A009EA096 /* BubblemonWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BubblemonWindow-Info.plist"; sourceTree = "<group>"; };
 		DB197CBE161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DB197CC2161B239A009EA096 /* BubblemonWindow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BubblemonWindow-Prefix.pch"; sourceTree = "<group>"; };
 		DB197CC4161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DB197CC7161B239A009EA096 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB197CCA161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -193,7 +190,6 @@
 				04E364A4154D613F002BC8DD /* bubblemon-Info.plist */,
 				04E364A5154D613F002BC8DD /* InfoPlist.strings */,
 				04E364A8154D613F002BC8DD /* main.swift */,
-				04E364AA154D613F002BC8DD /* bubblemon-Prefix.pch */,
 				04E364AB154D613F002BC8DD /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -212,7 +208,6 @@
 			children = (
 				DB197C79161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Info.plist */,
 				DB197C7A161B0EB4009EA096 /* InfoPlist.strings */,
-				DB197C7D161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -232,7 +227,6 @@
 			children = (
 				DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */,
 				DB197CBD161B239A009EA096 /* InfoPlist.strings */,
-				DB197CC2161B239A009EA096 /* BubblemonWindow-Prefix.pch */,
 				DB197CC3161B239A009EA096 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
