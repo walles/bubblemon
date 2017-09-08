@@ -25,13 +25,13 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   private let picture: bubblemon_picture_t?
   private var dockTile: NSDockTile?
   private var dockMenu: NSMenu?
-  private var windowFrame: CGImageRef = nil
-  private var scaledWindowFrame: CGImageRef = nil
+  private var windowFrame: CGImage?
+  private var scaledWindowFrame: CGImage?
 
   func setDockTile(_ dockTile: NSDockTile?) {
-    if aDockTile {
-      _dockTile = aDockTile
-      _dockTile.contentView = self
+    if dockTile != nil {
+      self.dockTile = dockTile
+      self.dockTile!.contentView = self
     }
   }
 
@@ -54,7 +54,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   }
 
   @IBAction func openLegend(_ sender: Any) {
-    print("Opening help in browser...\n")
+    Swift.print("Opening help in browser...\n")
     // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
     let url = URL(string: "http://walles.github.io/bubblemon/")
     NSWorkspace.shared().open(url!)
@@ -101,7 +101,7 @@ ndif
 
   }
 
-  func getCachedWindowFrame() -> CGImageRef {
+  func getCachedWindowFrame() -> CGImage {
     let width: size_t = bounds.size.width
     let height: size_t = bounds.size.height
     if scaledWindowFrame != nil && CGImageGetWidth(scaledWindowFrame) == width && CGImageGetHeight(scaledWindowFrame) == height {
@@ -146,7 +146,7 @@ ndif
     let bytesPerRow: size_t? = picture?.width * MemoryLayout<bubblemon_color_t>.size
     let shouldInterpolate: Bool = false
     let rgb: CGColorSpace? = CGColorSpaceCreateDeviceRGB()
-    let cgImageRef: CGImageRef? = CGImageCreate(picture?.width, picture?.height, bitsPerComponent, bitsPerPixel, bytesPerRow, rgb, (kCGImageAlphaNoneSkipLast as? CGBitmapInfo), dataProviderRef, nil, shouldInterpolate, CGColorRenderingIntent.defaultIntent)
+    let CGImage: CGImage? = CGImageCreate(picture?.width, picture?.height, bitsPerComponent, bitsPerPixel, bytesPerRow, rgb, (kCGImageAlphaNoneSkipLast as? CGBitmapInfo), dataProviderRef, nil, shouldInterpolate, CGColorRenderingIntent.defaultIntent)
     CGDataProviderRelease(dataProviderRef)
     let nsGraphicsContext = NSGraphicsContext.current()
     let cgContextRef: CGContext?? = (nsGraphicsContext?.graphicsPort as? CGContext?)
@@ -154,8 +154,8 @@ ndif
     let bubbleViewRect = CGRect(x: bounds.size.width * 0.08, y: bounds.size.height * 0.08, width: bounds.size.width * 0.84, height: bounds.size.height * 0.84)
     cgContextRef.setAlpha(1.0)
     CGContextSetInterpolationQuality(cgContextRef, kCGInterpolationNone)
-    cgContextRef.draw(in: cgImageRef, image: bubbleViewRect)
-    CGImageRelease(cgImageRef)
+    cgContextRef.draw(in: CGImage, image: bubbleViewRect)
+    CGImageRelease(CGImage)
     // Draw the window frame
     let fullSizeRect = NSRectToCGRect(bounds)
     cgContextRef.setAlpha(1.0)
