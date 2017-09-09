@@ -1,5 +1,9 @@
 TODO
 ----
+* When doing a release build, we do the zipping *before* CopySwiftLibs, making
+ our release archive not get any Swift libraries. We need to do our archiving
+ *after* the Swift libs are put in place.
+
 * Make the frame thinner and glossier
 
 * Enable all warnings and warnings-as-errors.
