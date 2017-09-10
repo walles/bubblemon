@@ -250,7 +250,6 @@
 				DBB0A7FF19E66EF2006103D8 /* Set Version string from git describe */,
 				DBB0A7FE19E66797006103D8 /* Set Plugin Copyright */,
 				DB197C84161B0ED3009EA096 /* CopyFiles */,
-				DBB0A7FD19E57BCE006103D8 /* Create Release Zip */,
 			);
 			buildRules = (
 			);
@@ -380,20 +379,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "set -x\n\nGITHASH=$(git rev-parse --verify --short=8 HEAD)\nGITDESCRIBE=$(git describe --match='osx-*' --dirty| sed 's/^osx-//')\n\nINFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\n/usr/libexec/PlistBuddy -c \"Add :GitHash string $GITHASH\" \"$INFO_PLIST\" ||\n  /usr/libexec/PlistBuddy -c \"Set :GitHash $GITHASH\" \"$INFO_PLIST\"\n\n/usr/libexec/PlistBuddy -c \"Add :GitDescribe string $GITDESCRIBE\" \"$INFO_PLIST\" ||\n  /usr/libexec/PlistBuddy -c \"Set :GitDescribe $GITDESCRIBE\" \"$INFO_PLIST\"\n";
-		};
-		DBB0A7FD19E57BCE006103D8 /* Create Release Zip */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Create Release Zip";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "# Create a .zip in ~/Downloads for release builds\n\nset -e\nset -x\n\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  echo \"NOTE: Only release builds get packaged, bailing\"\n  exit 0\nfi\n\nif [ -n \"$(git status --porcelain)\" ]; then\n  echo \"ERROR: There are uncommitted changes, do a Debug build or clean up\"\n  exit 1\nfi\n\nVERSION_NAME=$(git describe --match='osx-*' --dirty | sed 's/^osx-//')\nTAG=\"bubblemon-osx-${VERSION_NAME}\"\nZIPDIR=\"${HOME}/Downloads\"\nZIPNAME=\"${TAG}.zip\"\n\n# The symlinking is to make unpacking bubblemon-osx-1234.zip create\n# bubblemon-osx-1234/Bubblemon.app rather than just Bubblemon.app.\n# We assume Info-ZIP here which treats the directory symlinks as if\n# it was just a directory.\ncd \"${TARGET_BUILD_DIR}\"\nrm -f \"${ZIPDIR}/${ZIPNAME}\" \"${TAG}\"\nln -s . \"${TAG}\"\nzip -r \"${ZIPDIR}/${ZIPNAME}\" \"${TAG}/${TARGET_NAME}.app\"\n";
 		};
 		DBB0A7FE19E66797006103D8 /* Set Plugin Copyright */ = {
 			isa = PBXShellScriptBuildPhase;

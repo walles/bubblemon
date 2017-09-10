@@ -1,26 +1,23 @@
-These instructions will tell you how to make an installation package
-starting only from source code, and how to install that package.
+These instructions will tell you how to make an installation package starting
+only from source code, and how to install that package.
 
-These instructions have been tested on OS X 10.11.6 El Capitan with
-Xcode version 7.3.1 (7D1014).
+These instructions have been tested on OS X 10.12.6 El Capitan with Xcode
+version 8.3.3 (8E3004b).
 
 
-Building and Packaging
-----------------------
-* Install Xcode from the App Store.
+Making a Release
+----------------
+* "git tag" to show previous releases; release tags are the ones named
+osx-versionnumber.
 
-* "open bubblemon.xcodeproj"
+* "git tag --annotate osx-1.2.3" to tag version 1.2.3
 
-* Make sure you have the Release scheme selected (defaults to
-  "Debug").
+* Run "./osx/makeDistZip.sh" to get a release zip file
 
-* Press the Play button to build. After building is done, Bubblemon
-  should start in your Dock.
+* "git push --tags"
 
-* "cd ~/Downloads"
-
-In this directory you'll find a bubblemon-osx-[version].zip file that
-you can distribute to friends and family.
+* Go to https://github.com/walles/bubblemon/releases and make a new release for
+  the version you just tagged and built. Don't forget to upload the zip file.
 
 
 Installing
@@ -34,22 +31,4 @@ Installing
 
 Bubblemon should now be running in your Dock.
 
-Right click Bubblemon in the Dock and choose "Help" if you have
-questions.
-
-
-Making a Release
-----------------
-* "git tag" to show previous releases; release tags are the ones named
-osx-versionnumber.
-
-* "git tag --annotate osx-1.2.3" to tag version 1.2.3
-
-* "git push --tags"
-
-* Follow the Building and Packaging instructions at the top of this
-  document to get a binary zip file to distribute.
-
-* Go to https://github.com/walles/bubblemon/releases and make a new
-  release for the version you just tagged and built. Don't forget to
-  upload the zip file.
+Right click Bubblemon in the Dock and choose "Help" if you have questions.
