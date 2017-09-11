@@ -9,10 +9,13 @@ set -u
 MYDIR=$(dirname "$0")
 MYDIR=$(cd "$MYDIR" ; pwd)
 
-# FIXME: Analyze before building?
+# This will both build and analyze, see the xcodebuild man page
+XCODE_ACTION="analyze"
+
 TARGET_BUILD_DIR=$(mktemp -d)
 TARGET_TEMP_DIR=$(mktemp -d)
 xcodebuild \
+  ${XCODE_ACTION} \
   -project "${MYDIR}"/bubblemon.xcodeproj \
   -configuration Release \
   CONFIGURATION_BUILD_DIR="${TARGET_BUILD_DIR}" \
