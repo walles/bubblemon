@@ -75,7 +75,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 
     // The Git hash and version get filled in by a "Run Script" build step
     let bundle = Bundle(for: BubblemonView.self)
-    let icon = bundle.image(forResource: "icon.png")
+    let icon = bundle.image(forResource: "icon.png.icns")
     let gitHash = bundle.infoDictionary?["GitHash"] as? String
     let gitDescribe = bundle.infoDictionary?["GitDescribe"] as? String
     let copyright = bundle.infoDictionary?["NSHumanReadableCopyright"] as? String
