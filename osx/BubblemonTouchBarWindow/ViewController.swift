@@ -30,7 +30,14 @@ extension ViewController: NSTouchBarDelegate {
     switch identifier {
     case NSTouchBarItemIdentifier.touchBarBubbler:
       let customViewItem = NSCustomTouchBarItem(identifier: identifier)
-      customViewItem.view = BubblemonView(frame: NSMakeRect(0, 0, 50, 50))
+
+      let bubblemonView = BubblemonView(frame: NSMakeRect(
+        0, 0,
+        // FIXME: Put the correct values here, these 50s are both made up. What should we use?
+        50, 50))
+      bubblemonView.setTouchBarMode(true)
+      customViewItem.view = bubblemonView
+
       return customViewItem
     default:
       return nil
