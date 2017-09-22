@@ -38,13 +38,15 @@
 		DB197CD2161B23A6009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		DB2AF26A1F75118100D8D0D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2AF2691F75118100D8D0D9 /* AppDelegate.swift */; };
 		DB2AF26C1F75118100D8D0D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB2AF26B1F75118100D8D0D9 /* Assets.xcassets */; };
-		DB2AF26F1F75118100D8D0D9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB2AF26D1F75118100D8D0D9 /* MainMenu.xib */; };
 		DB2AF2761F7512CF00D8D0D9 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
 		DB2AF2771F7512CF00D8D0D9 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		DB2AF2781F7512CF00D8D0D9 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		DB2AF2791F7512CF00D8D0D9 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		DB2AF27A1F7512CF00D8D0D9 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DB2AF27B1F7512EE00D8D0D9 /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
+		DB2AF27D1F75374100D8D0D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2AF27C1F75374100D8D0D9 /* ViewController.swift */; };
+		DB2AF27F1F75377B00D8D0D9 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2AF27E1F75377B00D8D0D9 /* WindowController.swift */; };
+		DB2AF2831F753A5000D8D0D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2AF2811F753A5000D8D0D9 /* Main.storyboard */; };
 		DB6C6E211F6280D400CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DB6C6E221F6280DC00CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DB6C6E231F6280E300CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
@@ -105,9 +107,10 @@
 		DB2AF2671F75118100D8D0D9 /* BubblemonTouchBarWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonTouchBarWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2AF2691F75118100D8D0D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB2AF26B1F75118100D8D0D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DB2AF26E1F75118100D8D0D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DB2AF2701F75118100D8D0D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB2AF2711F75118100D8D0D9 /* BubblemonTouchBarWindow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BubblemonTouchBarWindow.entitlements; sourceTree = "<group>"; };
+		DB2AF27C1F75374100D8D0D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DB2AF27E1F75377B00D8D0D9 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		DB2AF2821F753A5000D8D0D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB6C6E251F62870700CFE8D4 /* Bubblemon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubblemon-Bridging-Header.h"; sourceTree = "<group>"; };
 		DB7C5EED1F5E749E00CE84F2 /* libswiftAppKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftAppKit.tbd; path = System/Library/PrivateFrameworks/Swift/libswiftAppKit.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -260,11 +263,12 @@
 		DB2AF2681F75118100D8D0D9 /* BubblemonTouchBarWindow */ = {
 			isa = PBXGroup;
 			children = (
+				DB2AF2811F753A5000D8D0D9 /* Main.storyboard */,
 				DB2AF2691F75118100D8D0D9 /* AppDelegate.swift */,
+				DB2AF27C1F75374100D8D0D9 /* ViewController.swift */,
+				DB2AF27E1F75377B00D8D0D9 /* WindowController.swift */,
 				DB2AF26B1F75118100D8D0D9 /* Assets.xcassets */,
-				DB2AF26D1F75118100D8D0D9 /* MainMenu.xib */,
 				DB2AF2701F75118100D8D0D9 /* Info.plist */,
-				DB2AF2711F75118100D8D0D9 /* BubblemonTouchBarWindow.entitlements */,
 			);
 			path = BubblemonTouchBarWindow;
 			sourceTree = "<group>";
@@ -427,9 +431,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2AF2831F753A5000D8D0D9 /* Main.storyboard in Resources */,
 				DB2AF27B1F7512EE00D8D0D9 /* window-frame.png in Resources */,
 				DB2AF26C1F75118100D8D0D9 /* Assets.xcassets in Resources */,
-				DB2AF26F1F75118100D8D0D9 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +531,8 @@
 				DB2AF2771F7512CF00D8D0D9 /* accumulator.c in Sources */,
 				DB2AF2781F7512CF00D8D0D9 /* bubblemon.c in Sources */,
 				DB2AF2791F7512CF00D8D0D9 /* osx-meter.c in Sources */,
+				DB2AF27D1F75374100D8D0D9 /* ViewController.swift in Sources */,
+				DB2AF27F1F75377B00D8D0D9 /* WindowController.swift in Sources */,
 				DB2AF27A1F7512CF00D8D0D9 /* BubblemonView.swift in Sources */,
 				DB2AF26A1F75118100D8D0D9 /* AppDelegate.swift in Sources */,
 			);
@@ -591,12 +597,12 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
-		DB2AF26D1F75118100D8D0D9 /* MainMenu.xib */ = {
+		DB2AF2811F753A5000D8D0D9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DB2AF26E1F75118100D8D0D9 /* Base */,
+				DB2AF2821F753A5000D8D0D9 /* Base */,
 			);
-			name = MainMenu.xib;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
