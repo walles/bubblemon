@@ -30,7 +30,7 @@ extension ViewController: NSTouchBarDelegate {
     switch identifier {
     case NSTouchBarItemIdentifier.touchBarBubbler:
       let customViewItem = NSCustomTouchBarItem(identifier: identifier)
-      customViewItem.view = NSTextField(labelWithString: "Johan är bäst")
+      customViewItem.view = BubblemonView(frame: NSMakeRect(0, 0, 50, 50))
       return customViewItem
     default:
       return nil
