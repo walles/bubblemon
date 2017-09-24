@@ -147,30 +147,32 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     let x2before = CGFloat((2 * _windowFrame!.width) / 3)
     let middleWidthBefore = x2before - x1before
     let rightWidthBefore = CGFloat(_windowFrame!.width - 1) - x2before
+    let heightBefore = CGFloat(_windowFrame!.height)
 
     let x1after = x1before * yFactor
     let x2after = bounds.size.width - 1 - x1after
     let middleWidthAfter = 1 + x2after - x1after
     let rightWidthAfter = CGFloat(width - 1) - x2after
+    let heightAfter = bounds.size.height
 
     let scaledContext = createContext(width: width, height: height)
 
     // Draw the left part
     scaledContext!.draw(
-      _windowFrame!.cropping(to: CGRect(x: 0, y: 0, width: Int(x1before), height: height))!,
-      in: CGRect(x: 0, y: 0, width: Int(x1after) + 1, height: height))
+      _windowFrame!.cropping(to: CGRect(x: CGFloat(0), y: CGFloat(0), width: x1before, height: heightBefore))!,
+      in: CGRect(x: 0, y: 0, width: x1after + 1, height: heightAfter))
 
     // Draw the middle part
     scaledContext!.draw(
       _windowFrame!.cropping(to: CGRect(
-        x: Int(x1before), y: 0, width: Int(middleWidthBefore), height: height))!,
-      in: CGRect(x: x1after, y: CGFloat(0), width: middleWidthAfter, height: CGFloat(height)))
+        x: x1before, y: CGFloat(0), width: middleWidthBefore, height: heightBefore))!,
+      in: CGRect(x: x1after, y: CGFloat(0), width: middleWidthAfter, height: heightAfter))
 
     // Draw the right part
     scaledContext!.draw(
       _windowFrame!.cropping(to: CGRect(
-        x: Int(x2before), y: 0, width: Int(rightWidthBefore), height: height))!,
-      in: CGRect(x: x2after, y: CGFloat(0), width: rightWidthAfter, height: CGFloat(height)))
+        x: x2before, y: 0, width: rightWidthBefore, height: heightBefore))!,
+      in: CGRect(x: x2after, y: CGFloat(0), width: rightWidthAfter, height: heightAfter))
 
     _scaledWindowFrame = scaledContext!.makeImage()
     return _scaledWindowFrame!
