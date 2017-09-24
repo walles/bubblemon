@@ -142,6 +142,15 @@ class BubblemonView: NSView, NSDockTilePlugIn {
       return _scaledWindowFrame!
     }
 
+    // All of these numbers are because we want to keep the frame width the same
+    // all around the frame, even if the frame is wider than it is high.
+    //
+    // The way we do this is by scaling the width in three parts. The leftmost
+    // third is scaled the same in both directions, as is the rightmost third.
+    //
+    // The middle third of the original image is then scaled to cover the gap in
+    // between the right and left parts. x1 and x2 are one and two thirds into
+    // the frame image respectively.
     let yFactor = bounds.size.height / CGFloat(_windowFrame!.height)
     let x1before = CGFloat(_windowFrame!.width / 3)
     let x2before = CGFloat((2 * _windowFrame!.width) / 3)
@@ -230,10 +239,20 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     }
 
     // Draw the bubblemon image
-    let bubbleViewRect = CGRect(x: bounds.size.width * 0.08, y: bounds.size.height * 0.08, width: bounds.size.width * 0.84, height: bounds.size.height * 0.84)
+
+    // The frame width is the same on all sides, and determined by the height of
+    // the image.
+    let frameWidth = 0.08 * bounds.size.height
+
+    let bubbleViewRect = CGRect(
+      x: frameWidth,
+      y: frameWidth,
+      width: bounds.size.width - 2.0 * frameWidth,
+      height: bounds.size.height - 2.0 * frameWidth)
     cgContext.setAlpha(1.0)
     cgContext.interpolationQuality = .none
     cgContext.draw(cgImage!, in: bubbleViewRect)
+
     // Draw the window frame
     let fullSizeRect = NSRectToCGRect(bounds)
     cgContext.setAlpha(1.0)
