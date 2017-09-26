@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04E36497154D613F002BC8DD"
-               BuildableName = "Bubblemon.app"
-               BlueprintName = "Bubblemon"
+               BlueprintIdentifier = "DB2AF2661F75118100D8D0D9"
+               BuildableName = "BubblemonTouchBarWindow.app"
+               BlueprintName = "BubblemonTouchBarWindow"
                ReferencedContainer = "container:bubblemon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,9 +33,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E36497154D613F002BC8DD"
-            BuildableName = "Bubblemon.app"
-            BlueprintName = "Bubblemon"
+            BlueprintIdentifier = "DB2AF2661F75118100D8D0D9"
+            BuildableName = "BubblemonTouchBarWindow.app"
+            BlueprintName = "BubblemonTouchBarWindow"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -57,9 +57,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E36497154D613F002BC8DD"
-            BuildableName = "Bubblemon.app"
-            BlueprintName = "Bubblemon"
+            BlueprintIdentifier = "DB2AF2661F75118100D8D0D9"
+            BuildableName = "BubblemonTouchBarWindow.app"
+            BlueprintName = "BubblemonTouchBarWindow"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -67,7 +67,7 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -76,9 +76,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E36497154D613F002BC8DD"
-            BuildableName = "Bubblemon.app"
-            BlueprintName = "Bubblemon"
+            BlueprintIdentifier = "DB2AF2661F75118100D8D0D9"
+            BuildableName = "BubblemonTouchBarWindow.app"
+            BlueprintName = "BubblemonTouchBarWindow"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -87,7 +87,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -23,6 +23,8 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   private var _windowFrame: CGImage?
   private var _scaledWindowFrame: CGImage?
 
+  private var _touchBarMode: Bool
+
   func setDockTile(_ dockTile: NSDockTile?) {
     if dockTile != nil {
       _dockTile = dockTile
@@ -92,7 +94,8 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   }
 
   override init(frame: NSRect) {
-    // Initialization code here.
+    _touchBarMode = false
+
 #if DEBUG
     bubblemon_selftest()
 #endif
@@ -124,6 +127,10 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  func setTouchBarMode(_ touchBarMode: Bool) {
+    _touchBarMode = touchBarMode
   }
 
   func getCachedWindowFrame() -> CGImage {
@@ -189,9 +196,14 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 
   func timerTriggered() {
     // Compute a new image to display
-    // The Dock won't tell us its size, so this is a guess at roughly how many pixels
-    // the bubblemon will get on screen.
-    bubblemon_setSize(_bubblemon, 50, 50)
+    if (_touchBarMode) {
+      // Touch Bar is tiny, make few bubbles and scale everything up to be big
+      bubblemon_setSize(_bubblemon, 60, 30)
+    } else {
+      // The Dock won't tell us its size, so this is a guess at roughly how many pixels
+      // the bubblemon will get on screen.
+      bubblemon_setSize(_bubblemon, 50, 50)
+    }
     _picture = bubblemon_getPicture(_bubblemon)
     let tooltip = String(utf8String: bubblemon_getTooltip(_bubblemon))
     toolTip = tooltip
@@ -199,6 +211,17 @@ class BubblemonView: NSView, NSDockTilePlugIn {
       _dockTile!.display()
     } else {
       needsDisplay = true
+    }
+  }
+
+  override func setFrameSize(_ newSize: NSSize) {
+    if(_touchBarMode) {
+      // Landscape mode on the touchbar because it is tiny
+      let width = newSize.height * 2
+      let height = newSize.height
+      super.setFrameSize(NSSize.init(width: width, height: height))
+    } else {
+      super.setFrameSize(newSize)
     }
   }
 
