@@ -23,22 +23,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   @IBOutlet weak var window: NSWindow!
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
+    print("Johan says hello!")
+
     DFRSystemModalShowsCloseBoxWhenFrontMost(true)
 
-    let customViewItem = NSCustomTouchBarItem(identifier: .touchBarBubbler)
+    let bubblemonTouchBarItem = NSCustomTouchBarItem(identifier: .touchBarBubbler)
 
     let bubblemonView = BubblemonView(frame: NSMakeRect(
       0, 0,
       // FIXME: Put the correct values here, these 50s are both made up. What should we use?
       50, 50))
     bubblemonView.setTouchBarMode(true)
-    customViewItem.view = bubblemonView
+    bubblemonTouchBarItem.view = bubblemonView
 
-    NSTouchBarItem.addSystemTrayItem(customViewItem)
-    DFRElementSetControlStripPresenceForIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler", true)
+    NSTouchBarItem.addSystemTrayItem(bubblemonTouchBarItem)
+    DFRElementSetControlStripPresenceForIdentifier(bubblemonTouchBarItem.identifier.rawValue, true)
   }
 
   func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
+    print("Johan says goodbye!")
   }
 }
