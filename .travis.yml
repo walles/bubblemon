@@ -1,3 +1,5 @@
 osx_image: xcode8.3
 language: objective-c
-script: xcodebuild -project osx/bubblemon.xcodeproj/ -scheme Debug analyze
+script:
+  - xcodebuild -project osx/bubblemon.xcodeproj/ -scheme Debug analyze
+  - xcodebuild -project osx/bubblemon.xcodeproj/ -scheme "Bubblemon TouchBar" analyze
