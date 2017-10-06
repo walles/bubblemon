@@ -13,11 +13,8 @@
 		048318861621FFAE00B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04831887162200F700B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
-		04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E364A5154D613F002BC8DD /* InfoPlist.strings */; };
 		04E364A9154D613F002BC8DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.swift */; };
-		04E364AD154D613F002BC8DD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 04E364AB154D613F002BC8DD /* Credits.rtf */; };
 		DB197C76161B0EB4009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
-		DB197C7C161B0EB4009EA096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB197C7A161B0EB4009EA096 /* InfoPlist.strings */; };
 		DB197C85161B0EE7009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DB197C8E161B106A009EA096 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
 		DB197C8F161B106A009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
@@ -28,8 +25,6 @@
 		DB197C96161B21AC009EA096 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		DB197C97161B21AC009EA096 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		DB197C98161B21AC009EA096 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
-		DB197CBF161B239A009EA096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB197CBD161B239A009EA096 /* InfoPlist.strings */; };
-		DB197CC5161B239A009EA096 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DB197CC3161B239A009EA096 /* Credits.rtf */; };
 		DB197CC8161B239A009EA096 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB197CC7161B239A009EA096 /* AppDelegate.swift */; };
 		DB197CCB161B239A009EA096 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB197CC9161B239A009EA096 /* MainMenu.xib */; };
 		DB197CCF161B23A6009EA096 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
@@ -90,18 +85,13 @@
 		04E3649F154D613F002BC8DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		04E364A0154D613F002BC8DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		04E364A1154D613F002BC8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		04E364A4154D613F002BC8DD /* bubblemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "bubblemon-Info.plist"; sourceTree = "<group>"; };
-		04E364A6154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04E364A4154D613F002BC8DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04E364A8154D613F002BC8DD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		04E364AC154D613F002BC8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		04E364AE154D613F002BC8DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bubblemon Dock Tile Plugin.docktileplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB197C79161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bubblemon Dock Tile Plugin-Info.plist"; sourceTree = "<group>"; };
-		DB197C7B161B0EB4009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB197C79161B0EB4009EA096 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB197CB7161B239A009EA096 /* BubblemonWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BubblemonWindow-Info.plist"; sourceTree = "<group>"; };
-		DB197CBE161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DB197CC4161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		DB197CBC161B239A009EA096 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB197CC7161B239A009EA096 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB197CCA161B239A009EA096 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DB2AF2671F75118100D8D0D9 /* BubblemonTouchBarWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblemonTouchBarWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,37 +197,18 @@
 			isa = PBXGroup;
 			children = (
 				04E364AE154D613F002BC8DD /* AppDelegate.swift */,
-				04E364A3154D613F002BC8DD /* Supporting Files */,
+				04E364A8154D613F002BC8DD /* main.swift */,
+				04E364A4154D613F002BC8DD /* Info.plist */,
 			);
 			path = bubblemon;
-			sourceTree = "<group>";
-		};
-		04E364A3154D613F002BC8DD /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				04E364A4154D613F002BC8DD /* bubblemon-Info.plist */,
-				04E364A5154D613F002BC8DD /* InfoPlist.strings */,
-				04E364A8154D613F002BC8DD /* main.swift */,
-				04E364AB154D613F002BC8DD /* Credits.rtf */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				DB197C78161B0EB4009EA096 /* Supporting Files */,
+				DB197C79161B0EB4009EA096 /* Info.plist */,
 			);
 			path = "Bubblemon Dock Tile Plugin";
-			sourceTree = "<group>";
-		};
-		DB197C78161B0EB4009EA096 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DB197C79161B0EB4009EA096 /* Bubblemon Dock Tile Plugin-Info.plist */,
-				DB197C7A161B0EB4009EA096 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		DB197CBA161B239A009EA096 /* BubblemonWindow */ = {
@@ -245,19 +216,9 @@
 			children = (
 				DB197CC7161B239A009EA096 /* AppDelegate.swift */,
 				DB197CC9161B239A009EA096 /* MainMenu.xib */,
-				DB197CBB161B239A009EA096 /* Supporting Files */,
+				DB197CBC161B239A009EA096 /* Info.plist */,
 			);
 			path = BubblemonWindow;
-			sourceTree = "<group>";
-		};
-		DB197CBB161B239A009EA096 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DB197CBC161B239A009EA096 /* BubblemonWindow-Info.plist */,
-				DB197CBD161B239A009EA096 /* InfoPlist.strings */,
-				DB197CC3161B239A009EA096 /* Credits.rtf */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		DB2AF2681F75118100D8D0D9 /* BubblemonTouchBarWindow */ = {
@@ -358,6 +319,12 @@
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				TargetAttributes = {
+					04E36497154D613F002BC8DD = {
+						LastSwiftMigration = 0900;
+					};
+					DB197C74161B0EB4009EA096 = {
+						LastSwiftMigration = 0900;
+					};
 					DB197CB6161B239A009EA096 = {
 						LastSwiftMigration = 0900;
 					};
@@ -401,8 +368,6 @@
 			files = (
 				047776DB1D8E2EE80042312F /* icon.png.icns in Resources */,
 				0483188516218FE500B4E13F /* window-frame.png in Resources */,
-				04E364A7154D613F002BC8DD /* InfoPlist.strings in Resources */,
-				04E364AD154D613F002BC8DD /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +377,6 @@
 			files = (
 				047776DA1D8D83E30042312F /* icon.png.icns in Resources */,
 				04831887162200F700B4E13F /* window-frame.png in Resources */,
-				DB197C7C161B0EB4009EA096 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,8 +385,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				048318861621FFAE00B4E13F /* window-frame.png in Resources */,
-				DB197CBF161B239A009EA096 /* InfoPlist.strings in Resources */,
-				DB197CC5161B239A009EA096 /* Credits.rtf in Resources */,
 				DB197CCB161B239A009EA096 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,46 +511,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		04E364A5154D613F002BC8DD /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04E364A6154D613F002BC8DD /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		04E364AB154D613F002BC8DD /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04E364AC154D613F002BC8DD /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		DB197C7A161B0EB4009EA096 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DB197C7B161B0EB4009EA096 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DB197CBD161B239A009EA096 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DB197CBE161B239A009EA096 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DB197CC3161B239A009EA096 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DB197CC4161B239A009EA096 /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
 		DB197CC9161B239A009EA096 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -761,7 +683,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
-				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				INFOPLIST_FILE = bubblemon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
@@ -784,7 +706,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
-				INFOPLIST_FILE = "bubblemon/bubblemon-Info.plist";
+				INFOPLIST_FILE = bubblemon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "";
@@ -807,7 +729,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Bubblemon Dock Tile Plugin-Info.plist";
+				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -831,7 +753,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Bubblemon Dock Tile Plugin-Info.plist";
+				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -854,7 +776,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
+				INFOPLIST_FILE = BubblemonWindow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -878,7 +800,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "BubblemonWindow/BubblemonWindow-Info.plist";
+				INFOPLIST_FILE = BubblemonWindow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
