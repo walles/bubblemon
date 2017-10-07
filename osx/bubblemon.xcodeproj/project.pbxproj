@@ -12,6 +12,7 @@
 		0483188516218FE500B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		048318861621FFAE00B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04831887162200F700B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
+		04AB5FB91F89409D005EB52F /* applePrivateHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		04E364A9154D613F002BC8DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.swift */; };
 		DB197C76161B0EB4009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
@@ -88,6 +89,8 @@
 		0420B9FE1576A9B600A7B26C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		047776D91D8D83E30042312F /* icon.png.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.png.icns; path = ../pixmaps/icon.png.icns; sourceTree = "<group>"; };
 		0483188316218F5400B4E13F /* window-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-frame.png"; sourceTree = "<group>"; };
+		04AB5FB71F893FBE005EB52F /* applePrivateHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = applePrivateHelpers.h; sourceTree = "<group>"; };
+		04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = applePrivateHelpers.m; sourceTree = "<group>"; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
 		04E36498154D613F002BC8DD /* Bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,13 +172,15 @@
 			isa = PBXGroup;
 			children = (
 				DB6C6E251F62870700CFE8D4 /* Bubblemon-Bridging-Header.h */,
-				047776D91D8D83E30042312F /* icon.png.icns */,
-				0483188316218F5400B4E13F /* window-frame.png */,
-				0420B9FB1575431100A7B26C /* dynamic-accumulator.c */,
 				041BF109154F1DA1009AE6D8 /* accumulator.c */,
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
+				0420B9FB1575431100A7B26C /* dynamic-accumulator.c */,
 				04DCE75F154D670700C3C4FD /* osx-meter.c */,
+				04AB5FB71F893FBE005EB52F /* applePrivateHelpers.h */,
+				04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */,
 				041BF105154DAEED009AE6D8 /* BubblemonView.swift */,
+				047776D91D8D83E30042312F /* icon.png.icns */,
+				0483188316218F5400B4E13F /* window-frame.png */,
 				04E364A2154D613F002BC8DD /* bubblemon */,
 				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				DB197CBA161B239A009EA096 /* BubblemonWindow */,
@@ -575,6 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04AB5FB91F89409D005EB52F /* applePrivateHelpers.m in Sources */,
 				DBD1D0AF1F87A43000447FF5 /* BubblemonView.swift in Sources */,
 				DBD1D0B11F87A43C00447FF5 /* accumulator.c in Sources */,
 				DBD1D0B21F87A43C00447FF5 /* bubblemon.c in Sources */,
