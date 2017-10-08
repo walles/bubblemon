@@ -172,13 +172,17 @@ static void reportDrive(dynamic_accumulator_t *ioLoad, io_registry_entry_t drive
   
   u_int64_t bytesRead = 0;
   u_int64_t bytesWritten = 0;
-  CFNumberRef number;
-  if ((number = (CFNumberRef)CFDictionaryGetValue(statistics,
-                                                  CFSTR(kIOBlockStorageDriverStatisticsBytesReadKey)))) {
+  CFNumberRef number = (CFNumberRef)
+    CFDictionaryGetValue(statistics,
+                         CFSTR(kIOBlockStorageDriverStatisticsBytesReadKey));
+  if (number != NULL) {
     CFNumberGetValue(number, kCFNumberSInt64Type, &bytesRead);
   }
-  if ((number = (CFNumberRef)CFDictionaryGetValue(statistics,
-                                                  CFSTR(kIOBlockStorageDriverStatisticsBytesWrittenKey)))) {
+
+  number = (CFNumberRef)
+    CFDictionaryGetValue(statistics,
+                         CFSTR(kIOBlockStorageDriverStatisticsBytesWrittenKey));
+  if (number != NULL) {
     CFNumberGetValue(number, kCFNumberSInt64Type, &bytesWritten);
   }
 
