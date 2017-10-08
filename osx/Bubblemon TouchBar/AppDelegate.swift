@@ -7,16 +7,6 @@
 
 import Cocoa
 
-// FIXME: Move these to a file common between Bubblemon TouchBar and BubblemonTouchBarWindow?
-extension NSTouchBarItemIdentifier {
-  static let touchBarBubbler =
-    NSTouchBarItemIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
-}
-extension NSTouchBarCustomizationIdentifier {
-  static let touchBarBubbler =
-    NSTouchBarCustomizationIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
-}
-
 @available(OSX 10.12.2, *)
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
