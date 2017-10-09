@@ -10,5 +10,6 @@
 #define Bubblemon_Bridging_Header_h
 
 #include "bubblemon.h"
+#include "applePrivateHelpers.h"
 
 #endif /* Bubblemon_Bridging_Header_h */

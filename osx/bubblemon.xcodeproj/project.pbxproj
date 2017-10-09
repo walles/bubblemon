@@ -12,6 +12,7 @@
 		0483188516218FE500B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		048318861621FFAE00B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04831887162200F700B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
+		04AB5FB91F89409D005EB52F /* applePrivateHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		04E364A9154D613F002BC8DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.swift */; };
 		DB197C76161B0EB4009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
@@ -46,6 +47,16 @@
 		DB6C6E221F6280DC00CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DB6C6E231F6280E300CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
+		DBD1D09D1F877ED500447FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */; };
+		DBD1D09F1F877ED500447FF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBD1D09E1F877ED500447FF5 /* Assets.xcassets */; };
+		DBD1D0A21F877ED500447FF5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBD1D0A01F877ED500447FF5 /* MainMenu.xib */; };
+		DBD1D0AE1F87A40400447FF5 /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
+		DBD1D0AF1F87A43000447FF5 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
+		DBD1D0B01F87A43C00447FF5 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
+		DBD1D0B11F87A43C00447FF5 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
+		DBD1D0B21F87A43C00447FF5 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
+		DBD1D0B31F87A43C00447FF5 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
+		DBD1D0B51F87A6E300447FF5 /* DFRFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD1D0B41F87A6E300447FF5 /* DFRFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +89,8 @@
 		0420B9FE1576A9B600A7B26C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		047776D91D8D83E30042312F /* icon.png.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.png.icns; path = ../pixmaps/icon.png.icns; sourceTree = "<group>"; };
 		0483188316218F5400B4E13F /* window-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-frame.png"; sourceTree = "<group>"; };
+		04AB5FB71F893FBE005EB52F /* applePrivateHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = applePrivateHelpers.h; sourceTree = "<group>"; };
+		04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = applePrivateHelpers.m; sourceTree = "<group>"; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
 		04E36498154D613F002BC8DD /* Bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +116,12 @@
 		DB2AF2821F753A5000D8D0D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB6C6E251F62870700CFE8D4 /* Bubblemon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubblemon-Bridging-Header.h"; sourceTree = "<group>"; };
 		DB7C5EED1F5E749E00CE84F2 /* libswiftAppKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftAppKit.tbd; path = System/Library/PrivateFrameworks/Swift/libswiftAppKit.tbd; sourceTree = SDKROOT; };
+		DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon TouchBar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DBD1D09E1F877ED500447FF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DBD1D0A11F877ED500447FF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		DBD1D0A31F877ED500447FF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBD1D0B41F87A6E300447FF5 /* DFRFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFRFoundation.framework; path = ../../../../../System/Library/PrivateFrameworks/DFRFoundation.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +157,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBD1D0971F877ED500447FF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBD1D0B51F87A6E300447FF5 /* DFRFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -145,17 +172,20 @@
 			isa = PBXGroup;
 			children = (
 				DB6C6E251F62870700CFE8D4 /* Bubblemon-Bridging-Header.h */,
-				047776D91D8D83E30042312F /* icon.png.icns */,
-				0483188316218F5400B4E13F /* window-frame.png */,
-				0420B9FB1575431100A7B26C /* dynamic-accumulator.c */,
 				041BF109154F1DA1009AE6D8 /* accumulator.c */,
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
+				0420B9FB1575431100A7B26C /* dynamic-accumulator.c */,
 				04DCE75F154D670700C3C4FD /* osx-meter.c */,
+				04AB5FB71F893FBE005EB52F /* applePrivateHelpers.h */,
+				04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */,
 				041BF105154DAEED009AE6D8 /* BubblemonView.swift */,
+				047776D91D8D83E30042312F /* icon.png.icns */,
+				0483188316218F5400B4E13F /* window-frame.png */,
 				04E364A2154D613F002BC8DD /* bubblemon */,
 				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				DB197CBA161B239A009EA096 /* BubblemonWindow */,
 				DB2AF2681F75118100D8D0D9 /* BubblemonTouchBarWindow */,
+				DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
 			);
@@ -168,6 +198,7 @@
 				DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */,
 				DB197CB7161B239A009EA096 /* BubblemonWindow.app */,
 				DB2AF2671F75118100D8D0D9 /* BubblemonTouchBarWindow.app */,
+				DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,6 +206,7 @@
 		04E3649B154D613F002BC8DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DBD1D0B41F87A6E300447FF5 /* DFRFoundation.framework */,
 				DB7C5EED1F5E749E00CE84F2 /* libswiftAppKit.tbd */,
 				04E3649C154D613F002BC8DD /* Cocoa.framework */,
 				04E3649E154D613F002BC8DD /* Other Frameworks */,
@@ -232,6 +264,17 @@
 				DB2AF2701F75118100D8D0D9 /* Info.plist */,
 			);
 			path = BubblemonTouchBarWindow;
+			sourceTree = "<group>";
+		};
+		DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar */ = {
+			isa = PBXGroup;
+			children = (
+				DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */,
+				DBD1D09E1F877ED500447FF5 /* Assets.xcassets */,
+				DBD1D0A01F877ED500447FF5 /* MainMenu.xib */,
+				DBD1D0A31F877ED500447FF5 /* Info.plist */,
+			);
+			path = "Bubblemon TouchBar";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +353,23 @@
 			productReference = DB2AF2671F75118100D8D0D9 /* BubblemonTouchBarWindow.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBD1D0A71F877ED500447FF5 /* Build configuration list for PBXNativeTarget "Bubblemon TouchBar" */;
+			buildPhases = (
+				DBD1D0961F877ED500447FF5 /* Sources */,
+				DBD1D0971F877ED500447FF5 /* Frameworks */,
+				DBD1D0981F877ED500447FF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Bubblemon TouchBar";
+			productName = "Bubblemon TouchBar";
+			productReference = DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -338,6 +398,11 @@
 							};
 						};
 					};
+					DBD1D0991F877ED500447FF5 = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 04E36492154D613F002BC8DD /* Build configuration list for PBXProject "bubblemon" */;
@@ -354,9 +419,10 @@
 			projectRoot = "";
 			targets = (
 				04E36497154D613F002BC8DD /* Bubblemon */,
-				DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				DB197CB6161B239A009EA096 /* BubblemonWindow */,
+				DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar */,
 				DB2AF2661F75118100D8D0D9 /* BubblemonTouchBarWindow */,
+				DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 			);
 		};
 /* End PBXProject section */
@@ -393,9 +459,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB2AF2831F753A5000D8D0D9 /* Main.storyboard in Resources */,
 				DB2AF27B1F7512EE00D8D0D9 /* window-frame.png in Resources */,
+				DB2AF2831F753A5000D8D0D9 /* Main.storyboard in Resources */,
 				DB2AF26C1F75118100D8D0D9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBD1D0981F877ED500447FF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBD1D0AE1F87A40400447FF5 /* window-frame.png in Resources */,
+				DBD1D0A21F877ED500447FF5 /* MainMenu.xib in Resources */,
+				DBD1D09F1F877ED500447FF5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,13 +566,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB2AF28A1F7548AC00D8D0D9 /* BubblemonView.swift in Sources */,
-				DB2AF2761F7512CF00D8D0D9 /* dynamic-accumulator.c in Sources */,
 				DB2AF2771F7512CF00D8D0D9 /* accumulator.c in Sources */,
 				DB2AF2781F7512CF00D8D0D9 /* bubblemon.c in Sources */,
+				DB2AF2761F7512CF00D8D0D9 /* dynamic-accumulator.c in Sources */,
 				DB2AF2791F7512CF00D8D0D9 /* osx-meter.c in Sources */,
+				DB2AF26A1F75118100D8D0D9 /* AppDelegate.swift in Sources */,
 				DB2AF27D1F75374100D8D0D9 /* ViewController.swift in Sources */,
 				DB2AF27F1F75377B00D8D0D9 /* WindowController.swift in Sources */,
-				DB2AF26A1F75118100D8D0D9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBD1D0961F877ED500447FF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04AB5FB91F89409D005EB52F /* applePrivateHelpers.m in Sources */,
+				DBD1D0AF1F87A43000447FF5 /* BubblemonView.swift in Sources */,
+				DBD1D0B11F87A43C00447FF5 /* accumulator.c in Sources */,
+				DBD1D0B21F87A43C00447FF5 /* bubblemon.c in Sources */,
+				DBD1D0B01F87A43C00447FF5 /* dynamic-accumulator.c in Sources */,
+				DBD1D0B31F87A43C00447FF5 /* osx-meter.c in Sources */,
+				DBD1D09D1F877ED500447FF5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +615,14 @@
 				DB2AF2821F753A5000D8D0D9 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DBD1D0A01F877ED500447FF5 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBD1D0A11F877ED500447FF5 /* Base */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -889,6 +987,80 @@
 			};
 			name = Release;
 		};
+		DBD1D0A51F877ED500447FF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = ../src;
+				INFOPLIST_FILE = "Bubblemon TouchBar/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "apa.Bubblemon-TouchBar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		DBD1D0A61F877ED500447FF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = ../src;
+				INFOPLIST_FILE = "Bubblemon TouchBar/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "apa.Bubblemon-TouchBar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -933,6 +1105,15 @@
 			buildConfigurations = (
 				DB2AF2731F75118100D8D0D9 /* Debug */,
 				DB2AF2741F75118100D8D0D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBD1D0A71F877ED500447FF5 /* Build configuration list for PBXNativeTarget "Bubblemon TouchBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBD1D0A51F877ED500447FF5 /* Debug */,
+				DBD1D0A61F877ED500447FF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

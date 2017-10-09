@@ -7,7 +7,6 @@ extension NSTouchBarItemIdentifier {
   static let touchBarBubbler =
     NSTouchBarItemIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
 }
-
 extension NSTouchBarCustomizationIdentifier {
   static let touchBarBubbler =
     NSTouchBarCustomizationIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
