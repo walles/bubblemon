@@ -3,7 +3,6 @@ import Cocoa
 class ViewController: NSViewController {
 }
 
-// FIXME: Move these to a file common between Bubblemon TouchBar and BubblemonTouchBarWindow?
 extension NSTouchBarItemIdentifier {
   static let touchBarBubbler =
     NSTouchBarItemIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")

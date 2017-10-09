@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Bubblemon TouchBar
-//
-//  Created by Johan Walles on 2017-10-06.
-//
-
 import Cocoa
 
 @available(OSX 10.12.2, *)
