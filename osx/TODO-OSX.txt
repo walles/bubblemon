@@ -4,8 +4,6 @@ TODO
 
 * TouchBar: Figure out how to survive reboots
 
-* TouchBar: Make sure the .app has our icon
-
 * TouchBar: Make sure the .app has the correct copyright when doing cmd-i in
  Finder
 
@@ -16,11 +14,15 @@ TODO
 
 * TouchBar: Release a new Bubblemon with TouchBar support
 
+* TouchBar: Clicking Bubblemon should bring up the Activity Monitor
+
 * TouchBar: When re-launched, pop up a dialog asking whether we should stay on
  the TouchBar or remove ourselves
 
 * TouchBar: Consider giving more pixels to the visualization by removing the
  frame.
+
+* CI: Make sure CI fails if the code analysis finds problems
 
 * Make the frame thinner and glossier
 
@@ -81,3 +83,5 @@ DONE
   should follow their guidelines as well as we can. The icon should
   show up in the About box and when you look at Bubblemon.app in
   Finder.
+
+* TouchBar: Make sure the .app has our icon

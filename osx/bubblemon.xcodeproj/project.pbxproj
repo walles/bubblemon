@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04063A981F8BFDCD005E5218 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		047776DA1D8D83E30042312F /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		047776DB1D8E2EE80042312F /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		0483188516218FE500B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
@@ -469,6 +470,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04063A981F8BFDCD005E5218 /* icon.png.icns in Resources */,
 				DBD1D0AE1F87A40400447FF5 /* window-frame.png in Resources */,
 				DBD1D0A21F877ED500447FF5 /* MainMenu.xib in Resources */,
 				DBD1D09F1F877ED500447FF5 /* Assets.xcassets in Resources */,
