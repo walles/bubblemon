@@ -1,10 +1,28 @@
 TODO
 ----
-* Make the frame thinner and glossier
+* TouchBar: Position the Bubblemon so it fills its allotted slot perfectly
 
-* Enable all warnings and warnings-as-errors.
- Don't know how, have asked:
- http://stackoverflow.com/q/26624470/473672
+* TouchBar: Figure out how to survive reboots
+
+* TouchBar: Make sure the .app has our icon
+
+* TouchBar: Make sure the .app has the correct copyright when doing cmd-i in
+ Finder
+
+* TouchBar: Make sure the .app has the correct version when doing cmd-i in
+ Finder
+
+* TouchBar: Make the release script package it
+
+* TouchBar: Release a new Bubblemon with TouchBar support
+
+* TouchBar: When re-launched, pop up a dialog asking whether we should stay on
+ the TouchBar or remove ourselves
+
+* TouchBar: Consider giving more pixels to the visualization by removing the
+ frame.
+
+* Make the frame thinner and glossier
 
 * Somehow make the Travis CI build run the self-checks that are built
   into Bubblemon.
@@ -25,6 +43,9 @@ WONTFIX
   per year, which is just plain silly:
   https://developer.apple.com/support/compare-memberships/
 
+* Enable all warnings and warnings-as-errors.
+  Don't know how, have asked:
+  http://stackoverflow.com/q/26624470/473672
 
 DONE
 ----
