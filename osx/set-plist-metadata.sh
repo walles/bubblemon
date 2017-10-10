@@ -13,5 +13,7 @@ VERSION=$(git describe --match='osx-*' --dirty | cut -d- -f2)
 /usr/libexec/PlistBuddy -c "Add :CFBundleShortVersionString string \"$VERSION\"" "${INFO_PLIST}" ||
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString \"$VERSION\"" "${INFO_PLIST}"
 
-/usr/libexec/PlistBuddy -c "Add :CFBundleVersion string \"$VERSION\"" "${INFO_PLIST}" ||
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion \"$VERSION\"" "${INFO_PLIST}"
+YEAR="$(date +%Y)"
+COPYRIGHT="Copyright 1999-${YEAR} johan.walles@gmail.com"
+/usr/libexec/PlistBuddy -c "Add :NSHumanReadableCopyright string \"$COPYRIGHT\"" "${INFO_PLIST}" ||
+/usr/libexec/PlistBuddy -c "Set :NSHumanReadableCopyright \"$COPYRIGHT\"" "${INFO_PLIST}"

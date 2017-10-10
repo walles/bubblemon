@@ -4,9 +4,6 @@ TODO
 
 * TouchBar: Figure out how to survive reboots
 
-* TouchBar: Make sure the .app has the correct copyright when doing cmd-i in
- Finder
-
 * If $OLDVERSION is running and $NEWVERSION is launched, make sure $NEWVERSION
  replaces $OLDVERSION in the TouchBar
 
@@ -87,4 +84,7 @@ DONE
 * TouchBar: Make sure the .app has our icon
 
 * TouchBar: Make sure the .app has the correct version when doing cmd-i in
+ Finder
+
+* TouchBar: Make sure the .app has the correct copyright when doing cmd-i in
  Finder
