@@ -84,6 +84,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04063A9B1F8C110B005E5218 /* set-version.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "set-version.sh"; sourceTree = "<group>"; };
 		041BF105154DAEED009AE6D8 /* BubblemonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblemonView.swift; sourceTree = "<group>"; };
 		041BF109154F1DA1009AE6D8 /* accumulator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = accumulator.c; path = ../src/accumulator.c; sourceTree = "<group>"; };
 		0420B9FB1575431100A7B26C /* dynamic-accumulator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "dynamic-accumulator.c"; path = "../src/dynamic-accumulator.c"; sourceTree = "<group>"; };
@@ -172,6 +173,7 @@
 		04E3648D154D613F002BC8DD = {
 			isa = PBXGroup;
 			children = (
+				04063A9B1F8C110B005E5218 /* set-version.sh */,
 				DB6C6E251F62870700CFE8D4 /* Bubblemon-Bridging-Header.h */,
 				041BF109154F1DA1009AE6D8 /* accumulator.c */,
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
@@ -361,6 +363,7 @@
 				DBD1D0961F877ED500447FF5 /* Sources */,
 				DBD1D0971F877ED500447FF5 /* Frameworks */,
 				DBD1D0981F877ED500447FF5 /* Resources */,
+				04063A9C1F8C1181005E5218 /* Set Version from Git */,
 			);
 			buildRules = (
 			);
@@ -480,6 +483,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		04063A9C1F8C1181005E5218 /* Set Version from Git */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set Version from Git";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-version.sh";
+		};
 		DBB0A7FB19E56BDA006103D8 /* Set version info from git describe */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,7 +537,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Set Version string from git describe\n\nset -e\nset -x\n\nINFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nVERSION=$(git describe --match='osx-*' --dirty | cut -d- -f2)\n\n/usr/libexec/PlistBuddy -c \"Add :CFBundleShortVersionString string \\\"$VERSION\\\"\" \"${INFO_PLIST}\" ||\n  /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString \\\"$VERSION\\\"\" \"${INFO_PLIST}\"\n";
+			shellScript = "$SRCROOT/set-version.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
