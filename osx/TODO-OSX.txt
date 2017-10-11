@@ -1,7 +1,5 @@
 TODO
 ----
-* TouchBar: Position the Bubblemon so it fills its allotted slot perfectly
-
 * TouchBar: Figure out how to survive reboots
 
 * If $OLDVERSION is running and $NEWVERSION is launched, make sure $NEWVERSION
@@ -88,3 +86,5 @@ DONE
 
 * TouchBar: Make sure the .app has the correct copyright when doing cmd-i in
  Finder
+
+* TouchBar: Position the Bubblemon so it fills its allotted slot perfectly

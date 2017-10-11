@@ -217,7 +217,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   override func setFrameSize(_ newSize: NSSize) {
     if(_touchBarMode) {
       // Landscape mode on the touchbar because it is tiny
-      let width = newSize.height * 2
+      let width = min(newSize.height * 2, newSize.width)
       let height = newSize.height
       super.setFrameSize(NSSize.init(width: width, height: height))
     } else {
