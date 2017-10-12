@@ -17,6 +17,9 @@ TODO
 * TouchBar: Consider giving more pixels to the visualization by removing the
  frame.
 
+* TouchBar: Consider making the air transparent and changing the color scheme
+ to better blend in with the other things on the TouchBar
+
 * CI: Make sure CI fails if the code analysis finds problems
 
 * Make the frame thinner and glossier
