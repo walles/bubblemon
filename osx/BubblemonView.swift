@@ -219,6 +219,10 @@ class BubblemonView: NSView, NSDockTilePlugIn {
       // Landscape mode on the touchbar because it is tiny
       let width = min(newSize.height * 2, newSize.width)
       let height = newSize.height
+
+      // Center ourselves horizontally
+      setFrameOrigin(NSPoint.init(x: (newSize.width - width) / 2, y: 0))
+
       super.setFrameSize(NSSize.init(width: width, height: height))
     } else {
       super.setFrameSize(newSize)
