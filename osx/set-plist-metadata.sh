@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Set Version string from git describe
+# Set version string and copyright from git describe
 #
 # See: https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 

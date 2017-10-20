@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DBAFB99A1F99F168004FDA2D"
-               BuildableName = "Bubblemon TouchBar.app"
-               BlueprintName = "Bubblemon TouchBar"
+               BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
+               BuildableName = "Bubblemon TouchBar Helper.app"
+               BlueprintName = "Bubblemon TouchBar Helper"
                ReferencedContainer = "container:bubblemon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,9 +33,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DBAFB99A1F99F168004FDA2D"
-            BuildableName = "Bubblemon TouchBar.app"
-            BlueprintName = "Bubblemon TouchBar"
+            BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
+            BuildableName = "Bubblemon TouchBar Helper.app"
+            BlueprintName = "Bubblemon TouchBar Helper"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -57,9 +57,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DBAFB99A1F99F168004FDA2D"
-            BuildableName = "Bubblemon TouchBar.app"
-            BlueprintName = "Bubblemon TouchBar"
+            BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
+            BuildableName = "Bubblemon TouchBar Helper.app"
+            BlueprintName = "Bubblemon TouchBar Helper"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -76,9 +76,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DBAFB99A1F99F168004FDA2D"
-            BuildableName = "Bubblemon TouchBar.app"
-            BlueprintName = "Bubblemon TouchBar"
+            BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
+            BuildableName = "Bubblemon TouchBar Helper.app"
+            BlueprintName = "Bubblemon TouchBar Helper"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

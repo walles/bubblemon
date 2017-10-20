@@ -1,24 +1,37 @@
-import Cocoa
+//
+//  AppDelegate.swift
+//  Bubblemon TouchBar
+//
+//  Created by Johan Walles on 2017-10-20.
+//
 
-@available(OSX 10.12.2, *)
+import Cocoa
+import ServiceManagement
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+
   @IBOutlet weak var window: NSWindow!
 
-  func applicationDidFinishLaunching(_ aNotification: Notification) {
-    print("Johan says hello!")
-
-    let bubblemonView = BubblemonView(frame: NSMakeRect(
-      0, 0,
-      // FIXME: Put the correct values here, these 50s are both made up. What should we use?
-      50, 50))
-    bubblemonView.setTouchBarMode(true)
-
-    controlStrippify(bubblemonView, "com.gmail.walles.johan.bubblemon.TouchBarBubbler")
+  func shouldBubbleInTouchBar() -> Bool {
+    let alert = NSAlert()
+    alert.messageText = "Run Bubblemon in the Touch Bar?"
+    alert.alertStyle = NSAlertStyle.informational
+    alert.addButton(withTitle: "Yes")
+    alert.addButton(withTitle: "No")
+    return alert.runModal() == NSAlertFirstButtonReturn
   }
 
-  func applicationWillTerminate(_ aNotification: Notification) {
-    // Insert code here to tear down your application
-    print("Johan says goodbye!")
+  func applicationDidFinishLaunching(_ aNotification: Notification) {
+    let shouldBubble = shouldBubbleInTouchBar()
+    let result = SMLoginItemSetEnabled(
+      "com.gmail.walles.johan.bubblemon.TouchBarHelper" as CFString,
+      shouldBubble)
+    NSLog("%@ TouchBar Bubblemon %@",
+          shouldBubble ? "Enabling" : "Disabling",
+          result ? "succeeded" : "failed")
+
+    // Now that we've executed the user's wish our presence is not needed any more
+    NSApplication.shared().terminate(self)
   }
 }

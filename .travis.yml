@@ -3,3 +3,4 @@ language: objective-c
 script:
   - xcodebuild -project osx/bubblemon.xcodeproj/ -scheme Debug analyze
   - xcodebuild -project osx/bubblemon.xcodeproj/ -scheme "Bubblemon TouchBar" analyze
+  - xcodebuild -project osx/bubblemon.xcodeproj/ -scheme "Bubblemon TouchBar Helper" analyze
