@@ -13,16 +13,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   @IBOutlet weak var window: NSWindow!
 
-  func isStopped() -> Bool {
-    let bubblemons =
-      NSRunningApplication.runningApplications(
-        withBundleIdentifier: "com.gmail.walles.johan.bubblemon.TouchBarHelper")
-
-    NSLog("TouchBar Bubblemon %@", bubblemons.isEmpty ? "not running" : "running")
-
-    return bubblemons.isEmpty
-  }
-
   func shouldBubbleInTouchBar() -> Bool {
     let alert = NSAlert()
     alert.messageText = "Run Bubblemon in the Touch Bar?"
@@ -33,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
-    let shouldBubble = isStopped() || shouldBubbleInTouchBar()
+    let shouldBubble = shouldBubbleInTouchBar()
     let result = SMLoginItemSetEnabled(
       "com.gmail.walles.johan.bubblemon.TouchBarHelper" as CFString,
       shouldBubble)
