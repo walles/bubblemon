@@ -6,21 +6,18 @@
 //
 
 import Cocoa
+import ServiceManagement
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
   @IBOutlet weak var window: NSWindow!
 
-
   func applicationDidFinishLaunching(_ aNotification: Notification) {
-    // Insert code here to initialize your application
+    if (SMLoginItemSetEnabled("com.gmail.walles.johan.bubblemon.TouchBarHelper" as CFString, true)) {
+      NSLog("TouchBar Bubblemon started")
+    } else {
+      NSLog("TouchBar Bubblemon failed to start")
+    }
   }
-
-  func applicationWillTerminate(_ aNotification: Notification) {
-    // Insert code here to tear down your application
-  }
-
-
 }
-

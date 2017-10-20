@@ -1,11 +1,9 @@
 TODO
 ----
-* TouchBar: Figure out how to survive reboots, see SMLoginItemSetEnabled
-
 * If $OLDVERSION is running and $NEWVERSION is launched, make sure $NEWVERSION
  replaces $OLDVERSION in the TouchBar
 
-* TouchBar: Make the release script package it
+* TouchBar: Add the TouchBar Bubblemon to the release zip file
 
 * TouchBar: Release a new Bubblemon with TouchBar support
 
@@ -91,3 +89,5 @@ DONE
  Finder
 
 * TouchBar: Position the Bubblemon so it fills its allotted slot perfectly
+
+* TouchBar: Figure out how to survive reboots

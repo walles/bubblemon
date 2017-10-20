@@ -48,10 +48,14 @@
 		DB6C6E221F6280DC00CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DB6C6E231F6280E300CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
-		DBAFB99E1F99F168004FDA2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB99D1F99F168004FDA2D /* AppDelegate.swift */; };
-		DBAFB9A01F99F168004FDA2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB99F1F99F168004FDA2D /* Assets.xcassets */; };
 		DBAFB9A31F99F168004FDA2D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9A11F99F168004FDA2D /* MainMenu.xib */; };
 		DBAFB9AA1F99F1F6004FDA2D /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
+		DBAFB9AF1F99F470004FDA2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB9AB1F99F470004FDA2D /* AppDelegate.swift */; };
+		DBAFB9B01F99F470004FDA2D /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9AC1F99F470004FDA2D /* Base.lproj */; };
+		DBAFB9B11F99F470004FDA2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9AD1F99F470004FDA2D /* Assets.xcassets */; };
+		DBAFB9B21F99F470004FDA2D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9AE1F99F470004FDA2D /* Info.plist */; };
+		DBAFB9B61F99F5BB004FDA2D /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBAFB9B51F99F5BB004FDA2D /* ServiceManagement.framework */; };
+		DBAFB9B81F99F6BC004FDA2D /* Bubblemon TouchBar Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBD1D09D1F877ED500447FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */; };
 		DBD1D09F1F877ED500447FF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBD1D09E1F877ED500447FF5 /* Assets.xcassets */; };
 		DBD1D0A21F877ED500447FF5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBD1D0A01F877ED500447FF5 /* MainMenu.xib */; };
@@ -82,6 +86,16 @@
 			dstSubfolderSpec = 1;
 			files = (
 				DB197C85161B0EE7009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBAFB9B71F99F684004FDA2D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				DBAFB9B81F99F6BC004FDA2D /* Bubblemon TouchBar Helper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,10 +137,12 @@
 		DB6C6E251F62870700CFE8D4 /* Bubblemon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubblemon-Bridging-Header.h"; sourceTree = "<group>"; };
 		DB7C5EED1F5E749E00CE84F2 /* libswiftAppKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftAppKit.tbd; path = System/Library/PrivateFrameworks/Swift/libswiftAppKit.tbd; sourceTree = SDKROOT; };
 		DBAFB99B1F99F168004FDA2D /* Bubblemon TouchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon TouchBar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBAFB99D1F99F168004FDA2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DBAFB99F1F99F168004FDA2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBAFB9A21F99F168004FDA2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		DBAFB9A41F99F168004FDA2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBAFB9AB1F99F470004FDA2D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DBAFB9AC1F99F470004FDA2D /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
+		DBAFB9AD1F99F470004FDA2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DBAFB9AE1F99F470004FDA2D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBAFB9B51F99F5BB004FDA2D /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon TouchBar Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBD1D09E1F877ED500447FF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -172,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBAFB9B61F99F5BB004FDA2D /* ServiceManagement.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +244,7 @@
 		04E3649B154D613F002BC8DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DBAFB9B51F99F5BB004FDA2D /* ServiceManagement.framework */,
 				DBD1D0B41F87A6E300447FF5 /* DFRFoundation.framework */,
 				DB7C5EED1F5E749E00CE84F2 /* libswiftAppKit.tbd */,
 				04E3649C154D613F002BC8DD /* Cocoa.framework */,
@@ -290,10 +308,11 @@
 		DBAFB99C1F99F168004FDA2D /* Bubblemon TouchBar */ = {
 			isa = PBXGroup;
 			children = (
-				DBAFB99D1F99F168004FDA2D /* AppDelegate.swift */,
-				DBAFB99F1F99F168004FDA2D /* Assets.xcassets */,
+				DBAFB9AB1F99F470004FDA2D /* AppDelegate.swift */,
+				DBAFB9AD1F99F470004FDA2D /* Assets.xcassets */,
+				DBAFB9AC1F99F470004FDA2D /* Base.lproj */,
+				DBAFB9AE1F99F470004FDA2D /* Info.plist */,
 				DBAFB9A11F99F168004FDA2D /* MainMenu.xib */,
-				DBAFB9A41F99F168004FDA2D /* Info.plist */,
 			);
 			path = "Bubblemon TouchBar";
 			sourceTree = "<group>";
@@ -393,6 +412,7 @@
 				DBAFB9981F99F168004FDA2D /* Frameworks */,
 				DBAFB9991F99F168004FDA2D /* Resources */,
 				DBAFB9A91F99F1CB004FDA2D /* Set Info.plist metadata */,
+				DBAFB9B71F99F684004FDA2D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -451,6 +471,7 @@
 					};
 					DBAFB99A1F99F168004FDA2D = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
 					};
 					DBD1D0991F877ED500447FF5 = {
 						CreatedOnToolsVersion = 9.0;
@@ -525,8 +546,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBAFB9AA1F99F1F6004FDA2D /* icon.png.icns in Resources */,
-				DBAFB9A01F99F168004FDA2D /* Assets.xcassets in Resources */,
+				DBAFB9B21F99F470004FDA2D /* Info.plist in Resources */,
+				DBAFB9B01F99F470004FDA2D /* Base.lproj in Resources */,
 				DBAFB9A31F99F168004FDA2D /* MainMenu.xib in Resources */,
+				DBAFB9B11F99F470004FDA2D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,7 +697,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBAFB99E1F99F168004FDA2D /* AppDelegate.swift in Sources */,
+				DBAFB9AF1F99F470004FDA2D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,6 +1209,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1224,6 +1248,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
