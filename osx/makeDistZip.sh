@@ -14,10 +14,13 @@ XCODE_ACTION="analyze"
 
 TARGET_BUILD_DIR=$(mktemp -d)
 TARGET_TEMP_DIR=$(mktemp -d)
+
 xcodebuild \
   ${XCODE_ACTION} \
   -project "${MYDIR}"/bubblemon.xcodeproj \
   -configuration Release \
+  -target Bubblemon \
+  -target "Bubblemon TouchBar" \
   CONFIGURATION_BUILD_DIR="${TARGET_BUILD_DIR}" \
   CONFIGURATION_TEMP_DIR="${TARGET_TEMP_DIR}"
 
@@ -32,7 +35,7 @@ ZIPNAME="${TAG}.zip"
 # it was just a directory.
 rm -f "${ZIPDIR}/${ZIPNAME}" "${TARGET_BUILD_DIR}/${TAG}"
 ln -s "${TARGET_BUILD_DIR}" "${TARGET_BUILD_DIR}/${TAG}"
-(cd "${TARGET_BUILD_DIR}"; zip -r "${ZIPDIR}/${ZIPNAME}" "${TAG}/Bubblemon.app")
+(cd "${TARGET_BUILD_DIR}"; zip -r "${ZIPDIR}/${ZIPNAME}" "${TAG}/Bubblemon.app" "${TAG}/Bubblemon TouchBar.app")
 
 rm -rf "${TARGET_BUILD_DIR}" "${TARGET_TEMP_DIR}"
 

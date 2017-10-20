@@ -72,6 +72,13 @@
 			remoteGlobalIDString = DB197C74161B0EB4009EA096;
 			remoteInfo = "Bubblemon Dock Tile Plugin";
 		};
+		DB56566F1F9A277600E47EE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04E3648F154D613F002BC8DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBD1D0991F877ED500447FF5;
+			remoteInfo = "Bubblemon TouchBar Helper";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -407,6 +414,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DB5656701F9A277600E47EE1 /* PBXTargetDependency */,
 			);
 			name = "Bubblemon TouchBar";
 			productName = "Bubblemon TouchBar";
@@ -708,6 +716,11 @@
 			isa = PBXTargetDependency;
 			target = DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */;
 			targetProxy = DB197C82161B0ECB009EA096 /* PBXContainerItemProxy */;
+		};
+		DB5656701F9A277600E47EE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar Helper */;
+			targetProxy = DB56566F1F9A277600E47EE1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
