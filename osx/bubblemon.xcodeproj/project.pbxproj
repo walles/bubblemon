@@ -118,7 +118,7 @@
 		DB2AF2821F753A5000D8D0D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB6C6E251F62870700CFE8D4 /* Bubblemon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubblemon-Bridging-Header.h"; sourceTree = "<group>"; };
 		DB7C5EED1F5E749E00CE84F2 /* libswiftAppKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftAppKit.tbd; path = System/Library/PrivateFrameworks/Swift/libswiftAppKit.tbd; sourceTree = SDKROOT; };
-		DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon TouchBar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon TouchBar Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBD1D09E1F877ED500447FF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBD1D0A11F877ED500447FF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				DB197CBA161B239A009EA096 /* BubblemonWindow */,
 				DB2AF2681F75118100D8D0D9 /* BubblemonTouchBarWindow */,
-				DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar */,
+				DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar Helper */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
 			);
@@ -201,7 +201,7 @@
 				DB197C75161B0EB4009EA096 /* Bubblemon Dock Tile Plugin.docktileplugin */,
 				DB197CB7161B239A009EA096 /* BubblemonWindow.app */,
 				DB2AF2671F75118100D8D0D9 /* BubblemonTouchBarWindow.app */,
-				DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar.app */,
+				DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,7 +269,7 @@
 			path = BubblemonTouchBarWindow;
 			sourceTree = "<group>";
 		};
-		DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar */ = {
+		DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar Helper */ = {
 			isa = PBXGroup;
 			children = (
 				DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */,
@@ -277,7 +277,7 @@
 				DBD1D0A01F877ED500447FF5 /* MainMenu.xib */,
 				DBD1D0A31F877ED500447FF5 /* Info.plist */,
 			);
-			path = "Bubblemon TouchBar";
+			path = "Bubblemon TouchBar Helper";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,9 +356,9 @@
 			productReference = DB2AF2671F75118100D8D0D9 /* BubblemonTouchBarWindow.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar */ = {
+		DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar Helper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DBD1D0A71F877ED500447FF5 /* Build configuration list for PBXNativeTarget "Bubblemon TouchBar" */;
+			buildConfigurationList = DBD1D0A71F877ED500447FF5 /* Build configuration list for PBXNativeTarget "Bubblemon TouchBar Helper" */;
 			buildPhases = (
 				DBD1D0961F877ED500447FF5 /* Sources */,
 				DBD1D0971F877ED500447FF5 /* Frameworks */,
@@ -369,9 +369,9 @@
 			);
 			dependencies = (
 			);
-			name = "Bubblemon TouchBar";
+			name = "Bubblemon TouchBar Helper";
 			productName = "Bubblemon TouchBar";
-			productReference = DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar.app */;
+			productReference = DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -424,7 +424,7 @@
 			targets = (
 				04E36497154D613F002BC8DD /* Bubblemon */,
 				DB197CB6161B239A009EA096 /* BubblemonWindow */,
-				DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar */,
+				DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar Helper */,
 				DB2AF2661F75118100D8D0D9 /* BubblemonTouchBarWindow */,
 				DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 			);
@@ -898,7 +898,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.Window;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -921,7 +921,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.Window;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -944,11 +944,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -961,9 +958,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.BubblemonTouchBarWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarWindow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -984,11 +980,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = ../src;
@@ -996,9 +989,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.BubblemonTouchBarWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarWindow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1032,11 +1024,11 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "Bubblemon TouchBar/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Bubblemon TouchBar Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "apa.Bubblemon-TouchBar";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
@@ -1067,11 +1059,11 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "Bubblemon TouchBar/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Bubblemon TouchBar Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "apa.Bubblemon-TouchBar";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1128,7 +1120,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DBD1D0A71F877ED500447FF5 /* Build configuration list for PBXNativeTarget "Bubblemon TouchBar" */ = {
+		DBD1D0A71F877ED500447FF5 /* Build configuration list for PBXNativeTarget "Bubblemon TouchBar Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBD1D0A51F877ED500447FF5 /* Debug */,

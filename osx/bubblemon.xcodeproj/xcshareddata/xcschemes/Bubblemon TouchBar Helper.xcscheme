@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
-               BuildableName = "Bubblemon TouchBar.app"
-               BlueprintName = "Bubblemon TouchBar"
+               BuildableName = "Bubblemon TouchBar Helper.app"
+               BlueprintName = "Bubblemon TouchBar Helper"
                ReferencedContainer = "container:bubblemon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,8 +34,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
-            BuildableName = "Bubblemon TouchBar.app"
-            BlueprintName = "Bubblemon TouchBar"
+            BuildableName = "Bubblemon TouchBar Helper.app"
+            BlueprintName = "Bubblemon TouchBar Helper"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -58,8 +58,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
-            BuildableName = "Bubblemon TouchBar.app"
-            BlueprintName = "Bubblemon TouchBar"
+            BuildableName = "Bubblemon TouchBar Helper.app"
+            BlueprintName = "Bubblemon TouchBar Helper"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -77,8 +77,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DBD1D0991F877ED500447FF5"
-            BuildableName = "Bubblemon TouchBar.app"
-            BlueprintName = "Bubblemon TouchBar"
+            BuildableName = "Bubblemon TouchBar Helper.app"
+            BlueprintName = "Bubblemon TouchBar Helper"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
