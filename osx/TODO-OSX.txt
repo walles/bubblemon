@@ -1,7 +1,5 @@
 TODO
 ----
-* TouchBar: Release a new Bubblemon with TouchBar support
-
 * If $OLDVERSION is running and $NEWVERSION is launched, make sure $NEWVERSION
  replaces $OLDVERSION in the TouchBar
 
@@ -91,3 +89,5 @@ DONE
  the TouchBar or remove ourselves
 
 * TouchBar: Add the TouchBar Bubblemon to the release zip file
+
+* TouchBar: Release a new Bubblemon with TouchBar support
