@@ -44,20 +44,16 @@
 		DB2AF27F1F75377B00D8D0D9 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2AF27E1F75377B00D8D0D9 /* WindowController.swift */; };
 		DB2AF2831F753A5000D8D0D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2AF2811F753A5000D8D0D9 /* Main.storyboard */; };
 		DB2AF28A1F7548AC00D8D0D9 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
+		DB56566E1F9A180000E47EE1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9A11F99F168004FDA2D /* MainMenu.xib */; };
 		DB6C6E211F6280D400CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DB6C6E221F6280DC00CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DB6C6E231F6280E300CFE8D4 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
 		DBA6DF6B19F784DC00A0B2E6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420B9FE1576A9B600A7B26C /* IOKit.framework */; };
-		DBAFB9A31F99F168004FDA2D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9A11F99F168004FDA2D /* MainMenu.xib */; };
 		DBAFB9AA1F99F1F6004FDA2D /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		DBAFB9AF1F99F470004FDA2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB9AB1F99F470004FDA2D /* AppDelegate.swift */; };
-		DBAFB9B01F99F470004FDA2D /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9AC1F99F470004FDA2D /* Base.lproj */; };
-		DBAFB9B11F99F470004FDA2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9AD1F99F470004FDA2D /* Assets.xcassets */; };
-		DBAFB9B21F99F470004FDA2D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBAFB9AE1F99F470004FDA2D /* Info.plist */; };
 		DBAFB9B61F99F5BB004FDA2D /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBAFB9B51F99F5BB004FDA2D /* ServiceManagement.framework */; };
 		DBAFB9B81F99F6BC004FDA2D /* Bubblemon TouchBar Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBD1D09D1F877ED500447FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */; };
-		DBD1D09F1F877ED500447FF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBD1D09E1F877ED500447FF5 /* Assets.xcassets */; };
 		DBD1D0A21F877ED500447FF5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBD1D0A01F877ED500447FF5 /* MainMenu.xib */; };
 		DBD1D0AE1F87A40400447FF5 /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		DBD1D0AF1F87A43000447FF5 /* BubblemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BF105154DAEED009AE6D8 /* BubblemonView.swift */; };
@@ -139,13 +135,10 @@
 		DBAFB99B1F99F168004FDA2D /* Bubblemon TouchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon TouchBar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBAFB9A21F99F168004FDA2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DBAFB9AB1F99F470004FDA2D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DBAFB9AC1F99F470004FDA2D /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
-		DBAFB9AD1F99F470004FDA2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBAFB9AE1F99F470004FDA2D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBAFB9B51F99F5BB004FDA2D /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon TouchBar Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DBD1D09E1F877ED500447FF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBD1D0A11F877ED500447FF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DBD1D0A31F877ED500447FF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBD1D0B41F87A6E300447FF5 /* DFRFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFRFoundation.framework; path = ../../../../../System/Library/PrivateFrameworks/DFRFoundation.framework; sourceTree = "<group>"; };
@@ -218,11 +211,11 @@
 				047776D91D8D83E30042312F /* icon.png.icns */,
 				0483188316218F5400B4E13F /* window-frame.png */,
 				04E364A2154D613F002BC8DD /* bubblemon */,
-				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				DB197CBA161B239A009EA096 /* BubblemonWindow */,
+				DBAFB99C1F99F168004FDA2D /* Bubblemon TouchBar */,
 				DB2AF2681F75118100D8D0D9 /* BubblemonTouchBarWindow */,
 				DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar Helper */,
-				DBAFB99C1F99F168004FDA2D /* Bubblemon TouchBar */,
+				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
 			);
@@ -309,8 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				DBAFB9AB1F99F470004FDA2D /* AppDelegate.swift */,
-				DBAFB9AD1F99F470004FDA2D /* Assets.xcassets */,
-				DBAFB9AC1F99F470004FDA2D /* Base.lproj */,
 				DBAFB9AE1F99F470004FDA2D /* Info.plist */,
 				DBAFB9A11F99F168004FDA2D /* MainMenu.xib */,
 			);
@@ -321,7 +312,6 @@
 			isa = PBXGroup;
 			children = (
 				DBD1D09C1F877ED500447FF5 /* AppDelegate.swift */,
-				DBD1D09E1F877ED500447FF5 /* Assets.xcassets */,
 				DBD1D0A01F877ED500447FF5 /* MainMenu.xib */,
 				DBD1D0A31F877ED500447FF5 /* Info.plist */,
 			);
@@ -496,8 +486,8 @@
 				04E36497154D613F002BC8DD /* Bubblemon */,
 				DB197CB6161B239A009EA096 /* BubblemonWindow */,
 				DBAFB99A1F99F168004FDA2D /* Bubblemon TouchBar */,
-				DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar Helper */,
 				DB2AF2661F75118100D8D0D9 /* BubblemonTouchBarWindow */,
+				DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar Helper */,
 				DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
 			);
 		};
@@ -545,11 +535,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB56566E1F9A180000E47EE1 /* MainMenu.xib in Resources */,
 				DBAFB9AA1F99F1F6004FDA2D /* icon.png.icns in Resources */,
-				DBAFB9B21F99F470004FDA2D /* Info.plist in Resources */,
-				DBAFB9B01F99F470004FDA2D /* Base.lproj in Resources */,
-				DBAFB9A31F99F168004FDA2D /* MainMenu.xib in Resources */,
-				DBAFB9B11F99F470004FDA2D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,7 +547,6 @@
 				04063A981F8BFDCD005E5218 /* icon.png.icns in Resources */,
 				DBD1D0AE1F87A40400447FF5 /* window-frame.png in Resources */,
 				DBD1D0A21F877ED500447FF5 /* MainMenu.xib in Resources */,
-				DBD1D09F1F877ED500447FF5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1177,7 +1163,6 @@
 		DBD1D0A51F877ED500447FF5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1221,7 +1206,6 @@
 		DBD1D0A61F877ED500447FF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

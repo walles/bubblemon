@@ -9,9 +9,6 @@ TODO
 
 * TouchBar: Clicking Bubblemon should bring up the Activity Monitor
 
-* TouchBar: When re-launched, pop up a dialog asking whether we should stay on
- the TouchBar or remove ourselves
-
 * TouchBar: Consider giving more pixels to the visualization by removing the
  frame.
 
@@ -91,3 +88,6 @@ DONE
 * TouchBar: Position the Bubblemon so it fills its allotted slot perfectly
 
 * TouchBar: Figure out how to survive reboots
+
+* TouchBar: When re-launched, pop up a dialog asking whether we should stay on
+ the TouchBar or remove ourselves
