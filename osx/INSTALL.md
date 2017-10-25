@@ -1,7 +1,7 @@
 These instructions will tell you how to make an installation package starting
 only from source code, and how to install that package.
 
-These instructions have been tested on OS X 10.12.6 El Capitan with Xcode
+These instructions have been tested on macOS 10.12.6 El Capitan with Xcode
 version 9.0.1 (9A1004).
 
 

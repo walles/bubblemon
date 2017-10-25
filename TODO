@@ -29,8 +29,8 @@ using the highest amount of memory.
 using 100% CPU" to the tool tip.  The process mentioned should be the
 one using the largest amount of CPU.
 
-. Add a "Legend" to the right mouse button menu. Already there on Mac
-OS X where it just opens http://walles.github.io/bubblemon/ in a
+. Add a "Legend" to the right mouse button menu. Already there on macOS
+where it just opens http://walles.github.io/bubblemon/ in a
 browser.
 
 . Add a pointer to where the FAQ is located to the About box.  Is this

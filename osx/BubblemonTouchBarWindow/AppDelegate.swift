@@ -6,7 +6,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   @IBOutlet weak var window: NSWindow!
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
-    // Tell OS X we're going to be touchbaring
+    // Tell macOS we're going to be touchbaring
     NSApplication.shared().isAutomaticCustomizeTouchBarMenuItemEnabled = true
   }
 
