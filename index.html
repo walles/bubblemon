@@ -47,33 +47,48 @@
       <section>
         <p>The Bubbling Load Monitor (or "Bubblemon" for short) is a system load monitor. It displays something that looks like a vial containing water:</p>
 
-<p><img src="https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png" alt="OS X Screenshot"></p>
+        <p>
+          <table>
+            <tr>
+              <td>
+                <img src="https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png" alt="OS X Screenshot">
+              </td><td>
+                <!-- FIXME: Figure out the real touch bar height and use that value here -->
+                <img src="images/touchbar-screenshot.png" style="height:10mm" alt="OS X Touch Bar Screenshot">
+              </td>
+            </tr>
+            <tr>
+              <td><i>Bubblemon running in the Dock</i></td>
+              <td><i>Bubblemon running in the Touch Bar</i></td>
+            </tr>
+          </table>
+        </p>
 
-<p>The <strong>water level</strong> indicates how much memory is in use.</p>
+        <p>The <strong>water level</strong> indicates how much memory is in use.</p>
 
-<p>The system CPU load is indicated by <strong>bubbles</strong> floating up through the liquid; lots of bubbles means high CPU load. The most heavily loaded CPU will bubble in the middle, and less loaded CPUs nearer the edges. So a column of bubbles in the middle means that a single CPU is doing all the work, but bubbles across the full width means all CPUs are busy.</p>
+        <p>The system CPU load is indicated by <strong>bubbles</strong> floating up through the liquid; lots of bubbles means high CPU load. The most heavily loaded CPU will bubble in the middle, and less loaded CPUs nearer the edges. So a column of bubbles in the middle means that a single CPU is doing all the work, but bubbles across the full width means all CPUs are busy.</p>
 
-<p>The <strong>color of the liquid</strong> indicates how much swap space is used (watery blue means none and angry red means all).</p>
+        <p>The <strong>color of the liquid</strong> indicates how much swap space is used (watery blue means none and angry red means all).</p>
 
-<p>IO / hard disk load is indicated by <strong>green seaweed growing from the bottom</strong>.</p>
+        <p>IO / hard disk load is indicated by <strong>green seaweed growing from the bottom</strong>.</p>
 
-<p>On some platforms, a <strong>message in a bottle</strong> falls into the water if you have unread mail.</p>
+        <p>On some platforms, a <strong>message in a bottle</strong> falls into the water if you have unread mail.</p>
 
-<h1>
-<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing</h1>
+        <h1>
+          <a id="installing" class="anchor" href="#installing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing</h1>
 
-<p>A screenshot doesn't do the applet much justice, since part of its coolness is its physics engine, making the bubbles move, the surface ripple and water to flow. So <a href="https://github.com/walles/bubblemon/releases/latest">check it out for yourself</a>!</p>
+        <p>A screenshot doesn't do the applet much justice, since part of its coolness is its physics engine, making the bubbles move, the surface ripple and water to flow. So <a href="https://github.com/walles/bubblemon/releases/latest">check it out for yourself</a>!</p>
 
-<ul>
-<li>Download the latest release: <a href="https://github.com/walles/bubblemon/releases">Click here</a>
-</li>
-<li>Click on the zip file to unzip it</li>
-<li>In Finder, double click the <code>bubblemon-osx-&lt;version&gt;</code> folder to open it</li>
-<li>Right click <code>Bubblemon</code> in that folder and choose Open</li>
-<li>Bubblemon should now restart your Dock and start doing its thing</li>
-<li>Right click Bubblemon for help</li>
-<li>Left click Bubblemon to launch Activity Monitor</li>
-</ul>
+        <ul>
+          <li>Download the latest release: <a href="https://github.com/walles/bubblemon/releases">Click here</a>
+          </li>
+          <li>Click on the zip file to unzip it</li>
+          <li>In Finder, double click the <code>bubblemon-osx-&lt;version&gt;</code> folder to open it</li>
+          <li>Right click <code>Bubblemon</code> in that folder and choose Open</li>
+          <li>Bubblemon should now restart your Dock and start doing its thing</li>
+          <li>Right click Bubblemon for help</li>
+          <li>Left click Bubblemon to launch Activity Monitor</li>
+        </ul>
       </section>
     </div>
     <footer>
@@ -81,16 +96,15 @@
       <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-59702036-3");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-59702036-3");
+      pageTracker._trackPageview();
+    } catch(err) {}
+    </script>
   </body>
 </html>
