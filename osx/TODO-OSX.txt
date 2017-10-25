@@ -3,10 +3,10 @@ TODO
 * If $OLDVERSION is running and $NEWVERSION is launched, make sure $NEWVERSION
  replaces $OLDVERSION in the TouchBar
 
-* TouchBar: Clicking Bubblemon should bring up the Activity Monitor
-
 * TouchBar: Consider giving more pixels to the visualization by removing the
  frame.
+
+* TouchBar: Clicking Bubblemon should bring up the Activity Monitor
 
 * TouchBar: Consider making the air transparent and changing the color scheme
  to better blend in with the other things on the TouchBar
