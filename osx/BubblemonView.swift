@@ -280,10 +280,12 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     cgContext.interpolationQuality = .none
     cgContext.draw(cgImage!, in: bubbleViewRect)
 
-    // Draw the window frame
-    let fullSizeRect = NSRectToCGRect(bounds)
-    cgContext.setAlpha(1.0)
-    cgContext.draw(getCachedWindowFrame(), in: fullSizeRect)
+    if (!_touchBarMode) {
+      // Draw the window frame
+      let fullSizeRect = NSRectToCGRect(bounds)
+      cgContext.setAlpha(1.0)
+      cgContext.draw(getCachedWindowFrame(), in: fullSizeRect)
+    }
   }
 }
 
