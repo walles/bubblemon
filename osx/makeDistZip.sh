@@ -26,18 +26,21 @@ xcodebuild \
 
 VERSION_NAME=$(cd "$MYDIR"; git describe --match='osx-*' --dirty | sed 's/^osx-//')
 TAG="bubblemon-osx-${VERSION_NAME}"
-ZIPDIR="$(pwd)"
 ZIPNAME="${TAG}.zip"
+
+DISTDIR="$(cd "${MYDIR}"/..; pwd)"/dist
+rm -rf "$DISTDIR"
+mkdir -p "$DISTDIR"
 
 # The symlinking is to make unpacking bubblemon-osx-1234.zip create
 # bubblemon-osx-1234/Bubblemon.app rather than just Bubblemon.app.
 # We assume Info-ZIP here which treats the directory symlinks as if
 # it was just a directory.
-rm -f "${ZIPDIR}/${ZIPNAME}" "${TARGET_BUILD_DIR}/${TAG}"
+rm -f "${DISTDIR}/${ZIPNAME}" "${TARGET_BUILD_DIR}/${TAG}"
 ln -s "${TARGET_BUILD_DIR}" "${TARGET_BUILD_DIR}/${TAG}"
-(cd "${TARGET_BUILD_DIR}"; zip -r "${ZIPDIR}/${ZIPNAME}" "${TAG}/Bubblemon.app" "${TAG}/Bubblemon TouchBar.app")
+(cd "${TARGET_BUILD_DIR}"; zip -r "${DISTDIR}/${ZIPNAME}" "${TAG}/Bubblemon.app" "${TAG}/Bubblemon TouchBar.app")
 
 rm -rf "${TARGET_BUILD_DIR}" "${TARGET_TEMP_DIR}"
 
 echo
-echo "Release archive written into ${ZIPNAME}"
+echo "Release artifacts written into ${DISTDIR}"

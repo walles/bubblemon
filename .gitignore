@@ -34,3 +34,4 @@ bubblemon.xccheckout
 pixmaps/cache_fluid
 pixmaps/icon.blend[0-9]
 .DS_Store
+/dist
