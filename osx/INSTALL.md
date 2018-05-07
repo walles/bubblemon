@@ -23,7 +23,7 @@ osx-versionnumber.
 
 * `git tag --annotate osx-1.2.3` to tag version `1.2.3`. Remember that the text
 you write will become readable by end users on the download page, write
-something nice!
+something nice! Also, the first line is a heading, write something heady!
 
 * Run `./osx/makeDistZip.sh` to get a release zip file
 
