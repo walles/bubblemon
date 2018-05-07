@@ -18,10 +18,12 @@ What actually goes into [the release zip](github.com/walles/bubblemon/releases/l
 
 Making a Release
 ----------------
-* `git tag` to show previous releases; release tags are the ones named
+* `git tag | cat` to show previous releases; release tags are the ones named
 osx-versionnumber.
 
-* `git tag --annotate osx-1.2.3` to tag version `1.2.3`
+* `git tag --annotate osx-1.2.3` to tag version `1.2.3`. Remember that the text
+you write will become readable by end users on the download page, write
+something nice!
 
 * Run `./osx/makeDistZip.sh` to get a release zip file
 
