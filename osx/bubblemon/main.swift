@@ -103,7 +103,17 @@ private func getPath(appDictionary: Any) -> String? {
     return nil
   }
 
-  return url!.resolvingSymlinksInPath().path
+  // We used to do .resolvingSymlinksInPath() on the path before returning it here,
+  // but it turns out that actually *added* a symlink to the path:
+  // * URL: file:///private/tmp/Bubblemon.app/
+  // * Path: /private/tmp/Bubblemon.app
+  // * Resolved path: /tmp/Bubblemon.app
+  //
+  // Since the value here is supposedly something we put here ourselves, we should
+  // just go with that anyway. Don't resolve any paths here!!
+  //
+  // //NSLog("URL: %@, Path: %@, Resolved path: %@", url!.absoluteString, url!.path, url!.resolvingSymlinksInPath().path)
+  return url!.path
 }
 
 private func launchActivityMonitor() {
