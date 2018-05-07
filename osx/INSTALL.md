@@ -25,12 +25,12 @@ osx-versionnumber.
 you write will become readable by end users on the download page, write
 something nice! Also, the first line is a heading, write something heady!
 
-* Run `./osx/makeDistZip.sh` to get a release zip file
+* Run `./osx/makeDist.sh` to get a release zip file
 
 * `git push --tags`
 
 * Go to https://github.com/walles/bubblemon/releases and make a new release for
-  the version you just tagged and built. Don't forget to upload the zip file.
+  the version you just tagged and built. Don't forget to upload the dist files.
 
 
 Installing
