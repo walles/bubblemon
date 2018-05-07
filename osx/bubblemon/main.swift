@@ -130,8 +130,13 @@ private func launchActivityMonitor() {
 }
 
 func isTranslocated() -> Bool {
-  // FIXME: Code missing here!
-  return true
+  let appPath = URL(string: Bundle.main.bundlePath)!.resolvingSymlinksInPath().path
+
+  // Example translocated path:
+  // /private/var/folders/04/34ltylqn5yd9scvlrwjgmy580000gn/T/AppTranslocation/6E0A03F4-21EC-4559-87DF-77CB0DD7DB20/d/Bubblemon.app
+
+  // Does our path say "AppTranslocation"?
+  return appPath.range(of:"AppTranslocation") != nil
 }
 
 func showTranslocationWarning() {
