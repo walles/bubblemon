@@ -33,7 +33,8 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   }
 
   func dockMenu() -> NSMenu? {
-    Swift.print("Setting up dock menu\n")
+    NSLog("Setting up dock menu")
+
     if _dockMenu != nil {
       return _dockMenu
     }
@@ -54,14 +55,14 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   }
 
   @IBAction func openLegend(_ sender: Any) {
-    Swift.print("Opening help in browser...\n")
+    NSLog("Opening help in browser...")
     // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
     let url = URL(string: "http://walles.github.io/bubblemon/")
     NSWorkspace.shared().open(url!)
   }
 
   @IBAction func shareOnFacebook(_ sender: Any) {
-    Swift.print("Opening browser to share on Facebook...\n")
+    NSLog("Opening browser to share on Facebook...")
     // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
     let url = URL(string: "https://www.facebook.com/sharer/sharer.php?u=http%3A//walles.github.io/bubblemon/")
     NSWorkspace.shared().open(url!)

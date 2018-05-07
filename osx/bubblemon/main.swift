@@ -48,7 +48,7 @@ extension UserDefaults {
     setPersistentDomain(newDomain!, forName: "com.apple.dock")
     let result = synchronize()
 
-    print("Killing com.apple.dock.extra to force it to unload the old Bubblemon...\n")
+    NSLog("Killing com.apple.dock.extra to force it to unload the old Bubblemon...")
     let docks = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock.extra")
     for dock in docks {
       dock.terminate()
@@ -107,7 +107,7 @@ private func getPath(appDictionary: Any) -> String? {
 }
 
 private func launchActivityMonitor() {
-  print("Launching Activity Monitor...\n")
+  NSLog("Launching Activity Monitor...")
   let launched = NSWorkspace.shared().launchApplication(
     withBundleIdentifier: "com.apple.ActivityMonitor",
     options: .default,
@@ -115,7 +115,7 @@ private func launchActivityMonitor() {
     launchIdentifier: nil)
 
   if !launched {
-    print("Launching Activity Monitor failed\n")
+    NSLog("Launching Activity Monitor failed")
   }
 }
 
@@ -127,27 +127,27 @@ func main() -> Int32 {
   if runningBubblemonPath == nil {
     // No Bubblemon running, nothing to remove
   } else if runningBubblemonPath!.caseInsensitiveCompare(appPath) != .orderedSame {
-    print("Removing old Bubblemon: \(runningBubblemonPath!)\n")
+    NSLog("Removing old Bubblemon: %@", runningBubblemonPath!)
 
     if !defaults.removeApplication(fromDock: runningBubblemonPath!) {
-      print("Removing old bubblemon failed\n")
+      NSLog("Removing old bubblemon failed")
     }
   }
 
   if defaults.dockHasApplication(appPath) {
-    print("Bubblemon already installed in the Dock\n")
+    NSLog("Bubblemon already installed in the Dock")
     launchActivityMonitor()
     return EXIT_SUCCESS
   }
 
-  print("Not found, installing: \(appPath)\n")
+  NSLog("Not found, installing: %@", appPath)
   // Add ourselves to the dock
   if !defaults.addApplication(toDock: appPath) {
-    print("Adding ourselves to the Dock failed, bailing...")
+    NSLog("Adding ourselves to the Dock failed, bailing...")
     return EXIT_FAILURE
   }
 
-  print("Killing Dock to force it to reload its new Bubblemon-enabled configuration...\n")
+  NSLog("Killing Dock to force it to reload its new Bubblemon-enabled configuration...")
   let docks = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock")
   for dock in docks {
     dock.terminate()
