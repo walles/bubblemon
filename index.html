@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Bubblemon by walles</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="javascripts/scale.fix.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js" type="application/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!--[if lt IE 9]>
@@ -47,22 +47,20 @@
       <section>
         <p>The Bubbling Load Monitor (or "Bubblemon" for short) is a system load monitor. It looks like a vial containing water:</p>
 
-        <p>
-          <table>
-            <tr>
-              <td>
-                <img src="https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png" alt="macOS Screenshot">
-              </td><td>
-                <!-- FIXME: Figure out the real touch bar height and use that value here -->
-                <img src="images/touchbar-screenshot.png" style="height:10mm" alt="macOS Touch Bar Screenshot">
-              </td>
-            </tr>
-            <tr>
-              <td><i>Bubblemon running in the macOS Dock</i></td>
-              <td><i>Bubblemon running in the <a href="https://developer.apple.com/macos/touch-bar/">Touch Bar</a></i></td>
-            </tr>
-          </table>
-        </p>
+        <table summary="Screenshots of Bubblemon in the Dock and in the Touch Bar">
+          <tr>
+            <td>
+              <img src="https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png" alt="macOS Screenshot">
+            </td><td>
+              <!-- FIXME: Figure out the real touch bar height and use that value here -->
+              <img src="images/touchbar-screenshot.png" style="height:10mm" alt="macOS Touch Bar Screenshot">
+            </td>
+          </tr>
+          <tr>
+            <td><i>Bubblemon running in the macOS Dock</i></td>
+            <td><i>Bubblemon running in the <a href="https://developer.apple.com/macos/touch-bar/">Touch Bar</a></i></td>
+          </tr>
+        </table>
 
         <p>The <strong>water level</strong> indicates how much memory is in use.</p>
 
@@ -79,16 +77,29 @@
 
         <p>A screenshot doesn't do the applet much justice, since part of its coolness is its physics engine, making the bubbles move, the surface ripple and water to flow. So <a href="https://github.com/walles/bubblemon/releases/latest">check it out for yourself</a>!</p>
 
+        <h2>Bubblemon in the Dock</h2>
         <ul>
-          <li>Download the latest release: <a href="https://github.com/walles/bubblemon/releases">Click here</a>
+          <li>Download the latest release: <a href="https://github.com/walles/bubblemon/releases/latest">Click here</a></li>
+          <li>Double click the <code>dmg</code> file in the Finder to mount it</li>
+          <li>Drag <code>Bubblemon</code> into the <code>Applications</code> folder</li>
+          <li>Double click the <code>Applications</code> folder to open it</li>
+          <li>
+            Right click <code>Bubblemon</code> and select <code>Open</code>. Answer Yes to any security question.
+            Bubblemon should now restart your Dock and start doing its thing.
           </li>
-          <li>Click on the zip file to unzip it</li>
-          <li>In Finder, double click the <code>bubblemon-osx-&lt;version&gt;</code> folder to open it</li>
-          <li>Drag <code>Bubblemon</code> into your <code>Applications</code> folder on the left</li>
-          <li>Click the <code>Applications</code> folder on your left to enter it</li>
-          <li>Right click <code>Bubblemon</code> and select <code>Open</code>. Bubblemon should now restart your Dock and start doing its thing.</li>
           <li>Right click Bubblemon in the Dock for help</li>
           <li>Left click Bubblemon in the Dock to launch Activity Monitor</li>
+        </ul>
+
+        <h2>Bubblemon in the Touch Bar</h2>
+        <ul>
+          <li>Download the latest release: <a href="https://github.com/walles/bubblemon/releases/latest">Click here</a></li>
+          <li>Double click the <code>zip</code> file in the Finder to unzip it</li>
+          <li>
+            In the unzipped directory, right click <code>Bubblemon
+            TouchBar</code> and select <code>Open</code>. Answer Yes to any
+            security question. Bubblemon should now appear in your Touch Bar.
+          </li>
         </ul>
       </section>
     </div>
