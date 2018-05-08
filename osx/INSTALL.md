@@ -11,7 +11,7 @@ To debug the visualization, the *Bubblemon Window* target is debugger friendly.
 
 To debug the Touch Bar flavor, the *Touch Bar Window* target is debugger friendly.
 
-What actually goes into [the release zip](github.com/walles/bubblemon/releases/latest) is:
+What actually goes into [the dist archives](github.com/walles/bubblemon/releases/latest) is:
 * *Release*
 * *Bubblemon TouchBar*
 
@@ -25,23 +25,30 @@ osx-versionnumber.
 you write will become readable by end users on the download page, write
 something nice! Also, the first line is a heading, write something heady!
 
-* Run `./osx/makeDistZip.sh` to get a release zip file
+* Run `./osx/makeDist.sh` to get a release zip file
 
 * `git push --tags`
 
 * Go to https://github.com/walles/bubblemon/releases and make a new release for
-  the version you just tagged and built. Don't forget to upload the zip file.
+  the version you just tagged and built. Don't forget to upload the dist files.
 
 
-Installing
-----------
-* Double click the zip file in the Finder. This will create
-  Bubblemon.app.
+Installing the Dockapp
+----------------------
+* Double click the dmg file in the Finder to mount it
+* Drag Bubblemon into the *Applications* folder
+* Double click the *Applications* folder to open it
+* Right click Bubblemon and choose *Open*
+* Say yes to the security question (if any)
 
-* Right click Bubblemon and choose *Open*.
-
-* Say yes to the security question (if any).
-
-Bubblemon should now be running in your Dock.
+Bubblemon should now restart the Dock to install itself.
 
 Right click Bubblemon in the Dock and choose *Help* if you have questions.
+
+Left click Bubblemon in the Dock to launch Activity Monitor.
+
+
+Installing Bubblemon on the Touch Bar
+-------------------------------------
+* `unzip dist/bubblemon-touchbar-*.zip`
+* `open bubblemon-touchbar-*/"Bubblemon TouchBar.app"`

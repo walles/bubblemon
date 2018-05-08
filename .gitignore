@@ -29,8 +29,8 @@ po/stamp-it
 src/.deps/
 src/bubblemon-gnome2
 osx/bubblemon.xcodeproj/**/xcuserdata
-osx/window-frame.blend[0-9]
 bubblemon.xccheckout
 pixmaps/cache_fluid
-pixmaps/icon.blend[0-9]
+*.blend[0-9]
 .DS_Store
+/dist
