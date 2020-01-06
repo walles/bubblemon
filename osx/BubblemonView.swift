@@ -57,22 +57,22 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   @IBAction func openLegend(_ sender: Any) {
     NSLog("Opening help in browser...")
     // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
-    let url = URL(string: "http://walles.github.io/bubblemon/")
-    NSWorkspace.shared().open(url!)
+    let url = URL(string: "https://walles.github.io/bubblemon/")
+    NSWorkspace.shared.open(url!)
   }
 
   @IBAction func shareOnFacebook(_ sender: Any) {
     NSLog("Opening browser to share on Facebook...")
     // From: http://lists.apple.com/archives/xcode-users/2016/Feb/msg00111.html
     let url = URL(string: "https://www.facebook.com/sharer/sharer.php?u=http%3A//walles.github.io/bubblemon/")
-    NSWorkspace.shared().open(url!)
+    NSWorkspace.shared.open(url!)
   }
 
   @IBAction func openAboutPanel(_ sender: Any) {
     let credits = NSAttributedString(
-      string: "http://walles.github.io/bubblemon",
+      string: "https://walles.github.io/bubblemon",
       attributes: [
-        NSLinkAttributeName: "http://walles.github.io/bubblemon"
+        NSAttributedString.Key.link: "https://walles.github.io/bubblemon"
       ]
     )
 
@@ -80,18 +80,14 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     let bundle = Bundle(for: BubblemonView.self)
     let icon = bundle.image(forResource: "icon.png.icns")
     let gitHash = bundle.infoDictionary?["GitHash"] as? String
-    let gitDescribe = bundle.infoDictionary?["GitDescribe"] as? String
-    let copyright = bundle.infoDictionary?["NSHumanReadableCopyright"] as? String
-    let aboutOptions: [String: Any] = [
-      "Credits": credits,
-      "ApplicationName": "Bubblemon",
-      "ApplicationIcon": icon!,
-      "Version": gitHash!,
-      "Copyright": copyright!,
-      "ApplicationVersion": gitDescribe!
+    let aboutOptions: [NSApplication.AboutPanelOptionKey: Any] = [
+      NSApplication.AboutPanelOptionKey.credits: credits,
+      NSApplication.AboutPanelOptionKey.applicationName: "Bubblemon",
+      NSApplication.AboutPanelOptionKey.applicationIcon: icon!,
+      NSApplication.AboutPanelOptionKey.version: gitHash!,
     ]
-    NSApplication.shared().activate(ignoringOtherApps: true)
-    NSApplication.shared().orderFrontStandardAboutPanel(options: aboutOptions)
+    NSApplication.shared.activate(ignoringOtherApps: true)
+    NSApplication.shared.orderFrontStandardAboutPanel(options: aboutOptions)
   }
 
   override init(frame: NSRect) {
@@ -195,6 +191,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     return _scaledWindowFrame!
   }
 
+  @objc
   func timerTriggered() {
     // Compute a new image to display
     if (_touchBarMode) {
@@ -261,7 +258,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
       shouldInterpolate: shouldInterpolate,
       intent: CGColorRenderingIntent.defaultIntent)
 
-    let nsGraphicsContext = NSGraphicsContext.current()
+    let nsGraphicsContext = NSGraphicsContext.current
     guard let cgContext = nsGraphicsContext?.cgContext else {
       fatalError("unable to get a CGContext, can't draw")
     }
