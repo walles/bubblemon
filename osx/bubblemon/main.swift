@@ -118,7 +118,7 @@ private func getPath(appDictionary: Any) -> String? {
 
 private func launchActivityMonitor() {
   NSLog("Launching Activity Monitor...")
-  let launched = NSWorkspace.shared().launchApplication(
+  let launched = NSWorkspace.shared.launchApplication(
     withBundleIdentifier: "com.apple.ActivityMonitor",
     options: .default,
     additionalEventParamDescriptor: nil,
@@ -148,7 +148,7 @@ func showTranslocationWarning() {
     "Otherwise, because of App Translocation / Gatekeeper Path Randomization, " +
     "Bubblemon will run in a random path every time, and after your computer " +
     "reboots the Dock won't be able to find it any more."
-  alert.alertStyle = NSAlertStyle.warning
+  alert.alertStyle = NSAlert.Style.warning
   alert.addButton(withTitle: "OK")
 
   alert.runModal()
