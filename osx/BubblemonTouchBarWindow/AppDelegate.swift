@@ -7,7 +7,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     // Tell macOS we're going to be touchbaring
-    NSApplication.shared().isAutomaticCustomizeTouchBarMenuItemEnabled = true
+    NSApplication.shared.isAutomaticCustomizeTouchBarMenuItemEnabled = true
   }
 
   func applicationWillTerminate(_ aNotification: Notification) {

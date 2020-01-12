@@ -3,13 +3,13 @@ import Cocoa
 class ViewController: NSViewController {
 }
 
-extension NSTouchBarItemIdentifier {
+extension NSTouchBarItem.Identifier {
   static let touchBarBubbler =
-    NSTouchBarItemIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
+    NSTouchBarItem.Identifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
 }
-extension NSTouchBarCustomizationIdentifier {
+extension NSTouchBar.CustomizationIdentifier {
   static let touchBarBubbler =
-    NSTouchBarCustomizationIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
+    NSTouchBar.CustomizationIdentifier("com.gmail.walles.johan.bubblemon.TouchBarBubbler")
 }
 
 // MARK: - TouchBar Delegate
@@ -25,9 +25,9 @@ extension ViewController: NSTouchBarDelegate {
     return touchBar
   }
 
-  func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItemIdentifier) -> NSTouchBarItem? {
+  func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
     switch identifier {
-    case NSTouchBarItemIdentifier.touchBarBubbler:
+    case NSTouchBarItem.Identifier.touchBarBubbler:
       let customViewItem = NSCustomTouchBarItem(identifier: identifier)
 
       let bubblemonView = BubblemonView(frame: NSMakeRect(
