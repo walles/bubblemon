@@ -689,9 +689,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3cj-2u-rga">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3cj-2u-rga">
                                 <rect key="frame" x="18" y="20" width="444" height="230"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="6Aa-Qq-VPF"/>
+                                </constraints>
                                 <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Your Touch Bar should contain a Bubblemon as long as this window is active." id="dKj-kR-V4y">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -699,6 +701,11 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3cj-2u-rga" secondAttribute="trailing" constant="20" symbolic="YES" id="EZa-2b-RMf"/>
+                            <constraint firstItem="3cj-2u-rga" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="cKA-KB-doW"/>
+                            <constraint firstItem="3cj-2u-rga" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="f6r-Sk-IkQ"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
