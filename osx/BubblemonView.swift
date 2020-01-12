@@ -78,13 +78,15 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 
     // The Git hash and version get filled in by a "Run Script" build step
     let bundle = Bundle(for: BubblemonView.self)
-    let icon = bundle.image(forResource: "icon.png.icns")
+    let version = bundle.infoDictionary?["CFBundleShortVersionString"] as? String
     let gitHash = bundle.infoDictionary?["GitHash"] as? String
+    let icon = bundle.image(forResource: "icon.png.icns")
     let aboutOptions: [NSApplication.AboutPanelOptionKey: Any] = [
-      NSApplication.AboutPanelOptionKey.credits: credits,
       NSApplication.AboutPanelOptionKey.applicationName: "Bubblemon",
-      NSApplication.AboutPanelOptionKey.applicationIcon: icon!,
+      NSApplication.AboutPanelOptionKey.applicationVersion: version!,
       NSApplication.AboutPanelOptionKey.version: gitHash!,
+      NSApplication.AboutPanelOptionKey.applicationIcon: icon!,
+      NSApplication.AboutPanelOptionKey.credits: credits,
     ]
     NSApplication.shared.activate(ignoringOtherApps: true)
     NSApplication.shared.orderFrontStandardAboutPanel(options: aboutOptions)

@@ -570,13 +570,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "$SRCROOT/set-plist-metadata.sh";
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 		04BD0B5423C38BDD00709832 /* Set info.plist metadata */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -586,6 +587,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set info.plist metadata";
 			outputFileListPaths = (
@@ -594,7 +596,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n$SRCROOT/set-plist-metadata.sh\n";
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 		DBAFB9A91F99F1CB004FDA2D /* Set Info.plist metadata */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -602,13 +604,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set Info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "$SRCROOT/set-plist-metadata.sh";
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 		DBB0A7FB19E56BDA006103D8 /* Set info.plist metadata */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -616,13 +619,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n$SRCROOT/set-plist-metadata.sh\n";
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 		DBB0A7FE19E66797006103D8 /* Set Plugin Copyright */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -630,13 +634,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set Plugin Copyright";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Copy Copyright info from main bundle into plugin\n\nset -e\nset -x\n\nSRC_INFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nCOPYRIGHT=\"$(/usr/libexec/PlistBuddy -c 'Print :NSHumanReadableCopyright' \"${SRC_INFO_PLIST}\")\"\n\nDST_INFO_PLIST=\"${TARGET_BUILD_DIR}/Bubblemon Dock Tile Plugin.docktileplugin/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :NSHumanReadableCopyright string \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\" ||\n  /usr/libexec/PlistBuddy -c \"Set :NSHumanReadableCopyright \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\"\n";
+			shellScript = "# Copy Copyright info from main bundle into plugin\n\nset -e\nset -x\n\nSRC_INFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nCOPYRIGHT=\"$(/usr/libexec/PlistBuddy -c 'Print :NSHumanReadableCopyright' \"${SRC_INFO_PLIST}\")\"\n\nDST_INFO_PLIST=\"${TARGET_BUILD_DIR}/Bubblemon Dock Tile Plugin.docktileplugin/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :NSHumanReadableCopyright string \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\" ||\n  /usr/libexec/PlistBuddy -c \"Set :NSHumanReadableCopyright \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\"\n\nINFO_PLIST=${DST_INFO_PLIST} $SRCROOT/set-plist-metadata.sh\n";
 		};
 		DBB0A7FF19E66EF2006103D8 /* Set info.plist metadata */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -644,12 +649,13 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
+			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
