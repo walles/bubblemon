@@ -23,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
+    NSLog("Bubblemon Touch Bar launcher started")
+
     let shouldBubble = shouldBubbleInTouchBar()
     let result = SMLoginItemSetEnabled(
       "com.gmail.walles.johan.bubblemon.TouchBarHelper" as CFString,

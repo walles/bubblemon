@@ -22,7 +22,8 @@ void controlStrippify(NSView *view, NSString *identifier) {
     touchBarItem.view = view;
     [NSTouchBarItem addSystemTrayItem:touchBarItem];
     DFRElementSetControlStripPresenceForIdentifier(identifier, YES);
+    NSLog(@"Done adding View to the Touch Bar");
   } else {
-    // FIXME: Fail!
+    NSLog(@"Touch Bar support not available until macOS 10.12.2, please upgrade");
   }
 }

@@ -12,7 +12,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       50, 50))
     bubblemonView.setTouchBarMode(true)
 
+    NSLog("Adding Bubblemon to the Touch Bar...")
     controlStrippify(bubblemonView, "com.gmail.walles.johan.bubblemon.TouchBarBubbler")
+    NSLog("Done adding Bubblemon to the Touch Bar")
   }
 
   func applicationWillTerminate(_ aNotification: Notification) {
