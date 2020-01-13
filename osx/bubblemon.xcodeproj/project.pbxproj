@@ -14,6 +14,7 @@
 		048318861621FFAE00B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04831887162200F700B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
 		04AB5FB91F89409D005EB52F /* applePrivateHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */; };
+		04BD0B5323C38B7300709832 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		04E364A9154D613F002BC8DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.swift */; };
 		DB197C76161B0EB4009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
@@ -356,7 +357,7 @@
 				DB197C71161B0EB4009EA096 /* Sources */,
 				DB197C72161B0EB4009EA096 /* Frameworks */,
 				DB197C73161B0EB4009EA096 /* Resources */,
-				DBB0A7FB19E56BDA006103D8 /* Set version info from git describe */,
+				DBB0A7FB19E56BDA006103D8 /* Set info.plist metadata */,
 			);
 			buildRules = (
 			);
@@ -374,6 +375,7 @@
 				DB197CB3161B239A009EA096 /* Sources */,
 				DB197CB4161B239A009EA096 /* Frameworks */,
 				DB197CB5161B239A009EA096 /* Resources */,
+				04BD0B5423C38BDD00709832 /* Set info.plist metadata */,
 			);
 			buildRules = (
 			);
@@ -446,7 +448,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					04E36497154D613F002BC8DD = {
 						LastSwiftMigration = 0900;
@@ -480,7 +482,7 @@
 			};
 			buildConfigurationList = 04E36492154D613F002BC8DD /* Build configuration list for PBXProject "bubblemon" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -524,6 +526,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04BD0B5323C38B7300709832 /* icon.png.icns in Resources */,
 				048318861621FFAE00B4E13F /* window-frame.png in Resources */,
 				DB197CCB161B239A009EA096 /* MainMenu.xib in Resources */,
 			);
@@ -567,13 +570,33 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "$SRCROOT/set-plist-metadata.sh";
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
+		};
+		04BD0B5423C38BDD00709832 /* Set info.plist metadata */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
+			);
+			name = "Set info.plist metadata";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 		DBAFB9A91F99F1CB004FDA2D /* Set Info.plist metadata */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -581,27 +604,29 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set Info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "$SRCROOT/set-plist-metadata.sh";
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
-		DBB0A7FB19E56BDA006103D8 /* Set version info from git describe */ = {
+		DBB0A7FB19E56BDA006103D8 /* Set info.plist metadata */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
-			name = "Set version info from git describe";
+			name = "Set info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "set -x\n\nGITHASH=$(git rev-parse --verify --short=8 HEAD)\nGITDESCRIBE=$(git describe --match='osx-*' --dirty| sed 's/^osx-//')\n\nINFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\n/usr/libexec/PlistBuddy -c \"Add :GitHash string $GITHASH\" \"$INFO_PLIST\" ||\n  /usr/libexec/PlistBuddy -c \"Set :GitHash $GITHASH\" \"$INFO_PLIST\"\n\n/usr/libexec/PlistBuddy -c \"Add :GitDescribe string $GITDESCRIBE\" \"$INFO_PLIST\" ||\n  /usr/libexec/PlistBuddy -c \"Set :GitDescribe $GITDESCRIBE\" \"$INFO_PLIST\"\n";
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 		DBB0A7FE19E66797006103D8 /* Set Plugin Copyright */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -609,13 +634,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set Plugin Copyright";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Copy Copyright info from main bundle into plugin\n\nset -e\nset -x\n\nSRC_INFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nCOPYRIGHT=\"$(/usr/libexec/PlistBuddy -c 'Print :NSHumanReadableCopyright' \"${SRC_INFO_PLIST}\")\"\n\nDST_INFO_PLIST=\"${TARGET_BUILD_DIR}/Bubblemon Dock Tile Plugin.docktileplugin/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :NSHumanReadableCopyright string \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\" ||\n  /usr/libexec/PlistBuddy -c \"Set :NSHumanReadableCopyright \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\"\n";
+			shellScript = "# Copy Copyright info from main bundle into plugin\n\nset -e\nset -x\n\nSRC_INFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nCOPYRIGHT=\"$(/usr/libexec/PlistBuddy -c 'Print :NSHumanReadableCopyright' \"${SRC_INFO_PLIST}\")\"\n\nDST_INFO_PLIST=\"${TARGET_BUILD_DIR}/Bubblemon Dock Tile Plugin.docktileplugin/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :NSHumanReadableCopyright string \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\" ||\n  /usr/libexec/PlistBuddy -c \"Set :NSHumanReadableCopyright \\\"$COPYRIGHT\\\"\" \"${DST_INFO_PLIST}\"\n\nINFO_PLIST=${DST_INFO_PLIST} $SRCROOT/set-plist-metadata.sh\n";
 		};
 		DBB0A7FF19E66EF2006103D8 /* Set info.plist metadata */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -623,13 +649,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set info.plist metadata";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "$SRCROOT/set-plist-metadata.sh";
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -764,6 +791,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = NO;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = NO;
@@ -837,6 +865,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = NO;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = NO;
@@ -909,13 +938,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = bubblemon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -923,7 +953,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -932,13 +962,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = ../src;
 				INFOPLIST_FILE = bubblemon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -946,7 +977,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -954,7 +985,7 @@
 		DB197C7E161B0EB4009EA096 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -962,14 +993,14 @@
 				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = docktileplugin;
 			};
@@ -978,7 +1009,7 @@
 		DB197C7F161B0EB4009EA096 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -986,13 +1017,13 @@
 				INFOPLIST_FILE = "Bubblemon Dock Tile Plugin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = docktileplugin;
 			};
@@ -1001,22 +1032,23 @@
 		DB197CCD161B239A009EA096 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = BubblemonWindow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.Window;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1025,21 +1057,22 @@
 		DB197CCE161B239A009EA096 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = BubblemonWindow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.Window;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = /System/Library/Frameworks/IOKit.framework/Headers;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1057,6 +1090,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1069,7 +1103,7 @@
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = BubblemonTouchBarWindow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarWindow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1077,7 +1111,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1093,6 +1127,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1100,14 +1135,14 @@
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = BubblemonTouchBarWindow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarWindow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1123,6 +1158,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1134,14 +1170,14 @@
 				);
 				INFOPLIST_FILE = "Bubblemon TouchBar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.Bubblemon-TouchBar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1157,19 +1193,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Bubblemon TouchBar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.Bubblemon-TouchBar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1184,6 +1221,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1202,7 +1240,7 @@
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubblemon TouchBar Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1212,7 +1250,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1227,6 +1265,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1240,7 +1279,7 @@
 				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubblemon TouchBar Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.bubblemon.TouchBarHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1249,7 +1288,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

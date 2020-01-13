@@ -16,13 +16,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func shouldBubbleInTouchBar() -> Bool {
     let alert = NSAlert()
     alert.messageText = "Run Bubblemon in the Touch Bar?"
-    alert.alertStyle = NSAlertStyle.informational
+    alert.alertStyle = NSAlert.Style.informational
     alert.addButton(withTitle: "Yes")
     alert.addButton(withTitle: "No")
-    return alert.runModal() == NSAlertFirstButtonReturn
+    return alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn
   }
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
+    NSLog("Bubblemon Touch Bar launcher started")
+
     let shouldBubble = shouldBubbleInTouchBar()
     let result = SMLoginItemSetEnabled(
       "com.gmail.walles.johan.bubblemon.TouchBarHelper" as CFString,
@@ -32,6 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
           result ? "succeeded" : "failed")
 
     // Now that we've executed the user's wish our presence is not needed any more
-    NSApplication.shared().terminate(self)
+    NSApplication.shared.terminate(self)
   }
 }
