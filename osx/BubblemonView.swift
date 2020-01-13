@@ -92,6 +92,17 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     NSApplication.shared.orderFrontStandardAboutPanel(options: aboutOptions)
   }
 
+  @IBAction func showLoadNumbers(_ sender: Any) {
+    let alert = NSAlert()
+
+    / FIXME: Get the tooltip text from Bubblemon
+    alert.messageText = "Here are some numbers:\n1\n2"
+
+    alert.alertStyle = NSAlert.Style.informational
+    alert.addButton(withTitle: "OK")
+    alert.runModal()
+  }
+
   override init(frame: NSRect) {
     _touchBarMode = false
 
