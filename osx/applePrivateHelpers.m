@@ -3,7 +3,6 @@
 #include "applePrivateHelpers.h"
 
 // See: https://github.com/a2/touch-baer
-extern void DFRSystemModalShowsCloseBoxWhenFrontMost(BOOL);
 extern void DFRElementSetControlStripPresenceForIdentifier(NSString *string, BOOL enabled);
 
 @interface NSTouchBarItem ()
@@ -16,8 +15,6 @@ extern void DFRElementSetControlStripPresenceForIdentifier(NSString *string, BOO
 
 void controlStrippify(NSView *view, NSString *identifier) {
   if (@available(macOS 10.12.2, *)) {
-    DFRSystemModalShowsCloseBoxWhenFrontMost(YES);
-
     NSCustomTouchBarItem *touchBarItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:identifier];
     touchBarItem.view = view;
     [NSTouchBarItem addSystemTrayItem:touchBarItem];
