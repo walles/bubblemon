@@ -50,6 +50,17 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     shareItem.target = self
     menu.addItem(shareItem)
 
+    // From: https://stackoverflow.com/a/55403087/473672
+    let submenu = NSMenu()
+    let mainDropdown = NSMenuItem(title: "Debug", action: nil, keyEquivalent: "")
+    menu.addItem(mainDropdown)
+    menu.setSubmenu(submenu, for: mainDropdown)
+
+    let showNumbersItem = NSMenuItem(title: "Show Numbers", action:
+      #selector(self.showLoadNumbers), keyEquivalent: "")
+    showNumbersItem.target = self
+    submenu.addItem(showNumbersItem)
+
     _dockMenu = menu
     return _dockMenu
   }
@@ -90,6 +101,18 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     ]
     NSApplication.shared.activate(ignoringOtherApps: true)
     NSApplication.shared.orderFrontStandardAboutPanel(options: aboutOptions)
+  }
+
+  @IBAction func showLoadNumbers(_ sender: Any) {
+    let alert = NSAlert()
+
+    alert.messageText = String(cString: bubblemon_getTooltip(_bubblemon)!)
+
+    alert.alertStyle = NSAlert.Style.informational
+    alert.addButton(withTitle: "OK")
+
+    // This might freeze the physics, but give us the numbers. Call it an MVP!
+    alert.runModal()
   }
 
   override init(frame: NSRect) {
