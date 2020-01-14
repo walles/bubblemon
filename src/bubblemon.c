@@ -200,7 +200,7 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
   }
 
   snprintf(iowaitstring, 38,
-	   _("\nIO wait: %d%%"),
+	   _("\nIO load: %d%%"),
 	   bubblemon->sysload.ioLoad);
   strcat(bubblemon->tooltipstring, iowaitstring);
 
