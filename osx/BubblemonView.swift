@@ -50,6 +50,17 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     shareItem.target = self
     menu.addItem(shareItem)
 
+    // From: https://stackoverflow.com/a/55403087/473672
+    let submenu = NSMenu()
+    let mainDropdown = NSMenuItem(title: "Debug", action: nil, keyEquivalent: "")
+    menu.addItem(mainDropdown)
+    menu.setSubmenu(submenu, for: mainDropdown)
+
+    let showNumbersItem = NSMenuItem(title: "Show Numbers", action:
+      #selector(self.showLoadNumbers), keyEquivalent: "")
+    showNumbersItem.target = self
+    submenu.addItem(showNumbersItem)
+
     _dockMenu = menu
     return _dockMenu
   }
