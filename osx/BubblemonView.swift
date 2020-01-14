@@ -95,11 +95,12 @@ class BubblemonView: NSView, NSDockTilePlugIn {
   @IBAction func showLoadNumbers(_ sender: Any) {
     let alert = NSAlert()
 
-    / FIXME: Get the tooltip text from Bubblemon
-    alert.messageText = "Here are some numbers:\n1\n2"
+    alert.messageText = String(cString: bubblemon_getTooltip(_bubblemon)!)
 
     alert.alertStyle = NSAlert.Style.informational
     alert.addButton(withTitle: "OK")
+
+    // This might freeze the physics, but give us the numbers. Call it an MVP!
     alert.runModal()
   }
 
