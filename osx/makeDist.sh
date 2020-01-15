@@ -41,6 +41,7 @@ ln -s "${TARGET_BUILD_DIR}" "${TARGET_BUILD_DIR}/${TAG}"
 (cd "${TARGET_BUILD_DIR}"; zip -r "${DISTDIR}/${ZIPNAME}" "${TAG}/Bubblemon TouchBar.app")
 
 cd "$MYDIR"
+rm -rf ./build
 npm install --prefix ./build appdmg
 
 cp -a "${TARGET_BUILD_DIR}/Bubblemon.app" "build"
