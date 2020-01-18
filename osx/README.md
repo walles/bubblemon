@@ -64,7 +64,7 @@ TODO
   with ourselves. Nice during development.
 
 * Improve install instructions, make sure there's a step-by-step list in the
-  `.dmg` that anybody could follow
+  `.dmg` that anybody could follow. See Installing the Dockapp above.
 
 * TouchBar: Clicking Bubblemon should bring up the Activity Monitor
 
