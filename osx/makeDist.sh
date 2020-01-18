@@ -49,6 +49,13 @@ cp -a "${TARGET_BUILD_DIR}/Bubblemon.app" "build"
 
 rm -rf "${TARGET_BUILD_DIR}" "${TARGET_TEMP_DIR}"
 
+git push --tags
+
 echo
 echo "Release artifacts written into ${DISTDIR}:"
-ls -l "${DISTDIR}"
+ls -lh "${DISTDIR}"
+
+echo
+echo "Now go to <https://github.com/walles/bubblemon/releases>"
+echo "and make a new release for the version you just tagged"
+echo "and built. Don't forget to upload the dist files."

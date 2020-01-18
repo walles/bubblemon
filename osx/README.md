@@ -11,7 +11,7 @@ To debug the visualization, the *Bubblemon Window* target is debugger friendly.
 
 To debug the Touch Bar flavor, the *Touch Bar Window* target is debugger friendly.
 
-What actually goes into [the dist archives](github.com/walles/bubblemon/releases/latest) is:
+What actually goes into [the dist archives](https://github.com/walles/bubblemon/releases/latest) is:
 * *Release*
 * *Bubblemon TouchBar*
 
@@ -26,9 +26,7 @@ something nice! Also, the first line is a heading, write something heady!
 
 * Run `./osx/makeDist.sh` to get a release zip file
 
-* `git push --tags`
-
-* Go to https://github.com/walles/bubblemon/releases and make a new release for
+* Go to <https://github.com/walles/bubblemon/releases> and make a new release for
   the version you just tagged and built. Don't forget to upload the dist files.
 
 
