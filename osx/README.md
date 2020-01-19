@@ -59,7 +59,8 @@ TODO
 
 * If Bubblemon.app has a file system timestamp later than when the
   Dock process started, then we should replace the running Bubblemon
-  with ourselves. Nice during development.
+  with ourselves. Nice during development. This may or may not be doable,
+  see branch `walles/detect-old-dock`.
 
 * Improve install instructions, make sure there's a step-by-step list in the
   `.dmg` that anybody could follow. See Installing the Dockapp above.
