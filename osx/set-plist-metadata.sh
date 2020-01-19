@@ -35,3 +35,8 @@ GITHASH=$(git rev-parse --verify --short=8 HEAD)
 GITDESCRIBE=$(git describe --match='osx-*' --dirty| sed 's/^osx-//')
 /usr/libexec/PlistBuddy -c "Add :GitDescribe string $GITDESCRIBE" "$INFO_PLIST" ||
   /usr/libexec/PlistBuddy -c "Set :GitDescribe $GITDESCRIBE" "$INFO_PLIST"
+
+# In seconds since Epoch
+BUILD_TIMESTAMP=$(date '+%s')
+/usr/libexec/PlistBuddy -c "Add :BuildTimestamp real $BUILD_TIMESTAMP" "$INFO_PLIST" ||
+  /usr/libexec/PlistBuddy -c "Set :BuildTimestamp $BUILD_TIMESTAMP" "$INFO_PLIST"

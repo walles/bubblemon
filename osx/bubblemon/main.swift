@@ -154,6 +154,100 @@ func showTranslocationWarning() {
   alert.runModal()
 }
 
+/** Returns the Dock launch timestamp, in seconds since the Epoch */
+func getDockLaunchTimestamp() -> Double? {
+  FIXME: This method does not work, see LaunchServices comment below
+
+  // There should be only one of these
+  let docks = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock")
+
+  for dock in docks {
+    // FIXME: I get nil here.
+    //
+    // The docs say that: "This property is only available for applications that
+    // were launched by LaunchServices".
+    //
+    // According to px:
+    // kernel(0)        root
+    //   launchd(1)     root
+    // --> Dock(92561)  johan
+    //
+    // Apparently launchd and LaunchServices are two different things:
+    // https://eclecticlight.co/2018/05/22/running-at-startup-when-to-use-a-login-item-or-a-launchagent-launchdaemon/
+    //
+    // See also "px launch"; which will show you both launchd and
+    // launchservicesd, demonstrating they are different.
+    let launchTimestamp = dock.launchDate?.timeIntervalSince1970
+    if launchTimestamp == nil {
+      NSLog("Unable to get launch timestamp from Dock")
+      continue
+    }
+
+    return launchTimestamp!
+  }
+
+  return nil
+}
+
+/** Return when this build was made, in seconds since the Epoch */
+func getBuildTimestamp() -> Double {
+  let bundle = Bundle(for: BubblemonView.self)
+  let buildTimestamp = bundle.infoDictionary?["BuildTimestamp"] as? Double
+  return buildTimestamp!
+}
+
+/**
+Given that we restart the Dock to install ourselves, if
+the Dock was started before our build timestamp it means
+that any Bubblemon running there is older than us.
+*/
+func isDockOlderThanUs() -> Bool? {
+  let dockLaunchTimestamp = getDockLaunchTimestamp()
+  if dockLaunchTimestamp == nil {
+    return nil
+  }
+
+  return dockLaunchTimestamp! < getBuildTimestamp()
+}
+
+/**
+If there are old Bubblemons around, remove them. "Old" in this case refers
+to them being from another version.
+*/
+func removeOldBubblemon() {
+  let defaults = UserDefaults.standard
+  let runningBubblemonPath = defaults.getRunningBubblemonPath()
+  if runningBubblemonPath == nil {
+    // No Bubblemon running, nothing to remove
+    return
+  }
+
+  let appPath = URL(string: Bundle.main.bundlePath)!.resolvingSymlinksInPath().path
+  if runningBubblemonPath!.caseInsensitiveCompare(appPath) != .orderedSame {
+    NSLog("Removing old Bubblemon with different path: %@", runningBubblemonPath!)
+
+    if !defaults.removeApplication(fromDock: runningBubblemonPath!) {
+      NSLog("Removing old bubblemon failed")
+    }
+
+    return
+  }
+
+  let dockIsOld = isDockOlderThanUs()
+  if dockIsOld == nil {
+    // Who knows? Do nothing to be safe.
+    return
+  }
+
+  if dockIsOld! {
+    NSLog("Removing Bubblemon started before we were built")
+
+    if !defaults.removeApplication(fromDock: runningBubblemonPath!) {
+      NSLog("Removing old bubblemon failed")
+    }
+  }
+}
+
 func main() -> Int32 {
   if (isTranslocated()) {
     // See: http://lapcatsoftware.com/articles/app-translocation.html
@@ -163,19 +257,10 @@ func main() -> Int32 {
     return EXIT_FAILURE
   }
 
+  removeOldBubblemon()
+
   let appPath = URL(string: Bundle.main.bundlePath)!.resolvingSymlinksInPath().path
   let defaults = UserDefaults.standard
-
-  let runningBubblemonPath = defaults.getRunningBubblemonPath()
-  if runningBubblemonPath == nil {
-    // No Bubblemon running, nothing to remove
-  } else if runningBubblemonPath!.caseInsensitiveCompare(appPath) != .orderedSame {
-    NSLog("Removing old Bubblemon: %@", runningBubblemonPath!)
-
-    if !defaults.removeApplication(fromDock: runningBubblemonPath!) {
-      NSLog("Removing old bubblemon failed")
-    }
-  }
 
   if defaults.dockHasApplication(appPath) {
     NSLog("Bubblemon already installed in the Dock")
