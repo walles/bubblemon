@@ -51,19 +51,26 @@ static void measureRam(meter_sysload_t *load) {
     vm_statistics64_data_t vmstat;
     assert(host_statistics64(mach_host_self(), HOST_VM_INFO64, (host_info64_t)&vmstat, &count) == KERN_SUCCESS);
 
+    // In experiments, this has added up well to the amount of physical RAM in my machine
     size_t totalPages =
         vmstat.wire_count +
         vmstat.active_count +
         vmstat.inactive_count +
         vmstat.free_count +
+        vmstat.compressor_page_count +
+        vmstat.speculative_count;
+
+    // This matches what the Activity Monitor shows in macOS 10.15.6
+    //
+    // For internal - purgeable: https://stackoverflow.com/a/36721309/473672
+    size_t usedPages =
+        (vmstat.internal_page_count - vmstat.purgeable_count) +
+        vmstat.wire_count +
         vmstat.compressor_page_count;
 
-  size_t pageSize = sysconf(_SC_PAGESIZE);
+    size_t pageSize = sysconf(_SC_PAGESIZE);
     load->memorySize = totalPages * pageSize;
-    load->memoryUsed = pageSize *
-        (vmstat.wire_count +
-         vmstat.active_count +
-         vmstat.compressor_page_count);
+    load->memoryUsed = usedPages * pageSize;
 }
 
 static void measureMemory(meter_sysload_t *load) {
