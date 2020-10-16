@@ -44,6 +44,13 @@ typedef struct
   /* How much of the system's IO bandwidth is in use */
   int ioLoad;
 
+  /* How much battery charge is left.
+     0=empty
+     100=full
+
+     If this system has no battery, 100 will be returned. */
+  int batteryCharge;
+
   // FIXME: Having the below fields as part of the official API might
   // not be the best idea ever /Johan-2009feb22
   accumulator_t **cpuAccumulators;

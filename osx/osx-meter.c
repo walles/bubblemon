@@ -73,9 +73,14 @@ static void measureRam(meter_sysload_t *load) {
     load->memoryUsed = usedPages * pageSize;
 }
 
+static void measureBattery(meter_sysload_t *load) {
+    load->batteryCharge = 100;  // FIXME: Actually measure this
+}
+
 static void measureMemory(meter_sysload_t *load) {
     measureRam(load);
     measureSwap(load);
+    measureBattery(load);
 }
 
 static int getCpuCount(void) {

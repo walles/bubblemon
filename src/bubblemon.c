@@ -863,6 +863,11 @@ int bubblemon_getSwapPercentage(bubblemon_t *bubblemon)
 #endif
 }
 
+int bubblemon_getBatteryChargePercentage(bubblemon_t *bubblemon)
+{
+  return bubblemon->sysload.batteryCharge;
+}
+
 /* The cpu parameter is the cpu number, 0 - #CPUs-1. */
 int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpuNo)
 {
@@ -1112,7 +1117,7 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
 					     (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
 
   /* Mix water and air colors based on how little battery is left */
-  const int battery_0_to_255 = 64;  // FIXME: Get this from actual metrics
+  const int battery_0_to_255 = (bubblemon_getBatteryChargePercentage(bubblemon) * 255) / 100;
   colors[AIR] = bubblemon_interpolateColor(batteryDeadAirColor,
                                            colors[AIR],
                                            battery_0_to_255);

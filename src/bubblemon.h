@@ -231,6 +231,10 @@ extern int bubblemon_getSwapPercentage(bubblemon_t *bubblemon);
 extern int bubblemon_getAverageLoadPercentage(bubblemon_t *bubblemon);
 extern int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpu);
 
+/* Battery charge left in percent. On a battery-less system, this
+   function will return 100%. */
+extern int bubblemon_getBatteryChargePercentage(bubblemon_t *bubblemon);
+
 /* Return a suitable tool tip */
 extern const char *bubblemon_getTooltip(bubblemon_t *bubblemon);
 
