@@ -49,7 +49,7 @@ typedef struct
      100=full
 
      If this system has no battery, 100 will be returned. */
-  int batteryCharge;
+  int batteryChargePercent;
 
   // FIXME: Having the below fields as part of the official API might
   // not be the best idea ever /Johan-2009feb22

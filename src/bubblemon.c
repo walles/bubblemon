@@ -865,7 +865,7 @@ int bubblemon_getSwapPercentage(bubblemon_t *bubblemon)
 
 int bubblemon_getBatteryChargePercentage(bubblemon_t *bubblemon)
 {
-  return bubblemon->sysload.batteryCharge;
+  return bubblemon->sysload.batteryChargePercent;
 }
 
 /* The cpu parameter is the cpu number, 0 - #CPUs-1. */

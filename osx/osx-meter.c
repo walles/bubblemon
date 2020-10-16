@@ -307,7 +307,7 @@ void meter_init(meter_sysload_t *load) {
   
   measureMemory(load);
 
-  load->batteryCharge = getBatteryChargePercent();
+  load->batteryChargePercent = getBatteryChargePercent();
 
   load->nCpus = getCpuCount();
   assert(load->nCpus > 0);
@@ -333,7 +333,7 @@ void meter_getLoad(meter_sysload_t *load) {
 
     measureMemory(load);
     measureCpuLoad(load);
-    load->batteryCharge = getBatteryChargePercent();
+    load->batteryChargePercent = getBatteryChargePercent();
 
     // Delay IO measurement even more; empirical studies show that this gives us
     // a lot better values.
