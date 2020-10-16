@@ -65,7 +65,7 @@
 #define WEED_MINSPEED 3
 #define WEED_SPEEDFACTOR 1
 
-/* Swap usage color scale */              /*              rrggbbaa */
+/* Swap usage color scale                                 rrggbbaa */
 static const unsigned int NOSWAPAIRCOLOR    = (unsigned)0x2299ff00;
 static const unsigned int NOSWAPWATERCOLOR  = (unsigned)0x0055ff80;
 
@@ -75,6 +75,10 @@ static const unsigned int MAXSWAPWATERCOLOR = (unsigned)0xaa000080;
 /* Weeds have a random color between these two */
 static const unsigned int WEEDCOLOR0        = (unsigned)0x00ff0080;
 static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
+
+/* Color scheme when battery is dead */
+static const unsigned int BATTERYDEADAIRCOLOR   = (unsigned)0xb5b32240;
+static const unsigned int BATTERYDEADWATERCOLOR = (unsigned)0x00000080;
 
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
@@ -195,6 +199,8 @@ typedef struct
   unsigned int noSwapWaterColor;
   unsigned int maxSwapAirColor;
   unsigned int maxSwapWaterColor;
+  unsigned int batteryDeadAirColor;
+  unsigned int batteryDeadWaterColor;
   unsigned int weedColor0;
   unsigned int weedColor1;
 } bubblemon_t;

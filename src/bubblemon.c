@@ -1083,6 +1083,9 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   bubblemon_color_t maxSwapAirColor;
   bubblemon_color_t maxSwapWaterColor;
 
+  bubblemon_color_t batteryDeadAirColor;
+  bubblemon_color_t batteryDeadWaterColor;
+
   bubblemon_color_t colors[3];
 
   bubblemon_colorcode_t *airOrWater;
@@ -1097,12 +1100,26 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   maxSwapAirColor = bubblemon_constant2color(bubblemon->maxSwapAirColor);
   maxSwapWaterColor = bubblemon_constant2color(bubblemon->maxSwapWaterColor);
 
+  batteryDeadAirColor = bubblemon_constant2color(bubblemon->batteryDeadAirColor);
+  batteryDeadWaterColor = bubblemon_constant2color(bubblemon->batteryDeadWaterColor);
+
+  /* Mix water and air colors based on swap usage */
   colors[AIR] = bubblemon_interpolateColor(noSwapAirColor,
 					   maxSwapAirColor,
 					   (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
   colors[WATER] = bubblemon_interpolateColor(noSwapWaterColor,
 					     maxSwapWaterColor,
 					     (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
+
+  /* Mix water and air colors based on how little battery is left */
+  const int battery_0_to_255 = 64;  // FIXME: Get this from actual metrics
+  colors[AIR] = bubblemon_interpolateColor(batteryDeadAirColor,
+                                           colors[AIR],
+                                           battery_0_to_255);
+  colors[WATER] = bubblemon_interpolateColor(batteryDeadWaterColor,
+                                             colors[WATER],
+                                             battery_0_to_255);
+
   colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
 
   w = bubblePic->width;
@@ -1300,6 +1317,8 @@ bubblemon_t *bubblemon_init(void)
   bubblemon->noSwapWaterColor = NOSWAPWATERCOLOR;
   bubblemon->maxSwapAirColor = MAXSWAPAIRCOLOR;
   bubblemon->maxSwapWaterColor = MAXSWAPWATERCOLOR;
+  bubblemon->batteryDeadAirColor = BATTERYDEADAIRCOLOR;
+  bubblemon->batteryDeadWaterColor = BATTERYDEADWATERCOLOR;
   bubblemon->weedColor0 = WEEDCOLOR0;
   bubblemon->weedColor1 = WEEDCOLOR1;
   
