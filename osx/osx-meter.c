@@ -145,7 +145,6 @@ done:
 static void measureMemory(meter_sysload_t *load) {
     measureRam(load);
     measureSwap(load);
-    load->batteryCharge = getBatteryChargePercent();
 }
 
 static int getCpuCount(void) {
@@ -307,7 +306,9 @@ void meter_init(meter_sysload_t *load) {
   load->user = dynamic_accumulator_create();
   
   measureMemory(load);
-  
+
+  load->batteryCharge = getBatteryChargePercent();
+
   load->nCpus = getCpuCount();
   assert(load->nCpus > 0);
   load->cpuLoad = calloc(load->nCpus, sizeof(int));
@@ -332,6 +333,7 @@ void meter_getLoad(meter_sysload_t *load) {
 
     measureMemory(load);
     measureCpuLoad(load);
+    load->batteryCharge = getBatteryChargePercent();
 
     // Delay IO measurement even more; empirical studies show that this gives us
     // a lot better values.
