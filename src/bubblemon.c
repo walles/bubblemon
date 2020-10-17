@@ -170,7 +170,7 @@ static void usage2string(char *string,
 
 const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 {
-  char memstring[20], swapstring[20], iowaitstring[40], loadstring[50];
+  char memstring[20], swapstring[20], iowaitstring[40], loadstring[50], batterystring[50];
   int cpu_number;
 
   if (!bubblemon->tooltipstring)
@@ -178,7 +178,7 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
     /* Prevent the tooltipstring buffer from overflowing on a system
        with lots of CPUs */
     bubblemon->tooltipstring =
-      malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 200));
+      malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 500));
     assert(bubblemon->tooltipstring != NULL);
   }
 
@@ -203,6 +203,11 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 	   _("\nIO load: %d%%"),
 	   bubblemon->sysload.ioLoad);
   strcat(bubblemon->tooltipstring, iowaitstring);
+
+  snprintf(batterystring, 49,
+           _("\nBattery charge: %d%%"),
+           bubblemon->sysload.batteryChargePercent);
+  strcat(bubblemon->tooltipstring, batterystring);
 
   if (bubblemon->sysload.nCpus == 1)
     {
