@@ -1335,19 +1335,6 @@ bubblemon_t *bubblemon_init(void)
   return bubblemon;
 }
 
-void bubblemon_setColors(bubblemon_t *bubblemon,
-                         unsigned int noSwapAirColor, unsigned int noSwapWaterColor,
-                         unsigned int maxSwapAirColor, unsigned int maxSwapWaterColor,
-                         unsigned int weedColor0, unsigned int weedColor1)
-{
-  bubblemon->noSwapAirColor = noSwapAirColor;
-  bubblemon->noSwapWaterColor = noSwapWaterColor;
-  bubblemon->maxSwapAirColor = maxSwapAirColor;
-  bubblemon->maxSwapWaterColor = maxSwapWaterColor;
-  bubblemon->weedColor0 = weedColor0;
-  bubblemon->weedColor1 = weedColor1;
-}
-
 void bubblemon_done(bubblemon_t *bubblemon)
 {
   // Terminate the load metering

@@ -212,15 +212,6 @@ const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon);
 /* Set the dimensions of the bubble array */
 extern void bubblemon_setSize(bubblemon_t *bubblemon, int width, int height);
 
-/* Set a new color scheme
- *
- * Color values are 0xrrggbbaa with aa=00 being opaque and aa=ff transparent.
- */
-extern void bubblemon_setColors(bubblemon_t *bubblemon,
-                                unsigned int noSwapAirColor, unsigned int noSwapWaterColor,
-                                unsigned int maxSwapAirColor, unsigned int maxSwapWaterColor,
-                                unsigned int weedColor0, unsigned int weedColor1);
-
 /* Return how many percent of the memory is used */
 extern int bubblemon_getMemoryPercentage(bubblemon_t *bubblemon);
 
