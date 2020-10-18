@@ -756,16 +756,19 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
  * saturationPercent = 100 --> return the input color unmodified
  */
 static bubblemon_color_t mod_saturation(int saturationPercent, bubblemon_color_t input) {
-  int componentsSum = 0;
-  componentsSum += (int)input.components.r;
-  componentsSum += (int)input.components.g;
-  componentsSum += (int)input.components.b;
+  // From: https://www.tutorialspoint.com/dip/grayscale_to_rgb_conversion.htm
+  float brightnessF =
+    (0.3f * input.components.r)
+    + (0.59f * input.components.g)
+    + (0.11f * input.components.b);
+
+  int brightnessI = (unsigned char)(brightnessF + 0.5f);
+  assert(brightnessI >= 0 && brightnessI <= 255);
 
   bubblemon_color_t desaturated;
-  unsigned char brightness = (unsigned char)(componentsSum / 3);
-  desaturated.components.r = brightness;
-  desaturated.components.g = brightness;
-  desaturated.components.b = brightness;
+  desaturated.components.r = brightnessI;
+  desaturated.components.g = brightnessI;
+  desaturated.components.b = brightnessI;
   desaturated.components.a = input.components.a;
 
   return bubblemon_interpolateColor(desaturated, input, (saturationPercent * 255) / 100);
