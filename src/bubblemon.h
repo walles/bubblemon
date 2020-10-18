@@ -195,8 +195,6 @@ typedef struct
   unsigned int noSwapWaterColor;
   unsigned int maxSwapAirColor;
   unsigned int maxSwapWaterColor;
-  unsigned int batteryDeadAirColor;
-  unsigned int batteryDeadWaterColor;
   unsigned int weedColor0;
   unsigned int weedColor1;
 } bubblemon_t;
