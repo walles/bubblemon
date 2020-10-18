@@ -698,7 +698,7 @@ static bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
   return returnMe;
 }
 
-/* The amount parameter is 0-255. */
+/* The amount parameter is 0-255, where 255 means "all c2". */
 static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
 							   const bubblemon_color_t c2,
 							   const int amount)
@@ -748,6 +748,22 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
   */
 
   return returnme;
+}
+
+static bubblemon_color_t mod_saturation(int saturationPercent, bubblemon_color_t input) {
+  int componentsSum = 0;
+  componentsSum += (int)input.components.r;
+  componentsSum += (int)input.components.g;
+  componentsSum += (int)input.components.b;
+
+  bubblemon_color_t desaturated;
+  unsigned char brightness = (unsigned char)(componentsSum / 3);
+  desaturated.components.r = brightness;
+  desaturated.components.g = brightness;
+  desaturated.components.b = brightness;
+  desaturated.components.a = input.components.a;
+
+  return bubblemon_interpolateColor(desaturated, input, (saturationPercent * 255) / 100);
 }
 
 /* Update the bubble array from the system load */
@@ -1121,14 +1137,9 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
 					     maxSwapWaterColor,
 					     (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
 
-  /* Mix water and air colors based on how little battery is left */
-  const int battery_0_to_255 = (bubblemon_getBatteryChargePercentage(bubblemon) * 255) / 100;
-  colors[AIR] = bubblemon_interpolateColor(batteryDeadAirColor,
-                                           colors[AIR],
-                                           battery_0_to_255);
-  colors[WATER] = bubblemon_interpolateColor(batteryDeadWaterColor,
-                                             colors[WATER],
-                                             battery_0_to_255);
+  /* Grey out on low battery */
+  colors[AIR] = mod_saturation(bubblemon_getBatteryChargePercentage(bubblemon), colors[AIR]);
+  colors[WATER] = mod_saturation(bubblemon_getBatteryChargePercentage(bubblemon), colors[WATER]);
 
   colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
 
@@ -1327,8 +1338,6 @@ bubblemon_t *bubblemon_init(void)
   bubblemon->noSwapWaterColor = NOSWAPWATERCOLOR;
   bubblemon->maxSwapAirColor = MAXSWAPAIRCOLOR;
   bubblemon->maxSwapWaterColor = MAXSWAPWATERCOLOR;
-  bubblemon->batteryDeadAirColor = BATTERYDEADAIRCOLOR;
-  bubblemon->batteryDeadWaterColor = BATTERYDEADWATERCOLOR;
   bubblemon->weedColor0 = WEEDCOLOR0;
   bubblemon->weedColor1 = WEEDCOLOR1;
   
