@@ -13,6 +13,7 @@ OUTPUT=$(mktemp -t bubblemon-analyze)
 
 SCHEMES=("Debug" "Bubblemon TouchBar" "Bubblemon TouchBar Helper")
 for scheme in "${SCHEMES[@]}" ; do
+    echo
     echo "Analyzing scheme: $scheme"
     xcodebuild -project osx/bubblemon.xcodeproj/ -scheme "$scheme" clean analyze | tee "$OUTPUT"
 
@@ -20,3 +21,9 @@ for scheme in "${SCHEMES[@]}" ; do
     # analysis problems, this is an attempt at handling that.
     grep -A10 "warning: " "$OUTPUT" && exit 1
 done
+
+# We must do something successful at the end, otherwise the last
+# executed command will be the failed grep ^, and the whole script
+# exits with an error code.
+echo
+echo "Done, all passed!"
