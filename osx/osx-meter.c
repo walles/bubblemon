@@ -102,7 +102,7 @@ static int getBatteryChargePercent(void) {
     }
 
     CFBooleanRef isChargingRef = CFDictionaryGetValue(powerSource, CFSTR(kIOPSIsChargingKey));
-    if (!isChargingRef) {
+    if (isChargingRef == NULL) {
       continue;
     }
     Boolean isCharging = CFBooleanGetValue(isChargingRef);
@@ -113,11 +113,11 @@ static int getBatteryChargePercent(void) {
     }
 
     CFNumberRef chargeRef = CFDictionaryGetValue(powerSource, CFSTR(kIOPSCurrentCapacityKey));
-    if (!chargeRef) {
+    if (chargeRef == NULL) {
       continue;
     }
     CFNumberRef capacityRef = CFDictionaryGetValue(powerSource, CFSTR(kIOPSMaxCapacityKey));
-    if (!capacityRef) {
+    if (capacityRef == NULL) {
       continue;
     }
 
