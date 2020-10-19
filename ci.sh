@@ -11,7 +11,7 @@ cd "$MYDIR"
 
 OUTPUT=$(mktemp -t bubblemon-analyze)
 
-SCHEMES=(Debug "Bubblemon TouchBar" "Bubblemon TouchBar Helper")
+SCHEMES=("Debug" "Bubblemon TouchBar" "Bubblemon TouchBar Helper")
 for scheme in "${SCHEMES[@]}" ; do
     echo "Analyzing scheme: $scheme"
     xcodebuild -project osx/bubblemon.xcodeproj/ -scheme "$scheme" clean analyze | tee "$OUTPUT"
