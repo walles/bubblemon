@@ -1019,6 +1019,8 @@ static void bubblemon_environmentToBubbleArray(bubblemon_t *bubblemon,
   }
 
   // Draw the air and water background
+  assert(w > 0);
+  assert(h > 0);
   for (x = 0; x < w; x++)
   {
     bubblemon_colorcode_t *pixel;
@@ -1057,6 +1059,7 @@ static void bubblemon_environmentToBubbleArray(bubblemon_t *bubblemon,
   // Draw the bubbles
   bubble = bubblemon->physics.bubbles;
   hf = h; // Move the int->float cast out of the loop
+  assert(bubblemon->physics.n_bubbles >= 0);
   for (i = 0; i < bubblemon->physics.n_bubbles; i++)
   {
     if (bubble->layer >= layer)
@@ -1332,11 +1335,16 @@ static void testWaveCrestAntialiasingHelper(bubblemon_t *testMe,
 {
   testMe->physics.waterLevels[0].y = height;
   bubblemon_environmentToBubbleArray(testMe, BACKGROUND);
+
+#ifndef __clang_analyzer__
+  // Clang analyzer October 2020 complains about garbage values
+  // here, and I think it's wrong.
   assert(AIR   == testMe->bubblePic.airAndWater[0 * 3]);
   assert(AIR   == testMe->bubblePic.airAndWater[1 * 3]);
   assert(color == testMe->bubblePic.airAndWater[2 * 3]);
   assert(WATER == testMe->bubblePic.airAndWater[3 * 3]);
   assert(WATER == testMe->bubblePic.airAndWater[4 * 3]);
+#endif
 }
 
 static void testWaveCrestAntialiasing() {
