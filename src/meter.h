@@ -44,6 +44,17 @@ typedef struct
   /* How much of the system's IO bandwidth is in use */
   int ioLoad;
 
+  /* Battery charge left in percent.
+   *
+   * On a battery-less system, this number will return 100%.
+   *
+   * On a charging system, this number will return 100%.
+   *
+   * On a system with multiple not-charging batteries, this number will contain
+   * the number from the lowest charged battery.
+   */
+  int batteryChargePercent;
+
   // FIXME: Having the below fields as part of the official API might
   // not be the best idea ever /Johan-2009feb22
   accumulator_t **cpuAccumulators;

@@ -170,7 +170,7 @@ static void usage2string(char *string,
 
 const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 {
-  char memstring[20], swapstring[20], iowaitstring[40], loadstring[50];
+  char memstring[20], swapstring[20], iowaitstring[40], loadstring[50], batterystring[50];
   int cpu_number;
 
   if (!bubblemon->tooltipstring)
@@ -178,7 +178,7 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
     /* Prevent the tooltipstring buffer from overflowing on a system
        with lots of CPUs */
     bubblemon->tooltipstring =
-      malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 200));
+      malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 500));
     assert(bubblemon->tooltipstring != NULL);
   }
 
@@ -203,6 +203,11 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 	   _("\nIO load: %d%%"),
 	   bubblemon->sysload.ioLoad);
   strcat(bubblemon->tooltipstring, iowaitstring);
+
+  snprintf(batterystring, 49,
+           _("\nBattery charge: %d%%"),
+           bubblemon->sysload.batteryChargePercent);
+  strcat(bubblemon->tooltipstring, batterystring);
 
   if (bubblemon->sysload.nCpus == 1)
     {
@@ -693,7 +698,7 @@ static bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
   return returnMe;
 }
 
-/* The amount parameter is 0-255. */
+/* The amount parameter is 0-255, where 255 means "all c2". */
 static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
 							   const bubblemon_color_t c2,
 							   const int amount)
@@ -861,6 +866,11 @@ int bubblemon_getSwapPercentage(bubblemon_t *bubblemon)
 #else
   return returnme;
 #endif
+}
+
+int bubblemon_getBatteryChargePercentage(bubblemon_t *bubblemon)
+{
+  return bubblemon->sysload.batteryChargePercent;
 }
 
 /* The cpu parameter is the cpu number, 0 - #CPUs-1. */
@@ -1083,6 +1093,8 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   bubblemon_color_t maxSwapAirColor;
   bubblemon_color_t maxSwapWaterColor;
 
+  bubblemon_color_t fogColor;
+
   bubblemon_color_t colors[3];
 
   bubblemon_colorcode_t *airOrWater;
@@ -1097,12 +1109,27 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   maxSwapAirColor = bubblemon_constant2color(bubblemon->maxSwapAirColor);
   maxSwapWaterColor = bubblemon_constant2color(bubblemon->maxSwapWaterColor);
 
+  fogColor = bubblemon_constant2color(bubblemon->fogColor);
+
+  /* Mix water and air colors based on swap usage */
   colors[AIR] = bubblemon_interpolateColor(noSwapAirColor,
 					   maxSwapAirColor,
 					   (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
   colors[WATER] = bubblemon_interpolateColor(noSwapWaterColor,
 					     maxSwapWaterColor,
 					     (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
+
+  /* Fog up on low battery */
+  const int battery_0_fogginess_percent = 100;
+  const int battery_discharge_percent = 100 - bubblemon_getBatteryChargePercentage(bubblemon);
+  int fogginess_percent = (battery_discharge_percent * battery_0_fogginess_percent) / 100;
+  if (fogginess_percent > 90) {
+    fogginess_percent = 90;
+  }
+
+  colors[AIR] = bubblemon_interpolateColor(colors[AIR], fogColor, (fogginess_percent * 255) / 100);
+  colors[WATER] = bubblemon_interpolateColor(colors[WATER], fogColor, (fogginess_percent * 255) / 100);
+
   colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
 
   w = bubblePic->width;
@@ -1302,21 +1329,9 @@ bubblemon_t *bubblemon_init(void)
   bubblemon->maxSwapWaterColor = MAXSWAPWATERCOLOR;
   bubblemon->weedColor0 = WEEDCOLOR0;
   bubblemon->weedColor1 = WEEDCOLOR1;
+  bubblemon->fogColor = FOGCOLOR;
   
   return bubblemon;
-}
-
-void bubblemon_setColors(bubblemon_t *bubblemon,
-                         unsigned int noSwapAirColor, unsigned int noSwapWaterColor,
-                         unsigned int maxSwapAirColor, unsigned int maxSwapWaterColor,
-                         unsigned int weedColor0, unsigned int weedColor1)
-{
-  bubblemon->noSwapAirColor = noSwapAirColor;
-  bubblemon->noSwapWaterColor = noSwapWaterColor;
-  bubblemon->maxSwapAirColor = maxSwapAirColor;
-  bubblemon->maxSwapWaterColor = maxSwapWaterColor;
-  bubblemon->weedColor0 = weedColor0;
-  bubblemon->weedColor1 = weedColor1;
 }
 
 void bubblemon_done(bubblemon_t *bubblemon)

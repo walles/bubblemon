@@ -65,16 +65,19 @@
 #define WEED_MINSPEED 3
 #define WEED_SPEEDFACTOR 1
 
-/* Swap usage color scale */              /*              rrggbbaa */
-static const unsigned int NOSWAPAIRCOLOR    = (unsigned)0x2299ff00;
-static const unsigned int NOSWAPWATERCOLOR  = (unsigned)0x0055ff80;
+/* Swap usage color scale                                 rrggbbaa */
+static const unsigned int NOSWAPAIRCOLOR    = (unsigned)0x75ceff00;
+static const unsigned int NOSWAPWATERCOLOR  = (unsigned)0x0066ff80;
 
-static const unsigned int MAXSWAPAIRCOLOR   = (unsigned)0xff000040;
+static const unsigned int MAXSWAPAIRCOLOR   = (unsigned)0xff333340;
 static const unsigned int MAXSWAPWATERCOLOR = (unsigned)0xaa000080;
 
 /* Weeds have a random color between these two */
 static const unsigned int WEEDCOLOR0        = (unsigned)0x00ff0080;
 static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
+
+/* Colors fade towards this on low battery */
+static const unsigned int FOGCOLOR          = (unsigned)0x606060ff;
 
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
@@ -197,6 +200,7 @@ typedef struct
   unsigned int maxSwapWaterColor;
   unsigned int weedColor0;
   unsigned int weedColor1;
+  unsigned int fogColor;
 } bubblemon_t;
 
 /* The 'pixels' field of the returned struct contains the pixels to
@@ -205,15 +209,6 @@ const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon);
 
 /* Set the dimensions of the bubble array */
 extern void bubblemon_setSize(bubblemon_t *bubblemon, int width, int height);
-
-/* Set a new color scheme
- *
- * Color values are 0xrrggbbaa with aa=00 being opaque and aa=ff transparent.
- */
-extern void bubblemon_setColors(bubblemon_t *bubblemon,
-                                unsigned int noSwapAirColor, unsigned int noSwapWaterColor,
-                                unsigned int maxSwapAirColor, unsigned int maxSwapWaterColor,
-                                unsigned int weedColor0, unsigned int weedColor1);
 
 /* Return how many percent of the memory is used */
 extern int bubblemon_getMemoryPercentage(bubblemon_t *bubblemon);
@@ -224,6 +219,17 @@ extern int bubblemon_getSwapPercentage(bubblemon_t *bubblemon);
 /* The cpu parameter is the cpu number, 1 - #CPUs.  0 means average load */
 extern int bubblemon_getAverageLoadPercentage(bubblemon_t *bubblemon);
 extern int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpu);
+
+/* Battery charge left in percent.
+ *
+ * On a battery-less system, this function will return 100%.
+ *
+ * On a charging system, this function will return 100%.
+ *
+ * On a system with multiple not-charging batteries, the number from the
+ * lowest charged one will be returned.
+ */
+extern int bubblemon_getBatteryChargePercentage(bubblemon_t *bubblemon);
 
 /* Return a suitable tool tip */
 extern const char *bubblemon_getTooltip(bubblemon_t *bubblemon);

@@ -122,7 +122,6 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     bubblemon_selftest()
 #endif
     _bubblemon = bubblemon_init()
-    bubblemon_setColors(_bubblemon, 0x75ceff00, 0x0066ff80, 0xff333340, 0xaa000080, 0x00ff0080, 0xffff40ff)
     _picture = nil
     // Load window frame graphics
     let bundle = Bundle(for: BubblemonView.self)

@@ -20,6 +20,8 @@
 
 #include <IOKit/IOKitLib.h>
 #include <IOKit/IOBSD.h>
+#include <IOKit/ps/IOPowerSources.h>
+#include <IOKit/ps/IOPSKeys.h>
 #include <IOKit/storage/IOMedia.h>
 #include <IOKit/storage/IOBlockStorageDriver.h>
 #include <CoreFoundation/CoreFoundation.h>
@@ -71,6 +73,77 @@ static void measureRam(meter_sysload_t *load) {
     size_t pageSize = sysconf(_SC_PAGESIZE);
     load->memorySize = totalPages * pageSize;
     load->memoryUsed = usedPages * pageSize;
+}
+
+static int getBatteryChargePercent(void) {
+  int computerChargePercent = 100;
+
+  CFArrayRef powerSourcesList = NULL;
+  CFTypeRef powerSourcesInfo = IOPSCopyPowerSourcesInfo();
+  if (!powerSourcesInfo) {
+    // No battery info, assume external power source
+    goto done;
+  }
+
+  powerSourcesList = IOPSCopyPowerSourcesList(powerSourcesInfo);
+  if (!powerSourcesList) {
+    // No battery info, assume external power source
+    goto done;
+  }
+
+  long count = CFArrayGetCount(powerSourcesList);
+  for (int i=0; i<count; i++)
+  {
+    CFDictionaryRef powerSource =
+      IOPSGetPowerSourceDescription(powerSourcesInfo, CFArrayGetValueAtIndex(powerSourcesList, i));
+    if (powerSource == NULL) {
+      // Bubble trouble, try the next one
+      continue;
+    }
+
+    CFBooleanRef isChargingRef = CFDictionaryGetValue(powerSource, CFSTR(kIOPSIsChargingKey));
+    if (isChargingRef == NULL) {
+      continue;
+    }
+    Boolean isCharging = CFBooleanGetValue(isChargingRef);
+    if (isCharging) {
+      // No need to bring the user's attention to this one; we only want to
+      // look powerless if they risk running out.
+      continue;
+    }
+
+    CFNumberRef chargeRef = CFDictionaryGetValue(powerSource, CFSTR(kIOPSCurrentCapacityKey));
+    if (chargeRef == NULL) {
+      continue;
+    }
+    CFNumberRef capacityRef = CFDictionaryGetValue(powerSource, CFSTR(kIOPSMaxCapacityKey));
+    if (capacityRef == NULL) {
+      continue;
+    }
+
+    int charge;
+    int capacity;
+    CFNumberGetValue(chargeRef, kCFNumberIntType, &charge);
+    CFNumberGetValue(capacityRef, kCFNumberIntType, &capacity);
+    assert(charge <= capacity);
+
+    int currentBatteryChargePercent = (int)((100L * charge) / capacity);
+    if (currentBatteryChargePercent < computerChargePercent) {
+      computerChargePercent = currentBatteryChargePercent;
+    }
+  }
+
+done:
+  if (powerSourcesInfo != NULL) {
+    CFRelease(powerSourcesInfo);
+  }
+  if (powerSourcesList != NULL) {
+    CFRelease(powerSourcesList);
+  }
+
+  assert(computerChargePercent >= 0);
+  assert(computerChargePercent <= 100);
+  return computerChargePercent;
 }
 
 static void measureMemory(meter_sysload_t *load) {
@@ -237,7 +310,9 @@ void meter_init(meter_sysload_t *load) {
   load->user = dynamic_accumulator_create();
   
   measureMemory(load);
-  
+
+  load->batteryChargePercent = getBatteryChargePercent();
+
   load->nCpus = getCpuCount();
   assert(load->nCpus > 0);
   load->cpuLoad = calloc(load->nCpus, sizeof(int));
@@ -262,6 +337,7 @@ void meter_getLoad(meter_sysload_t *load) {
 
     measureMemory(load);
     measureCpuLoad(load);
+    load->batteryChargePercent = getBatteryChargePercent();
 
     // Delay IO measurement even more; empirical studies show that this gives us
     // a lot better values.
