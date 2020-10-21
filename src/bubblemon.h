@@ -76,6 +76,9 @@ static const unsigned int MAXSWAPWATERCOLOR = (unsigned)0xaa000080;
 static const unsigned int WEEDCOLOR0        = (unsigned)0x00ff0080;
 static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
 
+/* Colors fade towards this on low battery */
+static const unsigned int FOGCOLOR          = (unsigned)0x808080ff;
+
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
 
@@ -197,6 +200,7 @@ typedef struct
   unsigned int maxSwapWaterColor;
   unsigned int weedColor0;
   unsigned int weedColor1;
+  unsigned int fogColor;
 } bubblemon_t;
 
 /* The 'pixels' field of the returned struct contains the pixels to

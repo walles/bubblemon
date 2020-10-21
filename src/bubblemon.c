@@ -750,30 +750,6 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
   return returnme;
 }
 
-/* Modify color saturation.
- *
- * saturationPercent =   0 --> return a shade of grey
- * saturationPercent = 100 --> return the input color unmodified
- */
-static bubblemon_color_t mod_saturation(int saturationPercent, bubblemon_color_t input) {
-  // From: https://www.tutorialspoint.com/dip/grayscale_to_rgb_conversion.htm
-  float brightnessF =
-    (0.3f * input.components.r)
-    + (0.59f * input.components.g)
-    + (0.11f * input.components.b);
-
-  int brightnessI = (unsigned char)(brightnessF + 0.5f);
-  assert(brightnessI >= 0 && brightnessI <= 255);
-
-  bubblemon_color_t desaturated;
-  desaturated.components.r = brightnessI;
-  desaturated.components.g = brightnessI;
-  desaturated.components.b = brightnessI;
-  desaturated.components.a = input.components.a;
-
-  return bubblemon_interpolateColor(desaturated, input, (saturationPercent * 255) / 100);
-}
-
 /* Update the bubble array from the system load */
 static void bubblemon_updatePhysics(bubblemon_t *bubblemon,
 				    int msecsSinceLastCall,
@@ -1117,6 +1093,8 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   bubblemon_color_t maxSwapAirColor;
   bubblemon_color_t maxSwapWaterColor;
 
+  bubblemon_color_t fogColor;
+
   bubblemon_color_t colors[3];
 
   bubblemon_colorcode_t *airOrWater;
@@ -1131,6 +1109,8 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   maxSwapAirColor = bubblemon_constant2color(bubblemon->maxSwapAirColor);
   maxSwapWaterColor = bubblemon_constant2color(bubblemon->maxSwapWaterColor);
 
+  fogColor = bubblemon_constant2color(bubblemon->fogColor);
+
   /* Mix water and air colors based on swap usage */
   colors[AIR] = bubblemon_interpolateColor(noSwapAirColor,
 					   maxSwapAirColor,
@@ -1140,8 +1120,11 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
 					     (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
 
   /* Grey out on low battery */
-  colors[AIR] = mod_saturation(bubblemon_getBatteryChargePercentage(bubblemon), colors[AIR]);
-  colors[WATER] = mod_saturation(bubblemon_getBatteryChargePercentage(bubblemon), colors[WATER]);
+  const int battery_0_fogginess_percent = 90;
+  const int battery_discharge_percent = 100 - bubblemon_getBatteryChargePercentage(bubblemon);
+  const int fogginess_percent = (battery_discharge_percent * battery_0_fogginess_percent) / 100;
+  colors[AIR] = bubblemon_interpolateColor(colors[AIR], fogColor, (fogginess_percent * 255) / 100);
+  colors[WATER] = bubblemon_interpolateColor(colors[WATER], fogColor, (fogginess_percent * 255) / 100);
 
   colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
 
@@ -1342,6 +1325,7 @@ bubblemon_t *bubblemon_init(void)
   bubblemon->maxSwapWaterColor = MAXSWAPWATERCOLOR;
   bubblemon->weedColor0 = WEEDCOLOR0;
   bubblemon->weedColor1 = WEEDCOLOR1;
+  bubblemon->fogColor = FOGCOLOR;
   
   return bubblemon;
 }
