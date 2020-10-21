@@ -96,7 +96,7 @@ static int getBatteryChargePercent(void) {
   {
     CFDictionaryRef powerSource =
       IOPSGetPowerSourceDescription(powerSourcesInfo, CFArrayGetValueAtIndex(powerSourcesList, i));
-    if (!powerSource) {
+    if (powerSource == NULL) {
       // Bubble trouble, try the next one
       continue;
     }
@@ -125,6 +125,7 @@ static int getBatteryChargePercent(void) {
     int capacity;
     CFNumberGetValue(chargeRef, kCFNumberIntType, &charge);
     CFNumberGetValue(capacityRef, kCFNumberIntType, &capacity);
+    assert(charge <= capacity);
 
     int currentBatteryChargePercent = (int)((100L * charge) / capacity);
     if (currentBatteryChargePercent < computerChargePercent) {
@@ -133,12 +134,15 @@ static int getBatteryChargePercent(void) {
   }
 
 done:
-  if (powerSourcesInfo) {
+  if (powerSourcesInfo != NULL) {
     CFRelease(powerSourcesInfo);
   }
-  if (powerSourcesList) {
+  if (powerSourcesList != NULL) {
     CFRelease(powerSourcesList);
   }
+
+  assert(computerChargePercent >= 0);
+  assert(computerChargePercent <= 100);
   return computerChargePercent;
 }
 
