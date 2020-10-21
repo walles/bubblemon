@@ -1120,9 +1120,13 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
 					     (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
 
   /* Grey out on low battery */
-  const int battery_0_fogginess_percent = 90;
+  const int battery_0_fogginess_percent = 100;
   const int battery_discharge_percent = 100 - bubblemon_getBatteryChargePercentage(bubblemon);
-  const int fogginess_percent = (battery_discharge_percent * battery_0_fogginess_percent) / 100;
+  int fogginess_percent = (battery_discharge_percent * battery_0_fogginess_percent) / 100;
+  if (fogginess_percent > 90) {
+    fogginess_percent = 90;
+  }
+
   colors[AIR] = bubblemon_interpolateColor(colors[AIR], fogColor, (fogginess_percent * 255) / 100);
   colors[WATER] = bubblemon_interpolateColor(colors[WATER], fogColor, (fogginess_percent * 255) / 100);
 
