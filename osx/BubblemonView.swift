@@ -1,27 +1,12 @@
 import Cocoa
 
-private func createContext(width: size_t, height: size_t) -> CGContext? {
-  let bytesPerRow = width * 4
-
-  // rgb alpha
-  let rgb = CGColorSpaceCreateDeviceRGB()
-  let zBitmapContextRef = CGContext(data: nil,
-                                    width: width,
-                                    height: height,
-                                    bitsPerComponent: 8,
-                                    bytesPerRow: bytesPerRow,
-                                    space: rgb,
-                                    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
-  return zBitmapContextRef
-}
-
 class BubblemonView: NSView, NSDockTilePlugIn {
   private var _bubblemon: UnsafeMutablePointer<bubblemon_t>
   private var _picture: UnsafePointer<bubblemon_picture_t>?
   private var _dockTile: NSDockTile?
   private var _dockMenu: NSMenu?
   private var _windowFrame: CGImage?
-  private var _scaledWindowFrame: CGImage?
+  private var _scaledWindowFrame: CGLayer?
 
   private var _touchBarMode: Bool
 
@@ -154,17 +139,12 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     _touchBarMode = touchBarMode
   }
 
-  func getCachedWindowFrame() -> CGImage {
-    let width = Int(round(bounds.size.width))
-    let height = Int(round(bounds.size.height))
-
+  func getCachedWindowFrame(baseContext: CGContext) -> CGLayer {
     // Can we use our cached window frame?
     if _scaledWindowFrame == nil {
       // No; we don't have one
-    } else if _scaledWindowFrame!.width != width {
-      // No; the width doesn't match
-    } else if _scaledWindowFrame!.height != height {
-      // No; the height doesn't match
+    } else if (!bounds.size.equalTo(_scaledWindowFrame!.size)) {
+      // No; the size doesn't match
     } else {
       // Yes!
       return _scaledWindowFrame!
@@ -189,10 +169,11 @@ class BubblemonView: NSView, NSDockTilePlugIn {
     let x1after = x1before * yFactor
     let x2after = bounds.size.width - 1 - x1after
     let middleWidthAfter = 1 + x2after - x1after
-    let rightWidthAfter = CGFloat(width - 1) - x2after
+    let rightWidthAfter = bounds.size.width - 1 - x2after
     let heightAfter = bounds.size.height
 
-    let scaledContext = createContext(width: width, height: height)
+    let scaledLayer = CGLayer(baseContext, size: bounds.size, auxiliaryInfo: nil)
+    let scaledContext = scaledLayer!.context
 
     // Draw the left part
     scaledContext!.draw(
@@ -211,7 +192,7 @@ class BubblemonView: NSView, NSDockTilePlugIn {
         x: x2before, y: 0, width: rightWidthBefore, height: heightBefore))!,
       in: CGRect(x: x2after, y: CGFloat(0), width: rightWidthAfter, height: heightAfter))
 
-    _scaledWindowFrame = scaledContext!.makeImage()
+    _scaledWindowFrame = scaledLayer!
     return _scaledWindowFrame!
   }
 
@@ -304,9 +285,8 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 
     if (!_touchBarMode) {
       // Draw the window frame
-      let fullSizeRect = NSRectToCGRect(bounds)
       cgContext.setAlpha(1.0)
-      cgContext.draw(getCachedWindowFrame(), in: fullSizeRect)
+      cgContext.draw(getCachedWindowFrame(baseContext: cgContext), at: CGPoint(x: 0, y: 0))
     }
   }
 }
