@@ -46,8 +46,19 @@ xcodebuild \
 BUBBLEMON_APP="$TARGET_BUILD_DIR/Bubblemon.app"
 BUBBLEMON_TOUCHBAR_APP="$TARGET_BUILD_DIR/Bubblemon TouchBar.app"
 
-# FIXME: Install both Dock flavor and TouchBar flavor into /Applications, after
-# first backing up any version already in place there
+# Back up any existing installation
+if [ -e "/Applications/Bubblemon.app" ] ; then
+    rm -rf "/Applications/Bubblemon.app.old"
+    mv "/Applications/Bubblemon.app" "/Applications/Bubblemon.app.old"
+fi
+if [ -e "/Applications/Bubblemon TouchBar.app" ] ; then
+    rm -rf "/Applications/Bubblemon TouchBar.app.old"
+    mv "/Applications/Bubblemon TouchBar.app" "/Applications/Bubblemon TouchBar.app.old"
+fi
+
+# Install!
+mv "$BUBBLEMON_APP" "/Applications/"
+mv "$BUBBLEMON_TOUCHBAR_APP" "/Applications/"
 
 # FIXME: Invoke the Dockapp flavor from /Applications
 
