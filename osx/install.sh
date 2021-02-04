@@ -21,11 +21,30 @@ else
     exit
 fi
 
-# FIXME: Create a working directory
-# FIXME: cd into working directory
-# FIXME: git clone bubblemon into that working directory
+# Create a working directory
+WORKDIR="$(mktemp -d -t bubblemon)"
+cd "$WORKDIR"
 
-# FIXME: Build both the Dock flavor and the TouchBar flavor
+# git clone bubblemon into that working directory
+xcrun git clone "https://github.com/walles/bubblemon.git"
+cd bubblemon
+
+# Build both the Dock flavor and the TouchBar flavor
+echo "Now building, this can take 10+ seconds..."
+TARGET_BUILD_DIR=$(mktemp -d)
+TARGET_TEMP_DIR=$(mktemp -d)
+xcodebuild \
+  build \
+  -quiet \
+  -project osx/bubblemon.xcodeproj \
+  -configuration Release \
+  -target "Bubblemon" \
+  -target "Bubblemon TouchBar" \
+  CONFIGURATION_BUILD_DIR="${TARGET_BUILD_DIR}" \
+  CONFIGURATION_TEMP_DIR="${TARGET_TEMP_DIR}"
+
+BUBBLEMON_APP="$TARGET_BUILD_DIR/Bubblemon.app"
+BUBBLEMON_TOUCHBAR_APP="$TARGET_BUILD_DIR/Bubblemon TouchBar.app"
 
 # FIXME: Install both Dock flavor and TouchBar flavor into /Applications, after
 # first backing up any version already in place there
