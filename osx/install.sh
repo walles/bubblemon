@@ -60,6 +60,12 @@ fi
 mv "$BUBBLEMON_APP" "/Applications/"
 mv "$BUBBLEMON_TOUCHBAR_APP" "/Applications/"
 
-# FIXME: Invoke the Dockapp flavor from /Applications
+# Invoke the Dockapp flavor from /Applications
+echo
+echo "To install Bubblemon, your Dock needs to be restarted."
+read -pr "Press RETURN to continue: "
+open "/Applications/Bubblemon.app"
 
-# FIXME: If we have a touchBar, invoke the TouchBar flavor from /Applications
+# Invoke the TouchBar flavor from /Applications. If we don't have any TouchBar,
+# the app should notice and not do anything.
+open "/Applications/Bubblemon TouchBar.app"
