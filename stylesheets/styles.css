@@ -228,6 +228,12 @@ blockquote {
   color: #222;
 }
 
+.scrolling-wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
 img {
   max-width: 100%;
 }

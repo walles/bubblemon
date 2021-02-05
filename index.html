@@ -62,6 +62,8 @@
           </tr>
         </table>
 
+        <p>See below for <a href="#installing">how to install</a>.</p>
+
         <p>The <strong>water level</strong> indicates how much memory is in use.</p>
 
         <p>The system CPU load is indicated by <strong>bubbles</strong> floating up through the liquid; lots of bubbles means high CPU load. The most heavily loaded CPU will bubble in the middle, and less loaded CPUs nearer the edges. So a column of bubbles in the middle means that a single CPU is doing all the work, but bubbles across the full width means all CPUs are busy.</p>
@@ -77,31 +79,21 @@
         <h1>
           <a id="installing" class="anchor" href="#installing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing</h1>
 
-        <p>A screenshot doesn't do the applet much justice, since part of its coolness is its physics engine, making the bubbles move, the surface ripple and water to flow. So <a href="https://github.com/walles/bubblemon/releases/latest">check it out for yourself</a>!</p>
-
-        <h2>Bubblemon in the Dock</h2>
-        <ul>
-          <li>Download the latest release: <a href="https://github.com/walles/bubblemon/releases/latest">Click here</a></li>
-          <li>Double click the <code>dmg</code> file in the Finder to mount it</li>
-          <li>Drag <code>Bubblemon</code> into the <code>Applications</code> folder</li>
-          <li>Double click the <code>Applications</code> folder to open it</li>
+        <ol>
+          <li>Start the <a href="https://support.apple.com/guide/terminal">Terminal</a></li>
           <li>
-            Right click <code>Bubblemon</code> and select <code>Open</code>. Answer Yes to any security question.
-            Bubblemon should now restart your Dock and start doing its thing.
+            Paste the following command into the Terminal window and press RETURN:<br/>
+            <div class="scrolling-wrapper">
+              <code>curl https://raw.githubusercontent.com/walles/bubblemon/walles/master/osx/<a href="https://github.com/walles/bubblemon/blob/master/osx/install.sh">install.sh</a> | bash</code>
+            </div>
           </li>
-          <li>Right click Bubblemon in the Dock for help</li>
-          <li>Left click Bubblemon in the Dock to launch Activity Monitor</li>
-        </ul>
+        </ol>
 
-        <h2>Bubblemon in the Touch Bar</h2>
+        Doing this should:
         <ul>
-          <li>Download the latest release: <a href="https://github.com/walles/bubblemon/releases/latest">Click here</a></li>
-          <li>Double click the <code>zip</code> file in the Finder to unzip it</li>
-          <li>
-            In the unzipped directory, right click <code>Bubblemon
-            TouchBar</code> and select <code>Open</code>. Answer Yes to any
-            security question. Bubblemon should now appear in your Touch Bar.
-          </li>
+          <li>Restart your Dock</li>
+          <li>Install Bubblemon in the Dock</li>
+          <li>Install Bubblemon in your TouchBar if you have one</li>
         </ul>
       </section>
     </div>
