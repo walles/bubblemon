@@ -24,22 +24,28 @@ else
     exit
 fi
 
-# Create a working directory
-WORKDIR="$(mktemp -d -t bubblemon)"
-cd "$WORKDIR"
+MYDIR="$(cd "$(dirname "$0")"; pwd)"
+if [ -d "$MYDIR/bubblemon.xcodeproj" ] ; then
+    # We are already in the source tree, start from the top
+    echo "INFO: Installing from: $MYDIR"
+    cd "$MYDIR/.."
+else
+    # Clone Bubblemon into a temporary working directory
+    WORKDIR="$(mktemp -d -t bubblemon)"
+    cd "$WORKDIR"
 
-# Clone Bubblemon into that working directory
-echo
-echo "INFO: Getting Bubblemon source code..."
-xcrun git clone "https://github.com/walles/bubblemon.git"
-cd bubblemon
+    echo
+    echo "INFO: Getting Bubblemon source code..."
+    xcrun git clone "https://github.com/walles/bubblemon.git"
+    cd bubblemon
+fi
 
 # Build both the Dock flavor and the TouchBar flavor
 echo
 echo "INFO: Now building, this can take 10+ seconds..."
 TARGET_BUILD_DIR=$(mktemp -d)
 TARGET_TEMP_DIR=$(mktemp -d)
-xcodebuild \
+xcrun xcodebuild \
   build \
   -quiet \
   -project osx/bubblemon.xcodeproj \
@@ -80,4 +86,5 @@ open "/Applications/Bubblemon TouchBar.app"
 
 echo
 echo "INFO: All done, you can now close this window and enjoy your bubbles."
+echo
 echo "Legend available at <https://walles.github.io/bubblemon/>."
