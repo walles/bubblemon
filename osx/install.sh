@@ -43,8 +43,8 @@ fi
 # Build both the Dock flavor and the TouchBar flavor
 echo
 echo "INFO: Now building, this can take 10+ seconds..."
-TARGET_BUILD_DIR=$(mktemp -d)
-TARGET_TEMP_DIR=$(mktemp -d)
+TARGET_BUILD_DIR=$(mktemp -d -t bubblemon-build)
+TARGET_TEMP_DIR=$(mktemp -d -t bubblemon-temp)
 xcrun xcodebuild \
   build \
   -quiet \
@@ -74,14 +74,15 @@ fi
 mv "$BUBBLEMON_APP" "/Applications/"
 mv "$BUBBLEMON_TOUCHBAR_APP" "/Applications/"
 
-# Invoke the Dockapp flavor from /Applications
-echo
-echo "INFO: To install Bubblemon, your Dock needs to be restarted."
-read -rp "Press RETURN to continue: "
+# Invoke the Dockapp flavor from /Applications. This will restart the Dock,
+# which can be a jarring experience if you are not prepared for it, must be
+# documented in the install instructions.
+echo "INFO: Now installing the Dock app, your screen might flicker..."
 open "/Applications/Bubblemon.app"
 
 # Invoke the TouchBar flavor from /Applications. If we don't have any TouchBar,
 # the app should notice and not do anything.
+echo "INFO: Now installing the TouchBar app..."
 open "/Applications/Bubblemon TouchBar.app"
 
 echo
