@@ -13,15 +13,28 @@ fi
 # Verify we can xcrun git and xcodebuild
 if xcrun git --version > /dev/null && xcrun xcodebuild -version > /dev/null; then
     echo "INFO: Command line dev tools found, proceeding..."
-else
+elif xcode-select --install; then
     >&2 echo "WARNING: Developer tools not found, trying to get them installed."
     >&2 echo
-    >&2 echo "After they are in place, try running this script again!"
+    >&2 echo "After they are in place, run this script again!"
     >&2 echo
     >&2 echo "If the automatic install doesn't work, check here:"
     >&2 echo "https://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/"
-    xcode-select --install
+
     exit
+else
+    # xcode-select failed: https://stackoverflow.com/a/47804075/473672
+    >&2 echo
+    >&2 echo "ERROR: Installing development tools failed. Try this manually:"
+    >&2 echo
+    >&2 echo "  sudo rm -rf /Library/Developer/CommandLineTools && xcode-select --install"
+    >&2 echo
+    >&2 echo "This will remove your current development tools and reinstall them."
+    >&2 echo "Source: <https://stackoverflow.com/a/47804075/473672>"
+    >&2 echo
+    >&2 echo "Then run this script again."
+
+    exit 1
 fi
 
 MYDIR="$(cd "$(dirname "$0")"; pwd)"
