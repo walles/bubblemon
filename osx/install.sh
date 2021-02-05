@@ -80,7 +80,7 @@ mv "$BUBBLEMON_TOUCHBAR_APP" "/Applications/"
 # documented in the install instructions.
 echo
 echo "INFO: Now installing the Dock app..."
-echo "WARNING: Your screen might flicker, this is fine!"
+echo "WARNING: Your desktop will restart, this is fine!"
 open "/Applications/Bubblemon.app" --args --reinstall
 
 # Invoke the TouchBar flavor from /Applications. If we don't have any TouchBar,
