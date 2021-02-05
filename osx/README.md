@@ -18,7 +18,7 @@ Don't.
 
 End-users are expected to do this to install:
 ```sh
-curl https://raw.githubusercontent.com/walles/bubblemon/walles/master/osx/install.sh | bash
+curl https://raw.githubusercontent.com/walles/bubblemon/master/osx/install.sh | bash
 ```
 
 
