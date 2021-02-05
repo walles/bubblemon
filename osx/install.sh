@@ -42,10 +42,11 @@ fi
 
 # Build both the Dock flavor and the TouchBar flavor
 echo
-echo "INFO: Now building, this can take 10+ seconds..."
+echo "INFO: Now building, this can take 30+ seconds..."
+date
 TARGET_BUILD_DIR=$(mktemp -d -t bubblemon-build)
 TARGET_TEMP_DIR=$(mktemp -d -t bubblemon-temp)
-xcrun xcodebuild \
+time xcrun xcodebuild \
   build \
   -quiet \
   -project osx/bubblemon.xcodeproj \
