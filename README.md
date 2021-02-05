@@ -22,7 +22,7 @@ Bubbles in the macOS Dock | Bubbles in the [Touch Bar](https://developer.apple.c
 
 # Building and Installing
 * [Installation instructions for macOS](https://walles.github.io/bubblemon/)
-* [Build-and-install-from-source-code instructions for macOS](https://github.com/walles/bubblemon/blob/master/osx/INSTALL.txt).
+* [Build-and-install-from-source-code instructions for macOS](https://github.com/walles/bubblemon/blob/master/osx/README.md).
 
 # License
 <pre>
