@@ -14,6 +14,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   @IBOutlet weak var window: NSWindow!
 
   private func shouldBubbleInTouchBar() -> Bool {
+    if ProcessInfo().arguments.contains("--reinstall") {
+      return true
+    }
+
     let alert = NSAlert()
     alert.messageText = "Run Bubblemon in the Touch Bar?"
     alert.alertStyle = NSAlert.Style.informational

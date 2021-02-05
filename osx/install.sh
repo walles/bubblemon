@@ -86,7 +86,7 @@ open "/Applications/Bubblemon.app" --args --reinstall
 # the app should notice and not do anything.
 echo
 echo "INFO: Now installing the TouchBar app..."
-open "/Applications/Bubblemon TouchBar.app"
+open "/Applications/Bubblemon TouchBar.app" --args --reinstall
 
 echo
 echo "INFO: All done, you can now close this window and enjoy your bubbles."
