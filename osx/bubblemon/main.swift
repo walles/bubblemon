@@ -167,9 +167,19 @@ func main() -> Int32 {
   let defaults = UserDefaults.standard
 
   let runningBubblemonPath = defaults.getRunningBubblemonPath()
+  var shouldRemoveOldBubblemon = false
+
   if runningBubblemonPath == nil {
     // No Bubblemon running, nothing to remove
   } else if runningBubblemonPath!.caseInsensitiveCompare(appPath) != .orderedSame {
+    // Some other Bubblemon running, remove it!
+    shouldRemoveOldBubblemon = true
+  } else if ProcessInfo().arguments.contains("--reinstall") {
+    // Make place for the new Bubblemon
+    shouldRemoveOldBubblemon = true
+  }
+
+  if shouldRemoveOldBubblemon {
     NSLog("Removing old Bubblemon: %@", runningBubblemonPath!)
 
     if !defaults.removeApplication(fromDock: runningBubblemonPath!) {

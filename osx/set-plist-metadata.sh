@@ -11,13 +11,13 @@ if [ ! "${INFO_PLIST}" ] ; then
   INFO_PLIST="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 fi
 
-YEAR="$(date +%Y)"
+YEAR="$(git log -1 --format='%cd' --date=format:'%Y')"
 COPYRIGHT="Copyright 1999-${YEAR} johan.walles@gmail.com"
 /usr/libexec/PlistBuddy -c "Add :NSHumanReadableCopyright string \"$COPYRIGHT\"" "${INFO_PLIST}" ||
 /usr/libexec/PlistBuddy -c "Set :NSHumanReadableCopyright \"$COPYRIGHT\"" "${INFO_PLIST}"
 
-# Example: 0.10.2
-VERSION=$(git describe --match='osx-*' --dirty | cut -d- -f2)
+# Example: 2021.02.05
+VERSION=$(git log -1 --format='%cd' --date=format:'%Y.%m.%d')
 
 # I don't know the difference between CFBundleShortVersionString and CFBundleVersion.
 # We do both here to be on the safe side.
