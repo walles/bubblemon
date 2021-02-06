@@ -16,6 +16,7 @@
 		04AB5FB91F89409D005EB52F /* applePrivateHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */; };
 		04BD0B5323C38B7300709832 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		04DAF91E25CE739300B06E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DAF91D25CE739300B06E06 /* AppDelegate.swift */; };
+		04DAF98025CEEEBF00B06E06 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DAF97F25CEEEBF00B06E06 /* MainMenu.xib */; };
 		04E3649D154D613F002BC8DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
 		04E364A9154D613F002BC8DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E364A8154D613F002BC8DD /* main.swift */; };
 		DB197C76161B0EB4009EA096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E3649C154D613F002BC8DD /* Cocoa.framework */; };
@@ -119,6 +120,7 @@
 		04DAF91B25CE739300B06E06 /* Bubblemon StatusItem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon StatusItem.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DAF91D25CE739300B06E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04DAF92625CE739300B06E06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04DAF97F25CEEEBF00B06E06 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		04DCE75D154D644700C3C4FD /* bubblemon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bubblemon.c; path = ../src/bubblemon.c; sourceTree = "<group>"; };
 		04DCE75F154D670700C3C4FD /* osx-meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "osx-meter.c"; sourceTree = "<group>"; };
 		04E36498154D613F002BC8DD /* Bubblemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubblemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,6 +222,7 @@
 			children = (
 				04DAF91D25CE739300B06E06 /* AppDelegate.swift */,
 				04DAF92625CE739300B06E06 /* Info.plist */,
+				04DAF97F25CEEEBF00B06E06 /* MainMenu.xib */,
 			);
 			path = "Bubblemon StatusItem";
 			sourceTree = "<group>";
@@ -487,7 +490,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					04DAF91A25CE739300B06E06 = {
 						CreatedOnToolsVersion = 12.4;
@@ -552,6 +555,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DAF98025CEEEBF00B06E06 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +864,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -898,6 +903,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
