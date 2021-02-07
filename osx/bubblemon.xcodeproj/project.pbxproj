@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		04063A981F8BFDCD005E5218 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
+		0469575925CFC49500103A96 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
+		0469575A25CFC49500103A96 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
+		0469575B25CFC49500103A96 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
+		0469575C25CFC49500103A96 /* osx-meter.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75F154D670700C3C4FD /* osx-meter.c */; };
 		047776DA1D8D83E30042312F /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		047776DB1D8E2EE80042312F /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		0483188516218FE500B4E13F /* window-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0483188316218F5400B4E13F /* window-frame.png */; };
@@ -720,6 +724,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0469575925CFC49500103A96 /* accumulator.c in Sources */,
+				0469575A25CFC49500103A96 /* bubblemon.c in Sources */,
+				0469575B25CFC49500103A96 /* dynamic-accumulator.c in Sources */,
+				0469575C25CFC49500103A96 /* osx-meter.c in Sources */,
 				04DAF91E25CE739300B06E06 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -876,6 +884,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "Bubblemon StatusItem/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
@@ -884,6 +893,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.Bubblemon-StatusItem";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -910,6 +920,8 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				HEADER_SEARCH_PATHS = ../src;
 				INFOPLIST_FILE = "Bubblemon StatusItem/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
@@ -917,6 +929,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.Bubblemon-StatusItem";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 			};
