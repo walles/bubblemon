@@ -66,11 +66,9 @@ static void measureRam(meter_sysload_t *load) {
     load->memoryUsed = usedPages * pageSize;
 
     // Get the Physical memory size, from: https://stackoverflow.com/a/1909988/473672
-    int mib[2];
+    int mib[2] = {CTL_HW, HW_MEMSIZE};
     int64_t physical_memory;
     size_t length;
-    mib[0] = CTL_HW;
-    mib[1] = HW_MEMSIZE;
     length = sizeof(physical_memory);
     int sysctlResult = sysctl(mib, 2 /* mib array element count */, &physical_memory, &length, NULL, 0);
     assert(sysctlResult == 0);
