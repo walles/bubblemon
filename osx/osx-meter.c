@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <sys/sysctl.h>
 #include <mach/mach.h>
 #include <mach/host_info.h>
@@ -53,15 +54,6 @@ static void measureRam(meter_sysload_t *load) {
     vm_statistics64_data_t vmstat;
     assert(host_statistics64(mach_host_self(), HOST_VM_INFO64, (host_info64_t)&vmstat, &count) == KERN_SUCCESS);
 
-    // In experiments, this has added up well to the amount of physical RAM in my machine
-    size_t totalPages =
-        vmstat.wire_count +
-        vmstat.active_count +
-        vmstat.inactive_count +
-        vmstat.free_count +
-        vmstat.compressor_page_count +
-        vmstat.speculative_count;
-
     // This matches what the Activity Monitor shows in macOS 10.15.6
     //
     // For internal - purgeable: https://stackoverflow.com/a/36721309/473672
@@ -69,10 +61,21 @@ static void measureRam(meter_sysload_t *load) {
         (vmstat.internal_page_count - vmstat.purgeable_count) +
         vmstat.wire_count +
         vmstat.compressor_page_count;
-
     size_t pageSize = sysconf(_SC_PAGESIZE);
-    load->memorySize = totalPages * pageSize;
+
     load->memoryUsed = usedPages * pageSize;
+
+    // Get the Physical memory size, from: https://stackoverflow.com/a/1909988/473672
+    int mib[2];
+    int64_t physical_memory;
+    size_t length;
+    mib[0] = CTL_HW;
+    mib[1] = HW_MEMSIZE;
+    length = sizeof(physical_memory);
+    int sysctlResult = sysctl(mib, 2 /* mib array element count */, &physical_memory, &length, NULL, 0);
+    assert(sysctlResult == 0);
+
+    load->memorySize = physical_memory;
 }
 
 static int getBatteryChargePercent(void) {
