@@ -15,7 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Inspiration: https://www.appcoda.com/macos-status-bar-apps/
     statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    statusItem?.button?.title = "Johan"
 
     if let menu = menu {
       statusItem?.menu = menu
@@ -83,12 +82,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   @objc
   func timerTriggered() {
     // Compute a new image to display
+    if statusItem == nil {
+      return
+    }
 
-    // FIXME: What should these be?
-    let width = 50
-    let height = 50
+    // FIXME: Ensure these are set so that the image we produce doesn't get
+    // scaled before being displayed
+    let height = statusItem!.button!.bounds.height
+    let width = 2 * height
 
-    // FIXME: Use the right size here, whatever that is
     bubblemon_setSize(_bubblemon, Int32(width), Int32(height))
     let _picture = bubblemon_getPicture(_bubblemon)
     if _picture == nil {
@@ -121,8 +123,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       shouldInterpolate: shouldInterpolate,
       intent: CGColorRenderingIntent.defaultIntent)
 
-    let fixmeWhatShouldThisBe = NSSize.init(width: width, height: height);
-    statusItem?.button?.image = NSImage.init(cgImage: cgImage!, size: fixmeWhatShouldThisBe);
+    let newImageSize = NSSize.init(width: width, height: height);
+    statusItem?.button?.image = NSImage.init(cgImage: cgImage!, size: newImageSize);
   }
 }
 
