@@ -84,8 +84,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func timerTriggered() {
     // Compute a new image to display
 
+    // FIXME: What should these be?
+    let width = 50
+    let height = 50
+
     // FIXME: Use the right size here, whatever that is
-    bubblemon_setSize(_bubblemon, 50, 50)
+    bubblemon_setSize(_bubblemon, Int32(width), Int32(height))
     let _picture = bubblemon_getPicture(_bubblemon)
     if _picture == nil {
       return
@@ -98,7 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       dataInfo: nil,
       data: picture.pixels,
       size: imageDataSize,
-      releaseData: FIXME_something_not_doing_anything)
+      releaseData: releaseDataProvider)
 
     let bitsPerComponent: size_t = 8
     let bitsPerPixel = MemoryLayout<bubblemon_color_t>.size * 8
@@ -117,22 +121,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       shouldInterpolate: shouldInterpolate,
       intent: CGColorRenderingIntent.defaultIntent)
 
-    let nsGraphicsContext = NSGraphicsContext.current
-    guard let cgContext = nsGraphicsContext?.cgContext else {
-      fatalError("unable to get a CGContext, can't draw")
-    }
-
-    // Draw the bubblemon image
-
-    let bubbleViewRect = CGRect(
-      x: 0,
-      y: 0,
-      width: bounds.size.width,
-      height: bounds.size.height)
-    cgContext.setAlpha(1.0)
-    cgContext.interpolationQuality = .none
-    cgContext.draw(cgImage!, in: bubbleViewRect)
-
-    statusItem?.button.ima
+    let fixmeWhatShouldThisBe = NSSize.init(width: width, height: height);
+    statusItem?.button?.image = NSImage.init(cgImage: cgImage!, size: fixmeWhatShouldThisBe);
   }
+}
+
+func releaseDataProvider(_ context:UnsafeMutableRawPointer?, data:UnsafeRawPointer, size:Int) {
+  // No need to actually free anything here, the data is handled by
+  // the bubblemon code.
 }
