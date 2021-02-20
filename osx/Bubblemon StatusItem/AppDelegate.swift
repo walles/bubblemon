@@ -19,6 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     if let menu = menu {
       statusItem?.menu = menu
     }
+    statusItem?.button?.isBordered = false
+    statusItem?.button?.imageScaling = NSImageScaling.scaleNone
 
     // Inspired by http://stackoverflow.com/questions/1449035/how-do-i-use-nstimer
     Timer.scheduledTimer(
@@ -86,8 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       return
     }
 
-    // FIXME: Ensure these are set so that the image we produce doesn't get
-    // scaled before being displayed
+    // Image size in points. On high res displays, one point is 2x2 pixels.
     let height = statusItem!.button!.bounds.height
     let width = 2 * height
 
@@ -109,7 +110,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let bitsPerComponent: size_t = 8
     let bitsPerPixel = MemoryLayout<bubblemon_color_t>.size * 8
     let bytesPerRow = Int(picture.width) * MemoryLayout<bubblemon_color_t>.size
-    let shouldInterpolate: Bool = false
     let rgb = CGColorSpaceCreateDeviceRGB()
     let cgImage = CGImage(
       width: Int(picture.width), height: Int(picture.height),
@@ -120,11 +120,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue),
       provider: dataProviderRef!,
       decode: nil,
-      shouldInterpolate: shouldInterpolate,
+      shouldInterpolate: false,
       intent: CGColorRenderingIntent.defaultIntent)
 
-    let newImageSize = NSSize.init(width: width, height: height);
-    statusItem?.button?.image = NSImage.init(cgImage: cgImage!, size: newImageSize);
+    let newImageSize = NSSize.init(width: width, height: height)
+    let newImage = NSImage.init(cgImage: cgImage!, size: newImageSize)
+
+    // Make it visible if we don't cover everything
+    newImage.backgroundColor = NSColor.green
+
+    statusItem?.button?.image = newImage
   }
 }
 
