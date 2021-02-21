@@ -82,18 +82,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     NSApplication.shared.orderFrontStandardAboutPanel(options: aboutOptions)
   }
 
-  @IBAction func showLoadNumbers(_ sender: Any) {
-    let alert = NSAlert()
-
-    alert.messageText = String(cString: bubblemon_getTooltip(_bubblemon)!)
-
-    alert.alertStyle = NSAlert.Style.informational
-    alert.addButton(withTitle: "OK")
-
-    // This might freeze the physics, but give us the numbers. Call it an MVP!
-    alert.runModal()
-  }
-
   @objc
   func timerTriggered() {
     // Compute a new image to display
