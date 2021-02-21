@@ -1,11 +1,15 @@
 import Cocoa
 
-// FIXME: Make sure we don't show up in the alt-Tab list
-// FIXME: Make sure launching externally doesn't activate the app
+// OK: Make sure we don't show up in the alt-Tab list
+// OK: Make sure we can (still) run in the Xcode debugger
+// FIXME: Make sure people get an up-to-date tooltip on hover
 // FIXME: Make sure the menu has: Help, About, Share on Facebook, Debug -> Show Numbers, Quit
 // FIXME: Make sure we survive logout / login
 // FIXME: Make sure we survive power-off / power-on
-// FIXME: Make sure we can (still) run in the Xcode debugger
+// FIXME: Make sure launching externally doesn't activate the app
+// FIXME: Make sure the application bundle has the right icon
+// FIXME: Consider the name, should we improve it? Maybe for all Bubblemons?
+// FIXME: After all points are done ^, remove this whole list
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
