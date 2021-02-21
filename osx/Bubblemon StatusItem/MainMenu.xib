@@ -30,8 +30,16 @@
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Help" id="p3z-BR-zYX"/>
-                            <menuItem title="Share on Facebook" id="Gmg-ml-oN6"/>
+                            <menuItem title="Help" id="p3z-BR-zYX">
+                                <connections>
+                                    <action selector="openLegend:" target="DTV-6q-xHf" id="bjh-cG-ze0"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Share on Facebook" id="Gmg-ml-oN6">
+                                <connections>
+                                    <action selector="shareOnFacebook:" target="DTV-6q-xHf" id="laB-Y2-m0U"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Quit Bubblemon" id="4sb-4s-VLi">
                                 <modifierMask key="keyEquivalentModifierMask"/>
