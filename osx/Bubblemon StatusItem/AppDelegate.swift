@@ -1,5 +1,12 @@
 import Cocoa
 
+// FIXME: Make sure we don't show up in the alt-Tab list
+// FIXME: Make sure launching externally doesn't activate the app
+// FIXME: Make sure the menu has: Help, About, Share on Facebook, Debug -> Show Numbers, Quit
+// FIXME: Make sure we survive logout / login
+// FIXME: Make sure we survive power-off / power-on
+// FIXME: Make sure we can (still) run in the Xcode debugger
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
   private var statusItem: NSStatusItem?
