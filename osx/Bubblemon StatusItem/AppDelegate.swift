@@ -2,7 +2,7 @@ import Cocoa
 
 // OK: Make sure we don't show up in the alt-Tab list
 // OK: Make sure we can (still) run in the Xcode debugger
-// FIXME: Make sure people get an up-to-date tooltip on hover
+// OK: Make sure people get an up-to-date tooltip on hover
 // FIXME: Make sure the menu has: Help, About, Share on Facebook, Debug -> Show Numbers, Quit
 // FIXME: Make sure we survive logout / login
 // FIXME: Make sure we survive power-off / power-on
@@ -141,6 +141,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     newImage.backgroundColor = NSColor.green
 
     statusItem?.button?.image = newImage
+    statusItem?.toolTip = String(utf8String: bubblemon_getTooltip(_bubblemon))
   }
 }
 
