@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04DAF91A25CE739300B06E06"
-               BuildableName = "Bubblemon StatusItem.app"
-               BlueprintName = "Bubblemon StatusItem"
+               BuildableName = "Bubblemon Menu Bar.app"
+               BlueprintName = "Bubblemon Menu Bar"
                ReferencedContainer = "container:bubblemon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04DAF91A25CE739300B06E06"
-            BuildableName = "Bubblemon StatusItem.app"
-            BlueprintName = "Bubblemon StatusItem"
+            BuildableName = "Bubblemon Menu Bar.app"
+            BlueprintName = "Bubblemon Menu Bar"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04DAF91A25CE739300B06E06"
-            BuildableName = "Bubblemon StatusItem.app"
-            BlueprintName = "Bubblemon StatusItem"
+            BuildableName = "Bubblemon Menu Bar.app"
+            BlueprintName = "Bubblemon Menu Bar"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

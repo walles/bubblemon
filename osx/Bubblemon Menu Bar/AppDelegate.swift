@@ -7,6 +7,7 @@ import Cocoa
 // OK: Make sure the menu items work as expected: OK: About, OK: Share on Facebook, OK: Help, OK: Quit
 // OK: Make sure launching externally doesn't activate the app
 // OK: Make sure the application bundle has the right icon
+// OK: Switch to a better name
 // FIXME: Make sure we survive logout / login
 // FIXME: Make sure we survive power-off / power-on
 // FIXME: Consider the name, should we improve it? Maybe for all Bubblemons?

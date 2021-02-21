@@ -122,7 +122,7 @@
 		0483188316218F5400B4E13F /* window-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-frame.png"; sourceTree = "<group>"; };
 		04AB5FB71F893FBE005EB52F /* applePrivateHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = applePrivateHelpers.h; sourceTree = "<group>"; };
 		04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = applePrivateHelpers.m; sourceTree = "<group>"; };
-		04DAF91B25CE739300B06E06 /* Bubblemon StatusItem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon StatusItem.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04DAF91B25CE739300B06E06 /* Bubblemon Menu Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubblemon Menu Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DAF91D25CE739300B06E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04DAF92625CE739300B06E06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04DAF97F25CEEEBF00B06E06 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
@@ -222,14 +222,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04DAF91C25CE739300B06E06 /* Bubblemon StatusItem */ = {
+		04DAF91C25CE739300B06E06 /* Bubblemon Menu Bar */ = {
 			isa = PBXGroup;
 			children = (
 				04DAF91D25CE739300B06E06 /* AppDelegate.swift */,
 				04DAF92625CE739300B06E06 /* Info.plist */,
 				04DAF97F25CEEEBF00B06E06 /* MainMenu.xib */,
 			);
-			path = "Bubblemon StatusItem";
+			path = "Bubblemon Menu Bar";
 			sourceTree = "<group>";
 		};
 		04E3648D154D613F002BC8DD = {
@@ -252,7 +252,7 @@
 				DB2AF2681F75118100D8D0D9 /* BubblemonTouchBarWindow */,
 				DBD1D09B1F877ED500447FF5 /* Bubblemon TouchBar Helper */,
 				DB197C77161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
-				04DAF91C25CE739300B06E06 /* Bubblemon StatusItem */,
+				04DAF91C25CE739300B06E06 /* Bubblemon Menu Bar */,
 				04E3649B154D613F002BC8DD /* Frameworks */,
 				04E36499154D613F002BC8DD /* Products */,
 			);
@@ -267,7 +267,7 @@
 				DB2AF2671F75118100D8D0D9 /* BubblemonTouchBarWindow.app */,
 				DBD1D09A1F877ED500447FF5 /* Bubblemon TouchBar Helper.app */,
 				DBAFB99B1F99F168004FDA2D /* Bubblemon TouchBar.app */,
-				04DAF91B25CE739300B06E06 /* Bubblemon StatusItem.app */,
+				04DAF91B25CE739300B06E06 /* Bubblemon Menu Bar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,9 +359,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		04DAF91A25CE739300B06E06 /* Bubblemon StatusItem */ = {
+		04DAF91A25CE739300B06E06 /* Bubblemon Menu Bar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04DAF92A25CE739300B06E06 /* Build configuration list for PBXNativeTarget "Bubblemon StatusItem" */;
+			buildConfigurationList = 04DAF92A25CE739300B06E06 /* Build configuration list for PBXNativeTarget "Bubblemon Menu Bar" */;
 			buildPhases = (
 				04DAF91725CE739300B06E06 /* Sources */,
 				04DAF91825CE739300B06E06 /* Frameworks */,
@@ -372,9 +372,9 @@
 			);
 			dependencies = (
 			);
-			name = "Bubblemon StatusItem";
-			productName = "Bubblemon StatusItem";
-			productReference = 04DAF91B25CE739300B06E06 /* Bubblemon StatusItem.app */;
+			name = "Bubblemon Menu Bar";
+			productName = "Bubblemon Menu Bar";
+			productReference = 04DAF91B25CE739300B06E06 /* Bubblemon Menu Bar.app */;
 			productType = "com.apple.product-type.application";
 		};
 		04E36497154D613F002BC8DD /* Bubblemon */ = {
@@ -551,7 +551,7 @@
 				DB2AF2661F75118100D8D0D9 /* BubblemonTouchBarWindow */,
 				DBD1D0991F877ED500447FF5 /* Bubblemon TouchBar Helper */,
 				DB197C74161B0EB4009EA096 /* Bubblemon Dock Tile Plugin */,
-				04DAF91A25CE739300B06E06 /* Bubblemon StatusItem */,
+				04DAF91A25CE739300B06E06 /* Bubblemon Menu Bar */,
 			);
 		};
 /* End PBXProject section */
@@ -907,12 +907,12 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "Bubblemon StatusItem/Info.plist";
+				INFOPLIST_FILE = "Bubblemon Menu Bar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.Bubblemon-StatusItem";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.BubblemonMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
@@ -944,12 +944,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				HEADER_SEARCH_PATHS = ../src;
-				INFOPLIST_FILE = "Bubblemon StatusItem/Info.plist";
+				INFOPLIST_FILE = "Bubblemon Menu Bar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.walles.johan.Bubblemon-StatusItem";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.walles.johan.BubblemonMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bubblemon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1467,7 +1467,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04DAF92A25CE739300B06E06 /* Build configuration list for PBXNativeTarget "Bubblemon StatusItem" */ = {
+		04DAF92A25CE739300B06E06 /* Build configuration list for PBXNativeTarget "Bubblemon Menu Bar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04DAF92825CE739300B06E06 /* Debug */,
