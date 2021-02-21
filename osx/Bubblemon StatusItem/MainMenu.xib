@@ -27,7 +27,7 @@
                             <menuItem title="About Bubblemon" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
+                                    <action selector="openAboutPanel:" target="DTV-6q-xHf" id="QMm-fZ-Mk7"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Help" id="p3z-BR-zYX">

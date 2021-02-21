@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04063A981F8BFDCD005E5218 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
+		0419324025E2BABC002ABD93 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		0469575925CFC49500103A96 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
 		0469575A25CFC49500103A96 /* bubblemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 04DCE75D154D644700C3C4FD /* bubblemon.c */; };
 		0469575B25CFC49500103A96 /* dynamic-accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 0420B9FB1575431100A7B26C /* dynamic-accumulator.c */; };
@@ -365,6 +366,7 @@
 				04DAF91725CE739300B06E06 /* Sources */,
 				04DAF91825CE739300B06E06 /* Frameworks */,
 				04DAF91925CE739300B06E06 /* Resources */,
+				0419322A25E2B802002ABD93 /* Set info.plist metadata */,
 			);
 			buildRules = (
 			);
@@ -559,6 +561,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0419324025E2BABC002ABD93 /* icon.png.icns in Resources */,
 				04DAF98025CEEEBF00B06E06 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -632,6 +635,25 @@
 				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Set info.plist metadata";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/set-plist-metadata.sh\n";
+		};
+		0419322A25E2B802002ABD93 /* Set info.plist metadata */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
+			);
+			name = "Set info.plist metadata";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

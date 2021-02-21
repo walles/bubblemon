@@ -4,8 +4,8 @@ import Cocoa
 // OK: Make sure we can (still) run in the Xcode debugger
 // OK: Make sure people get an up-to-date tooltip on hover
 // OK: Make sure the menu has: Help, About, Share on Facebook, Quit
-// FIXME: Make sure the menu items work as expected: About, OK: Share on Facebook, OK: Help, OK: Quit
-// FIXME: Figure out whether we can make the animation continue even when Bubblmon has been clicked and the menu is visible
+// OK: Make sure the menu items work as expected: OK: About, OK: Share on Facebook, OK: Help, OK: Quit
+// FIXME: Figure out whether we can make the animation continue even when Bubblmon has been clicked and the menu is visible, there's an alternate button image that we could try setting.
 // FIXME: Make sure we survive logout / login
 // FIXME: Make sure we survive power-off / power-on
 // FIXME: Make sure launching externally doesn't activate the app
