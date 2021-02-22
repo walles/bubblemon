@@ -32,8 +32,6 @@ This will install both the Dock Bubblemon and the TouchBar Bubblemon:
 
 TODO
 ====
-* Add menu bar screenshot to the web pages
-
 * If `$OLDVERSION` is running and `$NEWVERSION` is launched, make sure
   `$NEWVERSION` replaces $OLDVERSION in the TouchBar. Maybe by adding the
   version number to the plugin directory's file name?
@@ -129,3 +127,5 @@ DONE
 * TouchBar: Give more pixels to the visualization by removing the frame
 
 * TouchBar: Release a new Bubblemon with TouchBar support
+
+* Add menu bar screenshot to the web pages
