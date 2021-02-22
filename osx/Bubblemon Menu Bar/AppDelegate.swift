@@ -9,7 +9,7 @@ import Cocoa
 // OK: Make sure the application bundle has the right icon
 // OK: Switch to a better name
 // OK: Make sure we survive logout / login
-// FIXME: Remove launch agent config file when user does Quit in the menu
+// OK: Remove launch agent config file when user does Quit in the menu
 // FIXME: Verify that we survive power-off / power-on
 // FIXME: Add ourselves to the install script
 // FIXME: Consider improving the names of the other Bubblemons as well?
@@ -21,6 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   private var statusItem: NSStatusItem?
   private let _bubblemon: UnsafeMutablePointer<bubblemon_t> = bubblemon_init()
   private var _picture: UnsafePointer<bubblemon_picture_t>? = nil
+
+  private let LAUNCH_AGENT_PLIST_PATH = "~/Library/LaunchAgents/com.gmail.walles.johan.Bubblemon.plist"
 
   @IBOutlet weak var menu: NSMenu?
 
@@ -73,9 +75,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       """
 
     // Save the file to where launchd can find it
-    let launchAgentPlistPath = NSString(string:
-      "~/Library/LaunchAgents/com.gmail.walles.johan.Bubblemon.plist")
-      .expandingTildeInPath
+    let launchAgentPlistPath =
+      NSString(string: LAUNCH_AGENT_PLIST_PATH).expandingTildeInPath
     do {
       try launchAgentPlistContents.write(
         toFile: launchAgentPlistPath,
@@ -86,6 +87,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       return
     }
     NSLog("Launch agent plist file written: \(launchAgentPlistPath)")
+  }
+
+  func applicationWillTerminate(_ notification: Notification) {
+    // Don't restart after logout / login any more after the user removed us
+    let launchAgentPlistPath =
+      NSString(string: LAUNCH_AGENT_PLIST_PATH).expandingTildeInPath
+    do {
+      try FileManager().removeItem(atPath: launchAgentPlistPath)
+    } catch {
+      NSLog("Removing launch agent plist file failed: \(launchAgentPlistPath): \(error)")
+    }
+    NSLog("Launch agent plist file removed: \(launchAgentPlistPath)")
   }
 
   @IBAction func openLegend(_ sender: Any) {
