@@ -1,21 +1,5 @@
 import Cocoa
 
-// OK: Make sure we don't show up in the alt-Tab list
-// OK: Make sure we can (still) run in the Xcode debugger
-// OK: Make sure people get an up-to-date tooltip on hover
-// OK: Make sure the menu has: Help, About, Share on Facebook, Quit
-// OK: Make sure the menu items work as expected: OK: About, OK: Share on Facebook, OK: Help, OK: Quit
-// OK: Make sure launching externally doesn't activate the app
-// OK: Make sure the application bundle has the right icon
-// OK: Switch to a better name
-// OK: Make sure we survive logout / login
-// OK: Remove launch agent config file when user does Quit in the menu
-// OK: Verify that we survive power-off / power-on
-// OK: Add ourselves to the install script
-// FIXME: Add ourselves to the web pages
-// FIXME: Add ourselves to the README.md
-// FIXME: Consider improving the names of the other Bubblemons as well?
-// FIXME: After all points are done ^, remove this whole list
 // FIXME: Figure out whether we can make the animation continue even when Bubblmon has been clicked and the menu is visible. Setting the alternateImage does not help.
 
 @NSApplicationMain
