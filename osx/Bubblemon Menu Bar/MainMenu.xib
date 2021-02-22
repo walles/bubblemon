@@ -44,7 +44,7 @@
                             <menuItem title="Quit Bubblemon" id="4sb-4s-VLi">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
+                                    <action selector="shutDown:" target="DTV-6q-xHf" id="fZh-mq-nPc"/>
                                 </connections>
                             </menuItem>
                         </items>

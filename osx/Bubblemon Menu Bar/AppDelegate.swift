@@ -10,7 +10,7 @@ import Cocoa
 // OK: Switch to a better name
 // OK: Make sure we survive logout / login
 // OK: Remove launch agent config file when user does Quit in the menu
-// FIXME: Verify that we survive power-off / power-on
+// OK: Verify that we survive power-off / power-on
 // FIXME: Add ourselves to the install script
 // FIXME: Consider improving the names of the other Bubblemons as well?
 // FIXME: After all points are done ^, remove this whole list
@@ -89,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     NSLog("Launch agent plist file written: \(launchAgentPlistPath)")
   }
 
-  func applicationWillTerminate(_ notification: Notification) {
+  @IBAction func shutDown(_ sender: Any) {
     // Don't restart after logout / login any more after the user removed us
     let launchAgentPlistPath =
       NSString(string: LAUNCH_AGENT_PLIST_PATH).expandingTildeInPath
@@ -99,6 +99,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       NSLog("Removing launch agent plist file failed: \(launchAgentPlistPath): \(error)")
     }
     NSLog("Launch agent plist file removed: \(launchAgentPlistPath)")
+
+    // Good bye
+    NSRunningApplication.current.terminate()
   }
 
   @IBAction func openLegend(_ sender: Any) {
