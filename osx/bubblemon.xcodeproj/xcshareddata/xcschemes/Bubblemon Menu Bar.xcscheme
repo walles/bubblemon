@@ -14,33 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04E36497154D613F002BC8DD"
-               BuildableName = "Bubblemon.app"
-               BlueprintName = "Bubblemon"
+               BlueprintIdentifier = "04DAF91A25CE739300B06E06"
+               BuildableName = "Bubblemon Menu Bar.app"
+               BlueprintName = "Bubblemon Menu Bar"
                ReferencedContainer = "container:bubblemon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E36497154D613F002BC8DD"
-            BuildableName = "Bubblemon.app"
-            BlueprintName = "Bubblemon"
-            ReferencedContainer = "container:bubblemon.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -53,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E36497154D613F002BC8DD"
-            BuildableName = "Bubblemon.app"
-            BlueprintName = "Bubblemon"
+            BlueprintIdentifier = "04DAF91A25CE739300B06E06"
+            BuildableName = "Bubblemon Menu Bar.app"
+            BlueprintName = "Bubblemon Menu Bar"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -70,15 +61,15 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04E36497154D613F002BC8DD"
-            BuildableName = "Bubblemon.app"
-            BlueprintName = "Bubblemon"
+            BlueprintIdentifier = "04DAF91A25CE739300B06E06"
+            BuildableName = "Bubblemon Menu Bar.app"
+            BlueprintName = "Bubblemon Menu Bar"
             ReferencedContainer = "container:bubblemon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Release">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="DTV-6q-xHf" id="qPl-wV-qvO"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="DTV-6q-xHf" userLabel="AppDelegate" customClass="AppDelegate" customModule="Bubblemon_Menu_Bar" customModuleProvider="target">
+            <connections>
+                <outlet property="menu" destination="uQy-DD-JDr" id="djT-un-d1o"/>
+            </connections>
+        </customObject>
+        <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+            <items>
+                <menuItem title="Bubblemon" id="1Xt-HY-uBw">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Bubblemon" systemMenu="apple" id="uQy-DD-JDr">
+                        <items>
+                            <menuItem title="About Bubblemon" id="5kV-Vb-QxS">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openAboutPanel:" target="DTV-6q-xHf" id="QMm-fZ-Mk7"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Help" id="p3z-BR-zYX">
+                                <connections>
+                                    <action selector="openLegend:" target="DTV-6q-xHf" id="bjh-cG-ze0"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Share on Facebook" id="Gmg-ml-oN6">
+                                <connections>
+                                    <action selector="shareOnFacebook:" target="DTV-6q-xHf" id="laB-Y2-m0U"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
+                            <menuItem title="Quit Bubblemon" id="4sb-4s-VLi">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="shutDown:" target="DTV-6q-xHf" id="fZh-mq-nPc"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="24" y="154"/>
+        </menu>
+    </objects>
+</document>

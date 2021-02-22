@@ -2,7 +2,7 @@
 
 set -eufo pipefail
 
-echo "INFO: Checking build environment, this can take 10 seconds..."
+echo "INFO: Checking build environment..."
 
 # Verify we're on Darwin
 if [ "$(uname)" != "Darwin" ] ; then
@@ -55,7 +55,7 @@ fi
 
 # Build both the Dock flavor and the TouchBar flavor
 echo
-echo "INFO: Now building, this can take 30+ seconds..."
+echo "INFO: Now building, this can take 30+ seconds and a lot of text can scroll by..."
 date
 TARGET_BUILD_DIR=$(mktemp -d -t bubblemon-build)
 TARGET_TEMP_DIR=$(mktemp -d -t bubblemon-temp)
@@ -66,6 +66,7 @@ time xcrun xcodebuild \
   -configuration Release \
   -target "Bubblemon" \
   -target "Bubblemon TouchBar" \
+  -target "Bubblemon Menu Bar" \
   CONFIGURATION_BUILD_DIR="${TARGET_BUILD_DIR}" \
   CONFIGURATION_TEMP_DIR="${TARGET_TEMP_DIR}"
 
@@ -73,6 +74,7 @@ echo "INFO: Build done, now installing..."
 
 BUBBLEMON_APP="$TARGET_BUILD_DIR/Bubblemon.app"
 BUBBLEMON_TOUCHBAR_APP="$TARGET_BUILD_DIR/Bubblemon TouchBar.app"
+BUBBLEMON_MENU_BAR_APP="$TARGET_BUILD_DIR/Bubblemon Menu Bar.app"
 
 # Back up any existing installation
 if [ -e "/Applications/Bubblemon.app" ] ; then
@@ -83,10 +85,15 @@ if [ -e "/Applications/Bubblemon TouchBar.app" ] ; then
     rm -rf "/Applications/Bubblemon TouchBar.app.old"
     mv "/Applications/Bubblemon TouchBar.app" "/Applications/Bubblemon TouchBar.app.old"
 fi
+if [ -e "/Applications/Bubblemon Menu Bar.app" ] ; then
+    rm -rf "/Applications/Bubblemon Menu Bar.app.old"
+    mv "/Applications/Bubblemon Menu Bar.app" "/Applications/Bubblemon Menu Bar.app.old"
+fi
 
 # Install!
 mv "$BUBBLEMON_APP" "/Applications/"
 mv "$BUBBLEMON_TOUCHBAR_APP" "/Applications/"
+mv "$BUBBLEMON_MENU_BAR_APP" "/Applications/"
 
 # Invoke the Dockapp flavor from /Applications. This will restart the Dock,
 # which can be a jarring experience if you are not prepared for it, must be
@@ -101,6 +108,10 @@ open "/Applications/Bubblemon.app" --args --reinstall
 echo
 echo "INFO: Now installing the TouchBar app..."
 open "/Applications/Bubblemon TouchBar.app" --args --reinstall
+
+# Start the menu bar app
+echo "INFO: Now installing the Menu Bar app..."
+open "/Applications/Bubblemon Menu Bar.app"
 
 echo
 echo "INFO: All done, you can now close this window and enjoy your bubbles."

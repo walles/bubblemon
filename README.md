@@ -12,13 +12,12 @@ space is used. The amount of bubbles reflects the system CPU load. A
 message in a bottle indicates there is unread mail. A reed-like graph
 shows IO load.
 
-On SMP systems CPU load distribution is visualized by having the most
-heavily loaded CPUs bubbles in the middle and the others nearer to the
-edges.
+CPU load distribution is visualized by having the most heavily loaded CPU cores
+bubble in the middle and the others nearer to the edges.
 
-![macOS Screenshot](https://raw.githubusercontent.com/walles/bubblemon/master/pixmaps/screenshot-osx.png) | ![Touch Bar Screenshot](https://raw.githubusercontent.com/walles/bubblemon/gh-pages/images/touchbar-screenshot.png)
-------------------------- | ------------------------
-Bubbles in the macOS Dock | Bubbles in the [Touch Bar](https://developer.apple.com/macos/touch-bar/)
+![macOS Screenshot](pixmaps/screenshot-osx.png) | ![Touch Bar Screenshot](https://raw.githubusercontent.com/walles/bubblemon/gh-pages/images/touchbar-screenshot.png) | ![macOS menu bar](pixmaps/screenshot-osx-menu-bar.png) |
+------------------------- | ------------------------ | --- |
+Bubbles in the macOS Dock | Bubbles in the [Touch Bar](https://developer.apple.com/macos/touch-bar/) | Bubbles in the macOS menu bar
 
 # Building and Installing
 * [Installation instructions for macOS](https://walles.github.io/bubblemon/)

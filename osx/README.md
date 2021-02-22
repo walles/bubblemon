@@ -11,6 +11,8 @@ To debug the visualization, the *Bubblemon Window* target is debugger friendly.
 
 To debug the Touch Bar flavor, the *Touch Bar Window* target is debugger friendly.
 
+To debug the Menu Bar flavor, the *Bubblemon Menu Bar* target is debugger friendly.
+
 
 Making a Release
 ----------------
@@ -30,6 +32,8 @@ This will install both the Dock Bubblemon and the TouchBar Bubblemon:
 
 TODO
 ====
+* Add menu bar screenshot to the web pages
+
 * If `$OLDVERSION` is running and `$NEWVERSION` is launched, make sure
   `$NEWVERSION` replaces $OLDVERSION in the TouchBar. Maybe by adding the
   version number to the plugin directory's file name?
