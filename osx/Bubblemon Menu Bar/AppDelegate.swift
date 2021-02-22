@@ -11,7 +11,9 @@ import Cocoa
 // OK: Make sure we survive logout / login
 // OK: Remove launch agent config file when user does Quit in the menu
 // OK: Verify that we survive power-off / power-on
-// FIXME: Add ourselves to the install script
+// OK: Add ourselves to the install script
+// FIXME: Add ourselves to the web pages
+// FIXME: Add ourselves to the README.md
 // FIXME: Consider improving the names of the other Bubblemons as well?
 // FIXME: After all points are done ^, remove this whole list
 // FIXME: Figure out whether we can make the animation continue even when Bubblmon has been clicked and the menu is visible. Setting the alternateImage does not help.
