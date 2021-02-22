@@ -8,9 +8,11 @@ import Cocoa
 // OK: Make sure launching externally doesn't activate the app
 // OK: Make sure the application bundle has the right icon
 // OK: Switch to a better name
-// FIXME: Make sure we survive logout / login
-// FIXME: Make sure we survive power-off / power-on
-// FIXME: Consider the name, should we improve it? Maybe for all Bubblemons?
+// OK: Make sure we survive logout / login
+// FIXME: Remove launch agent config file when user does Quit in the menu
+// FIXME: Verify that we survive power-off / power-on
+// FIXME: Add ourselves to the install script
+// FIXME: Consider improving the names of the other Bubblemons as well?
 // FIXME: After all points are done ^, remove this whole list
 // FIXME: Figure out whether we can make the animation continue even when Bubblmon has been clicked and the menu is visible. Setting the alternateImage does not help.
 
@@ -26,6 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     #if DEBUG
         bubblemon_selftest()
     #endif
+
+    installLaunchAgent()
 
     // Inspiration: https://www.appcoda.com/macos-status-bar-apps/
     statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -43,6 +47,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       selector: #selector(self.timerTriggered),
       userInfo: nil,
       repeats: true)
+  }
+
+  private func installLaunchAgent() {
+    // Figure out absolute path to $0
+    let bubblemonBinRelativePath = CommandLine.arguments[0]
+    let bubblemonBinFileUrl = URL.init(fileURLWithPath: bubblemonBinRelativePath)
+    let bubblemonBinAbsolutePath = bubblemonBinFileUrl.absoluteURL.path
+
+    // From "man launchd.plist" and
+    // https://rderik.com/blog/creating-a-launch-agent-that-provides-an-xpc-service-on-macos/
+    let launchAgentPlistContents = """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+        <dict>
+          <key>Label</key>
+            <string>com.gmail.walles.johan.Bubblemon</string>
+          <key>RunAtLoad</key>
+            <true/>
+          <key>Program</key>
+            <string>\(bubblemonBinAbsolutePath)</string>
+        </dict>
+      </plist>
+      """
+
+    // Save the file to where launchd can find it
+    let launchAgentPlistPath = NSString(string:
+      "~/Library/LaunchAgents/com.gmail.walles.johan.Bubblemon.plist")
+      .expandingTildeInPath
+    do {
+      try launchAgentPlistContents.write(
+        toFile: launchAgentPlistPath,
+        atomically: true,
+        encoding: String.Encoding.utf8)
+    } catch {
+      NSLog("Writing launch agent plist file failed: \(launchAgentPlistPath): \(error)")
+      return
+    }
+    NSLog("Launch agent plist file written: \(launchAgentPlistPath)")
   }
 
   @IBAction func openLegend(_ sender: Any) {
