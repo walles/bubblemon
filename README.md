@@ -15,13 +15,11 @@ shows IO load.
 CPU load distribution is visualized by having the most heavily loaded CPU cores
 bubble in the middle and the others nearer to the edges.
 
-![macOS Screenshot](pixmaps/screenshot-osx.png) | ![Touch Bar Screenshot](https://raw.githubusercontent.com/walles/bubblemon/gh-pages/images/touchbar-screenshot.png) | ![macOS menu bar](pixmaps/screenshot-osx-menu-bar.png) |
-------------------------- | ------------------------ | --- |
-Bubbles in the macOS Dock | Bubbles in the [Touch Bar](https://developer.apple.com/macos/touch-bar/) | Bubbles in the macOS menu bar
-
 # Building and Installing
 * [Installation instructions for macOS](https://walles.github.io/bubblemon/)
 * [Build-and-install-from-source-code instructions for macOS](https://github.com/walles/bubblemon/blob/master/osx/README.md).
+
+![](pixmaps/macbookpro-with-bubblemon.png)
 
 # License
 <pre>
