@@ -3,7 +3,8 @@ img.bigmac {
   max-height: 75vh;
   max-width: 100vw;
 
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  /* Center image horizontally: https://stackoverflow.com/a/23991615/473672 */
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
