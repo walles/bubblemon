@@ -18,6 +18,8 @@ pre {
   padding: 16px;
   overflow: auto;
   background-color: #f6f8fa;
+  overflow-wrap: break-word;
+  white-space: pre-line;
 }
 
 /* From: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd */
