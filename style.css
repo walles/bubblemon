@@ -30,3 +30,8 @@ kbd {
   padding: 2px 4px;
   white-space: nowrap;
 }
+
+em {
+  font-weight: bold;
+  font-style: normal;
+}
