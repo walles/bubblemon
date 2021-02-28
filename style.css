@@ -1,15 +1,20 @@
-img.bigmac {
-  width: auto;
-  max-height: 75vh;
-  max-width: 100vw;
-
-  /* Center horizontally: https://stackoverflow.com/a/23991615/473672 */
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
+body {
+  font-family: sans-serif;
 }
 
-pre.code {
+em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+div.bodytext {
+  max-width: 40em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+pre {
   padding: 16px;
   overflow: auto;
   background-color: #f6f8fa;
@@ -31,11 +36,13 @@ kbd {
   white-space: nowrap;
 }
 
-em {
-  font-weight: bold;
-  font-style: normal;
-}
+img.bigmac {
+  width: auto;
+  max-height: 75vh;
+  max-width: 100vw;
 
-body {
-  font-family: sans-serif;
+  /* Center horizontally: https://stackoverflow.com/a/23991615/473672 */
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
 }

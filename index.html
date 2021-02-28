@@ -28,25 +28,30 @@
 <body>
     <img class="bigmac" src="macbookpro-with-bubblemon.png" />
 
-    <h1>Legend</h1>
-    <p>The <em>water level</em> indicates how much RAM memory is in use.</p>
-    <p>The <em>amount of bubbles</em> reflects the CPU load. Bubbles in the
-        middle only means only one core is doing work. Bubbles across the whole
-        width means all cores are busy.</p>
-    <p>A <em>reed</em>-like graph shows IO load.</p>
-    <p><em>Fog</em> means your battery is running low.</p>
-    <p>The <em>color of the liquid</em> indicates how much swap space is used,
-        between blue (none) and red (all).</p>
+    <div class="bodytext">
+        <h1>Legend</h1>
+        <p>The <em>water level</em> indicates how much RAM memory is in use.</p>
+        <p>The <em>amount of bubbles</em> reflects the CPU load. Bubbles in the
+            middle only means only one core is doing work. Bubbles across the whole
+            width means all cores are busy.</p>
+        <p>A <em>reed</em>-like graph shows IO load.</p>
+        <p><em>Fog</em> means your battery is running low.</p>
+        <p>The <em>color of the liquid</em> indicates how much swap space is used,
+            between blue (none) and red (all).</p>
 
-    <h1>Installing</h1>
-    <p>Paste the following command into a <em><a href="https://support.apple.com/guide/terminal">Terminal</a></em> and
-        press <kbd>RETURN</kbd>:
-    </p>
-    <pre class="code">curl https://raw.githubusercontent.com/walles/bubblemon/master/osx/install.sh | bash</pre>
+        <h1>Installing</h1>
+        <p>Paste the following command into a <em><a href="https://support.apple.com/guide/terminal">Terminal</a></em>
+            and
+            press <kbd>RETURN</kbd>:
+        </p>
 
-    <h1>Developing</h1>
-    <p>Source code <a href="https://github.com/walles/bubblemon">here</a>.</p>
-    <p>Instructions for macOS <a href="https://github.com/walles/bubblemon/blob/master/osx/README.md">here</a>.</p>
+        <!-- FIXME: Add a copy-to-clipboard button next to the curl command -->
+        <pre>curl https://raw.githubusercontent.com/walles/bubblemon/master/osx/install.sh | bash</pre>
+
+        <h1>Developing</h1>
+        <p>Source code <a href="https://github.com/walles/bubblemon">here</a>.</p>
+        <p>Instructions for macOS <a href="https://github.com/walles/bubblemon/blob/master/osx/README.md">here</a>.</p>
+    </div>
 </body>
 
 </html>
