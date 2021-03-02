@@ -27,6 +27,15 @@
 </head>
 
 <body>
+    <script>
+        // Redirect to https. This removes site-insecure warnings from Chrome.
+        const protocol = window.location.protocol
+        if (protocol === 'http:' && window.location.hostname !== '127.0.0.1') {
+            // From http://stackoverflow.com/a/4723302/473672
+            window.location.replace(`https:${window.location.href.substring(protocol.length)}`);
+        }
+    </script>
+
     <img class="bigmac" src="macbookpro-with-bubblemon.png" />
 
     <div class="bodytext">
