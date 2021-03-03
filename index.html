@@ -43,18 +43,28 @@
             in one useful and decorative animation.</p>
 
         <h1 id="legend">Legend</h1>
-        <p>The <em>water level</em> indicates how much RAM memory is in use.</p>
-        <p>The <em>amount of bubbles</em> reflects the CPU load. Bubbles in the
-            middle only means only one core is doing work. Bubbles across the whole
-            width means all cores are busy.</p>
-        <p>A <em>reed</em>-like graph shows IO load.</p>
+
+        <img src="animated-screenshot/bubblemon.gif" id="animated-screenshot" />
+
+        <p>The <em>water level</em> indicates how much RAM is in use. In the
+            example to the left here, about 75% of the memory has been taken.</p>
+
+        <p>The <em>amount of bubbles</em> reflect the CPU load. In this example,
+            there are bubbles in the middle only. That means that only one core is
+            working. If all cores were working, there would be bubbles across the
+            whole width.</p>
+
+        <p>A <em>reed</em>-like graph shows IO load. The example here has
+            periodic bursts of IO, shown by reed growing and then disappearing.</p>
+
         <p><em>Fog</em> means your battery is running low.</p>
-        <p>The <em>color of the liquid</em> indicates how much swap space is used,
-            between blue (none) and red (all).</p>
+
+        <p>The <em>color of the liquid</em> indicates how much swap space is
+            used, between blue (none, as in this example) and red (all).</p>
 
         <h1 id="installing">Installing</h1>
-        <p>Paste the following command into a <em><a href="https://support.apple.com/guide/terminal">Terminal</a></em>
-            (all on one line) and press <kbd>RETURN</kbd>:
+        <p>Paste the following command into a <em><a href="https://support.apple.com/guide/terminal">Terminal</a></em>,
+            all on one line, then press <kbd>RETURN</kbd>:
         </p>
 
         <!-- FIXME: Add a copy-to-clipboard button next to the curl command -->

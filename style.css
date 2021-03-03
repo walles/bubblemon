@@ -48,3 +48,11 @@ img.bigmac {
   left: 50%;
   transform: translate(-50%, 0);
 }
+
+img#animated-screenshot {
+  width: 4em;
+  height: 4em;
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
