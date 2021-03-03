@@ -4,6 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Bubblemon</title>
+
+    <meta name="Description" content="Bubblemon shows the current system load as
+    a bubbling liquid. Available for the macOS Dock, Touch Bar and top-of-screen
+    menu bar. System load visualization for human beings!" />
+
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -36,7 +41,8 @@
         }
     </script>
 
-    <img class="bigmac" src="macbookpro-with-bubblemon.png" />
+    <img class="bigmac" src="macbookpro-with-bubblemon.png"
+        alt="A MacBook running Bubblemon in the Dock, in the Touch Bar and in the Menu Bar" />
 
     <div class="bodytext">
         <p><em>Bubblemon</em> shows you your system's load in various ways, all
@@ -44,7 +50,8 @@
 
         <h1 id="legend">Legend</h1>
 
-        <img src="animated-screenshot/bubblemon.gif" id="animated-screenshot" />
+        <img src="animated-screenshot/bubblemon.gif" id="animated-screenshot"
+            alt="Animated Bubblemon screen recording, showing off what it looks like for real" />
 
         <p>The <em>water level</em> indicates how much RAM is in use. In the
             example to the left here, about 75% of the memory has been taken.</p>
@@ -64,15 +71,18 @@
 
         <h1 id="installing">Installing</h1>
         <p>Paste the following command into a <em><a href="https://support.apple.com/guide/terminal">Terminal</a></em>,
-            all on one line, then press <kbd>RETURN</kbd>:
-        </p>
+            all on one line, then press <kbd>RETURN</kbd>:</p>
 
         <!-- FIXME: Add a copy-to-clipboard button next to the curl command -->
         <pre>curl https://raw.githubusercontent.com/walles/bubblemon/master/osx/install.sh | bash</pre>
 
         <h1 id="dev">Developing</h1>
-        <p>Source code <a href="https://github.com/walles/bubblemon">here</a>.</p>
-        <p>Instructions for macOS <a href="https://github.com/walles/bubblemon/blob/master/osx/README.md">here</a>.</p>
+
+        <p>Check out <a href="https://github.com/walles/bubblemon">the source
+                code</a> (pun intended).</p>
+
+        <p>Or the <a href="https://github.com/walles/bubblemon/blob/master/osx/README.md">instructions
+                for developing on macOS</a>.</p>
     </div>
 </body>
 
