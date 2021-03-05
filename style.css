@@ -55,4 +55,5 @@ img#animated-screenshot {
   float: left;
   margin-right: 1em;
   margin-bottom: 1em;
+  border-radius: 0.5em;
 }
