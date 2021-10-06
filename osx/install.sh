@@ -10,8 +10,8 @@ if [ "$(uname)" != "Darwin" ] ; then
     exit 1
 fi
 
-# Verify we can xcrun git and xcodebuild
-if xcrun git --version > /dev/null && xcrun xcodebuild -version > /dev/null; then
+# Verify we have git and xcodebuild
+if git --version > /dev/null && xcodebuild -version > /dev/null; then
     echo "INFO: Command line dev tools found, proceeding..."
 elif xcode-select --install; then
     >&2 echo "WARNING: Developer tools not found, trying to get them installed."
@@ -49,7 +49,7 @@ else
 
     echo
     echo "INFO: Getting Bubblemon source code..."
-    xcrun git clone "https://github.com/walles/bubblemon.git"
+    git clone "https://github.com/walles/bubblemon.git"
     cd bubblemon
 fi
 
@@ -59,7 +59,7 @@ echo "INFO: Now building, this can take 30+ seconds and a lot of text can scroll
 date
 TARGET_BUILD_DIR=$(mktemp -d -t bubblemon-build)
 TARGET_TEMP_DIR=$(mktemp -d -t bubblemon-temp)
-time xcrun xcodebuild \
+xcrun xcodebuild \
   build \
   -quiet \
   -project osx/bubblemon.xcodeproj \
