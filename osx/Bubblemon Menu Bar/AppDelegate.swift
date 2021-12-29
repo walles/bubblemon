@@ -60,9 +60,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       </plist>
       """
 
-    // Save the file to where launchd can find it
     let launchAgentPlistPath =
       NSString(string: LAUNCH_AGENT_PLIST_PATH).expandingTildeInPath
+
+    // Create directory for the plist file in case that directory doesn't already exist:
+    // https://github.com/walles/bubblemon/issues/12
+    let launchAgentPlistDir =
+      (launchAgentPlistPath as NSString).deletingLastPathComponent;
+    let launchAgentPlistDirUrl = URL(fileURLWithPath: launchAgentPlistDir, isDirectory: true);
+    do {
+      // Set withIntermediateDirectories since that should save us from
+      // getting an exception if the directory already exists.
+      try FileManager.default.createDirectory(at: launchAgentPlistDirUrl, withIntermediateDirectories: true, attributes: nil)
+    } catch {
+      NSLog("Creating launch agent plist directory failed: \(launchAgentPlistDir): \(error)")
+      return
+    }
+
+    // Save the file to where launchd can find it
     do {
       try launchAgentPlistContents.write(
         toFile: launchAgentPlistPath,
