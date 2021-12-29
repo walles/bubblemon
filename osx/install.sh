@@ -116,13 +116,9 @@ mv "$BUBBLEMON_APP" "/Applications/"
 mv "$BUBBLEMON_TOUCHBAR_APP" "/Applications/"
 mv "$BUBBLEMON_MENU_BAR_APP" "/Applications/"
 
-# Invoke the Dockapp flavor from /Applications. This will restart the Dock,
-# which can be a jarring experience if you are not prepared for it, must be
-# documented in the install instructions.
-echo
-echo "INFO: Now installing the Dock app..."
-echo "WARNING: Your desktop will restart, this is fine!"
-open "/Applications/Bubblemon.app" --args --reinstall
+# Start the menu bar app
+echo "INFO: Now installing the Menu Bar app..."
+open "/Applications/Bubblemon Menu Bar.app"
 
 # Invoke the TouchBar flavor from /Applications. If we don't have any TouchBar,
 # the app should notice and not do anything.
@@ -130,9 +126,13 @@ echo
 echo "INFO: Now installing the TouchBar app..."
 open "/Applications/Bubblemon TouchBar.app" --args --reinstall
 
-# Start the menu bar app
-echo "INFO: Now installing the Menu Bar app..."
-open "/Applications/Bubblemon Menu Bar.app"
+# Invoke the Dockapp flavor from /Applications. This will restart the Dock,
+# which can be a jarring experience if you are not prepared for it, must be
+# documented in the install instructions.
+echo
+echo "INFO: Now installing the Dock app..."
+echo "WARNING: Your desktop will restart, this is fine!"
+open "/Applications/Bubblemon.app" --args --reinstall
 
 echo
 echo "INFO: All done, you can now close this window and enjoy your bubbles."
