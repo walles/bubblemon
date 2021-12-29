@@ -19,7 +19,6 @@ if [ ! -d "$XCODEDIR" ]; then
     exit
 fi
 
-XCODEDIR="hej"
 if [ "$(xcode-select --print-path)" != "$XCODEDIR" ]; then
     # https://github.com/walles/bubblemon/issues/11
     echo
