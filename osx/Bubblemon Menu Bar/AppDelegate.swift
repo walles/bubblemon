@@ -150,6 +150,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       return
     }
 
+    if (!(self.statusItem!.button?.window?.occlusionState.contains(.visible))!) {
+      // Make Bubblemon Menu Bar not use any CPU when occluded
+      // Ref: https://developer.apple.com/forums/thread/71171
+      return
+    }
+
     // Image size in points. On high res displays, one point is 2x2 pixels.
     let height = statusItem!.button!.bounds.height
     let width = 2 * height
