@@ -198,6 +198,11 @@ class BubblemonView: NSView, NSDockTilePlugIn {
 
   @objc
   func timerTriggered() {
+    if (!self.window!.occlusionState.contains(.visible)) {
+      // Ref: https://developer.apple.com/forums/thread/71171
+      return
+    }
+
     // Compute a new image to display
     if (_touchBarMode) {
       // Touch Bar is tiny, make few bubbles and scale everything up to be big
