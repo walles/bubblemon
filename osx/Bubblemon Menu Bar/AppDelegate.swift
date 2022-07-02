@@ -150,11 +150,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       return
     }
 
-    if (!(self.statusItem!.button?.window?.occlusionState.contains(.visible))!) {
-      // Make Bubblemon Menu Bar not use any CPU when occluded
+    if !(self.statusItem!.button?.window?.occlusionState.contains(.visible))! {
+      // Menu bar is hidden
       // Ref: https://developer.apple.com/forums/thread/71171
       return
     }
+
+    let sessionInfo: NSDictionary? = CGSessionCopyCurrentDictionary()
+    let onConsole = sessionInfo?[kCGSessionOnConsoleKey] as? Bool ?? false
+    if !onConsole {
+      // Screen is locked or somebody else is logged in instead of us:
+      // https://stackoverflow.com/a/8790102/473672
+      // https://github.com/sqcubes/EyeDrop/blob/01daf39eb/EyeDrop/EyeDropController.swift#L154
+      return
+    }
+
+    // NOTE: Docs say we should "release" the sessionInfo dict...
+    // https://developer.apple.com/documentation/coregraphics/1454780-cgsessioncopycurrentdictionary
+    // ... but according to this, that only applies to ObjectiveC?
+    // https://stackoverflow.com/a/34674080/473672
+    //
+    // Also, looking at memory usage over some minutes I was unable to spot any leak.
 
     // Image size in points. On high res displays, one point is 2x2 pixels.
     let height = statusItem!.button!.bounds.height
