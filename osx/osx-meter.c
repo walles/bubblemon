@@ -150,8 +150,22 @@ done:
   return computerChargePercent;
 }
 
+static uint64_t measureMemoryPressure() {
+  FIXME: Write code here
+  return 42;
+}
+
 static void measureMemory(meter_sysload_t *load) {
   measureRam(load);
+
+  load->memoryPressure = measureMemoryPressure();
+  if (load->memoryPressure > load->memoryPressureHighWatermark) {
+    load->memoryPressureHighWatermark = load->memoryPressure;
+  }
+  if (load->memoryPressure < load->memoryPressureLowWatermark) {
+    load->memoryPressureLowWatermark = load->memoryPressure;
+  }
+
   measureSwap(load);
 }
 
@@ -311,6 +325,8 @@ void meter_init(meter_sysload_t *load) {
 
   load->user = dynamic_accumulator_create();
 
+  load->memoryPressureLowWatermark = UINT64_MAX;
+  load->memoryPressureHighWatermark = 0;
   measureMemory(load);
 
   load->batteryChargePercent = getBatteryChargePercent();

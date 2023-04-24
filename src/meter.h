@@ -25,6 +25,10 @@
 
 /* The system load */
 typedef struct {
+  u_int64_t memoryPressure;
+  u_int64_t memoryPressureHighWatermark;
+  u_int64_t memoryPressureLowWatermark;
+
   u_int64_t memoryUsed;
   u_int64_t memorySize;
 

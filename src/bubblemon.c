@@ -228,18 +228,23 @@ static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
 
   int x;
 
-  /* Where is the surface heading? */
-  float waterLevels_goal;
-
   /* How high can the surface be? */
   float waterLevels_max = (h - 0.55);
 
   /* Move the water level with the current memory usage.  The water
    * level goes from 0.0 to h so that you can get an integer height by
    * just chopping off the decimals. */
-  waterLevels_goal = ((float)bubblemon->sysload.memoryUsed /
-                      (float)bubblemon->sysload.memorySize) *
-                     waterLevels_max;
+  float waterLevels_goal = 0.0f;
+  if (bubblemon->sysload.memoryPressureLowWatermark < bubblemon->sysload.memoryPressureHighWatermark) {
+    // We should always end up in here
+    float min = bubblemon->sysload.memoryPressureLowWatermark;
+    float max = bubblemon->sysload.memoryPressureHighWatermark;
+    float now = bubblemon->sysload.memoryPressure;
+    float zeroToOne = (now -  min) / (max - min);
+
+    waterLevels_goal = zeroToOne * waterLevels_max;
+  }
+
   if (waterLevels_goal < 3.4) {
     // If the water level is too low, the CPU load bubbles won't be
     // visible.  Enforce a minimum water level. /JW-2008dec28
