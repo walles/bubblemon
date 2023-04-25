@@ -18,12 +18,12 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <pwd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pwd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "mail.h"
 
@@ -33,30 +33,25 @@ static const int CHECKEVERYNTH = 100;
 // Returns 1 if fileName seems to be a mail spool file, and 0
 // otherwise.  Currently just verifies that the permissions and file
 // type look sane.
-static int isUserMailSpoolFile(const char *fileName)
-{
+static int isUserMailSpoolFile(const char *fileName) {
   struct stat fileInfo;
   uid_t currentUser = getuid();
   unsigned int userReadWrite = S_IRUSR | S_IWUSR;
 
   // Does this directory entry exist?
-  if (stat(fileName, &fileInfo) != 0)
-  {
+  if (stat(fileName, &fileInfo) != 0) {
     return 0;
   }
 
   // Is it a regular file?
-  if (S_ISREG(fileInfo.st_mode))
-  {
+  if (S_ISREG(fileInfo.st_mode)) {
     // Is it owned by the current user?
-    if (fileInfo.st_uid != currentUser)
-    {
+    if (fileInfo.st_uid != currentUser) {
       return 0;
     }
 
     // Does the current user have read / write access to it?
-    if ((fileInfo.st_mode & userReadWrite) != userReadWrite)
-    {
+    if ((fileInfo.st_mode & userReadWrite) != userReadWrite) {
       return 0;
     }
 
@@ -64,8 +59,7 @@ static int isUserMailSpoolFile(const char *fileName)
   }
 
   // Is it /dev/null?
-  if (S_ISCHR(fileInfo.st_mode))
-  {
+  if (S_ISCHR(fileInfo.st_mode)) {
     // We could make a more thorough check here, but until somebody
     // reports they are having problems with this, I'll just assume
     // people who use a character device as spool file are actually
@@ -78,37 +72,31 @@ static int isUserMailSpoolFile(const char *fileName)
 
 // Returns the name of the user's mail spool file, or NULL if no spool
 // file could be located.
-static char *getMailFileName(void)
-{
+static char *getMailFileName(void) {
   static char *mailFileName = NULL;
   const char *varSpoolMail = "/var/spool/mail/";
   struct passwd *userinfo;
 
-  if (mailFileName != NULL)
-  {
+  if (mailFileName != NULL) {
     goto done;
   }
 
   mailFileName = getenv("MAIL");
-  if (mailFileName != NULL && isUserMailSpoolFile(mailFileName))
-  {
+  if (mailFileName != NULL && isUserMailSpoolFile(mailFileName)) {
     mailFileName = strdup(mailFileName);
     goto done;
   }
 
   userinfo = getpwuid(getuid());
-  if (userinfo == NULL)
-  {
+  if (userinfo == NULL) {
     // How do we get here?  By having the current user removed from
     // the passwd file?
     mailFileName = "";
     goto done;
   }
 
-  mailFileName = (char*)malloc(sizeof(char)
-			       * (strlen(varSpoolMail)
-				  + strlen(userinfo->pw_name)
-				  + 1));
+  mailFileName = (char *)malloc(
+      sizeof(char) * (strlen(varSpoolMail) + strlen(userinfo->pw_name) + 1));
   strcpy(mailFileName, varSpoolMail);
   strcat(mailFileName, userinfo->pw_name);
   if (isUserMailSpoolFile(mailFileName)) {
@@ -124,34 +112,30 @@ static char *getMailFileName(void)
   free(mailFileName);
   mailFileName = "";
 
- done:
+done:
   return mailFileName[0] == '\0' ? NULL : mailFileName;
 }
 
-mail_status_t mail_getMailStatus(void)
-{
+mail_status_t mail_getMailStatus(void) {
   static int countdown = 0;
   static mail_status_t cachedMailState = 0;
   char *mailFileName;
 
   struct stat mailStat;
 
-  if (countdown > 0)
-  {
+  if (countdown > 0) {
     countdown--;
     return cachedMailState;
   }
   countdown = CHECKEVERYNTH;
 
   mailFileName = getMailFileName();
-  if (mailFileName == NULL)
-  {
+  if (mailFileName == NULL) {
     cachedMailState = NO_MAIL;
     return cachedMailState;
   }
 
-  if (stat(mailFileName, &mailStat) != 0)
-  {
+  if (stat(mailFileName, &mailStat) != 0) {
     // Checking the file dates on the spool file failed
     cachedMailState = NO_MAIL;
     return cachedMailState;
@@ -163,9 +147,8 @@ mail_status_t mail_getMailStatus(void)
   } else {
     /* New mail has arrived if the mail file has been updated after it
        was last read from */
-    cachedMailState = ((mailStat.st_mtime > mailStat.st_atime)
-		       ? UNREAD_MAIL
-		       : READ_MAIL);
+    cachedMailState =
+        ((mailStat.st_mtime > mailStat.st_atime) ? UNREAD_MAIL : READ_MAIL);
   }
 
   return cachedMailState;

@@ -30,28 +30,28 @@ struct device_t;
 typedef struct device_t device_t;
 struct device_t {
   char *name;
-  
+
   u_int64_t lastTimestampMs;
-  
+
   u_int64_t lastReadBytes;
   u_int64_t lastWrittenBytes;
-  
+
   double maxReadsPerSecond;
   double maxWritesPerSecond;
-  
+
   double lastReadsPerSecond;
   double lastWritesPerSecond;
-  
+
   // Was this device reported during the last reporting run?
   bool reported;
-  
+
   device_t *next;
 };
 
 /* Holds info about a dynamic accumulator.  A dynamic accumulator can
  * be used to emulate the Linux-specific iowait number on non-Linux
  * systems.
- * 
+ *
  * Example usage:
  * dynamic_accumulator_report(da, "hda", 1000 [read], 0 [written]);
  * dynamic_accumulator_report(da, "hdb", 4711 [read], 99999 [written]);
@@ -68,10 +68,9 @@ struct device_t {
  * The value reported by getLoadPercentage() is the load percentage
  * for the most heavily loaded device between the last two reports.
  */
-typedef struct
-{
+typedef struct {
   device_t *devices;
-  
+
   // Are we currently reporting devices?  Reporting starts with
   // dynamic_accumilator_startReporting() and ends with
   // dynamic_accumulator_getLoadPercentage().
@@ -84,16 +83,17 @@ dynamic_accumulator_t *dynamic_accumulator_create(void);
 /* Call before starting a reporting sequence, needed to be able to keep track of
  * when devices disappear.
  */
-void dynamic_accumulator_startReporting(dynamic_accumulator_t *dynamic_accumulator);
+void dynamic_accumulator_startReporting(
+    dynamic_accumulator_t *dynamic_accumulator);
 
 /* Update a dynamic accumulator with current values. */
 void dynamic_accumulator_report(dynamic_accumulator_t *dynamic_accumulator,
-                                const char *deviceName,
-				u_int64_t bytesRead,
-				u_int64_t bytesWritten);
+                                const char *deviceName, u_int64_t bytesRead,
+                                u_int64_t bytesWritten);
 
 /* Fetch the current load percentage value (0-100). */
-int dynamic_accumulator_getLoadPercentage(dynamic_accumulator_t *dynamic_accumulator);
+int dynamic_accumulator_getLoadPercentage(
+    dynamic_accumulator_t *dynamic_accumulator);
 
 /* Free a dynamic accumulator struct. */
 void dynamic_accumulator_destroy(dynamic_accumulator_t *dynamic_accumulator);

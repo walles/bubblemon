@@ -25,21 +25,21 @@
 #ifndef __APPLE__
 #include <config.h>
 #endif
+#include <assert.h>
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
-#include <sys/time.h>
 #include <string.h>
+#include <sys/time.h>
 #include <time.h>
-#include <inttypes.h>
 
 #include <math.h>
 double exp2(double x);
 
 #include "bubblemon.h"
-#include "ui.h"
-#include "meter.h"
 #include "mail.h"
+#include "meter.h"
+#include "ui.h"
 
 // Bottle graphics
 #include "msgInBottle.c"
@@ -89,21 +89,16 @@ static void bubblemon_freeBuffers(bubblemon_t *bubblemon) {
 }
 
 /* Set the dimensions of the bubble array */
-void bubblemon_setSize(bubblemon_t *bubblemon, int width, int height)
-{
+void bubblemon_setSize(bubblemon_t *bubblemon, int width, int height) {
   if ((width != bubblemon->bubblePic.width) ||
-      (height != bubblemon->bubblePic.height))
-  {
+      (height != bubblemon->bubblePic.height)) {
     bubblemon_freeBuffers(bubblemon);
     bubblemon->bubblePic.width = width;
     bubblemon->bubblePic.height = height;
   }
 }
 
-static void usage2string(char *string,
-			 u_int64_t used,
-			 u_int64_t max)
-{
+static void usage2string(char *string, u_int64_t used, u_int64_t max) {
   /* Create a string of the form "35/64Mb" */
 
   unsigned int shiftme;
@@ -116,31 +111,22 @@ static void usage2string(char *string,
   char unitString[10];
   unit = unitString;
 
-  if ((max >> 30) > 7000)
-    {
-      shiftme = 40;
-      unit = _("TiB");
-    }
-  else if ((max >> 20) > 7000)
-    {
-      shiftme = 30;
-      unit = _("GiB");
-    }
-  else if ((max >> 10) > 7000)
-    {
-      shiftme = 20;
-      unit = _("MiB");
-    }
-  else if ((max >> 0) > 7000)
-    {
-      shiftme = 10;
-      unit = _("kiB");
-    }
-  else
-    {
-      shiftme = 0;
-      sprintf(unit, " %s", _("bytes"));
-    }
+  if ((max >> 30) > 7000) {
+    shiftme = 40;
+    unit = _("TiB");
+  } else if ((max >> 20) > 7000) {
+    shiftme = 30;
+    unit = _("GiB");
+  } else if ((max >> 10) > 7000) {
+    shiftme = 20;
+    unit = _("MiB");
+  } else if ((max >> 0) > 7000) {
+    shiftme = 10;
+    unit = _("kiB");
+  } else {
+    shiftme = 0;
+    sprintf(unit, " %s", _("bytes"));
+  }
 
   if ((used >> shiftme) < 10) {
     // Print usage number with one decimal digit
@@ -162,73 +148,50 @@ static void usage2string(char *string,
     sprintf(maxString, "%" PRIu64, max >> shiftme);
   }
 
-  sprintf(string, "%s/%s%s",
-	  usageString,
-	  maxString,
-	  unit);
+  sprintf(string, "%s/%s%s", usageString, maxString, unit);
 }
 
-const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
-{
-  char memstring[20], swapstring[20], iowaitstring[40], loadstring[50], batterystring[50];
+const char *bubblemon_getTooltip(bubblemon_t *bubblemon) {
+  char memstring[20], swapstring[20], iowaitstring[40], loadstring[50],
+      batterystring[50];
   int cpu_number;
 
-  if (!bubblemon->tooltipstring)
-  {
+  if (!bubblemon->tooltipstring) {
     /* Prevent the tooltipstring buffer from overflowing on a system
        with lots of CPUs */
     bubblemon->tooltipstring =
-      malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 500));
+        malloc(sizeof(char) * (bubblemon->sysload.nCpus * 50 + 500));
     assert(bubblemon->tooltipstring != NULL);
   }
 
-  usage2string(memstring,
-	       bubblemon->sysload.memoryUsed,
-	       bubblemon->sysload.memorySize);
-  snprintf(bubblemon->tooltipstring, 90,
-           _("Memory used: %s"),
-           memstring);
-  if (bubblemon->sysload.swapSize > 0)
-  {
-    usage2string(swapstring,
-		 bubblemon->sysload.swapUsed,
-		 bubblemon->sysload.swapSize);
-    snprintf(loadstring, 45,
-	     _("\nSwap used: %s"),
-	     swapstring);
+  usage2string(memstring, bubblemon->sysload.memoryUsed,
+               bubblemon->sysload.memorySize);
+  snprintf(bubblemon->tooltipstring, 90, _("Memory used: %s"), memstring);
+  if (bubblemon->sysload.swapSize > 0) {
+    usage2string(swapstring, bubblemon->sysload.swapUsed,
+                 bubblemon->sysload.swapSize);
+    snprintf(loadstring, 45, _("\nSwap used: %s"), swapstring);
     strcat(bubblemon->tooltipstring, loadstring);
   }
 
-  snprintf(iowaitstring, 38,
-	   _("\nIO load: %d%%"),
-	   bubblemon->sysload.ioLoad);
+  snprintf(iowaitstring, 38, _("\nIO load: %d%%"), bubblemon->sysload.ioLoad);
   strcat(bubblemon->tooltipstring, iowaitstring);
 
-  snprintf(batterystring, 49,
-           _("\nBattery charge: %d%%"),
+  snprintf(batterystring, 49, _("\nBattery charge: %d%%"),
            bubblemon->sysload.batteryChargePercent);
   strcat(bubblemon->tooltipstring, batterystring);
 
-  if (bubblemon->sysload.nCpus == 1)
-    {
-      snprintf(loadstring, 45,
-               _("\nCPU load: %d%%"),
-               bubblemon_getCpuLoadPercentage(bubblemon, 0));
+  if (bubblemon->sysload.nCpus == 1) {
+    snprintf(loadstring, 45, _("\nCPU load: %d%%"),
+             bubblemon_getCpuLoadPercentage(bubblemon, 0));
+    strcat(bubblemon->tooltipstring, loadstring);
+  } else {
+    for (cpu_number = 0; cpu_number < bubblemon->sysload.nCpus; cpu_number++) {
+      snprintf(loadstring, 45, _("\nCPU #%d load: %d%%"), cpu_number,
+               bubblemon_getCpuLoadPercentage(bubblemon, cpu_number));
       strcat(bubblemon->tooltipstring, loadstring);
     }
-  else
-    {
-      for (cpu_number = 0;
-           cpu_number < bubblemon->sysload.nCpus;
-           cpu_number++)
-        {
-          snprintf(loadstring, 45,
-                   _("\nCPU #%d load: %d%%"),
-                   cpu_number,
-                   bubblemon_getCpuLoadPercentage(bubblemon, cpu_number));
-          strcat(bubblemon->tooltipstring, loadstring);
-        }
-    }
+  }
 
   return bubblemon->tooltipstring;
 }
@@ -236,8 +199,7 @@ const char *bubblemon_getTooltip(bubblemon_t *bubblemon)
 /* Return the number of milliseconds that have passed since the last
    time this function was called, or -1 if this is the first call.  If
    a long time has passed since last time, the result is undefined. */
-static int bubblemon_getMsecsSinceLastCall(bubblemon_t *bubblemon)
-{
+static int bubblemon_getMsecsSinceLastCall(bubblemon_t *bubblemon) {
   int returnMe = -1;
 
   struct timeval currentTime;
@@ -245,8 +207,7 @@ static int bubblemon_getMsecsSinceLastCall(bubblemon_t *bubblemon)
   /* What time is it now? */
   gettimeofday(&currentTime, NULL);
 
-  if ((bubblemon->last_sec != 0L) || (bubblemon->last_usec != 0L))
-  {
+  if ((bubblemon->last_sec != 0L) || (bubblemon->last_usec != 0L)) {
     returnMe = 1000 * (int)(currentTime.tv_sec - bubblemon->last_sec);
     returnMe += ((int)(currentTime.tv_usec - bubblemon->last_usec)) / 1000L;
   }
@@ -258,8 +219,7 @@ static int bubblemon_getMsecsSinceLastCall(bubblemon_t *bubblemon)
 }
 
 static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
-					int msecsSinceLastCall)
-{
+                                        int msecsSinceLastCall) {
   float dt = msecsSinceLastCall / 30.0;
 
   /* Typing fingers savers */
@@ -277,8 +237,9 @@ static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
   /* Move the water level with the current memory usage.  The water
    * level goes from 0.0 to h so that you can get an integer height by
    * just chopping off the decimals. */
-  waterLevels_goal =
-    ((float)bubblemon->sysload.memoryUsed / (float)bubblemon->sysload.memorySize) * waterLevels_max;
+  waterLevels_goal = ((float)bubblemon->sysload.memoryUsed /
+                      (float)bubblemon->sysload.memorySize) *
+                     waterLevels_max;
   if (waterLevels_goal < 3.4) {
     // If the water level is too low, the CPU load bubbles won't be
     // visible.  Enforce a minimum water level. /JW-2008dec28
@@ -288,14 +249,15 @@ static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
   bubblemon->physics.waterLevels[0].y = waterLevels_goal;
   bubblemon->physics.waterLevels[w - 1].y = waterLevels_goal;
 
-  for (x = 1; x < (w - 1); x++)
-  {
+  for (x = 1; x < (w - 1); x++) {
     /* Accelerate the current waterlevel towards its correct value */
     float current_waterlevel_goal = (bubblemon->physics.waterLevels[x - 1].y +
-				     bubblemon->physics.waterLevels[x + 1].y) / 2.0;
+                                     bubblemon->physics.waterLevels[x + 1].y) /
+                                    2.0;
 
     bubblemon->physics.waterLevels[x].dy +=
-      (current_waterlevel_goal - bubblemon->physics.waterLevels[x].y) * dt * VOLATILITY;
+        (current_waterlevel_goal - bubblemon->physics.waterLevels[x].y) * dt *
+        VOLATILITY;
 
     bubblemon->physics.waterLevels[x].dy *= VISCOSITY;
 
@@ -305,19 +267,16 @@ static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
       bubblemon->physics.waterLevels[x].dy = -SPEED_LIMIT;
   }
 
-  for (x = 1; x < (w - 1); x++)
-  {
+  for (x = 1; x < (w - 1); x++) {
     /* Move the current water level */
-    bubblemon->physics.waterLevels[x].y += bubblemon->physics.waterLevels[x].dy * dt;
+    bubblemon->physics.waterLevels[x].y +=
+        bubblemon->physics.waterLevels[x].dy * dt;
 
-    if (bubblemon->physics.waterLevels[x].y > waterLevels_max)
-    {
+    if (bubblemon->physics.waterLevels[x].y > waterLevels_max) {
       /* Stop the wave if it hits the ceiling... */
       bubblemon->physics.waterLevels[x].y = waterLevels_max;
       bubblemon->physics.waterLevels[x].dy = 0.0;
-    }
-    else if (bubblemon->physics.waterLevels[x].y < 0.0)
-    {
+    } else if (bubblemon->physics.waterLevels[x].y < 0.0) {
       /* ... or the floor. */
       bubblemon->physics.waterLevels[x].y = 0.0;
       bubblemon->physics.waterLevels[x].dy = 0.0;
@@ -325,22 +284,20 @@ static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
   }
 }
 
-static void bubblemon_addNourishment(bubblemon_t *bubblemon, bubblemon_Weed *weed, int percentage)
-{
+static void bubblemon_addNourishment(bubblemon_t *bubblemon,
+                                     bubblemon_Weed *weed, int percentage) {
   float heightLimit = (bubblemon->bubblePic.height * WEED_HEIGHT) / 100.0;
 
   weed->nourishment += (heightLimit * percentage) / 100.0;
 
-  if (weed->nourishment + weed->height > heightLimit)
-  {
+  if (weed->nourishment + weed->height > heightLimit) {
     weed->nourishment = heightLimit - weed->height;
   }
 }
 
 /* How much of the system's IO bandwidth is being used?  Returns a
  * percentage value, 0-100. */
-static int bubblemon_getIoLoad(bubblemon_t *bubblemon)
-{
+static int bubblemon_getIoLoad(bubblemon_t *bubblemon) {
 #ifdef ENABLE_PROFILING
   return 100;
 #else
@@ -348,75 +305,60 @@ static int bubblemon_getIoLoad(bubblemon_t *bubblemon)
 #endif
 }
 
-static void bubblemon_updateWeeds(bubblemon_t *bubblemon, int msecsSinceLastCall)
-{
+static void bubblemon_updateWeeds(bubblemon_t *bubblemon,
+                                  int msecsSinceLastCall) {
   int w = bubblemon->bubblePic.width;
   int x;
 
   // If enough time has elapsed...
   bubblemon->timeToNextWeedsUpdate -= msecsSinceLastCall;
-  while (bubblemon->timeToNextWeedsUpdate <= 0)
-  {
+  while (bubblemon->timeToNextWeedsUpdate <= 0) {
     // ... update the nourishment level of our next weed
     int weed = random() % bubblemon->bubblePic.width;
 
     // Distribute the nourishment over several weeds
     int load = bubblemon_getIoLoad(bubblemon);
-    if (weed > 0)
-    {
-      bubblemon_addNourishment(bubblemon,
-			       &(bubblemon->physics.weeds[weed - 1]),
-			       (load * 8) / 10);
+    if (weed > 0) {
+      bubblemon_addNourishment(bubblemon, &(bubblemon->physics.weeds[weed - 1]),
+                               (load * 8) / 10);
     }
     bubblemon_addNourishment(bubblemon, &(bubblemon->physics.weeds[weed]),
-			     load);
-    if (weed < (bubblemon->bubblePic.width - 1))
-    {
-      bubblemon_addNourishment(bubblemon,
-			       &(bubblemon->physics.weeds[weed + 1]),
-			       (load * 8) / 10);
+                             load);
+    if (weed < (bubblemon->bubblePic.width - 1)) {
+      bubblemon_addNourishment(bubblemon, &(bubblemon->physics.weeds[weed + 1]),
+                               (load * 8) / 10);
     }
 
     bubblemon->timeToNextWeedsUpdate += IOLOAD_INTERVAL;
   }
 
   // For all weeds...
-  for (x = 0; x < w; x++)
-  {
+  for (x = 0; x < w; x++) {
     // ... grow / shrink them according to their nourishment level
     float speed;
     float delta;
 
-    if (bubblemon->physics.weeds[x].nourishment <= 0.0)
-    {
+    if (bubblemon->physics.weeds[x].nourishment <= 0.0) {
       speed = -WEED_MINSPEED;
-    }
-    else
-    {
+    } else {
       speed = bubblemon->physics.weeds[x].nourishment * WEED_SPEEDFACTOR;
-      if (speed > WEED_MAXSPEED)
-      {
-	speed = WEED_MAXSPEED;
-      }
-      else if (speed < WEED_MINSPEED)
-      {
-	speed = WEED_MINSPEED;
+      if (speed > WEED_MAXSPEED) {
+        speed = WEED_MAXSPEED;
+      } else if (speed < WEED_MINSPEED) {
+        speed = WEED_MINSPEED;
       }
     }
 
     delta = (speed * msecsSinceLastCall) / 1000.0;
-    if (delta > bubblemon->physics.weeds[x].nourishment)
-    {
+    if (delta > bubblemon->physics.weeds[x].nourishment) {
       delta = bubblemon->physics.weeds[x].nourishment;
     }
 
-    if (delta > 0.0)
-    {
+    if (delta > 0.0) {
       bubblemon->physics.weeds[x].nourishment -= delta;
     }
     bubblemon->physics.weeds[x].height += delta;
-    if (bubblemon->physics.weeds[x].height < 0.0)
-    {
+    if (bubblemon->physics.weeds[x].height < 0.0) {
       bubblemon->physics.weeds[x].height = 0.0;
     }
   }
@@ -428,34 +370,32 @@ static void bubblemon_updateWeeds(bubblemon_t *bubblemon, int msecsSinceLastCall
  * 0 or bubblePic.width - 1 is that then we'd have to do clipping.
  * Clipping is boring.
  */
-static void bubblemon_createBubble(bubblemon_t *bubblemon,
-				   int x, bubblemon_layer_t layer)
-{
+static void bubblemon_createBubble(bubblemon_t *bubblemon, int x,
+                                   bubblemon_layer_t layer) {
   /* We don't allow bubbles on the edges 'cause we'd have to clip them */
   assert(x >= 1);
   assert(x <= bubblemon->bubblePic.width - 2);
 
-  if (bubblemon->physics.n_bubbles < bubblemon->physics.max_bubbles)
-  {
+  if (bubblemon->physics.n_bubbles < bubblemon->physics.max_bubbles) {
     bubblemon->physics.bubbles[bubblemon->physics.n_bubbles].x = x;
     bubblemon->physics.bubbles[bubblemon->physics.n_bubbles].y = 0.0;
     bubblemon->physics.bubbles[bubblemon->physics.n_bubbles].dy = 0.0;
     /* Create alternately foreground and background bubbles */
     bubblemon->physics.bubbles[bubblemon->physics.n_bubbles].layer = layer;
 
-    if (RIPPLES != 0.0)
-    {
+    if (RIPPLES != 0.0) {
       bubblemon_WaterLevel *waterLevels = bubblemon->physics.waterLevels;
       bubblemon_Bubble *bubbles = bubblemon->physics.bubbles;
 
       /* Raise the water level above where the bubble is created */
       if ((bubbles[bubblemon->physics.n_bubbles].x - 2) >= 0)
-	waterLevels[bubbles[bubblemon->physics.n_bubbles].x - 2].y += RIPPLES;
-      waterLevels[bubbles[bubblemon->physics.n_bubbles].x - 1].y   += RIPPLES;
-      waterLevels[bubbles[bubblemon->physics.n_bubbles].x].y       += RIPPLES;
-      waterLevels[bubbles[bubblemon->physics.n_bubbles].x + 1].y   += RIPPLES;
-      if ((bubbles[bubblemon->physics.n_bubbles].x + 2) < bubblemon->bubblePic.width)
-	waterLevels[bubbles[bubblemon->physics.n_bubbles].x + 2].y += RIPPLES;
+        waterLevels[bubbles[bubblemon->physics.n_bubbles].x - 2].y += RIPPLES;
+      waterLevels[bubbles[bubblemon->physics.n_bubbles].x - 1].y += RIPPLES;
+      waterLevels[bubbles[bubblemon->physics.n_bubbles].x].y += RIPPLES;
+      waterLevels[bubbles[bubblemon->physics.n_bubbles].x + 1].y += RIPPLES;
+      if ((bubbles[bubblemon->physics.n_bubbles].x + 2) <
+          bubblemon->bubblePic.width)
+        waterLevels[bubbles[bubblemon->physics.n_bubbles].x + 2].y += RIPPLES;
     }
 
     /* Count the new bubble */
@@ -466,8 +406,8 @@ static void bubblemon_createBubble(bubblemon_t *bubblemon,
 /* Compare two ints.  Used by bubblemon_createBubbles().  See the
  * qsort(3) man page for info. */
 static int intCompare(const void *ap, const void *bp) {
-  int a = *(const int*)ap;
-  int b = *(const int*)bp;
+  int a = *(const int *)ap;
+  int b = *(const int *)bp;
 
   if (a < b) {
     return -1;
@@ -479,10 +419,11 @@ static int intCompare(const void *ap, const void *bp) {
 }
 
 /* Create new bubbles as needed. */
-static void bubblemon_createBubbles(bubblemon_t *bubblemon, int msecsSinceLastCall)
-{
+static void bubblemon_createBubbles(bubblemon_t *bubblemon,
+                                    int msecsSinceLastCall) {
   if (bubblemon->createNNewBubbles == NULL) {
-    bubblemon->createNNewBubbles = calloc(bubblemon->sysload.nCpus, sizeof(float));
+    bubblemon->createNNewBubbles =
+        calloc(bubblemon->sysload.nCpus, sizeof(float));
     assert(bubblemon->createNNewBubbles != NULL);
   }
 
@@ -496,47 +437,50 @@ static void bubblemon_createBubbles(bubblemon_t *bubblemon, int msecsSinceLastCa
   // the edges.
   int cpu;
   for (cpu = 0; cpu < bubblemon->sysload.nCpus; cpu++) {
-    bubblemon->sortedCpuLoads[cpu] = bubblemon_getCpuLoadPercentage(bubblemon, cpu);
+    bubblemon->sortedCpuLoads[cpu] =
+        bubblemon_getCpuLoadPercentage(bubblemon, cpu);
   }
-  qsort(bubblemon->sortedCpuLoads,
-	bubblemon->sysload.nCpus,
-	sizeof(*bubblemon->sortedCpuLoads),
-	intCompare);
+  qsort(bubblemon->sortedCpuLoads, bubblemon->sysload.nCpus,
+        sizeof(*bubblemon->sortedCpuLoads), intCompare);
 
   float dt = msecsSinceLastCall / 30.0;
 
   // We have this many pixels for bubble rendering.  Don't allow
   // bubbles on the edges because clipping is boring.
   float allCandidatePixels = bubblemon->bubblePic.width - 2;
-  float perCpuCandidatePixels = allCandidatePixels / (float)bubblemon->sysload.nCpus;
+  float perCpuCandidatePixels =
+      allCandidatePixels / (float)bubblemon->sysload.nCpus;
 
   // For each CPU...
   for (cpu = 0; cpu < bubblemon->sysload.nCpus; cpu++) {
     // ... should we create any bubbles?
-    bubblemon->createNNewBubbles[cpu] += ((float)bubblemon->sortedCpuLoads[cpu] *
-			       perCpuCandidatePixels *
-			       dt) / 2000.0;
+    bubblemon->createNNewBubbles[cpu] +=
+        ((float)bubblemon->sortedCpuLoads[cpu] * perCpuCandidatePixels * dt) /
+        2000.0;
 
     while (bubblemon->createNNewBubbles[cpu] >= 1.0) {
       // Yes!  Bubbles needed.
 
-      float x = (random() % (long int)(perCpuCandidatePixels * 1000.0)) / 1000.0;
+      float x =
+          (random() % (long int)(perCpuCandidatePixels * 1000.0)) / 1000.0;
       if (x < perCpuCandidatePixels / 2) {
-	// Put the new bubble on the left half of the display
-	x += (perCpuCandidatePixels / 2.0) * (float)cpu;
+        // Put the new bubble on the left half of the display
+        x += (perCpuCandidatePixels / 2.0) * (float)cpu;
       } else {
-	// Put the new bubble on the right half of the display
-	x -= perCpuCandidatePixels / 2.0;
+        // Put the new bubble on the right half of the display
+        x -= perCpuCandidatePixels / 2.0;
 
-	// Assume we have 100 pixels to draw on.  In that case, pixel
-	// number 99 is the highest we can draw on.
-	float globalHighestOkPixel = allCandidatePixels - 1.0;
-	float thisHighestOkPixel = globalHighestOkPixel - (perCpuCandidatePixels / 2.0) * (float)cpu;
-	x = thisHighestOkPixel - x;
+        // Assume we have 100 pixels to draw on.  In that case, pixel
+        // number 99 is the highest we can draw on.
+        float globalHighestOkPixel = allCandidatePixels - 1.0;
+        float thisHighestOkPixel =
+            globalHighestOkPixel - (perCpuCandidatePixels / 2.0) * (float)cpu;
+        x = thisHighestOkPixel - x;
       }
 
-      bubblemon_layer_t layer =
-	random() % 120 < bubblemon->sortedCpuLoads[cpu] ? FOREGROUND : BACKGROUND;
+      bubblemon_layer_t layer = random() % 120 < bubblemon->sortedCpuLoads[cpu]
+                                    ? FOREGROUND
+                                    : BACKGROUND;
       // Add one pixel to avoid having to clip at the left edge
       bubblemon_createBubble(bubblemon, x + 1.0, layer);
 
@@ -547,33 +491,35 @@ static void bubblemon_createBubbles(bubblemon_t *bubblemon, int msecsSinceLastCa
 }
 
 /* Update the bubbles (and possibly create new ones) */
-static void bubblemon_updateBubbles(bubblemon_t *bubblemon, int msecsSinceLastCall)
-{
+static void bubblemon_updateBubbles(bubblemon_t *bubblemon,
+                                    int msecsSinceLastCall) {
   bubblemon_createBubbles(bubblemon, msecsSinceLastCall);
 
   /* Move the bubbles */
   int i;
   float dt = msecsSinceLastCall / 30.0;
-  for (i = 0; i < bubblemon->physics.n_bubbles; i++)
-  {
+  for (i = 0; i < bubblemon->physics.n_bubbles; i++) {
     /* Accelerate the bubble upwards */
     bubblemon->physics.bubbles[i].dy -= GRAVITY * dt;
 
     /* Move the bubble vertically */
     bubblemon->physics.bubbles[i].y +=
-      bubblemon->physics.bubbles[i].dy * dt *
-      ((bubblemon->physics.bubbles[i].layer == BACKGROUND) ? BGBUBBLE_SPEED : 1.0);
+        bubblemon->physics.bubbles[i].dy * dt *
+        ((bubblemon->physics.bubbles[i].layer == BACKGROUND) ? BGBUBBLE_SPEED
+                                                             : 1.0);
 
     /* Did we lose it? */
-    if (bubblemon->physics.bubbles[i].y > bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x].y)
-    {
-      if (RIPPLES != 0.0)
-      {
+    if (bubblemon->physics.bubbles[i].y >
+        bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x].y) {
+      if (RIPPLES != 0.0) {
         /* Lower the water level around where the bubble is
            about to vanish */
-        bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x - 1].y -= RIPPLES;
-        bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x].y     -= 3 * RIPPLES;
-        bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x + 1].y -= RIPPLES;
+        bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x - 1].y -=
+            RIPPLES;
+        bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x].y -=
+            3 * RIPPLES;
+        bubblemon->physics.waterLevels[bubblemon->physics.bubbles[i].x + 1].y -=
+            RIPPLES;
       }
 
       /* We just lost it, so let's nuke it */
@@ -591,13 +537,12 @@ static void bubblemon_updateBubbles(bubblemon_t *bubblemon, int msecsSinceLastCa
   }
 }
 
-#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 /* Update the bottle */
 static void bubblemon_updateBottle(bubblemon_t *bubblemon,
-				   int msecsSinceLastCall,
-				   mail_status_t mailStatus)
-{
+                                   int msecsSinceLastCall,
+                                   mail_status_t mailStatus) {
   float dt = msecsSinceLastCall / 30.0;
   float gravityDdy;
   float dragDdy;
@@ -606,21 +551,24 @@ static void bubblemon_updateBottle(bubblemon_t *bubblemon,
   // The MIN stuff prevents the bottle from floating above the visible
   // area even when the water surface is at the top of the display
   isInWater =
-    (bubblemon->physics.bottle_y
-     < MIN(bubblemon->physics.waterLevels[bubblemon->bubblePic.width / 2].y,
-	   bubblemon->bubblePic.height - msgInBottle.height / 2));
+      (bubblemon->physics.bottle_y <
+       MIN(bubblemon->physics.waterLevels[bubblemon->bubblePic.width / 2].y,
+           bubblemon->bubblePic.height - msgInBottle.height / 2));
 
   if ((mailStatus != NO_MAIL) && (bubblemon->physics.bottle_state == GONE)) {
     /* Mail is available but the bottle's gone.  Drop a new bottle */
-    bubblemon->physics.bottle_y = bubblemon->bubblePic.height + msgInBottle.height;
+    bubblemon->physics.bottle_y =
+        bubblemon->bubblePic.height + msgInBottle.height;
     bubblemon->physics.bottle_dy = 0.0;
     bubblemon->physics.bottle_state = FALLING;
   } else if (mailStatus == UNREAD_MAIL) {
     /* Float the bottle as long as there's unread mail. */
     bubblemon->physics.bottle_state = FLOATING;
-  } else if ((mailStatus == NO_MAIL) && (bubblemon->physics.bottle_state == GONE)) {
+  } else if ((mailStatus == NO_MAIL) &&
+             (bubblemon->physics.bottle_state == GONE)) {
     /* No mail, no bottle, everybody's happy */
-  } else if ((mailStatus == READ_MAIL) && (bubblemon->physics.bottle_state == SUNK)) {
+  } else if ((mailStatus == READ_MAIL) &&
+             (bubblemon->physics.bottle_state == SUNK)) {
     /* Only read mail left and the bottle has sunk, everybody's happy */
   } else {
     /* The bottle is there, but there's no unread mail.  Sink the
@@ -636,9 +584,7 @@ static void bubblemon_updateBottle(bubblemon_t *bubblemon,
   if (bubblemon->physics.bottle_state == SUNK) {
     gravityDdy = 0;
   } else if ((bubblemon->physics.bottle_state == FALLING) ||
-      (bubblemon->physics.bottle_state == SINKING) ||
-      !isInWater)
-  {
+             (bubblemon->physics.bottle_state == SINKING) || !isInWater) {
     // Gravity pulls the bottle down
     gravityDdy = 2.0 * GRAVITY * dt;
   } else {
@@ -647,7 +593,8 @@ static void bubblemon_updateBottle(bubblemon_t *bubblemon,
   }
 
   if (isInWater) {
-    dragDdy = (bubblemon->physics.bottle_dy * bubblemon->physics.bottle_dy) * BOTTLE_DRAG;
+    dragDdy = (bubblemon->physics.bottle_dy * bubblemon->physics.bottle_dy) *
+              BOTTLE_DRAG;
     // If the speed is positive...
     if (bubblemon->physics.bottle_dy > 0.0) {
       // ... then the drag should be negative
@@ -664,16 +611,15 @@ static void bubblemon_updateBottle(bubblemon_t *bubblemon,
 
   // If the bottle has fallen on screen...
   if ((bubblemon->physics.bottle_state == FALLING) &&
-      (bubblemon->physics.bottle_y < bubblemon->bubblePic.height))
-  {
+      (bubblemon->physics.bottle_y < bubblemon->bubblePic.height)) {
     // ... it should start floating instead of falling
     bubblemon->physics.bottle_state = FLOATING;
   }
 
   /* Did it hit bottom? */
   if (bubblemon->physics.bottle_state == SINKING) {
-    if ((mailStatus == READ_MAIL)
-	&& (bubblemon->physics.bottle_y <= msgInBottle.height / 4.0)) {
+    if ((mailStatus == READ_MAIL) &&
+        (bubblemon->physics.bottle_y <= msgInBottle.height / 4.0)) {
       /* Keep it there */
       bubblemon->physics.bottle_y = msgInBottle.height / 4.0;
       bubblemon->physics.bottle_state = SUNK;
@@ -685,41 +631,42 @@ static void bubblemon_updateBottle(bubblemon_t *bubblemon,
   }
 }
 
-
-static bubblemon_color_t bubblemon_constant2color(const unsigned int constant)
-{
+static bubblemon_color_t bubblemon_constant2color(const unsigned int constant) {
   bubblemon_color_t returnMe;
 
   returnMe.components.r = (constant >> 24) & 0xff;
   returnMe.components.g = (constant >> 16) & 0xff;
-  returnMe.components.b = (constant >> 8)  & 0xff;
-  returnMe.components.a = (constant >> 0)  & 0xff;
+  returnMe.components.b = (constant >> 8) & 0xff;
+  returnMe.components.a = (constant >> 0) & 0xff;
 
   return returnMe;
 }
 
 /* The amount parameter is 0-255, where 255 means "all c2". */
-static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color_t c1,
-							   const bubblemon_color_t c2,
-							   const int amount)
-{
+static inline bubblemon_color_t
+bubblemon_interpolateColor(const bubblemon_color_t c1,
+                           const bubblemon_color_t c2, const int amount) {
   int a, r, g, b;
   bubblemon_color_t returnme;
 
   if (amount == 0) {
-     return c1;
+    return c1;
   }
 
   assert(amount >= 0 && amount < 256);
 
   r = ((((int)c1.components.r) * (255 - amount)) +
-       (((int)c2.components.r) * amount)) / 255;
+       (((int)c2.components.r) * amount)) /
+      255;
   g = ((((int)c1.components.g) * (255 - amount)) +
-       (((int)c2.components.g) * amount)) / 255;
+       (((int)c2.components.g) * amount)) /
+      255;
   b = ((((int)c1.components.b) * (255 - amount)) +
-       (((int)c2.components.b) * amount)) / 255;
+       (((int)c2.components.b) * amount)) /
+      255;
   a = ((((int)c1.components.a) * (255 - amount)) +
-       (((int)c2.components.a) * amount)) / 255;
+       (((int)c2.components.a) * amount)) /
+      255;
 
   /*
   assert(a >= 0 && a <= 255);
@@ -728,13 +675,13 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
   assert(b >= 0 && b <= 255);
 
   assert(((c1.components.a <= a) && (a <= c2.components.a)) ||
-	 ((c1.components.a >= a) && (a >= c2.components.a)));
+         ((c1.components.a >= a) && (a >= c2.components.a)));
   assert(((c1.components.r <= r) && (r <= c2.components.r)) ||
-	 ((c1.components.r >= r) && (r >= c2.components.r)));
+         ((c1.components.r >= r) && (r >= c2.components.r)));
   assert(((c1.components.g <= g) && (g <= c2.components.g)) ||
-	 ((c1.components.g >= g) && (g >= c2.components.g)));
+         ((c1.components.g >= g) && (g >= c2.components.g)));
   assert(((c1.components.b <= b) && (b <= c2.components.b)) ||
-	 ((c1.components.b >= b) && (b >= c2.components.b)));
+         ((c1.components.b >= b) && (b >= c2.components.b)));
   */
 
   returnme.components.r = r;
@@ -752,59 +699,52 @@ static inline bubblemon_color_t bubblemon_interpolateColor(const bubblemon_color
 
 /* Update the bubble array from the system load */
 static void bubblemon_updatePhysics(bubblemon_t *bubblemon,
-				    int msecsSinceLastCall,
-				    mail_status_t mailStatus)
-{
+                                    int msecsSinceLastCall,
+                                    mail_status_t mailStatus) {
   /* No size -- no go */
-  if ((bubblemon->bubblePic.width == 0) ||
-      (bubblemon->bubblePic.height == 0))
-  {
+  if ((bubblemon->bubblePic.width == 0) || (bubblemon->bubblePic.height == 0)) {
     assert(bubblemon->bubblePic.pixels == NULL);
     assert(bubblemon->bubblePic.airAndWater == NULL);
     return;
   }
 
   /* Make sure the water levels exist */
-  if (bubblemon->physics.waterLevels == NULL)
-  {
-    bubblemon->physics.waterLevels =
-      (bubblemon_WaterLevel *)calloc(bubblemon->bubblePic.width, sizeof(bubblemon_WaterLevel));
+  if (bubblemon->physics.waterLevels == NULL) {
+    bubblemon->physics.waterLevels = (bubblemon_WaterLevel *)calloc(
+        bubblemon->bubblePic.width, sizeof(bubblemon_WaterLevel));
     assert(bubblemon->physics.waterLevels != NULL);
   }
 
   /* Make sure the sea-weeds exist */
-  if (bubblemon->physics.weeds == NULL)
-  {
+  if (bubblemon->physics.weeds == NULL) {
     int i;
 
-    bubblemon->physics.weeds =
-      (bubblemon_Weed *)calloc(bubblemon->bubblePic.width, sizeof(bubblemon_Weed));
+    bubblemon->physics.weeds = (bubblemon_Weed *)calloc(
+        bubblemon->bubblePic.width, sizeof(bubblemon_Weed));
     assert(bubblemon->physics.weeds != NULL);
 
     // Colorize the weeds
     const bubblemon_color_t weedcolor0 =
-      bubblemon_constant2color(bubblemon->weedColor0);
+        bubblemon_constant2color(bubblemon->weedColor0);
     const bubblemon_color_t weedcolor1 =
-      bubblemon_constant2color(bubblemon->weedColor1);
-    for (i = 0; i < bubblemon->bubblePic.width; i++)
-    {
-      bubblemon->physics.weeds[i].color =
-	bubblemon_interpolateColor(weedcolor0, weedcolor1,
-				   (random() % 156) + bubblemon->stripey);
+        bubblemon_constant2color(bubblemon->weedColor1);
+    for (i = 0; i < bubblemon->bubblePic.width; i++) {
+      bubblemon->physics.weeds[i].color = bubblemon_interpolateColor(
+          weedcolor0, weedcolor1, (random() % 156) + bubblemon->stripey);
       bubblemon->stripey = 100 - bubblemon->stripey;
     }
   }
 
   /* Make sure the bubbles exist */
-  if (bubblemon->physics.bubbles == NULL)
-  {
+  if (bubblemon->physics.bubbles == NULL) {
     bubblemon->physics.n_bubbles = 0;
     // FIXME: max_bubbles should be the width * the time it takes for
     // a bubble to rise all the way to the ceiling.
-    bubblemon->physics.max_bubbles = (bubblemon->bubblePic.width * bubblemon->bubblePic.height) / 5;
+    bubblemon->physics.max_bubbles =
+        (bubblemon->bubblePic.width * bubblemon->bubblePic.height) / 5;
 
-    bubblemon->physics.bubbles =
-      (bubblemon_Bubble *)calloc(bubblemon->physics.max_bubbles, sizeof(bubblemon_Bubble));
+    bubblemon->physics.bubbles = (bubblemon_Bubble *)calloc(
+        bubblemon->physics.max_bubbles, sizeof(bubblemon_Bubble));
     assert(bubblemon->physics.bubbles != NULL);
   }
 
@@ -815,17 +755,14 @@ static void bubblemon_updatePhysics(bubblemon_t *bubblemon,
   bubblemon_updateBottle(bubblemon, msecsSinceLastCall, mailStatus);
 }
 
-int bubblemon_getMemoryPercentage(bubblemon_t *bubblemon)
-{
+int bubblemon_getMemoryPercentage(bubblemon_t *bubblemon) {
   int returnme;
 
-  if (bubblemon->sysload.memorySize == 0L)
-  {
+  if (bubblemon->sysload.memorySize == 0L) {
     returnme = 0;
-  }
-  else
-  {
-    returnme = (int)((200L * bubblemon->sysload.memoryUsed + 1) / (2 * bubblemon->sysload.memorySize));
+  } else {
+    returnme = (int)((200L * bubblemon->sysload.memoryUsed + 1) /
+                     (2 * bubblemon->sysload.memorySize));
   }
 
 #ifdef ENABLE_PROFILING
@@ -835,26 +772,25 @@ int bubblemon_getMemoryPercentage(bubblemon_t *bubblemon)
 #endif
 }
 
-int bubblemon_getSwapPercentage(bubblemon_t *bubblemon)
-{
+int bubblemon_getSwapPercentage(bubblemon_t *bubblemon) {
   int returnme;
 
-  if (bubblemon->sysload.swapSize == 0L)
-  {
+  if (bubblemon->sysload.swapSize == 0L) {
     returnme = 0;
-  }
-  else
-  {
+  } else {
     // How much swap is actually used?
-    returnme = (int)((200L * bubblemon->sysload.swapUsed + 1) / (2 * bubblemon->sysload.swapSize));
-    
+    returnme = (int)((200L * bubblemon->sysload.swapUsed + 1) /
+                     (2 * bubblemon->sysload.swapSize));
+
     // On systems with dynamically growing swap using too much swap can still be
     // a problem.  How large part of the used memory must be on disk?
-    size_t memoryUsed = bubblemon->sysload.memoryUsed + bubblemon->sysload.swapUsed;
+    size_t memoryUsed =
+        bubblemon->sysload.memoryUsed + bubblemon->sysload.swapUsed;
     ssize_t memoryRequiringDisk = memoryUsed - bubblemon->sysload.memorySize;
     if (memoryRequiringDisk > 0) {
-      int memoryRequiringDiskPercentage = (int)((100 * memoryRequiringDisk) / memoryUsed);
-      
+      int memoryRequiringDiskPercentage =
+          (int)((100 * memoryRequiringDisk) / memoryUsed);
+
       if (memoryRequiringDiskPercentage > returnme) {
         returnme = memoryRequiringDiskPercentage;
       }
@@ -868,14 +804,12 @@ int bubblemon_getSwapPercentage(bubblemon_t *bubblemon)
 #endif
 }
 
-int bubblemon_getBatteryChargePercentage(bubblemon_t *bubblemon)
-{
+int bubblemon_getBatteryChargePercentage(bubblemon_t *bubblemon) {
   return bubblemon->sysload.batteryChargePercent;
 }
 
 /* The cpu parameter is the cpu number, 0 - #CPUs-1. */
-int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpuNo)
-{
+int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpuNo) {
   assert(cpuNo >= 0 && cpuNo < bubblemon->sysload.nCpus);
 
 #ifdef ENABLE_PROFILING
@@ -885,14 +819,12 @@ int bubblemon_getCpuLoadPercentage(bubblemon_t *bubblemon, int cpuNo)
 #endif
 }
 
-int bubblemon_getAverageLoadPercentage(bubblemon_t *bubblemon)
-{
+int bubblemon_getAverageLoadPercentage(bubblemon_t *bubblemon) {
   int cpuNo;
   int totalLoad;
 
   totalLoad = 0;
-  for (cpuNo = 0; cpuNo < bubblemon->sysload.nCpus; cpuNo++)
-  {
+  for (cpuNo = 0; cpuNo < bubblemon->sysload.nCpus; cpuNo++) {
     totalLoad += bubblemon_getCpuLoadPercentage(bubblemon, cpuNo);
   }
   totalLoad = totalLoad / bubblemon->sysload.nCpus;
@@ -907,8 +839,7 @@ int bubblemon_getAverageLoadPercentage(bubblemon_t *bubblemon)
 #endif
 }
 
-static void bubblemon_censorLoad(bubblemon_t *bubblemon)
-{
+static void bubblemon_censorLoad(bubblemon_t *bubblemon) {
   /* Calculate the projected memory + swap load to show the user.  The
      values given to the user is how much memory the system is using
      relative to the total amount of electronic RAM.  The swap color
@@ -926,15 +857,12 @@ static void bubblemon_censorLoad(bubblemon_t *bubblemon)
 
   censoredMemUsed = bubblemon->sysload.swapUsed + bubblemon->sysload.memoryUsed;
 
-  if (censoredMemUsed > bubblemon->sysload.memorySize)
-    {
-      censoredSwapUsed = censoredMemUsed - bubblemon->sysload.memorySize;
-      censoredMemUsed = bubblemon->sysload.memorySize;
-    }
-  else
-    {
-      censoredSwapUsed = 0;
-    }
+  if (censoredMemUsed > bubblemon->sysload.memorySize) {
+    censoredSwapUsed = censoredMemUsed - bubblemon->sysload.memorySize;
+    censoredMemUsed = bubblemon->sysload.memorySize;
+  } else {
+    censoredSwapUsed = 0;
+  }
 
   /* Sanity check that we don't use more swap/mem than what's available */
   assert((censoredMemUsed <= bubblemon->sysload.memorySize) &&
@@ -950,9 +878,7 @@ static void bubblemon_censorLoad(bubblemon_t *bubblemon)
 }
 
 static void bubblemon_draw_bubble(/*@out@*/ bubblemon_picture_t *bubblePic,
-				  int x,
-				  int y)
-{
+                                  int x, int y) {
   bubblemon_colorcode_t *bubbleBuf = bubblePic->airAndWater;
   int w = bubblePic->width;
   int h = bubblePic->height;
@@ -966,54 +892,50 @@ static void bubblemon_draw_bubble(/*@out@*/ bubblemon_picture_t *bubblePic,
 
   /* Top row */
   buf_ptr = &(bubbleBuf[(y - 1) * w + x - 1]);
-  if (y > 0)
-  {
-    if (*buf_ptr != AIR)
-    {
-      (*buf_ptr)++ ;
+  if (y > 0) {
+    if (*buf_ptr != AIR) {
+      (*buf_ptr)++;
     }
     buf_ptr++;
 
-    *buf_ptr = AIR; buf_ptr++;
+    *buf_ptr = AIR;
+    buf_ptr++;
 
-    if (*buf_ptr != AIR)
-    {
-      (*buf_ptr)++ ;
+    if (*buf_ptr != AIR) {
+      (*buf_ptr)++;
     }
     buf_ptr += (w - 2);
-  }
-  else
-  {
+  } else {
     buf_ptr += w;
   }
 
   /* Middle row - no clipping necessary */
-  *buf_ptr = AIR; buf_ptr++;
-  *buf_ptr = AIR; buf_ptr++;
-  *buf_ptr = AIR; buf_ptr += (w - 2);
+  *buf_ptr = AIR;
+  buf_ptr++;
+  *buf_ptr = AIR;
+  buf_ptr++;
+  *buf_ptr = AIR;
+  buf_ptr += (w - 2);
 
   /* Bottom row */
-  if (y < (h - 1))
-  {
-    if (*buf_ptr != AIR)
-    {
-      (*buf_ptr)++ ;
+  if (y < (h - 1)) {
+    if (*buf_ptr != AIR) {
+      (*buf_ptr)++;
     }
     buf_ptr++;
 
-    *buf_ptr = AIR; buf_ptr++;
+    *buf_ptr = AIR;
+    buf_ptr++;
 
-    if (*buf_ptr != AIR)
-    {
-      (*buf_ptr)++ ;
+    if (*buf_ptr != AIR) {
+      (*buf_ptr)++;
     }
   }
 }
 
 // Render bubbles, waterlevels and stuff into the bubblePic
 static void bubblemon_environmentToBubbleArray(bubblemon_t *bubblemon,
-					       bubblemon_layer_t layer)
-{
+                                               bubblemon_layer_t layer) {
   bubblemon_picture_t *bubblePic = &bubblemon->bubblePic;
   int w = bubblePic->width;
   int h = bubblePic->height;
@@ -1022,17 +944,16 @@ static void bubblemon_environmentToBubbleArray(bubblemon_t *bubblemon,
 
   bubblemon_Bubble *bubble;
 
-  if (bubblePic->airAndWater == NULL)
-  {
-    bubblePic->airAndWater = (bubblemon_colorcode_t *)malloc(w * h * sizeof(bubblemon_colorcode_t));
+  if (bubblePic->airAndWater == NULL) {
+    bubblePic->airAndWater =
+        (bubblemon_colorcode_t *)malloc(w * h * sizeof(bubblemon_colorcode_t));
     assert(bubblePic->airAndWater != NULL);
   }
 
   // Draw the air and water background
   assert(w > 0);
   assert(h > 0);
-  for (x = 0; x < w; x++)
-  {
+  for (x = 0; x < w; x++) {
     bubblemon_colorcode_t *pixel;
     double dummy;
 
@@ -1046,10 +967,9 @@ static void bubblemon_environmentToBubbleArray(bubblemon_t *bubblemon,
       nAirPixels--;
       antialias = 1;
     }
-    
+
     pixel = &(bubblePic->airAndWater[x]);
-    for (y = 0; y < nAirPixels; y++)
-    {
+    for (y = 0; y < nAirPixels; y++) {
       *pixel = AIR;
       pixel += w;
     }
@@ -1070,21 +990,16 @@ static void bubblemon_environmentToBubbleArray(bubblemon_t *bubblemon,
   bubble = bubblemon->physics.bubbles;
   hf = h; // Move the int->float cast out of the loop
   assert(bubblemon->physics.n_bubbles >= 0);
-  for (i = 0; i < bubblemon->physics.n_bubbles; i++)
-  {
-    if (bubble->layer >= layer)
-    {
-      bubblemon_draw_bubble(bubblePic,
-			    bubble->x,
-			    hf - bubble->y);
+  for (i = 0; i < bubblemon->physics.n_bubbles; i++) {
+    if (bubble->layer >= layer) {
+      bubblemon_draw_bubble(bubblePic, bubble->x, hf - bubble->y);
     }
     bubble++;
   }
 }
 
 static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
-					  bubblemon_layer_t layer)
-{
+                                          bubblemon_layer_t layer) {
   bubblemon_picture_t *bubblePic = &bubblemon->bubblePic;
 
   bubblemon_color_t noSwapAirColor;
@@ -1112,34 +1027,38 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   fogColor = bubblemon_constant2color(bubblemon->fogColor);
 
   /* Mix water and air colors based on swap usage */
-  colors[AIR] = bubblemon_interpolateColor(noSwapAirColor,
-					   maxSwapAirColor,
-					   (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
-  colors[WATER] = bubblemon_interpolateColor(noSwapWaterColor,
-					     maxSwapWaterColor,
-					     (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
+  colors[AIR] = bubblemon_interpolateColor(
+      noSwapAirColor, maxSwapAirColor,
+      (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
+  colors[WATER] = bubblemon_interpolateColor(
+      noSwapWaterColor, maxSwapWaterColor,
+      (bubblemon_getSwapPercentage(bubblemon) * 255) / 100);
 
   /* Fog up on low battery */
   const int battery_0_fogginess_percent = 100;
-  const int battery_discharge_percent = 100 - bubblemon_getBatteryChargePercentage(bubblemon);
-  int fogginess_percent = (battery_discharge_percent * battery_0_fogginess_percent) / 100;
+  const int battery_discharge_percent =
+      100 - bubblemon_getBatteryChargePercentage(bubblemon);
+  int fogginess_percent =
+      (battery_discharge_percent * battery_0_fogginess_percent) / 100;
   if (fogginess_percent > 90) {
     fogginess_percent = 90;
   }
 
-  colors[AIR] = bubblemon_interpolateColor(colors[AIR], fogColor, (fogginess_percent * 255) / 100);
-  colors[WATER] = bubblemon_interpolateColor(colors[WATER], fogColor, (fogginess_percent * 255) / 100);
+  colors[AIR] = bubblemon_interpolateColor(colors[AIR], fogColor,
+                                           (fogginess_percent * 255) / 100);
+  colors[WATER] = bubblemon_interpolateColor(colors[WATER], fogColor,
+                                             (fogginess_percent * 255) / 100);
 
-  colors[ANTIALIAS] = bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
+  colors[ANTIALIAS] =
+      bubblemon_interpolateColor(colors[AIR], colors[WATER], 128);
 
   w = bubblePic->width;
   h = bubblePic->height;
 
   /* Make sure the pixel array exist */
-  if (bubblePic->pixels == NULL)
-  {
-    bubblePic->pixels =
-      (bubblemon_color_t *)malloc(bubblePic->width * bubblePic->height * sizeof(bubblemon_color_t));
+  if (bubblePic->pixels == NULL) {
+    bubblePic->pixels = (bubblemon_color_t *)malloc(
+        bubblePic->width * bubblePic->height * sizeof(bubblemon_color_t));
     assert(bubblePic->pixels != NULL);
   }
 
@@ -1156,8 +1075,7 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
       bubblemon_color_t currentColor = *pixel;
       bubblemon_color_t newColor = colors[*airOrWater++];
       if (newColor.value != currentColor.value) {
-        *pixel = bubblemon_interpolateColor(currentColor,
-                                            newColor,
+        *pixel = bubblemon_interpolateColor(currentColor, newColor,
                                             newColor.components.a);
       }
       pixel++;
@@ -1165,8 +1083,7 @@ static void bubblemon_bubbleArrayToPixmap(bubblemon_t *bubblemon,
   }
 }
 
-static void bubblemon_bottleToPixmap(bubblemon_t *bubblemon)
-{
+static void bubblemon_bottleToPixmap(bubblemon_t *bubblemon) {
   bubblemon_picture_t *bubblePic = &bubblemon->bubblePic;
   int bottleX, bottleY;
   int bottleW, bottleH;
@@ -1218,40 +1135,37 @@ static void bubblemon_bottleToPixmap(bubblemon_t *bubblemon)
 
       // assert(pictureY < pictureH);
 
-      bottlePixel = ((const bubblemon_color_t*)(msgInBottle.pixel_data))[bottleX + bottleY * bottleW];
+      bottlePixel =
+          ((const bubblemon_color_t
+                *)(msgInBottle.pixel_data))[bottleX + bottleY * bottleW];
       picturePixel = &(bubblePic->pixels[pictureX + pictureY * pictureW]);
 
-      *picturePixel = bubblemon_interpolateColor(*picturePixel,
-						 bottlePixel,
-						 bottlePixel.components.a);
+      *picturePixel = bubblemon_interpolateColor(*picturePixel, bottlePixel,
+                                                 bottlePixel.components.a);
     }
   }
 }
 
-static void bubblemon_weedsToPixmap(bubblemon_t *bubblemon)
-{
+static void bubblemon_weedsToPixmap(bubblemon_t *bubblemon) {
   bubblemon_picture_t *bubblePic = &bubblemon->bubblePic;
   int w = bubblePic->width;
   int h = bubblePic->height;
 
   int x;
 
-  for (x = 0; x < w; x++)
-  {
+  for (x = 0; x < w; x++) {
     int y;
     int highestWeedPixel = h - bubblemon->physics.weeds[x].height;
 
-    for (y = highestWeedPixel; y < h; y++)
-    {
-      bubblePic->pixels[y * w + x] = bubblemon_interpolateColor(bubblePic->pixels[y * w + x],
-								bubblemon->physics.weeds[x].color,
-								bubblemon->physics.weeds[x].color.components.a);
+    for (y = highestWeedPixel; y < h; y++) {
+      bubblePic->pixels[y * w + x] = bubblemon_interpolateColor(
+          bubblePic->pixels[y * w + x], bubblemon->physics.weeds[x].color,
+          bubblemon->physics.weeds[x].color.components.a);
     }
   }
 }
 
-const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon)
-{
+const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon) {
   static const int msecsPerPhysicsFrame = 1000 / PHYSICS_FRAMERATE;
 
   int msecsSinceLastCall;
@@ -1268,20 +1182,15 @@ const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon)
 
   // If a "long" time has passed since the last frame, settle for
   // updating the physics just a bit of the way.
-  if (msecsSinceLastCall > 200)
-  {
+  if (msecsSinceLastCall > 200) {
     msecsSinceLastCall = 200;
   }
 
   // Push the universe around
-  if (msecsSinceLastCall <= msecsPerPhysicsFrame)
-  {
+  if (msecsSinceLastCall <= msecsPerPhysicsFrame) {
     bubblemon_updatePhysics(bubblemon, msecsSinceLastCall, mailStatus);
-  }
-  else
-  {
-    while (bubblemon->physicalTimeElapsed < msecsSinceLastCall)
-    {
+  } else {
+    while (bubblemon->physicalTimeElapsed < msecsSinceLastCall) {
       bubblemon_updatePhysics(bubblemon, msecsPerPhysicsFrame, mailStatus);
       bubblemon->physicalTimeElapsed += msecsPerPhysicsFrame;
     }
@@ -1301,14 +1210,14 @@ const bubblemon_picture_t *bubblemon_getPicture(bubblemon_t *bubblemon)
   return &bubblemon->bubblePic;
 }
 
-bubblemon_t *bubblemon_init(void)
-{
+bubblemon_t *bubblemon_init(void) {
   bubblemon_t *bubblemon;
 
 #ifdef ENABLE_PROFILING
   fprintf(stderr,
-	  "Warning: " PACKAGE " has been configured with --enable-profiling and will show max\n"
-	  "load all the time.\n");
+          "Warning: " PACKAGE
+          " has been configured with --enable-profiling and will show max\n"
+          "load all the time.\n");
 #endif
 
   bubblemon = calloc(1, sizeof(bubblemon_t));
@@ -1330,12 +1239,11 @@ bubblemon_t *bubblemon_init(void)
   bubblemon->weedColor0 = WEEDCOLOR0;
   bubblemon->weedColor1 = WEEDCOLOR1;
   bubblemon->fogColor = FOGCOLOR;
-  
+
   return bubblemon;
 }
 
-void bubblemon_done(bubblemon_t *bubblemon)
-{
+void bubblemon_done(bubblemon_t *bubblemon) {
   // Terminate the load metering
   meter_done(&bubblemon->sysload);
 
@@ -1344,18 +1252,16 @@ void bubblemon_done(bubblemon_t *bubblemon)
   free(bubblemon);
 }
 
-static void testWaveCrestAntialiasingHelper(bubblemon_t *testMe,
-                                            float height,
-                                            bubblemon_colorcode_t color)
-{
+static void testWaveCrestAntialiasingHelper(bubblemon_t *testMe, float height,
+                                            bubblemon_colorcode_t color) {
   testMe->physics.waterLevels[0].y = height;
   bubblemon_environmentToBubbleArray(testMe, BACKGROUND);
 
 #ifndef __clang_analyzer__
   // Clang analyzer October 2020 complains about garbage values
   // here, and I think it's wrong.
-  assert(AIR   == testMe->bubblePic.airAndWater[0 * 3]);
-  assert(AIR   == testMe->bubblePic.airAndWater[1 * 3]);
+  assert(AIR == testMe->bubblePic.airAndWater[0 * 3]);
+  assert(AIR == testMe->bubblePic.airAndWater[1 * 3]);
   assert(color == testMe->bubblePic.airAndWater[2 * 3]);
   assert(WATER == testMe->bubblePic.airAndWater[3 * 3]);
   assert(WATER == testMe->bubblePic.airAndWater[4 * 3]);
@@ -1364,23 +1270,21 @@ static void testWaveCrestAntialiasingHelper(bubblemon_t *testMe,
 
 static void testWaveCrestAntialiasing() {
   bubblemon_t *testMe = bubblemon_init();
-  
+
   bubblemon_setSize(testMe, 3, 5);
   bubblemon_updatePhysics(testMe, 42, NO_MAIL);
   testMe->physics.waterLevels[0].y = 2;
   testMe->physics.waterLevels[1].y = 2;
   testMe->physics.waterLevels[2].y = 2;
-  
+
   testWaveCrestAntialiasingHelper(testMe, 2.0f, AIR);
   testWaveCrestAntialiasingHelper(testMe, 2.24f, AIR);
   testWaveCrestAntialiasingHelper(testMe, 2.26f, ANTIALIAS);
   testWaveCrestAntialiasingHelper(testMe, 2.74f, ANTIALIAS);
   testWaveCrestAntialiasingHelper(testMe, 2.76f, WATER);
   testWaveCrestAntialiasingHelper(testMe, 2.99f, WATER);
-  
+
   bubblemon_done(testMe);
 }
 
-void bubblemon_selftest() {
-  testWaveCrestAntialiasing();
-}
+void bubblemon_selftest() { testWaveCrestAntialiasing(); }

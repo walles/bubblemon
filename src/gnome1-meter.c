@@ -46,8 +46,7 @@
 #define LOADUPDATEDELAY 3
 
 /* Initialize the load metering */
-void meter_init(meter_sysload_t *load)
-{
+void meter_init(meter_sysload_t *load) {
   int cpuNo;
   glibtop_mem memory;
   glibtop_swap swap;
@@ -78,8 +77,7 @@ void meter_init(meter_sysload_t *load)
 }
 
 /* Meter the system load */
-void meter_getLoad(meter_sysload_t *meter)
-{
+void meter_getLoad(meter_sysload_t *meter) {
   glibtop_cpu cpu;
   glibtop_mem memory;
   glibtop_swap swap;
@@ -89,14 +87,13 @@ void meter_getLoad(meter_sysload_t *meter)
 
   static int memUpdateDelay = 0;
 
-  if (memUpdateDelay <= 0)
-  {
+  if (memUpdateDelay <= 0) {
     // Fill in memory and swap usage
-    glibtop_get_mem (&memory);
-    glibtop_get_swap (&swap);
+    glibtop_get_mem(&memory);
+    glibtop_get_swap(&swap);
 
     meter->memoryUsed =
-      memory.total - (memory.free + memory.cached + memory.buffer);
+        memory.total - (memory.free + memory.cached + memory.buffer);
     meter->swapUsed = swap.used;
 
     memUpdateDelay = MEMUPDATEDELAY;
@@ -104,48 +101,47 @@ void meter_getLoad(meter_sysload_t *meter)
   memUpdateDelay--;
 
   static int loadUpdateDelay = 0;
-  if (loadUpdateDelay <= 0)
-  {
-     // Fill in cpu and IO usage
-     glibtop_get_cpu(&cpu);
-     ioSum = 0;
-     for (cpuIndex = 0; cpuIndex < meter->nCpus; cpuIndex++) {
-        u_int64_t myUser, mySystem, myIowait, myLoad, myTotal;
-        
-        // The following if() shouldn't be necessary, but according to the
-        // OpenBSD libgtop maintainer (nino@nforced.com) it is.
-        if (meter->nCpus == 1) {
-           myUser = cpu.user;
-           mySystem = cpu.sys;
-           myIowait = cpu.iowait;
-           myTotal = cpu.total;
-        } else {
-           myUser = cpu.xcpu_user[cpuIndex];
-           mySystem = cpu.xcpu_sys[cpuIndex];
-           myIowait = cpu.xcpu_iowait[cpuIndex];
-           myTotal = cpu.xcpu_total[cpuIndex];
-        }
-        myLoad = myUser + mySystem;
-        
-        accumulator_update(meter->cpuAccumulators[cpuIndex], myLoad, myTotal);
-        meter->cpuLoad[cpuIndex] = accumulator_get_percentage(meter->cpuAccumulators[cpuIndex]);
-        
-        accumulator_update(meter->ioAccumulators[cpuIndex], myIowait, myTotal);
-        ioSum += accumulator_get_percentage(meter->ioAccumulators[cpuIndex]);
-     }
-     if (ioSum > 100) {
-        ioSum = 100;
-     }
-     meter->ioLoad = ioSum;
+  if (loadUpdateDelay <= 0) {
+    // Fill in cpu and IO usage
+    glibtop_get_cpu(&cpu);
+    ioSum = 0;
+    for (cpuIndex = 0; cpuIndex < meter->nCpus; cpuIndex++) {
+      u_int64_t myUser, mySystem, myIowait, myLoad, myTotal;
 
-     loadUpdateDelay = LOADUPDATEDELAY;
+      // The following if() shouldn't be necessary, but according to the
+      // OpenBSD libgtop maintainer (nino@nforced.com) it is.
+      if (meter->nCpus == 1) {
+        myUser = cpu.user;
+        mySystem = cpu.sys;
+        myIowait = cpu.iowait;
+        myTotal = cpu.total;
+      } else {
+        myUser = cpu.xcpu_user[cpuIndex];
+        mySystem = cpu.xcpu_sys[cpuIndex];
+        myIowait = cpu.xcpu_iowait[cpuIndex];
+        myTotal = cpu.xcpu_total[cpuIndex];
+      }
+      myLoad = myUser + mySystem;
+
+      accumulator_update(meter->cpuAccumulators[cpuIndex], myLoad, myTotal);
+      meter->cpuLoad[cpuIndex] =
+          accumulator_get_percentage(meter->cpuAccumulators[cpuIndex]);
+
+      accumulator_update(meter->ioAccumulators[cpuIndex], myIowait, myTotal);
+      ioSum += accumulator_get_percentage(meter->ioAccumulators[cpuIndex]);
+    }
+    if (ioSum > 100) {
+      ioSum = 100;
+    }
+    meter->ioLoad = ioSum;
+
+    loadUpdateDelay = LOADUPDATEDELAY;
   }
   loadUpdateDelay--;
 }
 
 /* Shut down load metering */
-void meter_done(meter_sysload_t *meter)
-{
+void meter_done(meter_sysload_t *meter) {
   int cpuIndex;
 
   for (cpuIndex = 0; cpuIndex < meter->nCpus; cpuIndex++) {

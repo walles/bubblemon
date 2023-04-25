@@ -1,7 +1,7 @@
 /*
  *  Bubbling Load Monitoring Applet
- *  Copyright (C) 1999-2004, 2008, 2009, 2010 Johan Walles - johan.walles@gmail.com
- *  http://www.nongnu.org/bubblemon/
+ *  Copyright (C) 1999-2004, 2008, 2009, 2010 Johan Walles -
+ * johan.walles@gmail.com http://www.nongnu.org/bubblemon/
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,8 +28,7 @@
 
 #define FRAMERATE 25
 
-typedef struct
-{
+typedef struct {
   GtkWidget *applet;
   GtkWidget *drawingArea;
   GdkPixmap *pix;

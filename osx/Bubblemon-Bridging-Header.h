@@ -9,7 +9,7 @@
 #ifndef Bubblemon_Bridging_Header_h
 #define Bubblemon_Bridging_Header_h
 
-#include "bubblemon.h"
 #include "applePrivateHelpers.h"
+#include "bubblemon.h"
 
 #endif /* Bubblemon_Bridging_Header_h */

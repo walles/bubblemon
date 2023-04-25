@@ -45,9 +45,8 @@ accumulator_t *accumulator_create(unsigned int historySize) {
 }
 
 /* Update an accumulator with current values. */
-void accumulator_update(accumulator_t *accumulator,
-			u_int64_t load, u_int64_t total)
-{
+void accumulator_update(accumulator_t *accumulator, u_int64_t load,
+                        u_int64_t total) {
   int i;
   u_int64_t lastLoad;
   u_int64_t lastTotal;
@@ -72,7 +71,8 @@ void accumulator_update(accumulator_t *accumulator,
     // This is the first time we get here
     accumulator->percentage = 0;
   } else {
-    accumulator->percentage = (int)((100 * (load - lastLoad)) / (total - lastTotal));
+    accumulator->percentage =
+        (int)((100 * (load - lastLoad)) / (total - lastTotal));
   }
 
   if (accumulator->percentage > 100) {

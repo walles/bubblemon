@@ -27,8 +27,7 @@
  * using two values; one timer counter and one events counter.  Given
  * such a value, the functions in this file can be used to find out
  * the current load in percent. */
-typedef struct
-{
+typedef struct {
   /* History size.  Larger sizes gives better values, but will also
    * make the computed value lag longer after reality. */
   unsigned int historySize;
@@ -50,9 +49,8 @@ typedef struct
 accumulator_t *accumulator_create(unsigned int historySize);
 
 /* Update an accumulator with current values. */
-void accumulator_update(accumulator_t *accumulator,
-			u_int64_t loadValue,
-			u_int64_t totalValue);
+void accumulator_update(accumulator_t *accumulator, u_int64_t loadValue,
+                        u_int64_t totalValue);
 
 /* Fetch the current load percentage value (0-100). */
 int accumulator_get_percentage(accumulator_t *accumulator);

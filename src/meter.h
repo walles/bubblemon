@@ -24,8 +24,7 @@
 #include "accumulator.h"
 
 /* The system load */
-typedef struct
-{
+typedef struct {
   u_int64_t memoryUsed;
   u_int64_t memorySize;
 
@@ -59,7 +58,7 @@ typedef struct
   // not be the best idea ever /Johan-2009feb22
   accumulator_t **cpuAccumulators;
   accumulator_t **ioAccumulators;
-  
+
   // Arbitrary platform specific data goes here
   void *user;
 } meter_sysload_t;

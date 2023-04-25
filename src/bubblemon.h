@@ -66,18 +66,18 @@
 #define WEED_SPEEDFACTOR 1
 
 /* Swap usage color scale                                 rrggbbaa */
-static const unsigned int NOSWAPAIRCOLOR    = (unsigned)0x75ceff00;
-static const unsigned int NOSWAPWATERCOLOR  = (unsigned)0x0066ff80;
+static const unsigned int NOSWAPAIRCOLOR = (unsigned)0x75ceff00;
+static const unsigned int NOSWAPWATERCOLOR = (unsigned)0x0066ff80;
 
-static const unsigned int MAXSWAPAIRCOLOR   = (unsigned)0xff333340;
+static const unsigned int MAXSWAPAIRCOLOR = (unsigned)0xff333340;
 static const unsigned int MAXSWAPWATERCOLOR = (unsigned)0xaa000080;
 
 /* Weeds have a random color between these two */
-static const unsigned int WEEDCOLOR0        = (unsigned)0x00ff0080;
-static const unsigned int WEEDCOLOR1        = (unsigned)0xffff40ff;
+static const unsigned int WEEDCOLOR0 = (unsigned)0x00ff0080;
+static const unsigned int WEEDCOLOR1 = (unsigned)0xffff40ff;
 
 /* Colors fade towards this on low battery */
-static const unsigned int FOGCOLOR          = (unsigned)0x606060ff;
+static const unsigned int FOGCOLOR = (unsigned)0x606060ff;
 
 /* How many times per sec the physics get updated */
 #define PHYSICS_FRAMERATE 100
@@ -111,8 +111,7 @@ typedef union {
 } bubblemon_color_t;
 
 /* A bubblemon image */
-typedef struct
-{
+typedef struct {
   int width;
   int height;
 
@@ -121,8 +120,7 @@ typedef struct
 } bubblemon_picture_t;
 
 /* A bubble */
-typedef struct
-{
+typedef struct {
   int x;
   float y;
   float dy;
@@ -131,15 +129,13 @@ typedef struct
 } bubblemon_Bubble;
 
 /* A water level */
-typedef struct
-{
+typedef struct {
   float y;
   float dy;
 } bubblemon_WaterLevel;
 
 /* A weed */
-typedef struct
-{
+typedef struct {
   float height;
   float nourishment;
 
@@ -147,8 +143,7 @@ typedef struct
 } bubblemon_Weed;
 
 /* Physics stuff */
-typedef struct
-{
+typedef struct {
   bubblemon_WaterLevel *waterLevels;
 
   int n_bubbles;
@@ -162,8 +157,7 @@ typedef struct
 } bubblemon_Physics;
 
 /* Data holder for a bubblemon instance. */
-typedef struct
-{
+typedef struct {
   char *tooltipstring;
 
   int physicalTimeElapsed;
@@ -192,7 +186,7 @@ typedef struct
 
   // System load
   meter_sysload_t sysload;
-  
+
   // Color scheme
   unsigned int noSwapAirColor;
   unsigned int noSwapWaterColor;
