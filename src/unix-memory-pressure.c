@@ -2,7 +2,9 @@
 
 #include <assert.h>
 #include <pthread.h>
+#include <stdint.h>
 #include <sys/mman.h>
+#include <unistd.h>
 
 // Try to get this much memory to see how long it takes. 100MB is around
 // what one web page seems to be using on my machine.
@@ -16,17 +18,25 @@
 static pthread_mutex_t memoryPressureMutex;
 static uint64_t memoryPressure = -1;
 
-static void cycle_memory() {
-    // Allocate 100MB of memory
-    char *mem = mmap(NULL, BYTES, PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+static int cycle_memory() {
+  const long page_size = sysconf(_SC_PAGESIZE);
 
-    // Write to one byte in every page
-    for (int i = 0; i < BYTES; i += page_size) {
-        mem[i] = 1;
-    }
+  // Allocate 100MB of memory
+  char *mem = mmap(NULL, BYTES, PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+  if (mem == MAP_FAILED) {
+    // Whatever...
+    return 1;
+  }
 
-    // Hand the memory back to the OS
-    munmap(mem, BYTES);
+  // Write to one byte in every page
+  for (int i = 0; i < BYTES; i += page_size) {
+    mem[i] = 1;
+  }
+
+  // Hand the memory back to the OS
+  munmap(mem, BYTES);
+
+  return 0;
 }
 
 static void *measureMemoryPressureThread() {
@@ -77,7 +87,7 @@ static void *measureMemoryPressureThread() {
 }
 
 void initMemoryPressure(meter_sysload_t *load) {
-  load->memoryPressureLow = memoryPressureUnknown;
+  load->memoryPressure = memoryPressureUnknown;
   load->memoryPressureLowWatermark = memoryPressureUnknown;
   load->memoryPressureHighWatermark = memoryPressureUnknown;
 
