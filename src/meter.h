@@ -25,9 +25,11 @@
 
 /* The system load */
 typedef struct {
-  u_int64_t memoryPressure;
-  u_int64_t memoryPressureHighWatermark;
-  u_int64_t memoryPressureLowWatermark;
+  // These are signed to be able to hold memoryPressureUnknown
+  // and memoryPressureMaxedOut
+  int64_t memoryPressure;
+  int64_t memoryPressureHighWatermark;
+  int64_t memoryPressureLowWatermark;
 
   u_int64_t memoryUsed;
   u_int64_t memorySize;
@@ -75,5 +77,11 @@ extern void meter_getLoad(meter_sysload_t *);
 
 /* Shut down load metering */
 extern void meter_done(meter_sysload_t *);
+
+/* Memory pressure measuring */
+static const int64_t memoryPressureUnknown = -1;
+static const int64_t memoryPressureMaxedOut = -2;
+extern void initMemoryPressure(meter_sysload_t *load);
+extern int64_t getMemoryPressure(void);
 
 #endif

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040410A829F954BF001AF9DF /* unix-memory-pressure.c in Sources */ = {isa = PBXBuildFile; fileRef = 040410A729F954BF001AF9DF /* unix-memory-pressure.c */; };
 		04063A981F8BFDCD005E5218 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		0419324025E2BABC002ABD93 /* icon.png.icns in Resources */ = {isa = PBXBuildFile; fileRef = 047776D91D8D83E30042312F /* icon.png.icns */; };
 		0469575925CFC49500103A96 /* accumulator.c in Sources */ = {isa = PBXBuildFile; fileRef = 041BF109154F1DA1009AE6D8 /* accumulator.c */; };
@@ -113,6 +114,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		040410A729F954BF001AF9DF /* unix-memory-pressure.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "unix-memory-pressure.c"; path = "../src/unix-memory-pressure.c"; sourceTree = "<group>"; };
 		04063A9B1F8C110B005E5218 /* set-plist-metadata.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "set-plist-metadata.sh"; sourceTree = "<group>"; };
 		041BF105154DAEED009AE6D8 /* BubblemonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblemonView.swift; sourceTree = "<group>"; };
 		041BF109154F1DA1009AE6D8 /* accumulator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = accumulator.c; path = ../src/accumulator.c; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				04DCE75D154D644700C3C4FD /* bubblemon.c */,
 				0420B9FB1575431100A7B26C /* dynamic-accumulator.c */,
 				04DCE75F154D670700C3C4FD /* osx-meter.c */,
+				040410A729F954BF001AF9DF /* unix-memory-pressure.c */,
 				04AB5FB71F893FBE005EB52F /* applePrivateHelpers.h */,
 				04AB5FB81F89409D005EB52F /* applePrivateHelpers.m */,
 				041BF105154DAEED009AE6D8 /* BubblemonView.swift */,
@@ -758,6 +761,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040410A829F954BF001AF9DF /* unix-memory-pressure.c in Sources */,
 				DB6C6E231F6280E300CFE8D4 /* BubblemonView.swift in Sources */,
 				04E364A9154D613F002BC8DD /* main.swift in Sources */,
 				DB197C95161B21AC009EA096 /* dynamic-accumulator.c in Sources */,
