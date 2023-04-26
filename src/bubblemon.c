@@ -238,6 +238,7 @@ static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
   if (bubblemon->sysload.memoryPressure == memoryPressureUnknown) {
     waterLevels_goal = 0.0f;
   } else if (bubblemon->sysload.memoryPressure == memoryPressureMaxedOut) {
+    // FIXME: Should we make the color red as well?
     waterLevels_goal = waterLevels_max;
   } else if (bubblemon->sysload.memoryPressureLowWatermark < bubblemon->sysload.memoryPressureHighWatermark) {
     // We should always end up in here
