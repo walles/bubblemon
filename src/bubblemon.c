@@ -235,7 +235,11 @@ static void bubblemon_updateWaterlevels(bubblemon_t *bubblemon,
    * level goes from 0.0 to h so that you can get an integer height by
    * just chopping off the decimals. */
   float waterLevels_goal = 0.0f;
-  if (bubblemon->sysload.memoryPressureLowWatermark < bubblemon->sysload.memoryPressureHighWatermark) {
+  if (bubblemon->sysload.memoryPressure == memoryPressureUnknown) {
+    waterLevels_goal = 0.0f;
+  } else if (bubblemon->sysload.memoryPressure == memoryPressureMaxedOut) {
+    waterLevels_goal = waterLevels_max;
+  } else if (bubblemon->sysload.memoryPressureLowWatermark < bubblemon->sysload.memoryPressureHighWatermark) {
     // We should always end up in here
     float min = bubblemon->sysload.memoryPressureLowWatermark;
     float max = bubblemon->sysload.memoryPressureHighWatermark;

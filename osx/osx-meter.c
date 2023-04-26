@@ -155,9 +155,12 @@ static void measureMemory(meter_sysload_t *load) {
 
   load->memoryPressure = getMemoryPressure();
   if (load->memoryPressure >= 0) {
+    // Neither unknown nor maxed out, keep the water marks up to date
+
     if (load->memoryPressure > load->memoryPressureHighWatermark) {
       load->memoryPressureHighWatermark = load->memoryPressure;
     }
+
     if (load->memoryPressure < load->memoryPressureLowWatermark) {
       load->memoryPressureLowWatermark = load->memoryPressure;
     }
